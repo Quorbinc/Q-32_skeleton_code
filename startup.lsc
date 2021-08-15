@@ -1,0 +1,2607 @@
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1	@ Tag_ABI_HardFP_use
+   3              		.eabi_attribute 28, 1	@ Tag_ABI_VFP_args
+   4              		.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
+   5              		.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
+   6              		.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
+   7              		.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
+   8              		.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
+   9              		.eabi_attribute 26, 1	@ Tag_ABI_enum_size
+  10              		.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
+  11              		.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
+  12              		.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
+  13              		.file	"startup.c"
+  14              	@ GNU C99 (GNU Arm Embedded Toolchain 9-2020-q3-update) version 9.3.1 20200408 (release) (arm-none-
+  15              	@	compiled by GNU C version 5.3.1 20160211, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.
+  16              	
+  17              	@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+  18              	@ options passed:  -I . -imultilib thumb/v7e-m+fp/hard
+  19              	@ -iprefix c:\gcc\arm-eabi\bin\../lib/gcc/arm-none-eabi/9.3.1/
+  20              	@ -isysroot c:\gcc\arm-eabi\bin\../arm-none-eabi -MD startup.d
+  21              	@ -MF .dep/startup.o.d -MP -MQ startup.o -D__USES_INITFINI__ startup.c
+  22              	@ -mcpu=cortex-m4 -mthumb -mthumb-interwork -mfpu=fpv4-sp-d16
+  23              	@ -mfloat-abi=hard -march=armv7e-m+fp -auxbase-strip startup.o -gdwarf-2
+  24              	@ -O0 -Wno-pointer-sign -Wall -Wimplicit -Wunused-but-set-variable
+  25              	@ -Wpointer-arith -Wswitch -Wno-int-to-pointer-cast
+  26              	@ -Wno-pointer-to-int-cast -Wredundant-decls -Wreturn-type -Wshadow
+  27              	@ -Wunused -Wstrict-prototypes -Wmissing-declarations -Wmissing-prototypes
+  28              	@ -Wnested-externs -std=gnu99 -fverbose-asm -funsigned-char
+  29              	@ -funsigned-bitfields -fpack-struct -fshort-enums
+  30              	@ options enabled:  -faggressive-loop-optimizations -fassume-phsa
+  31              	@ -fauto-inc-dec -fcommon -fdelete-null-pointer-checks -fdwarf2-cfi-asm
+  32              	@ -fearly-inlining -feliminate-unused-debug-types -ffp-int-builtin-inexact
+  33              	@ -ffunction-cse -fgcse-lm -fgnu-runtime -fgnu-unique -fident
+  34              	@ -finline-atomics -fipa-stack-alignment -fira-hoist-pressure
+  35              	@ -fira-share-save-slots -fira-share-spill-slots -fivopts
+  36              	@ -fkeep-static-consts -fleading-underscore -flifetime-dse
+  37              	@ -flto-odr-type-merging -fmath-errno -fmerge-debug-strings -fpack-struct
+  38              	@ -fpeephole -fplt -fprefetch-loop-arrays -freg-struct-return
+  39              	@ -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  40              	@ -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  41              	@ -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  42              	@ -fsched-stalled-insns-dep -fsemantic-interposition -fshow-column
+  43              	@ -fshrink-wrap-separate -fsigned-zeros -fsplit-ivs-in-unroller
+  44              	@ -fssa-backprop -fstdarg-opt -fstrict-volatile-bitfields -fsync-libcalls
+  45              	@ -ftrapping-math -ftree-cselim -ftree-forwprop -ftree-loop-if-convert
+  46              	@ -ftree-loop-im -ftree-loop-ivcanon -ftree-loop-optimize
+  47              	@ -ftree-parallelize-loops= -ftree-phiprop -ftree-reassoc -ftree-scev-cprop
+  48              	@ -funit-at-a-time -fverbose-asm -fzero-initialized-in-bss
+  49              	@ -masm-syntax-unified -mbe32 -mlittle-endian -mpic-data-is-text-relative
+  50              	@ -msched-prolog -mthumb -munaligned-access -mvectorize-with-neon-quad
+  51              	
+  52              		.text
+  53              	.Ltext0:
+  54              		.cfi_sections	.debug_frame
+  55              		.comm	ubSVCn,1,1
+  56              		.comm	tmp,4,4
+  57              		.global	ulT
+  58              		.bss
+  59              		.align	2
+  62              	ulT:
+  63 0000 00000000 		.space	4
+  64              		.global	ulSystemFlags
+  65              		.align	2
+  68              	ulSystemFlags:
+  69 0004 00000000 		.space	4
+  70              		.text
+  71              		.align	1
+  72              		.global	fnReset_IRQ
+  73              		.arch armv7e-m
+  74              		.syntax unified
+  75              		.thumb
+  76              		.thumb_func
+  77              		.fpu fpv4-sp-d16
+  79              	fnReset_IRQ:
+  80              	.LFB11:
+  81              		.file 1 "startup.c"
+   1:startup.c     **** //===========================================================================================//
+   2:startup.c     **** //                                       Quorb Inc.                                          //
+   3:startup.c     **** //                                -------------------------                                  //
+   4:startup.c     **** //                                                                                           //
+   5:startup.c     **** //                                  QMX-32 Start Up Code                                     //
+   6:startup.c     **** //                                  --------------------                                     //
+   7:startup.c     **** //                                                                                           //
+   8:startup.c     **** //    This code is for use on the STM32F05X Processor Series of Micro Controllers it is      //
+   9:startup.c     **** //    It is not fully compatible with other STM32     Series Micro Controller Products       //
+  10:startup.c     **** //                                                                                           //
+  11:startup.c     **** //                           Written By:  Sancar James Fredsti                               //
+  12:startup.c     **** //                                                                                           //
+  13:startup.c     **** //===========================================================================================//
+  14:startup.c     **** 
+  15:startup.c     **** //---------------------------------------------------------------------------------------------
+  16:startup.c     **** //                      Program Defines and RAM Storage Definitions
+  17:startup.c     **** //---------------------------------------------------------------------------------------------
+  18:startup.c     **** 
+  19:startup.c     **** #include "projectdefs.h"
+  20:startup.c     **** 
+  21:startup.c     **** //--------------------------------------------------------------------------------------------
+  22:startup.c     **** //    Project Peripherials List
+  23:startup.c     **** //--------------------------------------------------------------------------------------------
+  24:startup.c     **** //
+  25:startup.c     **** //  This processor uses the internal 16 MHz STM32L oscillator.
+  26:startup.c     **** //  By default this base software uses the 16 MHz Internal Oscillator and configures the system
+  27:startup.c     **** //  clock to operate at 80 MHz using the RCC PLL Configuration.
+  28:startup.c     **** //
+  29:startup.c     **** //  Peripherial       Configurations
+  30:startup.c     **** //  --------------------------------
+  31:startup.c     **** //  Upon System Initialization the following peripherials are enabled and operating as a
+  32:startup.c     **** //  default system configuration.
+  33:startup.c     **** //
+  34:startup.c     **** //--------------------------------------------------------------------------------------------
+  35:startup.c     **** 
+  36:startup.c     **** u08     ubSVCn;                                   //--- Software Interrupt Select Numberin RAM
+  37:startup.c     **** u32     tmp;                                      //--- Temporary Number
+  38:startup.c     **** u32     ulT = 0;
+  39:startup.c     **** u32     ulSystemFlags = 0;
+  40:startup.c     **** 
+  41:startup.c     **** //---------------------------------------------------------------------------------------------
+  42:startup.c     **** //      This is the Reset Code Entry Point from the RESET Pin
+  43:startup.c     **** //---------------------------------------------------------------------------------------------
+  44:startup.c     **** void  fnReset_IRQ (void)                          //--- Reset Handler                0x00000004
+  45:startup.c     **** {
+  82              		.loc 1 45 1
+  83              		.cfi_startproc
+  84              		@ args = 0, pretend = 0, frame = 8
+  85              		@ frame_needed = 1, uses_anonymous_args = 0
+  86 0000 80B5     		push	{r7, lr}	@
+  87              	.LCFI0:
+  88              		.cfi_def_cfa_offset 8
+  89              		.cfi_offset 7, -8
+  90              		.cfi_offset 14, -4
+  91 0002 82B0     		sub	sp, sp, #8	@,,
+  92              	.LCFI1:
+  93              		.cfi_def_cfa_offset 16
+  94 0004 00AF     		add	r7, sp, #0	@,,
+  95              	.LCFI2:
+  96              		.cfi_def_cfa_register 7
+  97              	@ startup.c:52:   for(pulDest = &_sbss; pulDest < &_ebss; )
+  46:startup.c     ****   u32 *pulSrc;                                    //--- Src & Dst Pointers
+  47:startup.c     ****   u32 *pulDest;
+  48:startup.c     **** 
+  49:startup.c     ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  50:startup.c     ****   //--- Zero fill the bss segment
+  51:startup.c     ****   //    This flushes all junk from RAM
+  52:startup.c     ****   for(pulDest = &_sbss; pulDest < &_ebss; )
+  98              		.loc 1 52 15
+  99 0006 784B     		ldr	r3, .L37	@ tmp263,
+ 100 0008 3B60     		str	r3, [r7]	@ tmp263, pulDest
+ 101              	@ startup.c:52:   for(pulDest = &_sbss; pulDest < &_ebss; )
+ 102              		.loc 1 52 3
+ 103 000a 04E0     		b	.L2		@
+ 104              	.L3:
+ 105              	@ startup.c:54:     *(pulDest++) = 0x00000000;
+  53:startup.c     ****   {
+  54:startup.c     ****     *(pulDest++) = 0x00000000;
+ 106              		.loc 1 54 14
+ 107 000c 3B68     		ldr	r3, [r7]	@ pulDest.0_1, pulDest
+ 108 000e 1A1D     		adds	r2, r3, #4	@ tmp264, pulDest.0_1,
+ 109 0010 3A60     		str	r2, [r7]	@ tmp264, pulDest
+ 110              	@ startup.c:54:     *(pulDest++) = 0x00000000;
+ 111              		.loc 1 54 18
+ 112 0012 0022     		movs	r2, #0	@ tmp265,
+ 113 0014 1A60     		str	r2, [r3]	@ tmp265, *pulDest.0_1
+ 114              	.L2:
+ 115              	@ startup.c:52:   for(pulDest = &_sbss; pulDest < &_ebss; )
+  52:startup.c     ****   {
+ 116              		.loc 1 52 3 discriminator 1
+ 117 0016 3B68     		ldr	r3, [r7]	@ tmp266, pulDest
+ 118 0018 744A     		ldr	r2, .L37+4	@ tmp267,
+ 119 001a 9342     		cmp	r3, r2	@ tmp266, tmp267
+ 120 001c F6D3     		bcc	.L3		@,
+ 121              	@ startup.c:58:   pulSrc = &_sidata;
+  55:startup.c     ****   }
+  56:startup.c     **** 
+  57:startup.c     ****   //--- Copy the data segment initializers from flash to SRAM
+  58:startup.c     ****   pulSrc = &_sidata;
+ 122              		.loc 1 58 10
+ 123 001e 744B     		ldr	r3, .L37+8	@ tmp268,
+ 124 0020 7B60     		str	r3, [r7, #4]	@ tmp268, pulSrc
+ 125              	@ startup.c:60:   for(pulDest = &_sdata; pulDest < &_edata; )
+  59:startup.c     **** 
+  60:startup.c     ****   for(pulDest = &_sdata; pulDest < &_edata; )
+ 126              		.loc 1 60 15
+ 127 0022 744B     		ldr	r3, .L37+12	@ tmp269,
+ 128 0024 3B60     		str	r3, [r7]	@ tmp269, pulDest
+ 129              	@ startup.c:60:   for(pulDest = &_sdata; pulDest < &_edata; )
+ 130              		.loc 1 60 3
+ 131 0026 07E0     		b	.L4		@
+ 132              	.L5:
+ 133              	@ startup.c:62:     *(pulDest++) = *(pulSrc++);
+  61:startup.c     ****   {
+  62:startup.c     ****     *(pulDest++) = *(pulSrc++);
+ 134              		.loc 1 62 28
+ 135 0028 7A68     		ldr	r2, [r7, #4]	@ pulSrc.1_2, pulSrc
+ 136 002a 131D     		adds	r3, r2, #4	@ tmp270, pulSrc.1_2,
+ 137 002c 7B60     		str	r3, [r7, #4]	@ tmp270, pulSrc
+ 138              	@ startup.c:62:     *(pulDest++) = *(pulSrc++);
+ 139              		.loc 1 62 14
+ 140 002e 3B68     		ldr	r3, [r7]	@ pulDest.2_3, pulDest
+ 141 0030 191D     		adds	r1, r3, #4	@ tmp271, pulDest.2_3,
+ 142 0032 3960     		str	r1, [r7]	@ tmp271, pulDest
+ 143              	@ startup.c:62:     *(pulDest++) = *(pulSrc++);
+ 144              		.loc 1 62 20
+ 145 0034 1268     		ldr	r2, [r2]	@ _4, *pulSrc.1_2
+ 146              	@ startup.c:62:     *(pulDest++) = *(pulSrc++);
+ 147              		.loc 1 62 18
+ 148 0036 1A60     		str	r2, [r3]	@ _4, *pulDest.2_3
+ 149              	.L4:
+ 150              	@ startup.c:60:   for(pulDest = &_sdata; pulDest < &_edata; )
+  60:startup.c     ****   {
+ 151              		.loc 1 60 3 discriminator 1
+ 152 0038 3B68     		ldr	r3, [r7]	@ tmp272, pulDest
+ 153 003a 6F4A     		ldr	r2, .L37+16	@ tmp273,
+ 154 003c 9342     		cmp	r3, r2	@ tmp272, tmp273
+ 155 003e F3D3     		bcc	.L5		@,
+ 156              	@ startup.c:66:   ubSVCn = 0x05;                                  //--- Set the SVC Number
+  63:startup.c     ****   }
+  64:startup.c     **** 
+  65:startup.c     ****   //--- Set Priviledged Mode to Enable
+  66:startup.c     ****   ubSVCn = 0x05;                                  //--- Set the SVC Number
+ 157              		.loc 1 66 10
+ 158 0040 6E4B     		ldr	r3, .L37+20	@ tmp274,
+ 159 0042 0522     		movs	r2, #5	@ tmp275,
+ 160 0044 1A70     		strb	r2, [r3]	@ tmp276, ubSVCn
+ 161              	@ startup.c:67:   SVC_CALL;                                       //--- Call Software Service Inter
+  67:startup.c     ****   SVC_CALL;                                       //--- Call Software Service Interrupt
+ 162              		.loc 1 67 3
+ 163              		.syntax unified
+ 164              	@ 67 "startup.c" 1
+ 165 0046 00DF     		SVC #0x00
+ 166              		
+ 167              	@ 0 "" 2
+ 168              	@ startup.c:82:   FLASH_ACR = 0x00000704;
+  68:startup.c     **** 
+  69:startup.c     ****   //-------------------------------------------------------------------------------------------
+  70:startup.c     ****   //    Set Access for BDCR Access
+  71:startup.c     ****   //-------------------------------------------------------------------------------------------
+  72:startup.c     ****   //--- Configure Flash Memory Operation
+  73:startup.c     ****   //      GPIO AFRH
+  74:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+  75:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+  76:startup.c     ****   //---   .... .... .... .... .... .... .... ....
+  77:startup.c     ****   //      0000 0000 0000 0000 0000 0111 0000 0100
+  78:startup.c     ****   //    FLASH = 4 Wait States
+  79:startup.c     ****   //    Instruction Cache Enabled
+  80:startup.c     ****   //    Prefetch Enabled
+  81:startup.c     ****   //    4 Wait States for Flash to run @ 72Mhz Clock
+  82:startup.c     ****   FLASH_ACR = 0x00000704;
+ 169              		.loc 1 82 3
+ 170              		.thumb
+ 171              		.syntax unified
+ 172 0048 6D4B     		ldr	r3, .L37+24	@ _5,
+ 173              	@ startup.c:82:   FLASH_ACR = 0x00000704;
+ 174              		.loc 1 82 13
+ 175 004a 40F20472 		movw	r2, #1796	@ tmp277,
+ 176 004e 1A60     		str	r2, [r3]	@ tmp277, *_5
+ 177              	@ startup.c:83:   nop12;
+  83:startup.c     ****   nop12;
+ 178              		.loc 1 83 3
+ 179              		.syntax unified
+ 180              	@ 83 "startup.c" 1
+ 181 0050 00BF     		nop
+ 182 0052 00BF     		nop
+ 183 0054 00BF     		nop
+ 184 0056 00BF     		nop
+ 185 0058 00BF     		nop
+ 186 005a 00BF     		nop
+ 187 005c 00BF     		nop
+ 188 005e 00BF     		nop
+ 189 0060 00BF     		nop
+ 190 0062 00BF     		nop
+ 191 0064 00BF     		nop
+ 192 0066 00BF     		nop
+ 193              		
+ 194              	@ 0 "" 2
+ 195              	@ startup.c:89:   RCC_CIER = 0x00000000;                          //--- No Clock Interrupts Allowed
+  84:startup.c     **** 
+  85:startup.c     ****   //-------------------------------------------------------------------------------------------
+  86:startup.c     ****   //    Clear Clocks & RCC Registers
+  87:startup.c     ****   //-------------------------------------------------------------------------------------------
+  88:startup.c     ****   //--- No Clock Interrupts for now
+  89:startup.c     ****   RCC_CIER = 0x00000000;                          //--- No Clock Interrupts Allowed
+ 196              		.loc 1 89 3
+ 197              		.thumb
+ 198              		.syntax unified
+ 199 0068 664B     		ldr	r3, .L37+28	@ _6,
+ 200              	@ startup.c:89:   RCC_CIER = 0x00000000;                          //--- No Clock Interrupts Allowed
+ 201              		.loc 1 89 12
+ 202 006a 0022     		movs	r2, #0	@ tmp278,
+ 203 006c 1A60     		str	r2, [r3]	@ tmp278, *_6
+ 204              	@ startup.c:90:   RCC_CICR = 0x0000077F;                          //--- Clear Clock Interrupts
+  90:startup.c     ****   RCC_CICR = 0x0000077F;                          //--- Clear Clock Interrupts
+ 205              		.loc 1 90 3
+ 206 006e 664B     		ldr	r3, .L37+32	@ _7,
+ 207              	@ startup.c:90:   RCC_CICR = 0x0000077F;                          //--- Clear Clock Interrupts
+ 208              		.loc 1 90 12
+ 209 0070 40F27F72 		movw	r2, #1919	@ tmp279,
+ 210 0074 1A60     		str	r2, [r3]	@ tmp279, *_7
+ 211              	@ startup.c:93:   RCC_APB1RSTR1 = 0xFFFFFFFF;                     //--- Reset All Peripherials
+  91:startup.c     **** 
+  92:startup.c     ****   //--- AP & AH Peripherial Resets
+  93:startup.c     ****   RCC_APB1RSTR1 = 0xFFFFFFFF;                     //--- Reset All Peripherials
+ 212              		.loc 1 93 3
+ 213 0076 654B     		ldr	r3, .L37+36	@ _8,
+ 214              	@ startup.c:93:   RCC_APB1RSTR1 = 0xFFFFFFFF;                     //--- Reset All Peripherials
+ 215              		.loc 1 93 17
+ 216 0078 4FF0FF32 		mov	r2, #-1	@ tmp280,
+ 217 007c 1A60     		str	r2, [r3]	@ tmp280, *_8
+ 218              	@ startup.c:94:   RCC_APB1RSTR1 = 0x00000000;                     //--- Clear All Peripherial Reset
+  94:startup.c     ****   RCC_APB1RSTR1 = 0x00000000;                     //--- Clear All Peripherial Resets
+ 219              		.loc 1 94 3
+ 220 007e 634B     		ldr	r3, .L37+36	@ _9,
+ 221              	@ startup.c:94:   RCC_APB1RSTR1 = 0x00000000;                     //--- Clear All Peripherial Reset
+ 222              		.loc 1 94 17
+ 223 0080 0022     		movs	r2, #0	@ tmp281,
+ 224 0082 1A60     		str	r2, [r3]	@ tmp281, *_9
+ 225              	@ startup.c:96:   RCC_APB1RSTR2 = 0xFFFFFFFF;                     //--- Reset All Peripherials
+  95:startup.c     **** 
+  96:startup.c     ****   RCC_APB1RSTR2 = 0xFFFFFFFF;                     //--- Reset All Peripherials
+ 226              		.loc 1 96 3
+ 227 0084 624B     		ldr	r3, .L37+40	@ _10,
+ 228              	@ startup.c:96:   RCC_APB1RSTR2 = 0xFFFFFFFF;                     //--- Reset All Peripherials
+ 229              		.loc 1 96 17
+ 230 0086 4FF0FF32 		mov	r2, #-1	@ tmp282,
+ 231 008a 1A60     		str	r2, [r3]	@ tmp282, *_10
+ 232              	@ startup.c:97:   RCC_APB1RSTR2 = 0x00000000;                     //--- Clear All Peripherial Reset
+  97:startup.c     ****   RCC_APB1RSTR2 = 0x00000000;                     //--- Clear All Peripherial Resets
+ 233              		.loc 1 97 3
+ 234 008c 604B     		ldr	r3, .L37+40	@ _11,
+ 235              	@ startup.c:97:   RCC_APB1RSTR2 = 0x00000000;                     //--- Clear All Peripherial Reset
+ 236              		.loc 1 97 17
+ 237 008e 0022     		movs	r2, #0	@ tmp283,
+ 238 0090 1A60     		str	r2, [r3]	@ tmp283, *_11
+ 239              	@ startup.c:99:   RCC_APB2RSTR = 0xFFFFFFFF;                      //--- Reset All Peripherials
+  98:startup.c     **** 
+  99:startup.c     ****   RCC_APB2RSTR = 0xFFFFFFFF;                      //--- Reset All Peripherials
+ 240              		.loc 1 99 3
+ 241 0092 604B     		ldr	r3, .L37+44	@ _12,
+ 242              	@ startup.c:99:   RCC_APB2RSTR = 0xFFFFFFFF;                      //--- Reset All Peripherials
+ 243              		.loc 1 99 16
+ 244 0094 4FF0FF32 		mov	r2, #-1	@ tmp284,
+ 245 0098 1A60     		str	r2, [r3]	@ tmp284, *_12
+ 246              	@ startup.c:100:   RCC_APB2RSTR = 0x00000000;                      //--- Clear All Peripherial Rese
+ 100:startup.c     ****   RCC_APB2RSTR = 0x00000000;                      //--- Clear All Peripherial Resets
+ 247              		.loc 1 100 3
+ 248 009a 5E4B     		ldr	r3, .L37+44	@ _13,
+ 249              	@ startup.c:100:   RCC_APB2RSTR = 0x00000000;                      //--- Clear All Peripherial Rese
+ 250              		.loc 1 100 16
+ 251 009c 0022     		movs	r2, #0	@ tmp285,
+ 252 009e 1A60     		str	r2, [r3]	@ tmp285, *_13
+ 253              	@ startup.c:102:   RCC_AHB1RSTR = 0xFFFFFFFF;                      //--- Reset All Peripherials
+ 101:startup.c     **** 
+ 102:startup.c     ****   RCC_AHB1RSTR = 0xFFFFFFFF;                      //--- Reset All Peripherials
+ 254              		.loc 1 102 3
+ 255 00a0 5D4B     		ldr	r3, .L37+48	@ _14,
+ 256              	@ startup.c:102:   RCC_AHB1RSTR = 0xFFFFFFFF;                      //--- Reset All Peripherials
+ 257              		.loc 1 102 16
+ 258 00a2 4FF0FF32 		mov	r2, #-1	@ tmp286,
+ 259 00a6 1A60     		str	r2, [r3]	@ tmp286, *_14
+ 260              	@ startup.c:103:   RCC_AHB1RSTR = 0x00000000;                      //--- Clear All Peripherial Rese
+ 103:startup.c     ****   RCC_AHB1RSTR = 0x00000000;                      //--- Clear All Peripherial Resets
+ 261              		.loc 1 103 3
+ 262 00a8 5B4B     		ldr	r3, .L37+48	@ _15,
+ 263              	@ startup.c:103:   RCC_AHB1RSTR = 0x00000000;                      //--- Clear All Peripherial Rese
+ 264              		.loc 1 103 16
+ 265 00aa 0022     		movs	r2, #0	@ tmp287,
+ 266 00ac 1A60     		str	r2, [r3]	@ tmp287, *_15
+ 267              	@ startup.c:105:   RCC_AHB2RSTR = 0xFFFFFFFF;                      //--- Reset All Peripherials
+ 104:startup.c     **** 
+ 105:startup.c     ****   RCC_AHB2RSTR = 0xFFFFFFFF;                      //--- Reset All Peripherials
+ 268              		.loc 1 105 3
+ 269 00ae 5B4B     		ldr	r3, .L37+52	@ _16,
+ 270              	@ startup.c:105:   RCC_AHB2RSTR = 0xFFFFFFFF;                      //--- Reset All Peripherials
+ 271              		.loc 1 105 16
+ 272 00b0 4FF0FF32 		mov	r2, #-1	@ tmp288,
+ 273 00b4 1A60     		str	r2, [r3]	@ tmp288, *_16
+ 274              	@ startup.c:106:   RCC_AHB2RSTR = 0x00000000;                      //--- Clear All Peripherial Rese
+ 106:startup.c     ****   RCC_AHB2RSTR = 0x00000000;                      //--- Clear All Peripherial Resets
+ 275              		.loc 1 106 3
+ 276 00b6 594B     		ldr	r3, .L37+52	@ _17,
+ 277              	@ startup.c:106:   RCC_AHB2RSTR = 0x00000000;                      //--- Clear All Peripherial Rese
+ 278              		.loc 1 106 16
+ 279 00b8 0022     		movs	r2, #0	@ tmp289,
+ 280 00ba 1A60     		str	r2, [r3]	@ tmp289, *_17
+ 281              	@ startup.c:108:   RCC_AHB3RSTR = 0xFFFFFFFF;                      //--- Reset All Peripherials
+ 107:startup.c     **** 
+ 108:startup.c     ****   RCC_AHB3RSTR = 0xFFFFFFFF;                      //--- Reset All Peripherials
+ 282              		.loc 1 108 3
+ 283 00bc 584B     		ldr	r3, .L37+56	@ _18,
+ 284              	@ startup.c:108:   RCC_AHB3RSTR = 0xFFFFFFFF;                      //--- Reset All Peripherials
+ 285              		.loc 1 108 16
+ 286 00be 4FF0FF32 		mov	r2, #-1	@ tmp290,
+ 287 00c2 1A60     		str	r2, [r3]	@ tmp290, *_18
+ 288              	@ startup.c:109:   RCC_AHB3RSTR = 0x00000000;                      //--- Clear All Peripherial Rese
+ 109:startup.c     ****   RCC_AHB3RSTR = 0x00000000;                      //--- Clear All Peripherial Resets
+ 289              		.loc 1 109 3
+ 290 00c4 564B     		ldr	r3, .L37+56	@ _19,
+ 291              	@ startup.c:109:   RCC_AHB3RSTR = 0x00000000;                      //--- Clear All Peripherial Rese
+ 292              		.loc 1 109 16
+ 293 00c6 0022     		movs	r2, #0	@ tmp291,
+ 294 00c8 1A60     		str	r2, [r3]	@ tmp291, *_19
+ 295              	@ startup.c:111:   nop48;                                          //--- Waste a little time
+ 110:startup.c     **** 
+ 111:startup.c     ****   nop48;                                          //--- Waste a little time
+ 296              		.loc 1 111 3
+ 297              		.syntax unified
+ 298              	@ 111 "startup.c" 1
+ 299 00ca 00BF     		nop
+ 300 00cc 00BF     		nop
+ 301 00ce 00BF     		nop
+ 302 00d0 00BF     		nop
+ 303 00d2 00BF     		nop
+ 304 00d4 00BF     		nop
+ 305 00d6 00BF     		nop
+ 306 00d8 00BF     		nop
+ 307 00da 00BF     		nop
+ 308 00dc 00BF     		nop
+ 309 00de 00BF     		nop
+ 310 00e0 00BF     		nop
+ 311 00e2 00BF     		nop
+ 312 00e4 00BF     		nop
+ 313 00e6 00BF     		nop
+ 314 00e8 00BF     		nop
+ 315 00ea 00BF     		nop
+ 316 00ec 00BF     		nop
+ 317 00ee 00BF     		nop
+ 318 00f0 00BF     		nop
+ 319 00f2 00BF     		nop
+ 320 00f4 00BF     		nop
+ 321 00f6 00BF     		nop
+ 322 00f8 00BF     		nop
+ 323 00fa 00BF     		nop
+ 324 00fc 00BF     		nop
+ 325 00fe 00BF     		nop
+ 326 0100 00BF     		nop
+ 327 0102 00BF     		nop
+ 328 0104 00BF     		nop
+ 329 0106 00BF     		nop
+ 330 0108 00BF     		nop
+ 331 010a 00BF     		nop
+ 332 010c 00BF     		nop
+ 333 010e 00BF     		nop
+ 334 0110 00BF     		nop
+ 335 0112 00BF     		nop
+ 336 0114 00BF     		nop
+ 337 0116 00BF     		nop
+ 338 0118 00BF     		nop
+ 339 011a 00BF     		nop
+ 340 011c 00BF     		nop
+ 341 011e 00BF     		nop
+ 342 0120 00BF     		nop
+ 343 0122 00BF     		nop
+ 344 0124 00BF     		nop
+ 345 0126 00BF     		nop
+ 346 0128 00BF     		nop
+ 347              		
+ 348              	@ 0 "" 2
+ 349              	@ startup.c:130:   RCC_APB1ENR1 = 0x10000400;
+ 112:startup.c     **** 
+ 113:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 114:startup.c     ****   //    Enable the following APB1 Peripherials To Start With
+ 115:startup.c     ****   //    This peripherial Register is changed later in Boot Process
+ 116:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 117:startup.c     ****   //--- Enable the following APB1 Peripherials
+ 118:startup.c     ****   //--- RCC Peripherial Clock 1
+ 119:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 120:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 121:startup.c     ****   // USED ...w .... .... .... .... .w.. .... ....
+ 122:startup.c     ****   // VAL  0001 0000 0000 0000 0000 0100 0000 0000
+ 123:startup.c     ****   //
+ 124:startup.c     ****   //      Name             Bit#  On/Off
+ 125:startup.c     ****   //      -------------    ----   ---
+ 126:startup.c     ****   //      RTCAPB            10    Hi              //--- Enable RTC Clock
+ 127:startup.c     ****   //      PWREN             28    Hi              //--- Enable Access to Power Registers
+ 128:startup.c     ****   //      All Others              Lo
+ 129:startup.c     ****   //
+ 130:startup.c     ****   RCC_APB1ENR1 = 0x10000400;
+ 350              		.loc 1 130 3
+ 351              		.thumb
+ 352              		.syntax unified
+ 353 012a 3E4B     		ldr	r3, .L37+60	@ _20,
+ 354              	@ startup.c:130:   RCC_APB1ENR1 = 0x10000400;
+ 355              		.loc 1 130 16
+ 356 012c 3E4A     		ldr	r2, .L37+64	@ tmp292,
+ 357 012e 1A60     		str	r2, [r3]	@ tmp292, *_20
+ 358              	@ startup.c:131:   RCC_APB1SMENR1 = 0x10000400;
+ 131:startup.c     ****   RCC_APB1SMENR1 = 0x10000400;
+ 359              		.loc 1 131 3
+ 360 0130 3E4B     		ldr	r3, .L37+68	@ _21,
+ 361              	@ startup.c:131:   RCC_APB1SMENR1 = 0x10000400;
+ 362              		.loc 1 131 18
+ 363 0132 3D4A     		ldr	r2, .L37+64	@ tmp293,
+ 364 0134 1A60     		str	r2, [r3]	@ tmp293, *_21
+ 365              	@ startup.c:133:   nop12;                                          //--- Waste a little time
+ 132:startup.c     **** 
+ 133:startup.c     ****   nop12;                                          //--- Waste a little time
+ 366              		.loc 1 133 3
+ 367              		.syntax unified
+ 368              	@ 133 "startup.c" 1
+ 369 0136 00BF     		nop
+ 370 0138 00BF     		nop
+ 371 013a 00BF     		nop
+ 372 013c 00BF     		nop
+ 373 013e 00BF     		nop
+ 374 0140 00BF     		nop
+ 375 0142 00BF     		nop
+ 376 0144 00BF     		nop
+ 377 0146 00BF     		nop
+ 378 0148 00BF     		nop
+ 379 014a 00BF     		nop
+ 380 014c 00BF     		nop
+ 381              		
+ 382              	@ 0 "" 2
+ 383              	@ startup.c:152:   PWR_CR1 |= 0x00000300;                            //--- Enable BDCR Write
+ 134:startup.c     ****   //--- Power Control Register #1
+ 135:startup.c     ****   //    SET VOS to range 1 & DBP to RTC Access OK
+ 136:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 137:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 138:startup.c     ****   // USED .... .... .... .... .w.. .www .... .www
+ 139:startup.c     ****   // VAL  0000 0000 0000 0000 0000 0011 0000 0000
+ 140:startup.c     ****   //
+ 141:startup.c     ****   //      Name             Bit#  On/Off
+ 142:startup.c     ****   //      -------------    ----   ---
+ 143:startup.c     ****   //      LPMS-0            00    Lo
+ 144:startup.c     ****   //      LPMS-1            01    Lo
+ 145:startup.c     ****   //      LPMS-0            02    Lo
+ 146:startup.c     ****   //      DBP Access        08    Hi
+ 147:startup.c     ****   //      VOS-0             09    Hi
+ 148:startup.c     ****   //      VOS-1             10    Lo
+ 149:startup.c     ****   //      LPR               14    Lo
+ 150:startup.c     ****   //      All Others              Lo
+ 151:startup.c     ****   //
+ 152:startup.c     ****   PWR_CR1 |= 0x00000300;                            //--- Enable BDCR Write
+ 384              		.loc 1 152 11
+ 385              		.thumb
+ 386              		.syntax unified
+ 387 014e 384B     		ldr	r3, .L37+72	@ _22,
+ 388 0150 1B68     		ldr	r3, [r3]	@ _23, *_22
+ 389 0152 374A     		ldr	r2, .L37+72	@ _24,
+ 390 0154 43F44073 		orr	r3, r3, #768	@ _25, _23,
+ 391 0158 1360     		str	r3, [r2]	@ _25, *_24
+ 392              	@ startup.c:153:   nop12;
+ 153:startup.c     ****   nop12;
+ 393              		.loc 1 153 3
+ 394              		.syntax unified
+ 395              	@ 153 "startup.c" 1
+ 396 015a 00BF     		nop
+ 397 015c 00BF     		nop
+ 398 015e 00BF     		nop
+ 399 0160 00BF     		nop
+ 400 0162 00BF     		nop
+ 401 0164 00BF     		nop
+ 402 0166 00BF     		nop
+ 403 0168 00BF     		nop
+ 404 016a 00BF     		nop
+ 405 016c 00BF     		nop
+ 406 016e 00BF     		nop
+ 407 0170 00BF     		nop
+ 408              		
+ 409              	@ 0 "" 2
+ 410              	@ startup.c:174:   RCC_BDCR = 0x0300811D;                          //--- Turn On LSE
+ 154:startup.c     **** 
+ 155:startup.c     ****   //--- This is for setting LSE with Oscillator
+ 156:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 157:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 158:startup.c     ****   // USED .... ..ww .... ...w w... ..ww wrww wrww
+ 159:startup.c     ****   // S/C  0000 0011 0000 0000 1000 0001 0001 1101
+ 160:startup.c     ****   //
+ 161:startup.c     ****   //      Name             Bit#  On/Off
+ 162:startup.c     ****   //      -------------    ----   ---
+ 163:startup.c     ****   //      LSE ON            00    Hi
+ 164:startup.c     ****   //      LSE Bypass Ena    02    Hi
+ 165:startup.c     ****   //      Low Drive 0       03    Hi
+ 166:startup.c     ****   //      Low Drive 1       04    Lo
+ 167:startup.c     ****   //      LSE_CSS Enable    05    Lo
+ 168:startup.c     ****   //      LSE Clock PropEna 07    Lo  Reverse Logic = Enabled
+ 169:startup.c     ****   //      RTC Select 0      08    Hi  = LSE Clock
+ 170:startup.c     ****   //      RTC Select 1      09    Lo  = LSE Clock
+ 171:startup.c     ****   //      RTC_Enabled       15    Hi  = Enabled
+ 172:startup.c     ****   //      LSCO = Disabled   24    Lo
+ 173:startup.c     ****   //      LSCO = LSE        25    Hi
+ 174:startup.c     ****   RCC_BDCR = 0x0300811D;                          //--- Turn On LSE
+ 411              		.loc 1 174 3
+ 412              		.thumb
+ 413              		.syntax unified
+ 414 0172 304B     		ldr	r3, .L37+76	@ _26,
+ 415              	@ startup.c:174:   RCC_BDCR = 0x0300811D;                          //--- Turn On LSE
+ 416              		.loc 1 174 12
+ 417 0174 304A     		ldr	r2, .L37+80	@ tmp294,
+ 418 0176 1A60     		str	r2, [r3]	@ tmp294, *_26
+ 419              	@ startup.c:177:   ulT = 100000;
+ 175:startup.c     **** 
+ 176:startup.c     ****   //--- Wait for LSE Clock to settle for up To 100,000 Loops
+ 177:startup.c     ****   ulT = 100000;
+ 420              		.loc 1 177 7
+ 421 0178 304B     		ldr	r3, .L37+84	@ tmp295,
+ 422 017a 314A     		ldr	r2, .L37+88	@ tmp296,
+ 423 017c 1A60     		str	r2, [r3]	@ tmp296, ulT
+ 424              	@ startup.c:180:   while (!(RCC_BDCR & 0x00000002) && (ulT > 0))
+ 178:startup.c     **** 
+ 179:startup.c     ****   //--- Test if LSE is Ready and running
+ 180:startup.c     ****   while (!(RCC_BDCR & 0x00000002) && (ulT > 0))
+ 425              		.loc 1 180 9
+ 426 017e 10E0     		b	.L6		@
+ 427              	.L8:
+ 428              	@ startup.c:182:     ulT--;                                        //--- Decrement Period Counter
+ 181:startup.c     ****   {
+ 182:startup.c     ****     ulT--;                                        //--- Decrement Period Counter
+ 429              		.loc 1 182 8
+ 430 0180 2E4B     		ldr	r3, .L37+84	@ tmp297,
+ 431 0182 1B68     		ldr	r3, [r3]	@ ulT.3_27, ulT
+ 432 0184 013B     		subs	r3, r3, #1	@ _28, ulT.3_27,
+ 433 0186 2D4A     		ldr	r2, .L37+84	@ tmp298,
+ 434 0188 1360     		str	r3, [r2]	@ _28, ulT
+ 435              	@ startup.c:183:     nop12;
+ 183:startup.c     ****     nop12;
+ 436              		.loc 1 183 5
+ 437              		.syntax unified
+ 438              	@ 183 "startup.c" 1
+ 439 018a 00BF     		nop
+ 440 018c 00BF     		nop
+ 441 018e 00BF     		nop
+ 442 0190 00BF     		nop
+ 443 0192 00BF     		nop
+ 444 0194 00BF     		nop
+ 445 0196 00BF     		nop
+ 446 0198 00BF     		nop
+ 447 019a 00BF     		nop
+ 448 019c 00BF     		nop
+ 449 019e 00BF     		nop
+ 450 01a0 00BF     		nop
+ 451              		
+ 452              	@ 0 "" 2
+ 453              		.thumb
+ 454              		.syntax unified
+ 455              	.L6:
+ 456              	@ startup.c:180:   while (!(RCC_BDCR & 0x00000002) && (ulT > 0))
+ 180:startup.c     ****   {
+ 457              		.loc 1 180 12
+ 458 01a2 244B     		ldr	r3, .L37+76	@ _29,
+ 459 01a4 1B68     		ldr	r3, [r3]	@ _30, *_29
+ 460              	@ startup.c:180:   while (!(RCC_BDCR & 0x00000002) && (ulT > 0))
+ 180:startup.c     ****   {
+ 461              		.loc 1 180 21
+ 462 01a6 03F00203 		and	r3, r3, #2	@ _31, _30,
+ 463              	@ startup.c:180:   while (!(RCC_BDCR & 0x00000002) && (ulT > 0))
+ 180:startup.c     ****   {
+ 464              		.loc 1 180 9
+ 465 01aa 002B     		cmp	r3, #0	@ _31,
+ 466 01ac 03D1     		bne	.L7		@,
+ 467              	@ startup.c:180:   while (!(RCC_BDCR & 0x00000002) && (ulT > 0))
+ 180:startup.c     ****   {
+ 468              		.loc 1 180 43 discriminator 1
+ 469 01ae 234B     		ldr	r3, .L37+84	@ tmp299,
+ 470 01b0 1B68     		ldr	r3, [r3]	@ ulT.4_32, ulT
+ 471              	@ startup.c:180:   while (!(RCC_BDCR & 0x00000002) && (ulT > 0))
+ 180:startup.c     ****   {
+ 472              		.loc 1 180 35 discriminator 1
+ 473 01b2 002B     		cmp	r3, #0	@ ulT.4_32,
+ 474 01b4 E4D1     		bne	.L8		@,
+ 475              	.L7:
+ 476              	@ startup.c:187:   if (ulT > 0)
+ 184:startup.c     ****   }
+ 185:startup.c     **** 
+ 186:startup.c     ****   //--- Notate Success of LSE in SystemFlags
+ 187:startup.c     ****   if (ulT > 0)
+ 477              		.loc 1 187 11
+ 478 01b6 214B     		ldr	r3, .L37+84	@ tmp300,
+ 479 01b8 1B68     		ldr	r3, [r3]	@ ulT.5_33, ulT
+ 480              	@ startup.c:187:   if (ulT > 0)
+ 481              		.loc 1 187 6
+ 482 01ba 002B     		cmp	r3, #0	@ ulT.5_33,
+ 483 01bc 06D0     		beq	.L9		@,
+ 484              	@ startup.c:189:     ulSystemFlags |= 0x00000001;                  //--- Success = Hi Bit (0)
+ 188:startup.c     ****   {
+ 189:startup.c     ****     ulSystemFlags |= 0x00000001;                  //--- Success = Hi Bit (0)
+ 485              		.loc 1 189 19
+ 486 01be 214B     		ldr	r3, .L37+92	@ tmp301,
+ 487 01c0 1B68     		ldr	r3, [r3]	@ ulSystemFlags.6_34, ulSystemFlags
+ 488 01c2 43F00103 		orr	r3, r3, #1	@ _35, ulSystemFlags.6_34,
+ 489 01c6 1F4A     		ldr	r2, .L37+92	@ tmp302,
+ 490 01c8 1360     		str	r3, [r2]	@ _35, ulSystemFlags
+ 491 01ca 05E0     		b	.L10		@
+ 492              	.L9:
+ 493              	@ startup.c:193:     ulSystemFlags &= 0xFFFFFFFE;                  //--- Failure = Lo Bit (0)
+ 190:startup.c     ****   }
+ 191:startup.c     ****   else
+ 192:startup.c     ****   {
+ 193:startup.c     ****     ulSystemFlags &= 0xFFFFFFFE;                  //--- Failure = Lo Bit (0)
+ 494              		.loc 1 193 19
+ 495 01cc 1D4B     		ldr	r3, .L37+92	@ tmp303,
+ 496 01ce 1B68     		ldr	r3, [r3]	@ ulSystemFlags.7_36, ulSystemFlags
+ 497 01d0 23F00103 		bic	r3, r3, #1	@ _37, ulSystemFlags.7_36,
+ 498 01d4 1B4A     		ldr	r2, .L37+92	@ tmp304,
+ 499 01d6 1360     		str	r3, [r2]	@ _37, ulSystemFlags
+ 500              	.L10:
+ 501              	@ startup.c:210:   RCC_CR = 0x00000069;
+ 194:startup.c     ****   }
+ 195:startup.c     **** 
+ 196:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 197:startup.c     ****   //    Configure System Clocks
+ 198:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 199:startup.c     **** 
+ 200:startup.c     ****   //--- Turn on MSI
+ 201:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 202:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 203:startup.c     ****   // USED .... rwrw .... wwrw .... wrww wwww wwrw
+ 204:startup.c     ****   // VAL  0000 0000 0000 0000 0000 0000 0110 1001
+ 205:startup.c     ****   //
+ 206:startup.c     ****   //    MSI_ON
+ 207:startup.c     ****   //    MSI Range Register = RCC_CR
+ 208:startup.c     ****   //    MSI FREQ = 4 MHz
+ 209:startup.c     ****   //    Reset Val = 0x00000069
+ 210:startup.c     ****   RCC_CR = 0x00000069;
+ 502              		.loc 1 210 3
+ 503 01d8 1B4B     		ldr	r3, .L37+96	@ _38,
+ 504              	@ startup.c:210:   RCC_CR = 0x00000069;
+ 505              		.loc 1 210 10
+ 506 01da 6922     		movs	r2, #105	@ tmp305,
+ 507 01dc 1A60     		str	r2, [r3]	@ tmp305, *_38
+ 508              	@ startup.c:213:   ulT = 100000;
+ 211:startup.c     **** 
+ 212:startup.c     ****   //--- Wait for MSI Clock to settle
+ 213:startup.c     ****   ulT = 100000;
+ 509              		.loc 1 213 7
+ 510 01de 174B     		ldr	r3, .L37+84	@ tmp306,
+ 511 01e0 174A     		ldr	r2, .L37+88	@ tmp307,
+ 512 01e2 1A60     		str	r2, [r3]	@ tmp307, ulT
+ 513              	@ startup.c:215:   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
+ 214:startup.c     **** 
+ 215:startup.c     ****   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
+ 514              		.loc 1 215 9
+ 515 01e4 43E0     		b	.L11		@
+ 516              	.L38:
+ 517 01e6 00BF     		.align	2
+ 518              	.L37:
+ 519 01e8 00000000 		.word	_sbss
+ 520 01ec 00000000 		.word	_ebss
+ 521 01f0 00000000 		.word	_sidata
+ 522 01f4 00000000 		.word	_sdata
+ 523 01f8 00000000 		.word	_edata
+ 524 01fc 00000000 		.word	ubSVCn
+ 525 0200 00200240 		.word	1073881088
+ 526 0204 18100240 		.word	1073877016
+ 527 0208 20100240 		.word	1073877024
+ 528 020c 38100240 		.word	1073877048
+ 529 0210 3C100240 		.word	1073877052
+ 530 0214 40100240 		.word	1073877056
+ 531 0218 28100240 		.word	1073877032
+ 532 021c 2C100240 		.word	1073877036
+ 533 0220 30100240 		.word	1073877040
+ 534 0224 58100240 		.word	1073877080
+ 535 0228 00040010 		.word	268436480
+ 536 022c 78100240 		.word	1073877112
+ 537 0230 00700040 		.word	1073770496
+ 538 0234 90100240 		.word	1073877136
+ 539 0238 1D810003 		.word	50364701
+ 540 023c 00000000 		.word	ulT
+ 541 0240 A0860100 		.word	100000
+ 542 0244 00000000 		.word	ulSystemFlags
+ 543 0248 00100240 		.word	1073876992
+ 544              	.L13:
+ 545              	@ startup.c:217:     ulT--;                                        //--- Decrement Period Counter
+ 216:startup.c     ****   {
+ 217:startup.c     ****     ulT--;                                        //--- Decrement Period Counter
+ 546              		.loc 1 217 8
+ 547 024c 804B     		ldr	r3, .L39	@ tmp308,
+ 548 024e 1B68     		ldr	r3, [r3]	@ ulT.8_39, ulT
+ 549 0250 013B     		subs	r3, r3, #1	@ _40, ulT.8_39,
+ 550 0252 7F4A     		ldr	r2, .L39	@ tmp309,
+ 551 0254 1360     		str	r3, [r2]	@ _40, ulT
+ 552              	@ startup.c:218:     nop12;
+ 218:startup.c     ****     nop12;
+ 553              		.loc 1 218 5
+ 554              		.syntax unified
+ 555              	@ 218 "startup.c" 1
+ 556 0256 00BF     		nop
+ 557 0258 00BF     		nop
+ 558 025a 00BF     		nop
+ 559 025c 00BF     		nop
+ 560 025e 00BF     		nop
+ 561 0260 00BF     		nop
+ 562 0262 00BF     		nop
+ 563 0264 00BF     		nop
+ 564 0266 00BF     		nop
+ 565 0268 00BF     		nop
+ 566 026a 00BF     		nop
+ 567 026c 00BF     		nop
+ 568              		
+ 569              	@ 0 "" 2
+ 570              		.thumb
+ 571              		.syntax unified
+ 572              	.L11:
+ 573              	@ startup.c:215:   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
+ 215:startup.c     ****   {
+ 574              		.loc 1 215 12
+ 575 026e 794B     		ldr	r3, .L39+4	@ _41,
+ 576 0270 1B68     		ldr	r3, [r3]	@ _42, *_41
+ 577              	@ startup.c:215:   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
+ 215:startup.c     ****   {
+ 578              		.loc 1 215 19
+ 579 0272 03F00203 		and	r3, r3, #2	@ _43, _42,
+ 580              	@ startup.c:215:   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
+ 215:startup.c     ****   {
+ 581              		.loc 1 215 9
+ 582 0276 022B     		cmp	r3, #2	@ _43,
+ 583 0278 03D0     		beq	.L12		@,
+ 584              	@ startup.c:215:   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
+ 215:startup.c     ****   {
+ 585              		.loc 1 215 56 discriminator 1
+ 586 027a 754B     		ldr	r3, .L39	@ tmp310,
+ 587 027c 1B68     		ldr	r3, [r3]	@ ulT.9_44, ulT
+ 588              	@ startup.c:215:   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
+ 215:startup.c     ****   {
+ 589              		.loc 1 215 48 discriminator 1
+ 590 027e 002B     		cmp	r3, #0	@ ulT.9_44,
+ 591 0280 E4D1     		bne	.L13		@,
+ 592              	.L12:
+ 593              	@ startup.c:222:   if (ulT > 0)
+ 219:startup.c     ****   }
+ 220:startup.c     **** 
+ 221:startup.c     ****   //--- Notate Success of MSI @ 4 MHz at StartUp
+ 222:startup.c     ****   if (ulT > 0)
+ 594              		.loc 1 222 11
+ 595 0282 734B     		ldr	r3, .L39	@ tmp311,
+ 596 0284 1B68     		ldr	r3, [r3]	@ ulT.10_45, ulT
+ 597              	@ startup.c:222:   if (ulT > 0)
+ 598              		.loc 1 222 6
+ 599 0286 002B     		cmp	r3, #0	@ ulT.10_45,
+ 600 0288 06D0     		beq	.L14		@,
+ 601              	@ startup.c:224:     ulSystemFlags |= 0x00000002;                  //--- Success = Hi
+ 223:startup.c     ****   {
+ 224:startup.c     ****     ulSystemFlags |= 0x00000002;                  //--- Success = Hi
+ 602              		.loc 1 224 19
+ 603 028a 734B     		ldr	r3, .L39+8	@ tmp312,
+ 604 028c 1B68     		ldr	r3, [r3]	@ ulSystemFlags.11_46, ulSystemFlags
+ 605 028e 43F00203 		orr	r3, r3, #2	@ _47, ulSystemFlags.11_46,
+ 606 0292 714A     		ldr	r2, .L39+8	@ tmp313,
+ 607 0294 1360     		str	r3, [r2]	@ _47, ulSystemFlags
+ 608 0296 05E0     		b	.L15		@
+ 609              	.L14:
+ 610              	@ startup.c:228:     ulSystemFlags &= 0xFFFFFFFD;                  //--- Failure = Lo
+ 225:startup.c     ****   }
+ 226:startup.c     ****   else
+ 227:startup.c     ****   {
+ 228:startup.c     ****     ulSystemFlags &= 0xFFFFFFFD;                  //--- Failure = Lo
+ 611              		.loc 1 228 19
+ 612 0298 6F4B     		ldr	r3, .L39+8	@ tmp314,
+ 613 029a 1B68     		ldr	r3, [r3]	@ ulSystemFlags.12_48, ulSystemFlags
+ 614 029c 23F00203 		bic	r3, r3, #2	@ _49, ulSystemFlags.12_48,
+ 615 02a0 6D4A     		ldr	r2, .L39+8	@ tmp315,
+ 616 02a2 1360     		str	r3, [r2]	@ _49, ulSystemFlags
+ 617              	.L15:
+ 618              	@ startup.c:244:   RCC_CR |= 0x0000006D;
+ 229:startup.c     ****   }
+ 230:startup.c     **** 
+ 231:startup.c     ****   //--- Turn on MSI PLL link to LSE
+ 232:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 233:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 234:startup.c     ****   // USED .... rwrw .... .... .... .... .... ....
+ 235:startup.c     ****   // S/C  0000 0000 0000 0000 0000 0000 0110 1101
+ 236:startup.c     ****   //
+ 237:startup.c     ****   //      Name             Bit#  On/Off
+ 238:startup.c     ****   //      -------------    ----   ---
+ 239:startup.c     ****   //    MSI_ON
+ 240:startup.c     ****   //    MSI_PLL Enable
+ 241:startup.c     ****   //    MSI Range Register = RCC_CR
+ 242:startup.c     ****   //    MSI FREQ = 4 MHz
+ 243:startup.c     ****   //    Main System PLL Disabled
+ 244:startup.c     ****   RCC_CR |= 0x0000006D;
+ 619              		.loc 1 244 10
+ 620 02a4 6B4B     		ldr	r3, .L39+4	@ _50,
+ 621 02a6 1B68     		ldr	r3, [r3]	@ _51, *_50
+ 622 02a8 6A4A     		ldr	r2, .L39+4	@ _52,
+ 623 02aa 43F06D03 		orr	r3, r3, #109	@ _53, _51,
+ 624 02ae 1360     		str	r3, [r2]	@ _53, *_52
+ 625              	@ startup.c:245:   nop48;
+ 245:startup.c     ****   nop48;
+ 626              		.loc 1 245 3
+ 627              		.syntax unified
+ 628              	@ 245 "startup.c" 1
+ 629 02b0 00BF     		nop
+ 630 02b2 00BF     		nop
+ 631 02b4 00BF     		nop
+ 632 02b6 00BF     		nop
+ 633 02b8 00BF     		nop
+ 634 02ba 00BF     		nop
+ 635 02bc 00BF     		nop
+ 636 02be 00BF     		nop
+ 637 02c0 00BF     		nop
+ 638 02c2 00BF     		nop
+ 639 02c4 00BF     		nop
+ 640 02c6 00BF     		nop
+ 641 02c8 00BF     		nop
+ 642 02ca 00BF     		nop
+ 643 02cc 00BF     		nop
+ 644 02ce 00BF     		nop
+ 645 02d0 00BF     		nop
+ 646 02d2 00BF     		nop
+ 647 02d4 00BF     		nop
+ 648 02d6 00BF     		nop
+ 649 02d8 00BF     		nop
+ 650 02da 00BF     		nop
+ 651 02dc 00BF     		nop
+ 652 02de 00BF     		nop
+ 653 02e0 00BF     		nop
+ 654 02e2 00BF     		nop
+ 655 02e4 00BF     		nop
+ 656 02e6 00BF     		nop
+ 657 02e8 00BF     		nop
+ 658 02ea 00BF     		nop
+ 659 02ec 00BF     		nop
+ 660 02ee 00BF     		nop
+ 661 02f0 00BF     		nop
+ 662 02f2 00BF     		nop
+ 663 02f4 00BF     		nop
+ 664 02f6 00BF     		nop
+ 665 02f8 00BF     		nop
+ 666 02fa 00BF     		nop
+ 667 02fc 00BF     		nop
+ 668 02fe 00BF     		nop
+ 669 0300 00BF     		nop
+ 670 0302 00BF     		nop
+ 671 0304 00BF     		nop
+ 672 0306 00BF     		nop
+ 673 0308 00BF     		nop
+ 674 030a 00BF     		nop
+ 675 030c 00BF     		nop
+ 676 030e 00BF     		nop
+ 677              		
+ 678              	@ 0 "" 2
+ 679              	@ startup.c:248:   ulT = 100000;
+ 246:startup.c     **** 
+ 247:startup.c     ****   //--- Wait for MSI Clock PLL to settle
+ 248:startup.c     ****   ulT = 100000;
+ 680              		.loc 1 248 7
+ 681              		.thumb
+ 682              		.syntax unified
+ 683 0310 4F4B     		ldr	r3, .L39	@ tmp316,
+ 684 0312 524A     		ldr	r2, .L39+12	@ tmp317,
+ 685 0314 1A60     		str	r2, [r3]	@ tmp317, ulT
+ 686              	@ startup.c:250:   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
+ 249:startup.c     **** 
+ 250:startup.c     ****   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
+ 687              		.loc 1 250 9
+ 688 0316 10E0     		b	.L16		@
+ 689              	.L18:
+ 690              	@ startup.c:252:     ulT--;                                        //--- Decrement Period Counter
+ 251:startup.c     ****   {
+ 252:startup.c     ****     ulT--;                                        //--- Decrement Period Counter
+ 691              		.loc 1 252 8
+ 692 0318 4D4B     		ldr	r3, .L39	@ tmp318,
+ 693 031a 1B68     		ldr	r3, [r3]	@ ulT.13_54, ulT
+ 694 031c 013B     		subs	r3, r3, #1	@ _55, ulT.13_54,
+ 695 031e 4C4A     		ldr	r2, .L39	@ tmp319,
+ 696 0320 1360     		str	r3, [r2]	@ _55, ulT
+ 697              	@ startup.c:253:     nop12;
+ 253:startup.c     ****     nop12;
+ 698              		.loc 1 253 5
+ 699              		.syntax unified
+ 700              	@ 253 "startup.c" 1
+ 701 0322 00BF     		nop
+ 702 0324 00BF     		nop
+ 703 0326 00BF     		nop
+ 704 0328 00BF     		nop
+ 705 032a 00BF     		nop
+ 706 032c 00BF     		nop
+ 707 032e 00BF     		nop
+ 708 0330 00BF     		nop
+ 709 0332 00BF     		nop
+ 710 0334 00BF     		nop
+ 711 0336 00BF     		nop
+ 712 0338 00BF     		nop
+ 713              		
+ 714              	@ 0 "" 2
+ 715              		.thumb
+ 716              		.syntax unified
+ 717              	.L16:
+ 718              	@ startup.c:250:   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
+ 250:startup.c     ****   {
+ 719              		.loc 1 250 12
+ 720 033a 464B     		ldr	r3, .L39+4	@ _56,
+ 721 033c 1B68     		ldr	r3, [r3]	@ _57, *_56
+ 722              	@ startup.c:250:   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
+ 250:startup.c     ****   {
+ 723              		.loc 1 250 19
+ 724 033e 03F00203 		and	r3, r3, #2	@ _58, _57,
+ 725              	@ startup.c:250:   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
+ 250:startup.c     ****   {
+ 726              		.loc 1 250 9
+ 727 0342 022B     		cmp	r3, #2	@ _58,
+ 728 0344 03D0     		beq	.L17		@,
+ 729              	@ startup.c:250:   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
+ 250:startup.c     ****   {
+ 730              		.loc 1 250 56 discriminator 1
+ 731 0346 424B     		ldr	r3, .L39	@ tmp320,
+ 732 0348 1B68     		ldr	r3, [r3]	@ ulT.14_59, ulT
+ 733              	@ startup.c:250:   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
+ 250:startup.c     ****   {
+ 734              		.loc 1 250 48 discriminator 1
+ 735 034a 002B     		cmp	r3, #0	@ ulT.14_59,
+ 736 034c E4D1     		bne	.L18		@,
+ 737              	.L17:
+ 738              	@ startup.c:257:   if (ulT > 0)
+ 254:startup.c     ****   }
+ 255:startup.c     **** 
+ 256:startup.c     ****   //--- Notate Success of MSI PLL @ 4 MHz at StartUp
+ 257:startup.c     ****   if (ulT > 0)
+ 739              		.loc 1 257 11
+ 740 034e 404B     		ldr	r3, .L39	@ tmp321,
+ 741 0350 1B68     		ldr	r3, [r3]	@ ulT.15_60, ulT
+ 742              	@ startup.c:257:   if (ulT > 0)
+ 743              		.loc 1 257 6
+ 744 0352 002B     		cmp	r3, #0	@ ulT.15_60,
+ 745 0354 06D0     		beq	.L19		@,
+ 746              	@ startup.c:259:     ulSystemFlags |= 0x00000004;                  //--- Success = Hi
+ 258:startup.c     ****   {
+ 259:startup.c     ****     ulSystemFlags |= 0x00000004;                  //--- Success = Hi
+ 747              		.loc 1 259 19
+ 748 0356 404B     		ldr	r3, .L39+8	@ tmp322,
+ 749 0358 1B68     		ldr	r3, [r3]	@ ulSystemFlags.16_61, ulSystemFlags
+ 750 035a 43F00403 		orr	r3, r3, #4	@ _62, ulSystemFlags.16_61,
+ 751 035e 3E4A     		ldr	r2, .L39+8	@ tmp323,
+ 752 0360 1360     		str	r3, [r2]	@ _62, ulSystemFlags
+ 753 0362 05E0     		b	.L20		@
+ 754              	.L19:
+ 755              	@ startup.c:263:     ulSystemFlags &= 0xFFFFFFFB;                  //--- Failure = Lo
+ 260:startup.c     ****   }
+ 261:startup.c     ****   else
+ 262:startup.c     ****   {
+ 263:startup.c     ****     ulSystemFlags &= 0xFFFFFFFB;                  //--- Failure = Lo
+ 756              		.loc 1 263 19
+ 757 0364 3C4B     		ldr	r3, .L39+8	@ tmp324,
+ 758 0366 1B68     		ldr	r3, [r3]	@ ulSystemFlags.17_63, ulSystemFlags
+ 759 0368 23F00403 		bic	r3, r3, #4	@ _64, ulSystemFlags.17_63,
+ 760 036c 3A4A     		ldr	r2, .L39+8	@ tmp325,
+ 761 036e 1360     		str	r3, [r2]	@ _64, ulSystemFlags
+ 762              	.L20:
+ 763              	@ startup.c:289:   RCC_PLLCFGR = 0x03504801;
+ 264:startup.c     ****   }
+ 265:startup.c     **** 
+ 266:startup.c     ****   //--- Enable Main PLL in RCC_PLLCFGR
+ 267:startup.c     ****   //--- RCC_PLLCFGR
+ 268:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 269:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 270:startup.c     ****   //---   .... .... .... .... .... .... .... ....
+ 271:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0001 0001
+ 272:startup.c     ****   //
+ 273:startup.c     ****   //--- Set SYSCLK source & Configure System PLL
+ 274:startup.c     ****   //
+ 275:startup.c     ****   //    MSI_VALUE = 4000000                           3322 2222 2222 1111 1111 1100 0000 0000
+ 276:startup.c     ****   //                                                  1098 7654 3210 9876 5432 1098 7654 3210
+ 277:startup.c     ****   //                                                     0    3    5    0    4    8    0    1
+ 278:startup.c     ****   //                                                  0000 0011 0101 0000 0100 1000 0000 0001
+ 279:startup.c     ****   //    PLL Source = MSI (4 MHz)                      .... .... .... .... .... .... .... ..01
+ 280:startup.c     ****   //    PLLM = 0  /1 = ( 4 MHz )                      .... .... .... .... .... .... 0000 00
+ 281:startup.c     ****   //    PLLN = 72  (288 MHz) (4 * 72 = 288) 0x48      .... .... .... .... 0100 1000
+ 282:startup.c     ****   //    PLLP = Disabled                               .... .... .... 0000
+ 283:startup.c     ****   //    PLLQ = /6 = (288 / 6) = 48 MHz + Ena          .... .... 0101
+ 284:startup.c     ****   //    PLLR = /4   (288 / 4) = 72 MHz + Enable       .... 0011
+ 285:startup.c     ****   //    PLLP = OFF                                    0000
+ 286:startup.c     ****   //
+ 287:startup.c     ****   //    PLLVCO INPUT = ((4000000 / 1) * 72) = 288 MHz
+ 288:startup.c     ****   //    PLLCLK = VCO / 4 = 72 MHz
+ 289:startup.c     ****   RCC_PLLCFGR = 0x03504801;
+ 764              		.loc 1 289 3
+ 765 0370 3B4B     		ldr	r3, .L39+16	@ _65,
+ 766              	@ startup.c:289:   RCC_PLLCFGR = 0x03504801;
+ 767              		.loc 1 289 15
+ 768 0372 3C4A     		ldr	r2, .L39+20	@ tmp326,
+ 769 0374 1A60     		str	r2, [r3]	@ tmp326, *_65
+ 770              	@ startup.c:290:   nop48;
+ 290:startup.c     ****   nop48;
+ 771              		.loc 1 290 3
+ 772              		.syntax unified
+ 773              	@ 290 "startup.c" 1
+ 774 0376 00BF     		nop
+ 775 0378 00BF     		nop
+ 776 037a 00BF     		nop
+ 777 037c 00BF     		nop
+ 778 037e 00BF     		nop
+ 779 0380 00BF     		nop
+ 780 0382 00BF     		nop
+ 781 0384 00BF     		nop
+ 782 0386 00BF     		nop
+ 783 0388 00BF     		nop
+ 784 038a 00BF     		nop
+ 785 038c 00BF     		nop
+ 786 038e 00BF     		nop
+ 787 0390 00BF     		nop
+ 788 0392 00BF     		nop
+ 789 0394 00BF     		nop
+ 790 0396 00BF     		nop
+ 791 0398 00BF     		nop
+ 792 039a 00BF     		nop
+ 793 039c 00BF     		nop
+ 794 039e 00BF     		nop
+ 795 03a0 00BF     		nop
+ 796 03a2 00BF     		nop
+ 797 03a4 00BF     		nop
+ 798 03a6 00BF     		nop
+ 799 03a8 00BF     		nop
+ 800 03aa 00BF     		nop
+ 801 03ac 00BF     		nop
+ 802 03ae 00BF     		nop
+ 803 03b0 00BF     		nop
+ 804 03b2 00BF     		nop
+ 805 03b4 00BF     		nop
+ 806 03b6 00BF     		nop
+ 807 03b8 00BF     		nop
+ 808 03ba 00BF     		nop
+ 809 03bc 00BF     		nop
+ 810 03be 00BF     		nop
+ 811 03c0 00BF     		nop
+ 812 03c2 00BF     		nop
+ 813 03c4 00BF     		nop
+ 814 03c6 00BF     		nop
+ 815 03c8 00BF     		nop
+ 816 03ca 00BF     		nop
+ 817 03cc 00BF     		nop
+ 818 03ce 00BF     		nop
+ 819 03d0 00BF     		nop
+ 820 03d2 00BF     		nop
+ 821 03d4 00BF     		nop
+ 822              		
+ 823              	@ 0 "" 2
+ 824              	@ startup.c:303:   RCC_CR |= 0x0100006D;
+ 291:startup.c     **** 
+ 292:startup.c     ****   //--- Turn on Main PLL Enable
+ 293:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 294:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 295:startup.c     ****   //---   .... .... .... .... .... .... .... ....
+ 296:startup.c     ****   //      0000 0001 0000 0000 0000 0000 0110 1101
+ 297:startup.c     ****   //
+ 298:startup.c     ****   //    MAIN PLL ON
+ 299:startup.c     ****   //    MSI_ON
+ 300:startup.c     ****   //    MSI_PLL Enable
+ 301:startup.c     ****   //    MSI Range Register = RCC_CR
+ 302:startup.c     ****   //    MSI FREQ = 4 MHz
+ 303:startup.c     ****   RCC_CR |= 0x0100006D;
+ 825              		.loc 1 303 10
+ 826              		.thumb
+ 827              		.syntax unified
+ 828 03d6 1F4B     		ldr	r3, .L39+4	@ _66,
+ 829 03d8 1B68     		ldr	r3, [r3]	@ _67, *_66
+ 830 03da 1E4A     		ldr	r2, .L39+4	@ _68,
+ 831 03dc 43F08073 		orr	r3, r3, #16777216	@ _69, _67,
+ 832 03e0 43F06D03 		orr	r3, r3, #109	@ _69, _69,
+ 833 03e4 1360     		str	r3, [r2]	@ _69, *_68
+ 834              	@ startup.c:304:   nop48;
+ 304:startup.c     ****   nop48;
+ 835              		.loc 1 304 3
+ 836              		.syntax unified
+ 837              	@ 304 "startup.c" 1
+ 838 03e6 00BF     		nop
+ 839 03e8 00BF     		nop
+ 840 03ea 00BF     		nop
+ 841 03ec 00BF     		nop
+ 842 03ee 00BF     		nop
+ 843 03f0 00BF     		nop
+ 844 03f2 00BF     		nop
+ 845 03f4 00BF     		nop
+ 846 03f6 00BF     		nop
+ 847 03f8 00BF     		nop
+ 848 03fa 00BF     		nop
+ 849 03fc 00BF     		nop
+ 850 03fe 00BF     		nop
+ 851 0400 00BF     		nop
+ 852 0402 00BF     		nop
+ 853 0404 00BF     		nop
+ 854 0406 00BF     		nop
+ 855 0408 00BF     		nop
+ 856 040a 00BF     		nop
+ 857 040c 00BF     		nop
+ 858 040e 00BF     		nop
+ 859 0410 00BF     		nop
+ 860 0412 00BF     		nop
+ 861 0414 00BF     		nop
+ 862 0416 00BF     		nop
+ 863 0418 00BF     		nop
+ 864 041a 00BF     		nop
+ 865 041c 00BF     		nop
+ 866 041e 00BF     		nop
+ 867 0420 00BF     		nop
+ 868 0422 00BF     		nop
+ 869 0424 00BF     		nop
+ 870 0426 00BF     		nop
+ 871 0428 00BF     		nop
+ 872 042a 00BF     		nop
+ 873 042c 00BF     		nop
+ 874 042e 00BF     		nop
+ 875 0430 00BF     		nop
+ 876 0432 00BF     		nop
+ 877 0434 00BF     		nop
+ 878 0436 00BF     		nop
+ 879 0438 00BF     		nop
+ 880 043a 00BF     		nop
+ 881 043c 00BF     		nop
+ 882 043e 00BF     		nop
+ 883 0440 00BF     		nop
+ 884 0442 00BF     		nop
+ 885 0444 00BF     		nop
+ 886              		
+ 887              	@ 0 "" 2
+ 888              	@ startup.c:307:   ulT = 100000;  //    Wait for upto 100K Loops
+ 305:startup.c     **** 
+ 306:startup.c     ****   //--- Wait for PLL & MSI clocks to show "Ready"
+ 307:startup.c     ****   ulT = 100000;  //    Wait for upto 100K Loops
+ 889              		.loc 1 307 7
+ 890              		.thumb
+ 891              		.syntax unified
+ 892 0446 024B     		ldr	r3, .L39	@ tmp327,
+ 893 0448 044A     		ldr	r2, .L39+12	@ tmp328,
+ 894 044a 1A60     		str	r2, [r3]	@ tmp328, ulT
+ 895              	@ startup.c:309:   while (((RCC_CR & 0x02000002) != 0x02000002) && ulT)
+ 308:startup.c     **** 
+ 309:startup.c     ****   while (((RCC_CR & 0x02000002) != 0x02000002) && ulT)
+ 896              		.loc 1 309 9
+ 897 044c 1DE0     		b	.L21		@
+ 898              	.L40:
+ 899 044e 00BF     		.align	2
+ 900              	.L39:
+ 901 0450 00000000 		.word	ulT
+ 902 0454 00100240 		.word	1073876992
+ 903 0458 00000000 		.word	ulSystemFlags
+ 904 045c A0860100 		.word	100000
+ 905 0460 0C100240 		.word	1073877004
+ 906 0464 01485003 		.word	55592961
+ 907              	.L23:
+ 908              	@ startup.c:311:     ulT--;                                        //--- Decrement Period Counter
+ 310:startup.c     ****   {
+ 311:startup.c     ****     ulT--;                                        //--- Decrement Period Counter
+ 909              		.loc 1 311 8
+ 910 0468 2C4B     		ldr	r3, .L41	@ tmp329,
+ 911 046a 1B68     		ldr	r3, [r3]	@ ulT.18_70, ulT
+ 912 046c 013B     		subs	r3, r3, #1	@ _71, ulT.18_70,
+ 913 046e 2B4A     		ldr	r2, .L41	@ tmp330,
+ 914 0470 1360     		str	r3, [r2]	@ _71, ulT
+ 915              	@ startup.c:312:     nop12;
+ 312:startup.c     ****     nop12;
+ 916              		.loc 1 312 5
+ 917              		.syntax unified
+ 918              	@ 312 "startup.c" 1
+ 919 0472 00BF     		nop
+ 920 0474 00BF     		nop
+ 921 0476 00BF     		nop
+ 922 0478 00BF     		nop
+ 923 047a 00BF     		nop
+ 924 047c 00BF     		nop
+ 925 047e 00BF     		nop
+ 926 0480 00BF     		nop
+ 927 0482 00BF     		nop
+ 928 0484 00BF     		nop
+ 929 0486 00BF     		nop
+ 930 0488 00BF     		nop
+ 931              		
+ 932              	@ 0 "" 2
+ 933              		.thumb
+ 934              		.syntax unified
+ 935              	.L21:
+ 936              	@ startup.c:309:   while (((RCC_CR & 0x02000002) != 0x02000002) && ulT)
+ 309:startup.c     ****   {
+ 937              		.loc 1 309 12
+ 938 048a 254B     		ldr	r3, .L41+4	@ _72,
+ 939 048c 1A68     		ldr	r2, [r3]	@ _73, *_72
+ 940              	@ startup.c:309:   while (((RCC_CR & 0x02000002) != 0x02000002) && ulT)
+ 309:startup.c     ****   {
+ 941              		.loc 1 309 19
+ 942 048e 254B     		ldr	r3, .L41+8	@ _74,
+ 943 0490 1340     		ands	r3, r3, r2	@, _74, _74, _73
+ 944              	@ startup.c:309:   while (((RCC_CR & 0x02000002) != 0x02000002) && ulT)
+ 309:startup.c     ****   {
+ 945              		.loc 1 309 9
+ 946 0492 244A     		ldr	r2, .L41+8	@ tmp331,
+ 947 0494 9342     		cmp	r3, r2	@ _74, tmp331
+ 948 0496 03D0     		beq	.L22		@,
+ 949              	@ startup.c:309:   while (((RCC_CR & 0x02000002) != 0x02000002) && ulT)
+ 309:startup.c     ****   {
+ 950              		.loc 1 309 48 discriminator 1
+ 951 0498 204B     		ldr	r3, .L41	@ tmp332,
+ 952 049a 1B68     		ldr	r3, [r3]	@ ulT.19_75, ulT
+ 953 049c 002B     		cmp	r3, #0	@ ulT.19_75,
+ 954 049e E3D1     		bne	.L23		@,
+ 955              	.L22:
+ 956              	@ startup.c:316:   if (ulT > 0)
+ 313:startup.c     ****   }
+ 314:startup.c     **** 
+ 315:startup.c     ****   //--- Notate Success of Main PLL StartUp
+ 316:startup.c     ****   if (ulT > 0)
+ 957              		.loc 1 316 11
+ 958 04a0 1E4B     		ldr	r3, .L41	@ tmp333,
+ 959 04a2 1B68     		ldr	r3, [r3]	@ ulT.20_76, ulT
+ 960              	@ startup.c:316:   if (ulT > 0)
+ 961              		.loc 1 316 6
+ 962 04a4 002B     		cmp	r3, #0	@ ulT.20_76,
+ 963 04a6 06D0     		beq	.L24		@,
+ 964              	@ startup.c:318:     ulSystemFlags |= 0x00000008;                  //--- Success = Hi
+ 317:startup.c     ****   {
+ 318:startup.c     ****     ulSystemFlags |= 0x00000008;                  //--- Success = Hi
+ 965              		.loc 1 318 19
+ 966 04a8 1F4B     		ldr	r3, .L41+12	@ tmp334,
+ 967 04aa 1B68     		ldr	r3, [r3]	@ ulSystemFlags.21_77, ulSystemFlags
+ 968 04ac 43F00803 		orr	r3, r3, #8	@ _78, ulSystemFlags.21_77,
+ 969 04b0 1D4A     		ldr	r2, .L41+12	@ tmp335,
+ 970 04b2 1360     		str	r3, [r2]	@ _78, ulSystemFlags
+ 971 04b4 05E0     		b	.L25		@
+ 972              	.L24:
+ 973              	@ startup.c:322:     ulSystemFlags &= 0xFFFFFFF7;                  //--- Failure = Lo
+ 319:startup.c     ****   }
+ 320:startup.c     ****   else
+ 321:startup.c     ****   {
+ 322:startup.c     ****     ulSystemFlags &= 0xFFFFFFF7;                  //--- Failure = Lo
+ 974              		.loc 1 322 19
+ 975 04b6 1C4B     		ldr	r3, .L41+12	@ tmp336,
+ 976 04b8 1B68     		ldr	r3, [r3]	@ ulSystemFlags.22_79, ulSystemFlags
+ 977 04ba 23F00803 		bic	r3, r3, #8	@ _80, ulSystemFlags.22_79,
+ 978 04be 1A4A     		ldr	r2, .L41+12	@ tmp337,
+ 979 04c0 1360     		str	r3, [r2]	@ _80, ulSystemFlags
+ 980              	.L25:
+ 981              	@ startup.c:347:   RCC_CFGR = 0x00000003;
+ 323:startup.c     ****   }
+ 324:startup.c     **** 
+ 325:startup.c     ****   //--- RCC_CSR is Preset to 0x0C000600
+ 326:startup.c     ****   //    This Sets the MSI Clock to 4.00 MHz upon reset
+ 327:startup.c     ****   //--- RCC_CSR
+ 328:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 329:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 330:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 331:startup.c     ****   //      1100 0000 0000 0000 0000 0110 0000 0000
+ 332:startup.c     ****   //
+ 333:startup.c     ****   //    RCC_CSR = 0x0C000600;
+ 334:startup.c     **** 
+ 335:startup.c     ****   //--- RCC Configuration Register
+ 336:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 337:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 338:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 339:startup.c     ****   //      0000 0001 0000 0000 0000 0000 0000 0011
+ 340:startup.c     ****   //      FLASH MEMORY ON
+ 341:startup.c     ****   //      System Clock = PLL (72 MHz)
+ 342:startup.c     ****   //      AHB Prescale = /1
+ 343:startup.c     ****   //      APB1 Prescale = /1
+ 344:startup.c     ****   //      APB2 Prescale = /1
+ 345:startup.c     ****   //      Wake Up = MSI
+ 346:startup.c     ****   //      No MCO Output on PA08
+ 347:startup.c     ****   RCC_CFGR = 0x00000003;
+ 982              		.loc 1 347 3
+ 983 04c2 1A4B     		ldr	r3, .L41+16	@ _81,
+ 984              	@ startup.c:347:   RCC_CFGR = 0x00000003;
+ 985              		.loc 1 347 12
+ 986 04c4 0322     		movs	r2, #3	@ tmp338,
+ 987 04c6 1A60     		str	r2, [r3]	@ tmp338, *_81
+ 988              	@ startup.c:356:   ulT = 100000;  //    Wait for upto 100K Loops
+ 348:startup.c     **** 
+ 349:startup.c     ****   //------ Test Usage Only ------------------------------
+ 350:startup.c     ****   //      System Clock Selected as MCO Output = 72 mhZ
+ 351:startup.c     ****   //      MCO / 1  = 72 MHz = PA08
+ 352:startup.c     ****   //-----------------------------------------------------
+ 353:startup.c     ****   //  RCC_CFGR = 0x01000003;
+ 354:startup.c     **** 
+ 355:startup.c     ****   //--- Wait for System to show PLL as Sys Clock
+ 356:startup.c     ****   ulT = 100000;  //    Wait for upto 100K Loops
+ 989              		.loc 1 356 7
+ 990 04c8 144B     		ldr	r3, .L41	@ tmp339,
+ 991 04ca 194A     		ldr	r2, .L41+20	@ tmp340,
+ 992 04cc 1A60     		str	r2, [r3]	@ tmp340, ulT
+ 993              	@ startup.c:358:   while (((RCC_CFGR & 0x0000000C) != 0x0000000C) && ulT)
+ 357:startup.c     **** 
+ 358:startup.c     ****   while (((RCC_CFGR & 0x0000000C) != 0x0000000C) && ulT)
+ 994              		.loc 1 358 9
+ 995 04ce 10E0     		b	.L26		@
+ 996              	.L28:
+ 997              	@ startup.c:360:     ulT--;                                        //--- Decrement Period Counter
+ 359:startup.c     ****   {
+ 360:startup.c     ****     ulT--;                                        //--- Decrement Period Counter
+ 998              		.loc 1 360 8
+ 999 04d0 124B     		ldr	r3, .L41	@ tmp341,
+ 1000 04d2 1B68     		ldr	r3, [r3]	@ ulT.23_82, ulT
+ 1001 04d4 013B     		subs	r3, r3, #1	@ _83, ulT.23_82,
+ 1002 04d6 114A     		ldr	r2, .L41	@ tmp342,
+ 1003 04d8 1360     		str	r3, [r2]	@ _83, ulT
+ 1004              	@ startup.c:361:     nop12;
+ 361:startup.c     ****     nop12;
+ 1005              		.loc 1 361 5
+ 1006              		.syntax unified
+ 1007              	@ 361 "startup.c" 1
+ 1008 04da 00BF     		nop
+ 1009 04dc 00BF     		nop
+ 1010 04de 00BF     		nop
+ 1011 04e0 00BF     		nop
+ 1012 04e2 00BF     		nop
+ 1013 04e4 00BF     		nop
+ 1014 04e6 00BF     		nop
+ 1015 04e8 00BF     		nop
+ 1016 04ea 00BF     		nop
+ 1017 04ec 00BF     		nop
+ 1018 04ee 00BF     		nop
+ 1019 04f0 00BF     		nop
+ 1020              		
+ 1021              	@ 0 "" 2
+ 1022              		.thumb
+ 1023              		.syntax unified
+ 1024              	.L26:
+ 1025              	@ startup.c:358:   while (((RCC_CFGR & 0x0000000C) != 0x0000000C) && ulT)
+ 358:startup.c     ****   {
+ 1026              		.loc 1 358 12
+ 1027 04f2 0E4B     		ldr	r3, .L41+16	@ _84,
+ 1028 04f4 1B68     		ldr	r3, [r3]	@ _85, *_84
+ 1029              	@ startup.c:358:   while (((RCC_CFGR & 0x0000000C) != 0x0000000C) && ulT)
+ 358:startup.c     ****   {
+ 1030              		.loc 1 358 21
+ 1031 04f6 03F00C03 		and	r3, r3, #12	@ _86, _85,
+ 1032              	@ startup.c:358:   while (((RCC_CFGR & 0x0000000C) != 0x0000000C) && ulT)
+ 358:startup.c     ****   {
+ 1033              		.loc 1 358 9
+ 1034 04fa 0C2B     		cmp	r3, #12	@ _86,
+ 1035 04fc 03D0     		beq	.L27		@,
+ 1036              	@ startup.c:358:   while (((RCC_CFGR & 0x0000000C) != 0x0000000C) && ulT)
+ 358:startup.c     ****   {
+ 1037              		.loc 1 358 50 discriminator 1
+ 1038 04fe 074B     		ldr	r3, .L41	@ tmp343,
+ 1039 0500 1B68     		ldr	r3, [r3]	@ ulT.24_87, ulT
+ 1040 0502 002B     		cmp	r3, #0	@ ulT.24_87,
+ 1041 0504 E4D1     		bne	.L28		@,
+ 1042              	.L27:
+ 1043              	@ startup.c:365:   if (ulT > 0)
+ 362:startup.c     ****   }
+ 363:startup.c     **** 
+ 364:startup.c     ****   //--- Notate Success of PLL StartUp
+ 365:startup.c     ****   if (ulT > 0)
+ 1044              		.loc 1 365 11
+ 1045 0506 054B     		ldr	r3, .L41	@ tmp344,
+ 1046 0508 1B68     		ldr	r3, [r3]	@ ulT.25_88, ulT
+ 1047              	@ startup.c:365:   if (ulT > 0)
+ 1048              		.loc 1 365 6
+ 1049 050a 002B     		cmp	r3, #0	@ ulT.25_88,
+ 1050 050c 12D0     		beq	.L29		@,
+ 1051              	@ startup.c:367:     ulSystemFlags |= 0x00000010;                  //--- Success = Hi
+ 366:startup.c     ****   {
+ 367:startup.c     ****     ulSystemFlags |= 0x00000010;                  //--- Success = Hi
+ 1052              		.loc 1 367 19
+ 1053 050e 064B     		ldr	r3, .L41+12	@ tmp345,
+ 1054 0510 1B68     		ldr	r3, [r3]	@ ulSystemFlags.26_89, ulSystemFlags
+ 1055 0512 43F01003 		orr	r3, r3, #16	@ _90, ulSystemFlags.26_89,
+ 1056 0516 044A     		ldr	r2, .L41+12	@ tmp346,
+ 1057 0518 1360     		str	r3, [r2]	@ _90, ulSystemFlags
+ 1058 051a 11E0     		b	.L30		@
+ 1059              	.L42:
+ 1060              		.align	2
+ 1061              	.L41:
+ 1062 051c 00000000 		.word	ulT
+ 1063 0520 00100240 		.word	1073876992
+ 1064 0524 02000002 		.word	33554434
+ 1065 0528 00000000 		.word	ulSystemFlags
+ 1066 052c 08100240 		.word	1073877000
+ 1067 0530 A0860100 		.word	100000
+ 1068              	.L29:
+ 1069              	@ startup.c:371:     ulSystemFlags &= 0xFFFFFFEF;                  //--- Failure = Lo
+ 368:startup.c     ****   }
+ 369:startup.c     ****   else
+ 370:startup.c     ****   {
+ 371:startup.c     ****     ulSystemFlags &= 0xFFFFFFEF;                  //--- Failure = Lo
+ 1070              		.loc 1 371 19
+ 1071 0534 884B     		ldr	r3, .L43	@ tmp347,
+ 1072 0536 1B68     		ldr	r3, [r3]	@ ulSystemFlags.27_91, ulSystemFlags
+ 1073 0538 23F01003 		bic	r3, r3, #16	@ _92, ulSystemFlags.27_91,
+ 1074 053c 864A     		ldr	r2, .L43	@ tmp348,
+ 1075 053e 1360     		str	r3, [r2]	@ _92, ulSystemFlags
+ 1076              	.L30:
+ 1077              	@ startup.c:380:   RCC_CCIPR = 0x00000000;
+ 372:startup.c     ****   }
+ 373:startup.c     **** 
+ 374:startup.c     ****   //--- Independant Clock Config Register
+ 375:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 376:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 377:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 378:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 379:startup.c     ****   //
+ 380:startup.c     ****   RCC_CCIPR = 0x00000000;
+ 1078              		.loc 1 380 3
+ 1079 0540 864B     		ldr	r3, .L43+4	@ _93,
+ 1080              	@ startup.c:380:   RCC_CCIPR = 0x00000000;
+ 1081              		.loc 1 380 13
+ 1082 0542 0022     		movs	r2, #0	@ tmp349,
+ 1083 0544 1A60     		str	r2, [r3]	@ tmp349, *_93
+ 1084              	@ startup.c:395:   RCC_AHB1ENR = 0x00000100;
+ 381:startup.c     **** 
+ 382:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 383:startup.c     ****   //    Enable the following AHB1 Peripherials Refer to Ref Manual Page
+ 384:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 385:startup.c     ****   //--- RCC Configuration Register
+ 386:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 387:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 388:startup.c     ****   //      .... .... .... ...| ...| ...| .... ..||
+ 389:startup.c     ****   //      0000 0000 0000 0000 0000 0001 0000 0000
+ 390:startup.c     ****   //      DMA 1 Off
+ 391:startup.c     ****   //      DMA 2 Off
+ 392:startup.c     ****   //      Flash Memory On
+ 393:startup.c     ****   //      Touch Sensor Off
+ 394:startup.c     ****   //      CRC Generator Off
+ 395:startup.c     ****   RCC_AHB1ENR = 0x00000100;
+ 1085              		.loc 1 395 3
+ 1086 0546 864B     		ldr	r3, .L43+8	@ _94,
+ 1087              	@ startup.c:395:   RCC_AHB1ENR = 0x00000100;
+ 1088              		.loc 1 395 15
+ 1089 0548 4FF48072 		mov	r2, #256	@ tmp350,
+ 1090 054c 1A60     		str	r2, [r3]	@ tmp350, *_94
+ 1091              	@ startup.c:396:   RCC_AHB1SMENR = 0x00000300;
+ 396:startup.c     ****   RCC_AHB1SMENR = 0x00000300;
+ 1092              		.loc 1 396 3
+ 1093 054e 854B     		ldr	r3, .L43+12	@ _95,
+ 1094              	@ startup.c:396:   RCC_AHB1SMENR = 0x00000300;
+ 1095              		.loc 1 396 17
+ 1096 0550 4FF44072 		mov	r2, #768	@ tmp351,
+ 1097 0554 1A60     		str	r2, [r3]	@ tmp351, *_95
+ 1098              	@ startup.c:412:   RCC_AHB2ENR = 0x00040007;
+ 397:startup.c     **** 
+ 398:startup.c     ****   //--- Enable the following AHB2 Peripherials
+ 399:startup.c     ****   //--- RCC Configuration Register
+ 400:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 401:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 402:startup.c     ****   //      .... .... .... .|.| ..|. ...| ...| ||||
+ 403:startup.c     ****   //      0000 0000 0000 0101 0000 0000 0000 0111
+ 404:startup.c     ****   //      GPIO A Port On
+ 405:startup.c     ****   //      GPIO B Port On
+ 406:startup.c     ****   //      GPIO C Port On
+ 407:startup.c     ****   //      GPIO D Port Off
+ 408:startup.c     ****   //      GPIO E Port Off
+ 409:startup.c     ****   //      GPIO H Port Off
+ 410:startup.c     ****   //      AESEN Encoder Accelerator Off
+ 411:startup.c     ****   //      Random Number Generator On
+ 412:startup.c     ****   RCC_AHB2ENR = 0x00040007;
+ 1099              		.loc 1 412 3
+ 1100 0556 844B     		ldr	r3, .L43+16	@ _96,
+ 1101              	@ startup.c:412:   RCC_AHB2ENR = 0x00040007;
+ 1102              		.loc 1 412 15
+ 1103 0558 844A     		ldr	r2, .L43+20	@ tmp352,
+ 1104 055a 1A60     		str	r2, [r3]	@ tmp352, *_96
+ 1105              	@ startup.c:413:   RCC_AHB2SMENR = 0x00040007;
+ 413:startup.c     ****   RCC_AHB2SMENR = 0x00040007;
+ 1106              		.loc 1 413 3
+ 1107 055c 844B     		ldr	r3, .L43+24	@ _97,
+ 1108              	@ startup.c:413:   RCC_AHB2SMENR = 0x00040007;
+ 1109              		.loc 1 413 17
+ 1110 055e 834A     		ldr	r2, .L43+20	@ tmp353,
+ 1111 0560 1A60     		str	r2, [r3]	@ tmp353, *_97
+ 1112              	@ startup.c:422:   RCC_AHB3ENR = 0x00000000;
+ 414:startup.c     **** 
+ 415:startup.c     ****   //--- Enable the following AHB3 Peripherials
+ 416:startup.c     ****   //--- RCC Configuration Register
+ 417:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 418:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 419:startup.c     ****   //      .... .... .... .... .... ...| .... ....
+ 420:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 421:startup.c     ****   //      QPSI Off
+ 422:startup.c     ****   RCC_AHB3ENR = 0x00000000;
+ 1113              		.loc 1 422 3
+ 1114 0562 844B     		ldr	r3, .L43+28	@ _98,
+ 1115              	@ startup.c:422:   RCC_AHB3ENR = 0x00000000;
+ 1116              		.loc 1 422 15
+ 1117 0564 0022     		movs	r2, #0	@ tmp354,
+ 1118 0566 1A60     		str	r2, [r3]	@ tmp354, *_98
+ 1119              	@ startup.c:423:   RCC_AHB3SMENR = 0x00000000;
+ 423:startup.c     ****   RCC_AHB3SMENR = 0x00000000;
+ 1120              		.loc 1 423 3
+ 1121 0568 834B     		ldr	r3, .L43+32	@ _99,
+ 1122              	@ startup.c:423:   RCC_AHB3SMENR = 0x00000000;
+ 1123              		.loc 1 423 17
+ 1124 056a 0022     		movs	r2, #0	@ tmp355,
+ 1125 056c 1A60     		str	r2, [r3]	@ tmp355, *_99
+ 1126              	@ startup.c:459:   RCC_APB1ENR1 = 0x10200800;
+ 424:startup.c     **** 
+ 425:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 426:startup.c     ****   //    Enable the following APB1 Peripherials
+ 427:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 428:startup.c     ****   //--- Enable the following APB1 Peripherials
+ 429:startup.c     ****   //--- RCC Peripherial Clock 1
+ 430:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 431:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 432:startup.c     ****   // USED |||| .||| |||. |||. ||.. .||| ..|| ..||
+ 433:startup.c     ****   // S/C  0001 0000 0010 0000 0000 1000 0000 0000
+ 434:startup.c     ****   //      Name             Bit#  On/Off
+ 435:startup.c     ****   //      -------------    ----   ---
+ 436:startup.c     ****   //      Timer 2           00    Off
+ 437:startup.c     ****   //      Timer 3           01    Off
+ 438:startup.c     ****   //      Timer 6           04    Off
+ 439:startup.c     ****   //      Timer 7           05    Off
+ 440:startup.c     ****   //      LCD               09    Off
+ 441:startup.c     ****   //      RTCAPB            10    On
+ 442:startup.c     ****   //      WWDG              11    Off
+ 443:startup.c     ****   //      SPI2              14    Off
+ 444:startup.c     ****   //      SPI3              15    Off
+ 445:startup.c     ****   //      UART 2            17    Off
+ 446:startup.c     ****   //      UART 3            18    Off
+ 447:startup.c     ****   //      UART 4            19    Off
+ 448:startup.c     ****   //      I2C1              21    On
+ 449:startup.c     ****   //      I2C2              22    Off
+ 450:startup.c     ****   //      I2C3              23    Off
+ 451:startup.c     ****   //      CRS               24    Off
+ 452:startup.c     ****   //      CAN 1             25    Off
+ 453:startup.c     ****   //      USB FS            26    Off
+ 454:startup.c     ****   //      PWREN             28    On
+ 455:startup.c     ****   //      DAC 1             29    Off
+ 456:startup.c     ****   //      OPAMP             30    Off
+ 457:startup.c     ****   //      LPTIM 1           31    Off
+ 458:startup.c     ****   //
+ 459:startup.c     ****   RCC_APB1ENR1 = 0x10200800;
+ 1127              		.loc 1 459 3
+ 1128 056e 834B     		ldr	r3, .L43+36	@ _100,
+ 1129              	@ startup.c:459:   RCC_APB1ENR1 = 0x10200800;
+ 1130              		.loc 1 459 16
+ 1131 0570 834A     		ldr	r2, .L43+40	@ tmp356,
+ 1132 0572 1A60     		str	r2, [r3]	@ tmp356, *_100
+ 1133              	@ startup.c:460:   RCC_APB1SMENR1 = 0x10200800;
+ 460:startup.c     ****   RCC_APB1SMENR1 = 0x10200800;
+ 1134              		.loc 1 460 3
+ 1135 0574 834B     		ldr	r3, .L43+44	@ _101,
+ 1136              	@ startup.c:460:   RCC_APB1SMENR1 = 0x10200800;
+ 1137              		.loc 1 460 18
+ 1138 0576 824A     		ldr	r2, .L43+40	@ tmp357,
+ 1139 0578 1A60     		str	r2, [r3]	@ tmp357, *_101
+ 1140              	@ startup.c:473:   RCC_APB1ENR2 = 0x00000000;
+ 461:startup.c     **** 
+ 462:startup.c     ****   //--- Enable the following APB1 Peripherials
+ 463:startup.c     ****   //--- RCC Peripherial Clock 1
+ 464:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 465:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 466:startup.c     ****   //      .... .... .... .... .... .... ..|. ._||
+ 467:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 468:startup.c     ****   //
+ 469:startup.c     ****   //  LPUART 1 Ena      Off
+ 470:startup.c     ****   //  I2C4 Ena          Off
+ 471:startup.c     ****   //  LPUART 1 Ena      Off
+ 472:startup.c     ****   //  LPUART 1 Ena      Off
+ 473:startup.c     ****   RCC_APB1ENR2 = 0x00000000;
+ 1141              		.loc 1 473 3
+ 1142 057a 834B     		ldr	r3, .L43+48	@ _102,
+ 1143              	@ startup.c:473:   RCC_APB1ENR2 = 0x00000000;
+ 1144              		.loc 1 473 16
+ 1145 057c 0022     		movs	r2, #0	@ tmp358,
+ 1146 057e 1A60     		str	r2, [r3]	@ tmp358, *_102
+ 1147              	@ startup.c:474:   RCC_APB1SMENR2 = 0x00000000;
+ 474:startup.c     ****   RCC_APB1SMENR2 = 0x00000000;
+ 1148              		.loc 1 474 3
+ 1149 0580 824B     		ldr	r3, .L43+52	@ _103,
+ 1150              	@ startup.c:474:   RCC_APB1SMENR2 = 0x00000000;
+ 1151              		.loc 1 474 18
+ 1152 0582 0022     		movs	r2, #0	@ tmp359,
+ 1153 0584 1A60     		str	r2, [r3]	@ tmp359, *_103
+ 1154              	@ startup.c:487:   RCC_APB2ENR = 0x00000001;
+ 475:startup.c     **** 
+ 476:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 477:startup.c     ****   //    Enable the following APB2 Peripherials
+ 478:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 479:startup.c     ****   //--- Enable the following APB2 Peripherials
+ 480:startup.c     ****   //--- RCC Peripherial Clock 2 Enable
+ 481:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 482:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 483:startup.c     ****   //      .... .... .... .... .... .... .... ...|
+ 484:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0001
+ 485:startup.c     ****   //
+ 486:startup.c     ****   //
+ 487:startup.c     ****   RCC_APB2ENR = 0x00000001;
+ 1155              		.loc 1 487 3
+ 1156 0586 824B     		ldr	r3, .L43+56	@ _104,
+ 1157              	@ startup.c:487:   RCC_APB2ENR = 0x00000001;
+ 1158              		.loc 1 487 15
+ 1159 0588 0122     		movs	r2, #1	@ tmp360,
+ 1160 058a 1A60     		str	r2, [r3]	@ tmp360, *_104
+ 1161              	@ startup.c:488:   RCC_APB2SMENR = 0x00000001;
+ 488:startup.c     ****   RCC_APB2SMENR = 0x00000001;
+ 1162              		.loc 1 488 3
+ 1163 058c 814B     		ldr	r3, .L43+60	@ _105,
+ 1164              	@ startup.c:488:   RCC_APB2SMENR = 0x00000001;
+ 1165              		.loc 1 488 17
+ 1166 058e 0122     		movs	r2, #1	@ tmp361,
+ 1167 0590 1A60     		str	r2, [r3]	@ tmp361, *_105
+ 1168              	@ startup.c:491:   nop100;
+ 489:startup.c     **** 
+ 490:startup.c     ****   //--- Wait to settle down
+ 491:startup.c     ****   nop100;
+ 1169              		.loc 1 491 3
+ 1170              		.syntax unified
+ 1171              	@ 491 "startup.c" 1
+ 1172 0592 00BF     		nop
+ 1173 0594 00BF     		nop
+ 1174 0596 00BF     		nop
+ 1175 0598 00BF     		nop
+ 1176 059a 00BF     		nop
+ 1177 059c 00BF     		nop
+ 1178 059e 00BF     		nop
+ 1179 05a0 00BF     		nop
+ 1180 05a2 00BF     		nop
+ 1181 05a4 00BF     		nop
+ 1182 05a6 00BF     		nop
+ 1183 05a8 00BF     		nop
+ 1184 05aa 00BF     		nop
+ 1185 05ac 00BF     		nop
+ 1186 05ae 00BF     		nop
+ 1187 05b0 00BF     		nop
+ 1188 05b2 00BF     		nop
+ 1189 05b4 00BF     		nop
+ 1190 05b6 00BF     		nop
+ 1191 05b8 00BF     		nop
+ 1192 05ba 00BF     		nop
+ 1193 05bc 00BF     		nop
+ 1194 05be 00BF     		nop
+ 1195 05c0 00BF     		nop
+ 1196 05c2 00BF     		nop
+ 1197 05c4 00BF     		nop
+ 1198 05c6 00BF     		nop
+ 1199 05c8 00BF     		nop
+ 1200 05ca 00BF     		nop
+ 1201 05cc 00BF     		nop
+ 1202 05ce 00BF     		nop
+ 1203 05d0 00BF     		nop
+ 1204 05d2 00BF     		nop
+ 1205 05d4 00BF     		nop
+ 1206 05d6 00BF     		nop
+ 1207 05d8 00BF     		nop
+ 1208 05da 00BF     		nop
+ 1209 05dc 00BF     		nop
+ 1210 05de 00BF     		nop
+ 1211 05e0 00BF     		nop
+ 1212 05e2 00BF     		nop
+ 1213 05e4 00BF     		nop
+ 1214 05e6 00BF     		nop
+ 1215 05e8 00BF     		nop
+ 1216 05ea 00BF     		nop
+ 1217 05ec 00BF     		nop
+ 1218 05ee 00BF     		nop
+ 1219 05f0 00BF     		nop
+ 1220 05f2 00BF     		nop
+ 1221 05f4 00BF     		nop
+ 1222 05f6 00BF     		nop
+ 1223 05f8 00BF     		nop
+ 1224 05fa 00BF     		nop
+ 1225 05fc 00BF     		nop
+ 1226 05fe 00BF     		nop
+ 1227 0600 00BF     		nop
+ 1228 0602 00BF     		nop
+ 1229 0604 00BF     		nop
+ 1230 0606 00BF     		nop
+ 1231 0608 00BF     		nop
+ 1232 060a 00BF     		nop
+ 1233 060c 00BF     		nop
+ 1234 060e 00BF     		nop
+ 1235 0610 00BF     		nop
+ 1236 0612 00BF     		nop
+ 1237 0614 00BF     		nop
+ 1238 0616 00BF     		nop
+ 1239 0618 00BF     		nop
+ 1240 061a 00BF     		nop
+ 1241 061c 00BF     		nop
+ 1242 061e 00BF     		nop
+ 1243 0620 00BF     		nop
+ 1244 0622 00BF     		nop
+ 1245 0624 00BF     		nop
+ 1246 0626 00BF     		nop
+ 1247 0628 00BF     		nop
+ 1248 062a 00BF     		nop
+ 1249 062c 00BF     		nop
+ 1250 062e 00BF     		nop
+ 1251 0630 00BF     		nop
+ 1252 0632 00BF     		nop
+ 1253 0634 00BF     		nop
+ 1254 0636 00BF     		nop
+ 1255 0638 00BF     		nop
+ 1256 063a 00BF     		nop
+ 1257 063c 00BF     		nop
+ 1258 063e 00BF     		nop
+ 1259 0640 00BF     		nop
+ 1260 0642 00BF     		nop
+ 1261 0644 00BF     		nop
+ 1262 0646 00BF     		nop
+ 1263 0648 00BF     		nop
+ 1264 064a 00BF     		nop
+ 1265 064c 00BF     		nop
+ 1266 064e 00BF     		nop
+ 1267 0650 00BF     		nop
+ 1268 0652 00BF     		nop
+ 1269 0654 00BF     		nop
+ 1270 0656 00BF     		nop
+ 1271 0658 00BF     		nop
+ 1272              		
+ 1273              	@ 0 "" 2
+ 1274              	@ startup.c:508:   GPIOA_MODER = 0x55555555;                       //--- Set Port Pin I/O Type A08 
+ 492:startup.c     **** 
+ 493:startup.c     ****   //===========================================================================================
+ 494:startup.c     ****   //    Configure GPIO Ports
+ 495:startup.c     ****   //===========================================================================================
+ 496:startup.c     **** 
+ 497:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 498:startup.c     ****   //      Configure GPIO_A
+ 499:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 500:startup.c     ****   //      GPIO MODE
+ 501:startup.c     ****   //      15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+ 502:startup.c     ****   //      .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+ 503:startup.c     ****   //      33 22 22 22 22 22 11 11 11 11 11 00 00 00 00 00
+ 504:startup.c     ****   //      10 98 76 54 32 10 98 76 54 32 10 98 76 54 32 10
+ 505:startup.c     ****   //      .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+ 506:startup.c     ****   //      00 00.00 00.00 00.00 00.01 01.01 01.01 01.01 01
+ 507:startup.c     ****   //      OT OT OT OT OT OT OT OT OT OT OT OT OT OT OT OT
+ 508:startup.c     ****   GPIOA_MODER = 0x55555555;                       //--- Set Port Pin I/O Type A08 = MOC Out
+ 1275              		.loc 1 508 3
+ 1276              		.thumb
+ 1277              		.syntax unified
+ 1278 065a 4FF09043 		mov	r3, #1207959552	@ _106,
+ 1279              	@ startup.c:508:   GPIOA_MODER = 0x55555555;                       //--- Set Port Pin I/O Type A08 
+ 1280              		.loc 1 508 15
+ 1281 065e 4FF05532 		mov	r2, #1431655765	@ tmp362,
+ 1282 0662 1A60     		str	r2, [r3]	@ tmp362, *_106
+ 1283              	@ startup.c:519:   GPIOA_OTYPER = 0x00000000;                      //--- All Outputs are Push/Pull
+ 509:startup.c     **** 
+ 510:startup.c     ****   //----- Test Configuration ------------
+ 511:startup.c     ****   //  GPIOA_MODER = 0x55565555;                   //--- Set Port Pin I/O Type A08 = MOC Out
+ 512:startup.c     ****   //-------------------------------------
+ 513:startup.c     **** 
+ 514:startup.c     ****   //      GPIO OTYPE
+ 515:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 516:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 517:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 518:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 519:startup.c     ****   GPIOA_OTYPER = 0x00000000;                      //--- All Outputs are Push/Pull
+ 1284              		.loc 1 519 3
+ 1285 0664 4C4B     		ldr	r3, .L43+64	@ _107,
+ 1286              	@ startup.c:519:   GPIOA_OTYPER = 0x00000000;                      //--- All Outputs are Push/Pull
+ 1287              		.loc 1 519 16
+ 1288 0666 0022     		movs	r2, #0	@ tmp363,
+ 1289 0668 1A60     		str	r2, [r3]	@ tmp363, *_107
+ 1290              	@ startup.c:528:   GPIOA_OSPEEDR = 0xFFFFFFFF;                     //--- Every One is High Speed
+ 520:startup.c     **** 
+ 521:startup.c     ****   //      GPIO OSPEED
+ 522:startup.c     ****   //      15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+ 523:startup.c     ****   //      33 22 22 22 22 22 11 11 11 11 11 00 00 00 00 00
+ 524:startup.c     ****   //      10 98 76 54 32 10 98 76 54 32 10 98 76 54 32 10
+ 525:startup.c     ****   //      .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+ 526:startup.c     ****   //      11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11
+ 527:startup.c     ****   //      FS FS FS FS FS FS FS FS FS FS FS FS FS FS FS FS
+ 528:startup.c     ****   GPIOA_OSPEEDR = 0xFFFFFFFF;                     //--- Every One is High Speed
+ 1291              		.loc 1 528 3
+ 1292 066a 4C4B     		ldr	r3, .L43+68	@ _108,
+ 1293              	@ startup.c:528:   GPIOA_OSPEEDR = 0xFFFFFFFF;                     //--- Every One is High Speed
+ 1294              		.loc 1 528 17
+ 1295 066c 4FF0FF32 		mov	r2, #-1	@ tmp364,
+ 1296 0670 1A60     		str	r2, [r3]	@ tmp364, *_108
+ 1297              	@ startup.c:537:   GPIOA_PUPDR = 0x00000000;                       //--- Set 01 As Pull Ups
+ 529:startup.c     **** 
+ 530:startup.c     ****   //      GPIO INPUT PUPD RESISTORS
+ 531:startup.c     ****   //      15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+ 532:startup.c     ****   //      33 22 22 22 22 22 11 11 11 11 11 00 00 00 00 00
+ 533:startup.c     ****   //      10 98 76 54 32 10 98 76 54 32 10 98 76 54 32 10
+ 534:startup.c     ****   //      .. ..|.. ..|.. ..|.. ..|.. ..|.. ..|.. ..|.. ..
+ 535:startup.c     ****   //      00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 00
+ 536:startup.c     ****   //      PU PU PU NP NP PU NP PU NP NP NP NP NP NP NP NP
+ 537:startup.c     ****   GPIOA_PUPDR = 0x00000000;                       //--- Set 01 As Pull Ups
+ 1298              		.loc 1 537 3
+ 1299 0672 4B4B     		ldr	r3, .L43+72	@ _109,
+ 1300              	@ startup.c:537:   GPIOA_PUPDR = 0x00000000;                       //--- Set 01 As Pull Ups
+ 1301              		.loc 1 537 15
+ 1302 0674 0022     		movs	r2, #0	@ tmp365,
+ 1303 0676 1A60     		str	r2, [r3]	@ tmp365, *_109
+ 1304              	@ startup.c:544:   GPIOA_ODR = 0x00000000;                         //--- Start with all 0's out
+ 538:startup.c     **** 
+ 539:startup.c     ****   //      GPIO ODR
+ 540:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 541:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 542:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 543:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 544:startup.c     ****   GPIOA_ODR = 0x00000000;                         //--- Start with all 0's out
+ 1305              		.loc 1 544 3
+ 1306 0678 4A4B     		ldr	r3, .L43+76	@ _110,
+ 1307              	@ startup.c:544:   GPIOA_ODR = 0x00000000;                         //--- Start with all 0's out
+ 1308              		.loc 1 544 13
+ 1309 067a 0022     		movs	r2, #0	@ tmp366,
+ 1310 067c 1A60     		str	r2, [r3]	@ tmp366, *_110
+ 1311              	@ startup.c:551:   GPIOA_BSRR = 0x00000000;                        //--- Nothing to BSRR
+ 545:startup.c     **** 
+ 546:startup.c     ****   //      GPIOBSRR
+ 547:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 548:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 549:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 550:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 551:startup.c     ****   GPIOA_BSRR = 0x00000000;                        //--- Nothing to BSRR
+ 1312              		.loc 1 551 3
+ 1313 067e 4A4B     		ldr	r3, .L43+80	@ _111,
+ 1314              	@ startup.c:551:   GPIOA_BSRR = 0x00000000;                        //--- Nothing to BSRR
+ 1315              		.loc 1 551 14
+ 1316 0680 0022     		movs	r2, #0	@ tmp367,
+ 1317 0682 1A60     		str	r2, [r3]	@ tmp367, *_111
+ 1318              	@ startup.c:558:   GPIOA_LCKR = 0x00000000;                        //--- All Ports are unlocked
+ 552:startup.c     **** 
+ 553:startup.c     ****   //      GPIO LCKR
+ 554:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 555:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 556:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 557:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 558:startup.c     ****   GPIOA_LCKR = 0x00000000;                        //--- All Ports are unlocked
+ 1319              		.loc 1 558 3
+ 1320 0684 494B     		ldr	r3, .L43+84	@ _112,
+ 1321              	@ startup.c:558:   GPIOA_LCKR = 0x00000000;                        //--- All Ports are unlocked
+ 1322              		.loc 1 558 14
+ 1323 0686 0022     		movs	r2, #0	@ tmp368,
+ 1324 0688 1A60     		str	r2, [r3]	@ tmp368, *_112
+ 1325              	@ startup.c:565:   GPIOA_AFRL = 0x00000000;                        //--- Set AFRL to 0
+ 559:startup.c     **** 
+ 560:startup.c     ****   //      GPIO AFRL
+ 561:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 562:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 563:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 564:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 565:startup.c     ****   GPIOA_AFRL = 0x00000000;                        //--- Set AFRL to 0
+ 1326              		.loc 1 565 3
+ 1327 068a 494B     		ldr	r3, .L43+88	@ _113,
+ 1328              	@ startup.c:565:   GPIOA_AFRL = 0x00000000;                        //--- Set AFRL to 0
+ 1329              		.loc 1 565 14
+ 1330 068c 0022     		movs	r2, #0	@ tmp369,
+ 1331 068e 1A60     		str	r2, [r3]	@ tmp369, *_113
+ 1332              	@ startup.c:572:   GPIOA_AFRH = 0x00000000;                        //--- Set AFRH to 0
+ 566:startup.c     **** 
+ 567:startup.c     ****   //      GPIO AFRH
+ 568:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 569:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 570:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 571:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 572:startup.c     ****   GPIOA_AFRH = 0x00000000;                        //--- Set AFRH to 0
+ 1333              		.loc 1 572 3
+ 1334 0690 484B     		ldr	r3, .L43+92	@ _114,
+ 1335              	@ startup.c:572:   GPIOA_AFRH = 0x00000000;                        //--- Set AFRH to 0
+ 1336              		.loc 1 572 14
+ 1337 0692 0022     		movs	r2, #0	@ tmp370,
+ 1338 0694 1A60     		str	r2, [r3]	@ tmp370, *_114
+ 1339              	@ startup.c:586:   GPIOB_MODER = 0x00000005;
+ 573:startup.c     **** 
+ 574:startup.c     **** 
+ 575:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 576:startup.c     ****   //      Configure GPIO_B
+ 577:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 578:startup.c     ****   //      GPIO MODE
+ 579:startup.c     ****   //      15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+ 580:startup.c     ****   //      .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+ 581:startup.c     ****   //      33 22 22 22 22 22 11 11 11 11 11 00 00 00 00 00
+ 582:startup.c     ****   //      10 98 76 54 32 10 98 76 54 32 10 98 76 54 32 10
+ 583:startup.c     ****   //      .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+ 584:startup.c     ****   //      00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 01
+ 585:startup.c     ****   //      IN IN.IN IN.IN IN.IN IN.IN IN.IN IN.IN IN.OT OT
+ 586:startup.c     ****   GPIOB_MODER = 0x00000005;
+ 1340              		.loc 1 586 3
+ 1341 0696 484B     		ldr	r3, .L43+96	@ _115,
+ 1342              	@ startup.c:586:   GPIOB_MODER = 0x00000005;
+ 1343              		.loc 1 586 15
+ 1344 0698 0522     		movs	r2, #5	@ tmp371,
+ 1345 069a 1A60     		str	r2, [r3]	@ tmp371, *_115
+ 1346              	@ startup.c:593:   GPIOB_OTYPER = 0x00000000;
+ 587:startup.c     **** 
+ 588:startup.c     ****   //      GPIO OTYPE
+ 589:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 590:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 591:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 592:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 593:startup.c     ****   GPIOB_OTYPER = 0x00000000;
+ 1347              		.loc 1 593 3
+ 1348 069c 474B     		ldr	r3, .L43+100	@ _116,
+ 1349              	@ startup.c:593:   GPIOB_OTYPER = 0x00000000;
+ 1350              		.loc 1 593 16
+ 1351 069e 0022     		movs	r2, #0	@ tmp372,
+ 1352 06a0 1A60     		str	r2, [r3]	@ tmp372, *_116
+ 1353              	@ startup.c:602:   GPIOB_OSPEEDR = 0xFFFFFFFF;
+ 594:startup.c     **** 
+ 595:startup.c     ****   //      GPIO OSPEED
+ 596:startup.c     ****   //      15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+ 597:startup.c     ****   //      33 22 22 22 22 22 11 11 11 11 11 00 00 00 00 00
+ 598:startup.c     ****   //      10 98 76 54 32 10 98 76 54 32 10 98 76 54 32 10
+ 599:startup.c     ****   //      .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+ 600:startup.c     ****   //      11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11
+ 601:startup.c     ****   //      FS FS FS FS FS FS FS FS FS FS FS FS FS FS FS FS
+ 602:startup.c     ****   GPIOB_OSPEEDR = 0xFFFFFFFF;
+ 1354              		.loc 1 602 3
+ 1355 06a2 474B     		ldr	r3, .L43+104	@ _117,
+ 1356              	@ startup.c:602:   GPIOB_OSPEEDR = 0xFFFFFFFF;
+ 1357              		.loc 1 602 17
+ 1358 06a4 4FF0FF32 		mov	r2, #-1	@ tmp373,
+ 1359 06a8 1A60     		str	r2, [r3]	@ tmp373, *_117
+ 1360              	@ startup.c:610:   GPIOB_PUPDR = 0x00000000;
+ 603:startup.c     **** 
+ 604:startup.c     ****   //      GPIO INPUT PUPD RESISTORS
+ 605:startup.c     ****   //      15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+ 606:startup.c     ****   //      33 22 22 22 22 22 11 11 11 11 11 00 00 00 00 00
+ 607:startup.c     ****   //      10 98 76 54 32 10 98 76 54 32 10 98 76 54 32 10
+ 608:startup.c     ****   //      .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+ 609:startup.c     ****   //      00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ 610:startup.c     ****   GPIOB_PUPDR = 0x00000000;
+ 1361              		.loc 1 610 3
+ 1362 06aa 464B     		ldr	r3, .L43+108	@ _118,
+ 1363              	@ startup.c:610:   GPIOB_PUPDR = 0x00000000;
+ 1364              		.loc 1 610 15
+ 1365 06ac 0022     		movs	r2, #0	@ tmp374,
+ 1366 06ae 1A60     		str	r2, [r3]	@ tmp374, *_118
+ 1367              	@ startup.c:617:   GPIOB_ODR = 0x00000000;
+ 611:startup.c     **** 
+ 612:startup.c     ****   //      GPIO ODR
+ 613:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 614:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 615:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 616:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 617:startup.c     ****   GPIOB_ODR = 0x00000000;
+ 1368              		.loc 1 617 3
+ 1369 06b0 454B     		ldr	r3, .L43+112	@ _119,
+ 1370              	@ startup.c:617:   GPIOB_ODR = 0x00000000;
+ 1371              		.loc 1 617 13
+ 1372 06b2 0022     		movs	r2, #0	@ tmp375,
+ 1373 06b4 1A60     		str	r2, [r3]	@ tmp375, *_119
+ 1374              	@ startup.c:624:   GPIOB_BSRR = 0x00000000;
+ 618:startup.c     **** 
+ 619:startup.c     ****   //      GPIOBSRR
+ 620:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 621:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 622:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 623:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 624:startup.c     ****   GPIOB_BSRR = 0x00000000;
+ 1375              		.loc 1 624 3
+ 1376 06b6 454B     		ldr	r3, .L43+116	@ _120,
+ 1377              	@ startup.c:624:   GPIOB_BSRR = 0x00000000;
+ 1378              		.loc 1 624 14
+ 1379 06b8 0022     		movs	r2, #0	@ tmp376,
+ 1380 06ba 1A60     		str	r2, [r3]	@ tmp376, *_120
+ 1381              	@ startup.c:631:   GPIOB_LCKR = 0x00000000;
+ 625:startup.c     **** 
+ 626:startup.c     ****   //      GPIO LCKR
+ 627:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 628:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 629:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 630:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 631:startup.c     ****   GPIOB_LCKR = 0x00000000;
+ 1382              		.loc 1 631 3
+ 1383 06bc 444B     		ldr	r3, .L43+120	@ _121,
+ 1384              	@ startup.c:631:   GPIOB_LCKR = 0x00000000;
+ 1385              		.loc 1 631 14
+ 1386 06be 0022     		movs	r2, #0	@ tmp377,
+ 1387 06c0 1A60     		str	r2, [r3]	@ tmp377, *_121
+ 1388              	@ startup.c:638:   GPIOB_AFRL = 0x00000000;
+ 632:startup.c     **** 
+ 633:startup.c     ****   //      GPIO AFRL
+ 634:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 635:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 636:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 637:startup.c     ****   //      0100 0100 0000 0000 0000 0000 0000 0000
+ 638:startup.c     ****   GPIOB_AFRL = 0x00000000;
+ 1389              		.loc 1 638 3
+ 1390 06c2 444B     		ldr	r3, .L43+124	@ _122,
+ 1391              	@ startup.c:638:   GPIOB_AFRL = 0x00000000;
+ 1392              		.loc 1 638 14
+ 1393 06c4 0022     		movs	r2, #0	@ tmp378,
+ 1394 06c6 1A60     		str	r2, [r3]	@ tmp378, *_122
+ 1395              	@ startup.c:645:   GPIOB_AFRH = 0x00000000;
+ 639:startup.c     **** 
+ 640:startup.c     ****   //      GPIO AFRH
+ 641:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 642:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 643:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 644:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 645:startup.c     ****   GPIOB_AFRH = 0x00000000;
+ 1396              		.loc 1 645 3
+ 1397 06c8 434B     		ldr	r3, .L43+128	@ _123,
+ 1398              	@ startup.c:645:   GPIOB_AFRH = 0x00000000;
+ 1399              		.loc 1 645 14
+ 1400 06ca 0022     		movs	r2, #0	@ tmp379,
+ 1401 06cc 1A60     		str	r2, [r3]	@ tmp379, *_123
+ 1402              	@ startup.c:648:   nop48;
+ 646:startup.c     **** 
+ 647:startup.c     ****   //--- Waste a little Time for things to settle down
+ 648:startup.c     ****   nop48;
+ 1403              		.loc 1 648 3
+ 1404              		.syntax unified
+ 1405              	@ 648 "startup.c" 1
+ 1406 06ce 00BF     		nop
+ 1407 06d0 00BF     		nop
+ 1408 06d2 00BF     		nop
+ 1409 06d4 00BF     		nop
+ 1410 06d6 00BF     		nop
+ 1411 06d8 00BF     		nop
+ 1412 06da 00BF     		nop
+ 1413 06dc 00BF     		nop
+ 1414 06de 00BF     		nop
+ 1415 06e0 00BF     		nop
+ 1416 06e2 00BF     		nop
+ 1417 06e4 00BF     		nop
+ 1418 06e6 00BF     		nop
+ 1419 06e8 00BF     		nop
+ 1420 06ea 00BF     		nop
+ 1421 06ec 00BF     		nop
+ 1422 06ee 00BF     		nop
+ 1423 06f0 00BF     		nop
+ 1424 06f2 00BF     		nop
+ 1425 06f4 00BF     		nop
+ 1426 06f6 00BF     		nop
+ 1427 06f8 00BF     		nop
+ 1428 06fa 00BF     		nop
+ 1429 06fc 00BF     		nop
+ 1430 06fe 00BF     		nop
+ 1431 0700 00BF     		nop
+ 1432 0702 00BF     		nop
+ 1433 0704 00BF     		nop
+ 1434 0706 00BF     		nop
+ 1435 0708 00BF     		nop
+ 1436 070a 00BF     		nop
+ 1437 070c 00BF     		nop
+ 1438 070e 00BF     		nop
+ 1439 0710 00BF     		nop
+ 1440 0712 00BF     		nop
+ 1441 0714 00BF     		nop
+ 1442 0716 00BF     		nop
+ 1443 0718 00BF     		nop
+ 1444 071a 00BF     		nop
+ 1445 071c 00BF     		nop
+ 1446 071e 00BF     		nop
+ 1447 0720 00BF     		nop
+ 1448 0722 00BF     		nop
+ 1449 0724 00BF     		nop
+ 1450 0726 00BF     		nop
+ 1451 0728 00BF     		nop
+ 1452 072a 00BF     		nop
+ 1453 072c 00BF     		nop
+ 1454              		
+ 1455              	@ 0 "" 2
+ 1456              	@ startup.c:661:   GPIOC_MODER = 0x40000000;
+ 649:startup.c     **** 
+ 650:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 651:startup.c     ****   //      Configure GPIO_C
+ 652:startup.c     ****   //-------------------------------------------------------------------------------------------
+ 653:startup.c     ****   //      GPIO MODE
+ 654:startup.c     ****   //      15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+ 655:startup.c     ****   //      .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+ 656:startup.c     ****   //      33 22 22 22 22 22 11 11 11 11 11 00 00 00 00 00
+ 657:startup.c     ****   //      10 98 76 54 32 10 98 76 54 32 10 98 76 54 32 10
+ 658:startup.c     ****   //      .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+ 659:startup.c     ****   //      00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ 660:startup.c     ****   //      OT IN.IN IN.IN IN.IN IN.IN IN.IN IN.IN IN.IN IN
+ 661:startup.c     ****   GPIOC_MODER = 0x40000000;
+ 1457              		.loc 1 661 3
+ 1458              		.thumb
+ 1459              		.syntax unified
+ 1460 072e 2B4B     		ldr	r3, .L43+132	@ _124,
+ 1461              	@ startup.c:661:   GPIOC_MODER = 0x40000000;
+ 1462              		.loc 1 661 15
+ 1463 0730 4FF08042 		mov	r2, #1073741824	@ tmp380,
+ 1464 0734 1A60     		str	r2, [r3]	@ tmp380, *_124
+ 1465              	@ startup.c:668:   GPIOC_OTYPER = 0x00000000;
+ 662:startup.c     **** 
+ 663:startup.c     ****   //      GPIO OTYPE
+ 664:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 665:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 666:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 667:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 668:startup.c     ****   GPIOC_OTYPER = 0x00000000;
+ 1466              		.loc 1 668 3
+ 1467 0736 2A4B     		ldr	r3, .L43+136	@ _125,
+ 1468              	@ startup.c:668:   GPIOC_OTYPER = 0x00000000;
+ 1469              		.loc 1 668 16
+ 1470 0738 0022     		movs	r2, #0	@ tmp381,
+ 1471 073a 1A60     		str	r2, [r3]	@ tmp381, *_125
+ 1472              	@ startup.c:677:   GPIOC_OSPEEDR = 0xFFFFFFFF;
+ 669:startup.c     **** 
+ 670:startup.c     ****   //      GPIO OSPEED
+ 671:startup.c     ****   //      15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+ 672:startup.c     ****   //      33 22 22 22 22 22 11 11 11 11 11 00 00 00 00 00
+ 673:startup.c     ****   //      10 98 76 54 32 10 98 76 54 32 10 98 76 54 32 10
+ 674:startup.c     ****   //      .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+ 675:startup.c     ****   //      11 11 11 11 11 11 11 11 11 11 11 11 11 11 11 11
+ 676:startup.c     ****   //      FS FS FS FS FS FS FS FS FS FS FS FS FS FS FS FS
+ 677:startup.c     ****   GPIOC_OSPEEDR = 0xFFFFFFFF;
+ 1473              		.loc 1 677 3
+ 1474 073c 294B     		ldr	r3, .L43+140	@ _126,
+ 1475              	@ startup.c:677:   GPIOC_OSPEEDR = 0xFFFFFFFF;
+ 1476              		.loc 1 677 17
+ 1477 073e 4FF0FF32 		mov	r2, #-1	@ tmp382,
+ 1478 0742 1A60     		str	r2, [r3]	@ tmp382, *_126
+ 1479              	@ startup.c:685:   GPIOC_PUPDR = 0x00000000;
+ 678:startup.c     **** 
+ 679:startup.c     ****   //      GPIO INPUT PUPD RESISTORS
+ 680:startup.c     ****   //      15 14 13 12 11 10 09 08 07 06 05 04 03 02 01 00
+ 681:startup.c     ****   //      33 22 22 22 22 22 11 11 11 11 11 00 00 00 00 00
+ 682:startup.c     ****   //      10 98 76 54 32 10 98 76 54 32 10 98 76 54 32 10
+ 683:startup.c     ****   //      .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
+ 684:startup.c     ****   //      00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+ 685:startup.c     ****   GPIOC_PUPDR = 0x00000000;
+ 1480              		.loc 1 685 3
+ 1481 0744 284B     		ldr	r3, .L43+144	@ _127,
+ 1482              	@ startup.c:685:   GPIOC_PUPDR = 0x00000000;
+ 1483              		.loc 1 685 15
+ 1484 0746 0022     		movs	r2, #0	@ tmp383,
+ 1485 0748 1A60     		str	r2, [r3]	@ tmp383, *_127
+ 1486              	@ startup.c:692:   GPIOC_ODR = 0x00000000;
+ 686:startup.c     **** 
+ 687:startup.c     ****   //      GPIO ODR
+ 688:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 689:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 690:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 691:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 692:startup.c     ****   GPIOC_ODR = 0x00000000;
+ 1487              		.loc 1 692 3
+ 1488 074a 284B     		ldr	r3, .L43+148	@ _128,
+ 1489              	@ startup.c:692:   GPIOC_ODR = 0x00000000;
+ 1490              		.loc 1 692 13
+ 1491 074c 0022     		movs	r2, #0	@ tmp384,
+ 1492 074e 1A60     		str	r2, [r3]	@ tmp384, *_128
+ 1493              	@ startup.c:699:   GPIOC_BSRR = 0x00000000;
+ 693:startup.c     **** 
+ 694:startup.c     ****   //      GPIOBSRR
+ 695:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 696:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 697:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 698:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 699:startup.c     ****   GPIOC_BSRR = 0x00000000;
+ 1494              		.loc 1 699 3
+ 1495 0750 274B     		ldr	r3, .L43+152	@ _129,
+ 1496              	@ startup.c:699:   GPIOC_BSRR = 0x00000000;
+ 1497              		.loc 1 699 14
+ 1498 0752 0022     		movs	r2, #0	@ tmp385,
+ 1499 0754 1A60     		str	r2, [r3]	@ tmp385, *_129
+ 1500 0756 4DE0     		b	.L44		@
+ 1501              	.L45:
+ 1502              		.align	2
+ 1503              	.L43:
+ 1504 0758 00000000 		.word	ulSystemFlags
+ 1505 075c 88100240 		.word	1073877128
+ 1506 0760 48100240 		.word	1073877064
+ 1507 0764 68100240 		.word	1073877096
+ 1508 0768 4C100240 		.word	1073877068
+ 1509 076c 07000400 		.word	262151
+ 1510 0770 6C100240 		.word	1073877100
+ 1511 0774 50100240 		.word	1073877072
+ 1512 0778 70100240 		.word	1073877104
+ 1513 077c 58100240 		.word	1073877080
+ 1514 0780 00082010 		.word	270534656
+ 1515 0784 78100240 		.word	1073877112
+ 1516 0788 5C100240 		.word	1073877084
+ 1517 078c 7C100240 		.word	1073877116
+ 1518 0790 60100240 		.word	1073877088
+ 1519 0794 80100240 		.word	1073877120
+ 1520 0798 04000048 		.word	1207959556
+ 1521 079c 08000048 		.word	1207959560
+ 1522 07a0 0C000048 		.word	1207959564
+ 1523 07a4 14000048 		.word	1207959572
+ 1524 07a8 18000048 		.word	1207959576
+ 1525 07ac 1C000048 		.word	1207959580
+ 1526 07b0 20000048 		.word	1207959584
+ 1527 07b4 24000048 		.word	1207959588
+ 1528 07b8 00040048 		.word	1207960576
+ 1529 07bc 04040048 		.word	1207960580
+ 1530 07c0 08040048 		.word	1207960584
+ 1531 07c4 0C040048 		.word	1207960588
+ 1532 07c8 14040048 		.word	1207960596
+ 1533 07cc 18040048 		.word	1207960600
+ 1534 07d0 1C040048 		.word	1207960604
+ 1535 07d4 20040048 		.word	1207960608
+ 1536 07d8 24040048 		.word	1207960612
+ 1537 07dc 00080048 		.word	1207961600
+ 1538 07e0 04080048 		.word	1207961604
+ 1539 07e4 08080048 		.word	1207961608
+ 1540 07e8 0C080048 		.word	1207961612
+ 1541 07ec 14080048 		.word	1207961620
+ 1542 07f0 18080048 		.word	1207961624
+ 1543              	.L44:
+ 1544              	@ startup.c:706:   GPIOC_LCKR = 0x00000000;
+ 700:startup.c     **** 
+ 701:startup.c     ****   //      GPIO LCKR
+ 702:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 703:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 704:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 705:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 706:startup.c     ****   GPIOC_LCKR = 0x00000000;
+ 1545              		.loc 1 706 3
+ 1546 07f4 4F4B     		ldr	r3, .L46	@ _130,
+ 1547              	@ startup.c:706:   GPIOC_LCKR = 0x00000000;
+ 1548              		.loc 1 706 14
+ 1549 07f6 0022     		movs	r2, #0	@ tmp386,
+ 1550 07f8 1A60     		str	r2, [r3]	@ tmp386, *_130
+ 1551              	@ startup.c:713:   GPIOC_AFRL = 0x00000000;
+ 707:startup.c     **** 
+ 708:startup.c     ****   //      GPIO AFRL
+ 709:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 710:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 711:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 712:startup.c     ****   //      0100 0100 0000 0000 0000 0000 0000 0000
+ 713:startup.c     ****   GPIOC_AFRL = 0x00000000;
+ 1552              		.loc 1 713 3
+ 1553 07fa 4F4B     		ldr	r3, .L46+4	@ _131,
+ 1554              	@ startup.c:713:   GPIOC_AFRL = 0x00000000;
+ 1555              		.loc 1 713 14
+ 1556 07fc 0022     		movs	r2, #0	@ tmp387,
+ 1557 07fe 1A60     		str	r2, [r3]	@ tmp387, *_131
+ 1558              	@ startup.c:720:   GPIOC_AFRH = 0x00000000;
+ 714:startup.c     **** 
+ 715:startup.c     ****   //      GPIO AFRH
+ 716:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 717:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 718:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 719:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0000
+ 720:startup.c     ****   GPIOC_AFRH = 0x00000000;
+ 1559              		.loc 1 720 3
+ 1560 0800 4E4B     		ldr	r3, .L46+8	@ _132,
+ 1561              	@ startup.c:720:   GPIOC_AFRH = 0x00000000;
+ 1562              		.loc 1 720 14
+ 1563 0802 0022     		movs	r2, #0	@ tmp388,
+ 1564 0804 1A60     		str	r2, [r3]	@ tmp388, *_132
+ 1565              	@ startup.c:723:   nop48;
+ 721:startup.c     **** 
+ 722:startup.c     ****   //--- Waste a little Time for things to settle down
+ 723:startup.c     ****   nop48;
+ 1566              		.loc 1 723 3
+ 1567              		.syntax unified
+ 1568              	@ 723 "startup.c" 1
+ 1569 0806 00BF     		nop
+ 1570 0808 00BF     		nop
+ 1571 080a 00BF     		nop
+ 1572 080c 00BF     		nop
+ 1573 080e 00BF     		nop
+ 1574 0810 00BF     		nop
+ 1575 0812 00BF     		nop
+ 1576 0814 00BF     		nop
+ 1577 0816 00BF     		nop
+ 1578 0818 00BF     		nop
+ 1579 081a 00BF     		nop
+ 1580 081c 00BF     		nop
+ 1581 081e 00BF     		nop
+ 1582 0820 00BF     		nop
+ 1583 0822 00BF     		nop
+ 1584 0824 00BF     		nop
+ 1585 0826 00BF     		nop
+ 1586 0828 00BF     		nop
+ 1587 082a 00BF     		nop
+ 1588 082c 00BF     		nop
+ 1589 082e 00BF     		nop
+ 1590 0830 00BF     		nop
+ 1591 0832 00BF     		nop
+ 1592 0834 00BF     		nop
+ 1593 0836 00BF     		nop
+ 1594 0838 00BF     		nop
+ 1595 083a 00BF     		nop
+ 1596 083c 00BF     		nop
+ 1597 083e 00BF     		nop
+ 1598 0840 00BF     		nop
+ 1599 0842 00BF     		nop
+ 1600 0844 00BF     		nop
+ 1601 0846 00BF     		nop
+ 1602 0848 00BF     		nop
+ 1603 084a 00BF     		nop
+ 1604 084c 00BF     		nop
+ 1605 084e 00BF     		nop
+ 1606 0850 00BF     		nop
+ 1607 0852 00BF     		nop
+ 1608 0854 00BF     		nop
+ 1609 0856 00BF     		nop
+ 1610 0858 00BF     		nop
+ 1611 085a 00BF     		nop
+ 1612 085c 00BF     		nop
+ 1613 085e 00BF     		nop
+ 1614 0860 00BF     		nop
+ 1615 0862 00BF     		nop
+ 1616 0864 00BF     		nop
+ 1617              		
+ 1618              	@ 0 "" 2
+ 1619              	@ startup.c:726:   FPU_ENA;
+ 724:startup.c     **** 
+ 725:startup.c     ****   //--- Enable FPU
+ 726:startup.c     ****   FPU_ENA;
+ 1620              		.loc 1 726 3
+ 1621              	@ 726 "startup.c" 1
+ 1622 0866 DFF8E400 		LDR.W R0, = 0xE000ED88
+ 1623 086a 0168     		LDR R1, [R0]
+ 1624 086c 41F47001 		ORR R1, #0x00F00000
+ 1625 0870 0160     		STR R1, [R0]
+ 1626 0872 BFF34F8F 		DSB
+ 1627 0876 BFF36F8F 		ISB
+ 1628              		
+ 1629              	@ 0 "" 2
+ 1630              	@ startup.c:734:   VREFBUF_CSR = 0x00000005;                     //--- VREF = 2.500V Internal Ref
+ 727:startup.c     **** 
+ 728:startup.c     ****   //--- Preset internal reference voltage to 2.5V
+ 729:startup.c     ****   //      VREFBUF
+ 730:startup.c     ****   //      3322 2222 2222 1111 1111 1100 0000 0000
+ 731:startup.c     ****   //      1098 7654 3210 9876 5432 1098 7654 3210
+ 732:startup.c     ****   //      .... .... .... .... .... .... .... ....
+ 733:startup.c     ****   //      0000 0000 0000 0000 0000 0000 0000 0101
+ 734:startup.c     ****   VREFBUF_CSR = 0x00000005;                     //--- VREF = 2.500V Internal Ref
+ 1631              		.loc 1 734 3
+ 1632              		.thumb
+ 1633              		.syntax unified
+ 1634 087a 314B     		ldr	r3, .L46+12	@ _133,
+ 1635              	@ startup.c:734:   VREFBUF_CSR = 0x00000005;                     //--- VREF = 2.500V Internal Ref
+ 1636              		.loc 1 734 15
+ 1637 087c 0522     		movs	r2, #5	@ tmp389,
+ 1638 087e 1A60     		str	r2, [r3]	@ tmp389, *_133
+ 1639              	@ startup.c:741:   ulSystemFlags |= 0x00000020;                  //--- Success = Hi
+ 735:startup.c     **** 
+ 736:startup.c     ****   //  VREFBUF_CSR = 0x00000001;                     //--- VREF = 2.048V Internal Ref
+ 737:startup.c     ****   //  VREFBUF_CSR = 0x00000000;                     //--- VREF = External Reference
+ 738:startup.c     **** 
+ 739:startup.c     **** 
+ 740:startup.c     ****   //--- Show that Init Complete
+ 741:startup.c     ****   ulSystemFlags |= 0x00000020;                  //--- Success = Hi
+ 1640              		.loc 1 741 17
+ 1641 0880 304B     		ldr	r3, .L46+16	@ tmp390,
+ 1642 0882 1B68     		ldr	r3, [r3]	@ ulSystemFlags.28_134, ulSystemFlags
+ 1643 0884 43F02003 		orr	r3, r3, #32	@ _135, ulSystemFlags.28_134,
+ 1644 0888 2E4A     		ldr	r2, .L46+16	@ tmp391,
+ 1645 088a 1360     		str	r3, [r2]	@ _135, ulSystemFlags
+ 1646              	@ startup.c:744:   if (ulSystemFlags & 0x00000001) SET_PA00;
+ 742:startup.c     **** 
+ 743:startup.c     ****   //--- Set Port A to reflect ulSystemFlags from Boot Sequence
+ 744:startup.c     ****   if (ulSystemFlags & 0x00000001) SET_PA00;
+ 1647              		.loc 1 744 21
+ 1648 088c 2D4B     		ldr	r3, .L46+16	@ tmp392,
+ 1649 088e 1B68     		ldr	r3, [r3]	@ ulSystemFlags.29_136, ulSystemFlags
+ 1650 0890 03F00103 		and	r3, r3, #1	@ _137, ulSystemFlags.29_136,
+ 1651              	@ startup.c:744:   if (ulSystemFlags & 0x00000001) SET_PA00;
+ 1652              		.loc 1 744 6
+ 1653 0894 002B     		cmp	r3, #0	@ _137,
+ 1654 0896 02D0     		beq	.L31		@,
+ 1655              	@ startup.c:744:   if (ulSystemFlags & 0x00000001) SET_PA00;
+ 1656              		.loc 1 744 35 discriminator 1
+ 1657 0898 2B4B     		ldr	r3, .L46+20	@ _138,
+ 1658 089a 0122     		movs	r2, #1	@ tmp393,
+ 1659 089c 1A60     		str	r2, [r3]	@ tmp393, *_138
+ 1660              	.L31:
+ 1661              	@ startup.c:745:   if (ulSystemFlags & 0x00000002) SET_PA01;
+ 745:startup.c     ****   if (ulSystemFlags & 0x00000002) SET_PA01;
+ 1662              		.loc 1 745 21
+ 1663 089e 294B     		ldr	r3, .L46+16	@ tmp394,
+ 1664 08a0 1B68     		ldr	r3, [r3]	@ ulSystemFlags.30_139, ulSystemFlags
+ 1665 08a2 03F00203 		and	r3, r3, #2	@ _140, ulSystemFlags.30_139,
+ 1666              	@ startup.c:745:   if (ulSystemFlags & 0x00000002) SET_PA01;
+ 1667              		.loc 1 745 6
+ 1668 08a6 002B     		cmp	r3, #0	@ _140,
+ 1669 08a8 02D0     		beq	.L32		@,
+ 1670              	@ startup.c:745:   if (ulSystemFlags & 0x00000002) SET_PA01;
+ 1671              		.loc 1 745 35 discriminator 1
+ 1672 08aa 274B     		ldr	r3, .L46+20	@ _141,
+ 1673 08ac 0222     		movs	r2, #2	@ tmp395,
+ 1674 08ae 1A60     		str	r2, [r3]	@ tmp395, *_141
+ 1675              	.L32:
+ 1676              	@ startup.c:746:   if (ulSystemFlags & 0x00000004) SET_PA02;
+ 746:startup.c     ****   if (ulSystemFlags & 0x00000004) SET_PA02;
+ 1677              		.loc 1 746 21
+ 1678 08b0 244B     		ldr	r3, .L46+16	@ tmp396,
+ 1679 08b2 1B68     		ldr	r3, [r3]	@ ulSystemFlags.31_142, ulSystemFlags
+ 1680 08b4 03F00403 		and	r3, r3, #4	@ _143, ulSystemFlags.31_142,
+ 1681              	@ startup.c:746:   if (ulSystemFlags & 0x00000004) SET_PA02;
+ 1682              		.loc 1 746 6
+ 1683 08b8 002B     		cmp	r3, #0	@ _143,
+ 1684 08ba 02D0     		beq	.L33		@,
+ 1685              	@ startup.c:746:   if (ulSystemFlags & 0x00000004) SET_PA02;
+ 1686              		.loc 1 746 35 discriminator 1
+ 1687 08bc 224B     		ldr	r3, .L46+20	@ _144,
+ 1688 08be 0422     		movs	r2, #4	@ tmp397,
+ 1689 08c0 1A60     		str	r2, [r3]	@ tmp397, *_144
+ 1690              	.L33:
+ 1691              	@ startup.c:747:   if (ulSystemFlags & 0x00000008) SET_PA03;
+ 747:startup.c     ****   if (ulSystemFlags & 0x00000008) SET_PA03;
+ 1692              		.loc 1 747 21
+ 1693 08c2 204B     		ldr	r3, .L46+16	@ tmp398,
+ 1694 08c4 1B68     		ldr	r3, [r3]	@ ulSystemFlags.32_145, ulSystemFlags
+ 1695 08c6 03F00803 		and	r3, r3, #8	@ _146, ulSystemFlags.32_145,
+ 1696              	@ startup.c:747:   if (ulSystemFlags & 0x00000008) SET_PA03;
+ 1697              		.loc 1 747 6
+ 1698 08ca 002B     		cmp	r3, #0	@ _146,
+ 1699 08cc 02D0     		beq	.L34		@,
+ 1700              	@ startup.c:747:   if (ulSystemFlags & 0x00000008) SET_PA03;
+ 1701              		.loc 1 747 35 discriminator 1
+ 1702 08ce 1E4B     		ldr	r3, .L46+20	@ _147,
+ 1703 08d0 0822     		movs	r2, #8	@ tmp399,
+ 1704 08d2 1A60     		str	r2, [r3]	@ tmp399, *_147
+ 1705              	.L34:
+ 1706              	@ startup.c:748:   if (ulSystemFlags & 0x00000010) SET_PA04;
+ 748:startup.c     ****   if (ulSystemFlags & 0x00000010) SET_PA04;
+ 1707              		.loc 1 748 21
+ 1708 08d4 1B4B     		ldr	r3, .L46+16	@ tmp400,
+ 1709 08d6 1B68     		ldr	r3, [r3]	@ ulSystemFlags.33_148, ulSystemFlags
+ 1710 08d8 03F01003 		and	r3, r3, #16	@ _149, ulSystemFlags.33_148,
+ 1711              	@ startup.c:748:   if (ulSystemFlags & 0x00000010) SET_PA04;
+ 1712              		.loc 1 748 6
+ 1713 08dc 002B     		cmp	r3, #0	@ _149,
+ 1714 08de 02D0     		beq	.L35		@,
+ 1715              	@ startup.c:748:   if (ulSystemFlags & 0x00000010) SET_PA04;
+ 1716              		.loc 1 748 35 discriminator 1
+ 1717 08e0 194B     		ldr	r3, .L46+20	@ _150,
+ 1718 08e2 1022     		movs	r2, #16	@ tmp401,
+ 1719 08e4 1A60     		str	r2, [r3]	@ tmp401, *_150
+ 1720              	.L35:
+ 1721              	@ startup.c:749:   if (ulSystemFlags & 0x00000020) SET_PA05;
+ 749:startup.c     ****   if (ulSystemFlags & 0x00000020) SET_PA05;
+ 1722              		.loc 1 749 21
+ 1723 08e6 174B     		ldr	r3, .L46+16	@ tmp402,
+ 1724 08e8 1B68     		ldr	r3, [r3]	@ ulSystemFlags.34_151, ulSystemFlags
+ 1725 08ea 03F02003 		and	r3, r3, #32	@ _152, ulSystemFlags.34_151,
+ 1726              	@ startup.c:749:   if (ulSystemFlags & 0x00000020) SET_PA05;
+ 1727              		.loc 1 749 6
+ 1728 08ee 002B     		cmp	r3, #0	@ _152,
+ 1729 08f0 02D0     		beq	.L36		@,
+ 1730              	@ startup.c:749:   if (ulSystemFlags & 0x00000020) SET_PA05;
+ 1731              		.loc 1 749 35 discriminator 1
+ 1732 08f2 154B     		ldr	r3, .L46+20	@ _153,
+ 1733 08f4 2022     		movs	r2, #32	@ tmp403,
+ 1734 08f6 1A60     		str	r2, [r3]	@ tmp403, *_153
+ 1735              	.L36:
+ 1736              	@ startup.c:751:   nop24;
+ 750:startup.c     **** 
+ 751:startup.c     ****   nop24;
+ 1737              		.loc 1 751 3
+ 1738              		.syntax unified
+ 1739              	@ 751 "startup.c" 1
+ 1740 08f8 00BF     		nop
+ 1741 08fa 00BF     		nop
+ 1742 08fc 00BF     		nop
+ 1743 08fe 00BF     		nop
+ 1744 0900 00BF     		nop
+ 1745 0902 00BF     		nop
+ 1746 0904 00BF     		nop
+ 1747 0906 00BF     		nop
+ 1748 0908 00BF     		nop
+ 1749 090a 00BF     		nop
+ 1750 090c 00BF     		nop
+ 1751 090e 00BF     		nop
+ 1752 0910 00BF     		nop
+ 1753 0912 00BF     		nop
+ 1754 0914 00BF     		nop
+ 1755 0916 00BF     		nop
+ 1756 0918 00BF     		nop
+ 1757 091a 00BF     		nop
+ 1758 091c 00BF     		nop
+ 1759 091e 00BF     		nop
+ 1760 0920 00BF     		nop
+ 1761 0922 00BF     		nop
+ 1762 0924 00BF     		nop
+ 1763 0926 00BF     		nop
+ 1764              		
+ 1765              	@ 0 "" 2
+ 1766              	@ startup.c:754:   main();
+ 752:startup.c     **** 
+ 753:startup.c     ****   //--- Call the Main Function after basic boot complete
+ 754:startup.c     ****   main();
+ 1767              		.loc 1 754 3
+ 1768              		.thumb
+ 1769              		.syntax unified
+ 1770 0928 FFF7FEFF 		bl	main		@
+ 1771              	@ startup.c:755: }
+ 755:startup.c     **** }
+ 1772              		.loc 1 755 1
+ 1773 092c 00BF     		nop	
+ 1774 092e 0837     		adds	r7, r7, #8	@,,
+ 1775              	.LCFI3:
+ 1776              		.cfi_def_cfa_offset 8
+ 1777 0930 BD46     		mov	sp, r7	@,
+ 1778              	.LCFI4:
+ 1779              		.cfi_def_cfa_register 13
+ 1780              		@ sp needed	@
+ 1781 0932 80BD     		pop	{r7, pc}	@
+ 1782              	.L47:
+ 1783              		.align	2
+ 1784              	.L46:
+ 1785 0934 1C080048 		.word	1207961628
+ 1786 0938 20080048 		.word	1207961632
+ 1787 093c 24080048 		.word	1207961636
+ 1788 0940 30000140 		.word	1073807408
+ 1789 0944 00000000 		.word	ulSystemFlags
+ 1790 0948 18000048 		.word	1207959576
+ 1791              		.cfi_endproc
+ 1792              	.LFE11:
+ 1794              	.Letext0:
+ 1795              		.file 2 "c:\\gcc\\arm-eabi\\lib\\gcc\\arm-none-eabi\\9.3.1\\include\\stddef.h"
+ 1796              		.file 3 "c:\\gcc\\arm-eabi\\arm-none-eabi\\include\\sys\\_types.h"
+ 1797              		.file 4 "c:\\gcc\\arm-eabi\\arm-none-eabi\\include\\sys\\reent.h"
+ 1798              		.file 5 "c:\\gcc\\arm-eabi\\arm-none-eabi\\include\\sys\\lock.h"
+ 1799              		.file 6 "c:\\gcc\\arm-eabi\\arm-none-eabi\\include\\sys\\errno.h"
+ 1800              		.file 7 "c:\\gcc\\arm-eabi\\arm-none-eabi\\include\\time.h"
+ 1801              		.file 8 "c:\\gcc\\arm-eabi\\arm-none-eabi\\include\\stdlib.h"
+ 1802              		.file 9 "c:\\gcc\\arm-eabi\\arm-none-eabi\\include\\math.h"
+ 1803              		.file 10 "commonheader.h"
+ 1804              		.file 11 "UserCode.h"
+ 1805              		.file 12 "startup.h"
+ 1806              		.file 13 "interrupts.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 startup.c
+                            *COM*:00000001 ubSVCn
+                            *COM*:00000004 tmp
+C:\Users\Jim\AppData\Local\Temp\ccEe59Lt.s:62     .bss:00000000 ulT
+C:\Users\Jim\AppData\Local\Temp\ccEe59Lt.s:59     .bss:00000000 $d
+C:\Users\Jim\AppData\Local\Temp\ccEe59Lt.s:68     .bss:00000004 ulSystemFlags
+C:\Users\Jim\AppData\Local\Temp\ccEe59Lt.s:71     .text:00000000 $t
+C:\Users\Jim\AppData\Local\Temp\ccEe59Lt.s:79     .text:00000000 fnReset_IRQ
+C:\Users\Jim\AppData\Local\Temp\ccEe59Lt.s:519    .text:000001e8 $d
+C:\Users\Jim\AppData\Local\Temp\ccEe59Lt.s:547    .text:0000024c $t
+C:\Users\Jim\AppData\Local\Temp\ccEe59Lt.s:901    .text:00000450 $d
+C:\Users\Jim\AppData\Local\Temp\ccEe59Lt.s:910    .text:00000468 $t
+C:\Users\Jim\AppData\Local\Temp\ccEe59Lt.s:1062   .text:0000051c $d
+C:\Users\Jim\AppData\Local\Temp\ccEe59Lt.s:1071   .text:00000534 $t
+C:\Users\Jim\AppData\Local\Temp\ccEe59Lt.s:1504   .text:00000758 $d
+C:\Users\Jim\AppData\Local\Temp\ccEe59Lt.s:1546   .text:000007f4 $t
+C:\Users\Jim\AppData\Local\Temp\ccEe59Lt.s:1785   .text:00000934 $d
+C:\Users\Jim\AppData\Local\Temp\ccEe59Lt.s:4429   .text:0000094c $d
+
+UNDEFINED SYMBOLS
+_sbss
+_ebss
+_sidata
+_sdata
+_edata
+main

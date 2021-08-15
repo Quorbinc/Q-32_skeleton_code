@@ -1,0 +1,337 @@
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1	@ Tag_ABI_HardFP_use
+   3              		.eabi_attribute 28, 1	@ Tag_ABI_VFP_args
+   4              		.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
+   5              		.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
+   6              		.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
+   7              		.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
+   8              		.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
+   9              		.eabi_attribute 26, 1	@ Tag_ABI_enum_size
+  10              		.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
+  11              		.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
+  12              		.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
+  13              		.file	"UserCode.c"
+  14              	@ GNU C99 (15:9-2019-q4-0ubuntu1) version 9.2.1 20191025 (release) [ARM/arm-9-branch revision 27759
+  15              	@	compiled by GNU C version 9.2.1 20200306, GMP version 6.2.0, MPFR version 4.0.2, MPC version 1.1.
+  16              	
+  17              	@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+  18              	@ options passed:  -I . -imultilib thumb/v7e-m+fp/hard -MD UserCode.d
+  19              	@ -MF .dep/UserCode.o.d -MP -MQ UserCode.o -D__USES_INITFINI__ UserCode.c
+  20              	@ -mcpu=cortex-m4 -mthumb -mthumb-interwork -mfpu=fpv4-sp-d16
+  21              	@ -mfloat-abi=hard -march=armv7e-m+fp -auxbase-strip UserCode.o -gdwarf-2
+  22              	@ -O0 -Wno-pointer-sign -Wall -Wimplicit -Wunused-but-set-variable
+  23              	@ -Wpointer-arith -Wswitch -Wno-int-to-pointer-cast
+  24              	@ -Wno-pointer-to-int-cast -Wredundant-decls -Wreturn-type -Wshadow
+  25              	@ -Wunused -Wstrict-prototypes -Wmissing-declarations -Wmissing-prototypes
+  26              	@ -Wnested-externs -std=gnu99 -fverbose-asm -funsigned-char
+  27              	@ -funsigned-bitfields -fpack-struct -fshort-enums
+  28              	@ options enabled:  -faggressive-loop-optimizations -fassume-phsa
+  29              	@ -fauto-inc-dec -fcommon -fdelete-null-pointer-checks -fdwarf2-cfi-asm
+  30              	@ -fearly-inlining -feliminate-unused-debug-types -ffp-int-builtin-inexact
+  31              	@ -ffunction-cse -fgcse-lm -fgnu-runtime -fgnu-unique -fident
+  32              	@ -finline-atomics -fipa-stack-alignment -fira-hoist-pressure
+  33              	@ -fira-share-save-slots -fira-share-spill-slots -fivopts
+  34              	@ -fkeep-static-consts -fleading-underscore -flifetime-dse
+  35              	@ -flto-odr-type-merging -fmath-errno -fmerge-debug-strings -fpack-struct
+  36              	@ -fpeephole -fplt -fprefetch-loop-arrays -freg-struct-return
+  37              	@ -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  38              	@ -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  39              	@ -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  40              	@ -fsched-stalled-insns-dep -fsemantic-interposition -fshow-column
+  41              	@ -fshrink-wrap-separate -fsigned-zeros -fsplit-ivs-in-unroller
+  42              	@ -fssa-backprop -fstdarg-opt -fstrict-volatile-bitfields -fsync-libcalls
+  43              	@ -ftrapping-math -ftree-cselim -ftree-forwprop -ftree-loop-if-convert
+  44              	@ -ftree-loop-im -ftree-loop-ivcanon -ftree-loop-optimize
+  45              	@ -ftree-parallelize-loops= -ftree-phiprop -ftree-reassoc -ftree-scev-cprop
+  46              	@ -funit-at-a-time -fverbose-asm -fzero-initialized-in-bss
+  47              	@ -masm-syntax-unified -mbe32 -mlittle-endian -mpic-data-is-text-relative
+  48              	@ -msched-prolog -mthumb -munaligned-access -mvectorize-with-neon-quad
+  49              	
+  50              		.text
+  51              	.Ltext0:
+  52              		.cfi_sections	.debug_frame
+  53              		.comm	ulValue,4,4
+  54              		.comm	uwValue,2,2
+  55              		.comm	ubValue,1,1
+  56              		.align	1
+  57              		.global	timeDelay
+  58              		.arch armv7e-m
+  59              		.syntax unified
+  60              		.thumb
+  61              		.thumb_func
+  62              		.fpu fpv4-sp-d16
+  64              	timeDelay:
+  65              	.LFB11:
+  66              		.file 1 "UserCode.c"
+   1:UserCode.c    **** //--------------------------------------------------------------------------------------------
+   2:UserCode.c    **** //  "main" entry point
+   3:UserCode.c    **** //--------------------------------------------------------------------------------------------
+   4:UserCode.c    **** 
+   5:UserCode.c    **** #include "projectdefs.h"
+   6:UserCode.c    **** 
+   7:UserCode.c    ****   u32 ulValue;
+   8:UserCode.c    ****   u16 uwValue;
+   9:UserCode.c    ****   u08 ubValue;
+  10:UserCode.c    **** 
+  11:UserCode.c    **** void timeDelay (u32 uwDelay)
+  12:UserCode.c    **** {
+  67              		.loc 1 12 1
+  68              		.cfi_startproc
+  69              		@ args = 0, pretend = 0, frame = 16
+  70              		@ frame_needed = 1, uses_anonymous_args = 0
+  71              		@ link register save eliminated.
+  72 0000 80B4     		push	{r7}	@
+  73              	.LCFI0:
+  74              		.cfi_def_cfa_offset 4
+  75              		.cfi_offset 7, -4
+  76 0002 85B0     		sub	sp, sp, #20	@,,
+  77              	.LCFI1:
+  78              		.cfi_def_cfa_offset 24
+  79 0004 00AF     		add	r7, sp, #0	@,,
+  80              	.LCFI2:
+  81              		.cfi_def_cfa_register 7
+  82 0006 7860     		str	r0, [r7, #4]	@ uwDelay, uwDelay
+  83              	.LBB2:
+  84              	@ UserCode.c:13:   for (int i = 0; i < uwDelay; i++)
+  13:UserCode.c    ****   for (int i = 0; i < uwDelay; i++)
+  85              		.loc 1 13 12
+  86 0008 0023     		movs	r3, #0	@ tmp111,
+  87 000a FB60     		str	r3, [r7, #12]	@ tmp111, i
+  88              	@ UserCode.c:13:   for (int i = 0; i < uwDelay; i++)
+  89              		.loc 1 13 3
+  90 000c 66E0     		b	.L2		@
+  91              	.L3:
+  92              	@ UserCode.c:15:     nop100;
+  14:UserCode.c    ****   {
+  15:UserCode.c    ****     nop100;
+  93              		.loc 1 15 5 discriminator 3
+  94              		.syntax unified
+  95              	@ 15 "UserCode.c" 1
+  96 000e 00BF     		nop
+  97 0010 00BF     		nop
+  98 0012 00BF     		nop
+  99 0014 00BF     		nop
+ 100 0016 00BF     		nop
+ 101 0018 00BF     		nop
+ 102 001a 00BF     		nop
+ 103 001c 00BF     		nop
+ 104 001e 00BF     		nop
+ 105 0020 00BF     		nop
+ 106 0022 00BF     		nop
+ 107 0024 00BF     		nop
+ 108 0026 00BF     		nop
+ 109 0028 00BF     		nop
+ 110 002a 00BF     		nop
+ 111 002c 00BF     		nop
+ 112 002e 00BF     		nop
+ 113 0030 00BF     		nop
+ 114 0032 00BF     		nop
+ 115 0034 00BF     		nop
+ 116 0036 00BF     		nop
+ 117 0038 00BF     		nop
+ 118 003a 00BF     		nop
+ 119 003c 00BF     		nop
+ 120 003e 00BF     		nop
+ 121 0040 00BF     		nop
+ 122 0042 00BF     		nop
+ 123 0044 00BF     		nop
+ 124 0046 00BF     		nop
+ 125 0048 00BF     		nop
+ 126 004a 00BF     		nop
+ 127 004c 00BF     		nop
+ 128 004e 00BF     		nop
+ 129 0050 00BF     		nop
+ 130 0052 00BF     		nop
+ 131 0054 00BF     		nop
+ 132 0056 00BF     		nop
+ 133 0058 00BF     		nop
+ 134 005a 00BF     		nop
+ 135 005c 00BF     		nop
+ 136 005e 00BF     		nop
+ 137 0060 00BF     		nop
+ 138 0062 00BF     		nop
+ 139 0064 00BF     		nop
+ 140 0066 00BF     		nop
+ 141 0068 00BF     		nop
+ 142 006a 00BF     		nop
+ 143 006c 00BF     		nop
+ 144 006e 00BF     		nop
+ 145 0070 00BF     		nop
+ 146 0072 00BF     		nop
+ 147 0074 00BF     		nop
+ 148 0076 00BF     		nop
+ 149 0078 00BF     		nop
+ 150 007a 00BF     		nop
+ 151 007c 00BF     		nop
+ 152 007e 00BF     		nop
+ 153 0080 00BF     		nop
+ 154 0082 00BF     		nop
+ 155 0084 00BF     		nop
+ 156 0086 00BF     		nop
+ 157 0088 00BF     		nop
+ 158 008a 00BF     		nop
+ 159 008c 00BF     		nop
+ 160 008e 00BF     		nop
+ 161 0090 00BF     		nop
+ 162 0092 00BF     		nop
+ 163 0094 00BF     		nop
+ 164 0096 00BF     		nop
+ 165 0098 00BF     		nop
+ 166 009a 00BF     		nop
+ 167 009c 00BF     		nop
+ 168 009e 00BF     		nop
+ 169 00a0 00BF     		nop
+ 170 00a2 00BF     		nop
+ 171 00a4 00BF     		nop
+ 172 00a6 00BF     		nop
+ 173 00a8 00BF     		nop
+ 174 00aa 00BF     		nop
+ 175 00ac 00BF     		nop
+ 176 00ae 00BF     		nop
+ 177 00b0 00BF     		nop
+ 178 00b2 00BF     		nop
+ 179 00b4 00BF     		nop
+ 180 00b6 00BF     		nop
+ 181 00b8 00BF     		nop
+ 182 00ba 00BF     		nop
+ 183 00bc 00BF     		nop
+ 184 00be 00BF     		nop
+ 185 00c0 00BF     		nop
+ 186 00c2 00BF     		nop
+ 187 00c4 00BF     		nop
+ 188 00c6 00BF     		nop
+ 189 00c8 00BF     		nop
+ 190 00ca 00BF     		nop
+ 191 00cc 00BF     		nop
+ 192 00ce 00BF     		nop
+ 193 00d0 00BF     		nop
+ 194 00d2 00BF     		nop
+ 195 00d4 00BF     		nop
+ 196              		
+ 197              	@ 0 "" 2
+ 198              	@ UserCode.c:13:   for (int i = 0; i < uwDelay; i++)
+  13:UserCode.c    ****   for (int i = 0; i < uwDelay; i++)
+ 199              		.loc 1 13 33 discriminator 3
+ 200              		.thumb
+ 201              		.syntax unified
+ 202 00d6 FB68     		ldr	r3, [r7, #12]	@ tmp113, i
+ 203 00d8 0133     		adds	r3, r3, #1	@ tmp112, tmp113,
+ 204 00da FB60     		str	r3, [r7, #12]	@ tmp112, i
+ 205              	.L2:
+ 206              	@ UserCode.c:13:   for (int i = 0; i < uwDelay; i++)
+  13:UserCode.c    ****   for (int i = 0; i < uwDelay; i++)
+ 207              		.loc 1 13 21 discriminator 1
+ 208 00dc FB68     		ldr	r3, [r7, #12]	@ i.0_1, i
+ 209              	@ UserCode.c:13:   for (int i = 0; i < uwDelay; i++)
+  13:UserCode.c    ****   for (int i = 0; i < uwDelay; i++)
+ 210              		.loc 1 13 3 discriminator 1
+ 211 00de 7A68     		ldr	r2, [r7, #4]	@ tmp114, uwDelay
+ 212 00e0 9A42     		cmp	r2, r3	@ tmp114, i.0_1
+ 213 00e2 94D8     		bhi	.L3		@,
+ 214              	.LBE2:
+ 215              	@ UserCode.c:17: }
+  16:UserCode.c    ****   }
+  17:UserCode.c    **** }
+ 216              		.loc 1 17 1
+ 217 00e4 00BF     		nop	
+ 218 00e6 00BF     		nop	
+ 219 00e8 1437     		adds	r7, r7, #20	@,,
+ 220              	.LCFI3:
+ 221              		.cfi_def_cfa_offset 4
+ 222 00ea BD46     		mov	sp, r7	@,
+ 223              	.LCFI4:
+ 224              		.cfi_def_cfa_register 13
+ 225              		@ sp needed	@
+ 226 00ec 5DF8047B 		ldr	r7, [sp], #4	@,
+ 227              	.LCFI5:
+ 228              		.cfi_restore 7
+ 229              		.cfi_def_cfa_offset 0
+ 230 00f0 7047     		bx	lr	@
+ 231              		.cfi_endproc
+ 232              	.LFE11:
+ 234              		.align	1
+ 235              		.global	main
+ 236              		.syntax unified
+ 237              		.thumb
+ 238              		.thumb_func
+ 239              		.fpu fpv4-sp-d16
+ 241              	main:
+ 242              	.LFB12:
+  18:UserCode.c    **** 
+  19:UserCode.c    **** int main (void)
+  20:UserCode.c    **** {
+ 243              		.loc 1 20 1
+ 244              		.cfi_startproc
+ 245              		@ args = 0, pretend = 0, frame = 0
+ 246              		@ frame_needed = 1, uses_anonymous_args = 0
+ 247 00f2 80B5     		push	{r7, lr}	@
+ 248              	.LCFI6:
+ 249              		.cfi_def_cfa_offset 8
+ 250              		.cfi_offset 7, -8
+ 251              		.cfi_offset 14, -4
+ 252 00f4 00AF     		add	r7, sp, #0	@,,
+ 253              	.LCFI7:
+ 254              		.cfi_def_cfa_register 7
+ 255              	.L5:
+ 256              	@ UserCode.c:26:     SET_PB00;
+  21:UserCode.c    ****   u32 uwDelay; //was a u16 changed to u32
+  22:UserCode.c    **** 
+  23:UserCode.c    ****   //--- Main Infinite Loop Entry Point
+  24:UserCode.c    ****   while (1)
+  25:UserCode.c    ****   {
+  26:UserCode.c    ****     SET_PB00;
+ 257              		.loc 1 26 5 discriminator 1
+ 258 00f6 074B     		ldr	r3, .L6	@ _1,
+ 259 00f8 0122     		movs	r2, #1	@ tmp113,
+ 260 00fa 1A60     		str	r2, [r3]	@ tmp113, *_1
+ 261              	@ UserCode.c:27:     timeDelay(100000);
+  27:UserCode.c    ****     timeDelay(100000);
+ 262              		.loc 1 27 5 discriminator 1
+ 263 00fc 0648     		ldr	r0, .L6+4	@,
+ 264 00fe FFF7FEFF 		bl	timeDelay		@
+ 265              	@ UserCode.c:28:     CLR_PB00;
+  28:UserCode.c    ****     CLR_PB00;
+ 266              		.loc 1 28 5 discriminator 1
+ 267 0102 044B     		ldr	r3, .L6	@ _2,
+ 268 0104 4FF48032 		mov	r2, #65536	@ tmp114,
+ 269 0108 1A60     		str	r2, [r3]	@ tmp114, *_2
+ 270              	@ UserCode.c:29:     timeDelay(100000);
+  29:UserCode.c    ****     timeDelay(100000);
+ 271              		.loc 1 29 5 discriminator 1
+ 272 010a 0348     		ldr	r0, .L6+4	@,
+ 273 010c FFF7FEFF 		bl	timeDelay		@
+ 274              	@ UserCode.c:26:     SET_PB00;
+  26:UserCode.c    ****     timeDelay(100000);
+ 275              		.loc 1 26 5 discriminator 1
+ 276 0110 F1E7     		b	.L5		@
+ 277              	.L7:
+ 278 0112 00BF     		.align	2
+ 279              	.L6:
+ 280 0114 18040048 		.word	1207960600
+ 281 0118 A0860100 		.word	100000
+ 282              		.cfi_endproc
+ 283              	.LFE12:
+ 285              	.Letext0:
+ 286              		.file 2 "/usr/lib/gcc/arm-none-eabi/9.2.1/include/stddef.h"
+ 287              		.file 3 "/usr/include/newlib/sys/_types.h"
+ 288              		.file 4 "/usr/include/newlib/sys/reent.h"
+ 289              		.file 5 "/usr/include/newlib/sys/lock.h"
+ 290              		.file 6 "/usr/include/newlib/sys/errno.h"
+ 291              		.file 7 "/usr/include/newlib/time.h"
+ 292              		.file 8 "/usr/include/newlib/stdlib.h"
+ 293              		.file 9 "/usr/include/newlib/math.h"
+ 294              		.file 10 "commonheader.h"
+ 295              		.file 11 "UserCode.h"
+ 296              		.file 12 "startup.h"
+ 297              		.file 13 "interrupts.h"
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 UserCode.c
+                            *COM*:0000000000000004 ulValue
+                            *COM*:0000000000000002 uwValue
+                            *COM*:0000000000000001 ubValue
+     /tmp/ccqyDtzK.s:56     .text:0000000000000000 $t
+     /tmp/ccqyDtzK.s:64     .text:0000000000000000 timeDelay
+     /tmp/ccqyDtzK.s:241    .text:00000000000000f2 main
+     /tmp/ccqyDtzK.s:280    .text:0000000000000114 $d
+
+NO UNDEFINED SYMBOLS
