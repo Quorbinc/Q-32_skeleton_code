@@ -1,0 +1,3196 @@
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1	@ Tag_ABI_HardFP_use
+   3              		.eabi_attribute 28, 1	@ Tag_ABI_VFP_args
+   4              		.eabi_attribute 20, 1	@ Tag_ABI_FP_denormal
+   5              		.eabi_attribute 21, 1	@ Tag_ABI_FP_exceptions
+   6              		.eabi_attribute 23, 3	@ Tag_ABI_FP_number_model
+   7              		.eabi_attribute 24, 1	@ Tag_ABI_align8_needed
+   8              		.eabi_attribute 25, 1	@ Tag_ABI_align8_preserved
+   9              		.eabi_attribute 26, 1	@ Tag_ABI_enum_size
+  10              		.eabi_attribute 30, 6	@ Tag_ABI_optimization_goals
+  11              		.eabi_attribute 34, 1	@ Tag_CPU_unaligned_access
+  12              		.eabi_attribute 18, 4	@ Tag_ABI_PCS_wchar_t
+  13              		.file	"genrtn.c"
+  14              	@ GNU C99 (GNU Arm Embedded Toolchain 9-2020-q3-update) version 9.3.1 20200408 (release) (arm-none-
+  15              	@	compiled by GNU C version 5.3.1 20160211, GMP version 6.1.0, MPFR version 3.1.4, MPC version 1.0.
+  16              	
+  17              	@ GGC heuristics: --param ggc-min-expand=100 --param ggc-min-heapsize=131072
+  18              	@ options passed:  -I . -imultilib thumb/v7e-m+fp/hard
+  19              	@ -iprefix c:\gcc\arm-eabi\bin\../lib/gcc/arm-none-eabi/9.3.1/
+  20              	@ -isysroot c:\gcc\arm-eabi\bin\../arm-none-eabi -MD genrtn.d
+  21              	@ -MF .dep/genrtn.o.d -MP -MQ genrtn.o -D__USES_INITFINI__ genrtn.c
+  22              	@ -mcpu=cortex-m4 -mthumb -mthumb-interwork -mfpu=fpv4-sp-d16
+  23              	@ -mfloat-abi=hard -march=armv7e-m+fp -auxbase-strip genrtn.o -gdwarf-2 -O0
+  24              	@ -Wno-pointer-sign -Wall -Wimplicit -Wunused-but-set-variable
+  25              	@ -Wpointer-arith -Wswitch -Wno-int-to-pointer-cast
+  26              	@ -Wno-pointer-to-int-cast -Wredundant-decls -Wreturn-type -Wshadow
+  27              	@ -Wunused -Wstrict-prototypes -Wmissing-declarations -Wmissing-prototypes
+  28              	@ -Wnested-externs -std=gnu99 -fverbose-asm -funsigned-char
+  29              	@ -funsigned-bitfields -fpack-struct -fshort-enums
+  30              	@ options enabled:  -faggressive-loop-optimizations -fassume-phsa
+  31              	@ -fauto-inc-dec -fcommon -fdelete-null-pointer-checks -fdwarf2-cfi-asm
+  32              	@ -fearly-inlining -feliminate-unused-debug-types -ffp-int-builtin-inexact
+  33              	@ -ffunction-cse -fgcse-lm -fgnu-runtime -fgnu-unique -fident
+  34              	@ -finline-atomics -fipa-stack-alignment -fira-hoist-pressure
+  35              	@ -fira-share-save-slots -fira-share-spill-slots -fivopts
+  36              	@ -fkeep-static-consts -fleading-underscore -flifetime-dse
+  37              	@ -flto-odr-type-merging -fmath-errno -fmerge-debug-strings -fpack-struct
+  38              	@ -fpeephole -fplt -fprefetch-loop-arrays -freg-struct-return
+  39              	@ -fsched-critical-path-heuristic -fsched-dep-count-heuristic
+  40              	@ -fsched-group-heuristic -fsched-interblock -fsched-last-insn-heuristic
+  41              	@ -fsched-rank-heuristic -fsched-spec -fsched-spec-insn-heuristic
+  42              	@ -fsched-stalled-insns-dep -fsemantic-interposition -fshow-column
+  43              	@ -fshrink-wrap-separate -fsigned-zeros -fsplit-ivs-in-unroller
+  44              	@ -fssa-backprop -fstdarg-opt -fstrict-volatile-bitfields -fsync-libcalls
+  45              	@ -ftrapping-math -ftree-cselim -ftree-forwprop -ftree-loop-if-convert
+  46              	@ -ftree-loop-im -ftree-loop-ivcanon -ftree-loop-optimize
+  47              	@ -ftree-parallelize-loops= -ftree-phiprop -ftree-reassoc -ftree-scev-cprop
+  48              	@ -funit-at-a-time -fverbose-asm -fzero-initialized-in-bss
+  49              	@ -masm-syntax-unified -mbe32 -mlittle-endian -mpic-data-is-text-relative
+  50              	@ -msched-prolog -mthumb -munaligned-access -mvectorize-with-neon-quad
+  51              	
+  52              		.text
+  53              	.Ltext0:
+  54              		.cfi_sections	.debug_frame
+  55              		.align	1
+  56              		.global	fnZeroString
+  57              		.arch armv7e-m
+  58              		.syntax unified
+  59              		.thumb
+  60              		.thumb_func
+  61              		.fpu fpv4-sp-d16
+  63              	fnZeroString:
+  64              	.LFB11:
+  65              		.file 1 "genrtn.c"
+   1:genrtn.c      **** //=============================================================================================
+   2:genrtn.c      **** //                                        Quorb Inc.
+   3:genrtn.c      **** //                                -------------------------
+   4:genrtn.c      **** //
+   5:genrtn.c      **** //                            General Functions Processing Code
+   6:genrtn.c      **** //                  -----------------------------------------------------
+   7:genrtn.c      **** //
+   8:genrtn.c      **** //    This code is for use on the STM32F446 Processor Series of Micro Controllers it is
+   9:genrtn.c      **** //    It is not fully compatible with other STM32FXXX Series Micro Controller Products
+  10:genrtn.c      **** //
+  11:genrtn.c      **** //                             Written By:  Sancar James Fredsti
+  12:genrtn.c      **** //
+  13:genrtn.c      **** //=============================================================================================
+  14:genrtn.c      **** 
+  15:genrtn.c      **** //---------------------------------------------------------------------------------------------
+  16:genrtn.c      **** //         Program Defines and RAM Storage Definitions
+  17:genrtn.c      **** //---------------------------------------------------------------------------------------------
+  18:genrtn.c      **** 
+  19:genrtn.c      **** #include "projectdefs.h"
+  20:genrtn.c      **** 
+  21:genrtn.c      **** //---------------------------------------------------------------------------------------------
+  22:genrtn.c      **** //                        Zero All of a Strings Member Bytes n Length
+  23:genrtn.c      **** //---------------------------------------------------------------------------------------------
+  24:genrtn.c      **** void  fnZeroString (u08 ubS[], u16 uwLen)
+  25:genrtn.c      **** {
+  66              		.loc 1 25 1
+  67              		.cfi_startproc
+  68              		@ args = 0, pretend = 0, frame = 16
+  69              		@ frame_needed = 1, uses_anonymous_args = 0
+  70              		@ link register save eliminated.
+  71 0000 80B4     		push	{r7}	@
+  72              	.LCFI0:
+  73              		.cfi_def_cfa_offset 4
+  74              		.cfi_offset 7, -4
+  75 0002 85B0     		sub	sp, sp, #20	@,,
+  76              	.LCFI1:
+  77              		.cfi_def_cfa_offset 24
+  78 0004 00AF     		add	r7, sp, #0	@,,
+  79              	.LCFI2:
+  80              		.cfi_def_cfa_register 7
+  81 0006 7860     		str	r0, [r7, #4]	@ ubS, ubS
+  82 0008 0B46     		mov	r3, r1	@ tmp113, uwLen
+  83 000a 7B80     		strh	r3, [r7, #2]	@ movhi	@ tmp114, uwLen
+  84              	@ genrtn.c:30:   if ((uwLen <1) || (uwLen > 8)) return;        //--- Exit if bad length
+  26:genrtn.c      ****   u16 uwP;
+  27:genrtn.c      **** 
+  28:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  29:genrtn.c      **** 
+  30:genrtn.c      ****   if ((uwLen <1) || (uwLen > 8)) return;        //--- Exit if bad length
+  85              		.loc 1 30 6
+  86 000c 7B88     		ldrh	r3, [r7, #2]	@ tmp115, uwLen
+  87 000e 002B     		cmp	r3, #0	@ tmp115,
+  88 0010 12D0     		beq	.L7		@,
+  89              	@ genrtn.c:30:   if ((uwLen <1) || (uwLen > 8)) return;        //--- Exit if bad length
+  90              		.loc 1 30 18 discriminator 2
+  91 0012 7B88     		ldrh	r3, [r7, #2]	@ tmp118, uwLen
+  92 0014 082B     		cmp	r3, #8	@ tmp118,
+  93 0016 0FD8     		bhi	.L7		@,
+  94              	@ genrtn.c:32:   for (uwP = 0; uwP < uwLen; uwP++)
+  31:genrtn.c      **** 
+  32:genrtn.c      ****   for (uwP = 0; uwP < uwLen; uwP++)
+  95              		.loc 1 32 12
+  96 0018 0023     		movs	r3, #0	@ tmp120,
+  97 001a FB81     		strh	r3, [r7, #14]	@ movhi	@ tmp119, uwP
+  98              	@ genrtn.c:32:   for (uwP = 0; uwP < uwLen; uwP++)
+  99              		.loc 1 32 3
+ 100 001c 07E0     		b	.L5		@
+ 101              	.L6:
+ 102              	@ genrtn.c:34:     ubS[uwP] = 0;
+  33:genrtn.c      ****   {
+  34:genrtn.c      ****     ubS[uwP] = 0;
+ 103              		.loc 1 34 8 discriminator 3
+ 104 001e FB89     		ldrh	r3, [r7, #14]	@ _1, uwP
+ 105 0020 7A68     		ldr	r2, [r7, #4]	@ tmp121, ubS
+ 106 0022 1344     		add	r3, r3, r2	@ _2, tmp121
+ 107              	@ genrtn.c:34:     ubS[uwP] = 0;
+ 108              		.loc 1 34 14 discriminator 3
+ 109 0024 0022     		movs	r2, #0	@ tmp122,
+ 110 0026 1A70     		strb	r2, [r3]	@ tmp123, *_2
+ 111              	@ genrtn.c:32:   for (uwP = 0; uwP < uwLen; uwP++)
+  32:genrtn.c      ****   {
+ 112              		.loc 1 32 33 discriminator 3
+ 113 0028 FB89     		ldrh	r3, [r7, #14]	@ uwP.0_3, uwP
+ 114 002a 0133     		adds	r3, r3, #1	@ tmp124, uwP.0_3,
+ 115 002c FB81     		strh	r3, [r7, #14]	@ movhi	@ tmp125, uwP
+ 116              	.L5:
+ 117              	@ genrtn.c:32:   for (uwP = 0; uwP < uwLen; uwP++)
+  32:genrtn.c      ****   {
+ 118              		.loc 1 32 3 discriminator 1
+ 119 002e FA89     		ldrh	r2, [r7, #14]	@ tmp126, uwP
+ 120 0030 7B88     		ldrh	r3, [r7, #2]	@ tmp127, uwLen
+ 121 0032 9A42     		cmp	r2, r3	@ tmp126, tmp127
+ 122 0034 F3D3     		bcc	.L6		@,
+ 123 0036 00E0     		b	.L1		@
+ 124              	.L7:
+ 125              	@ genrtn.c:30:   if ((uwLen <1) || (uwLen > 8)) return;        //--- Exit if bad length
+  30:genrtn.c      **** 
+ 126              		.loc 1 30 34
+ 127 0038 00BF     		nop	
+ 128              	.L1:
+ 129              	@ genrtn.c:36: }
+  35:genrtn.c      ****   }
+  36:genrtn.c      **** }
+ 130              		.loc 1 36 1
+ 131 003a 1437     		adds	r7, r7, #20	@,,
+ 132              	.LCFI3:
+ 133              		.cfi_def_cfa_offset 4
+ 134 003c BD46     		mov	sp, r7	@,
+ 135              	.LCFI4:
+ 136              		.cfi_def_cfa_register 13
+ 137              		@ sp needed	@
+ 138 003e 5DF8047B 		ldr	r7, [sp], #4	@,
+ 139              	.LCFI5:
+ 140              		.cfi_restore 7
+ 141              		.cfi_def_cfa_offset 0
+ 142 0042 7047     		bx	lr	@
+ 143              		.cfi_endproc
+ 144              	.LFE11:
+ 146              		.align	1
+ 147              		.global	fnMergString
+ 148              		.syntax unified
+ 149              		.thumb
+ 150              		.thumb_func
+ 151              		.fpu fpv4-sp-d16
+ 153              	fnMergString:
+ 154              	.LFB12:
+  37:genrtn.c      **** 
+  38:genrtn.c      **** //---------------------------------------------------------------------------------------------
+  39:genrtn.c      **** //                          Place a string within another string
+  40:genrtn.c      **** //---------------------------------------------------------------------------------------------
+  41:genrtn.c      **** u32   fnMergString (u08 ubDst[], u08 ubSrc[], u16 uwPos, u16 uwLen)
+  42:genrtn.c      **** {
+ 155              		.loc 1 42 1
+ 156              		.cfi_startproc
+ 157              		@ args = 0, pretend = 0, frame = 24
+ 158              		@ frame_needed = 1, uses_anonymous_args = 0
+ 159 0044 80B5     		push	{r7, lr}	@
+ 160              	.LCFI6:
+ 161              		.cfi_def_cfa_offset 8
+ 162              		.cfi_offset 7, -8
+ 163              		.cfi_offset 14, -4
+ 164 0046 86B0     		sub	sp, sp, #24	@,,
+ 165              	.LCFI7:
+ 166              		.cfi_def_cfa_offset 32
+ 167 0048 00AF     		add	r7, sp, #0	@,,
+ 168              	.LCFI8:
+ 169              		.cfi_def_cfa_register 7
+ 170 004a F860     		str	r0, [r7, #12]	@ ubDst, ubDst
+ 171 004c B960     		str	r1, [r7, #8]	@ ubSrc, ubSrc
+ 172 004e 1146     		mov	r1, r2	@ tmp127, uwPos
+ 173 0050 1A46     		mov	r2, r3	@ tmp129, uwLen
+ 174 0052 0B46     		mov	r3, r1	@ movhi	@ tmp128, tmp127
+ 175 0054 FB80     		strh	r3, [r7, #6]	@ movhi	@ tmp128, uwPos
+ 176 0056 1346     		mov	r3, r2	@ movhi	@ tmp130, tmp129
+ 177 0058 BB80     		strh	r3, [r7, #4]	@ movhi	@ tmp130, uwLen
+ 178              	@ genrtn.c:49:   uwLS = strlen(ubSrc);
+  43:genrtn.c      ****   u16 uwLD;
+  44:genrtn.c      ****   u16 uwLS;
+  45:genrtn.c      ****   u16 uwP;
+  46:genrtn.c      **** 
+  47:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  48:genrtn.c      **** 
+  49:genrtn.c      ****   uwLS = strlen(ubSrc);
+ 179              		.loc 1 49 10
+ 180 005a B868     		ldr	r0, [r7, #8]	@, ubSrc
+ 181 005c FFF7FEFF 		bl	strlen		@
+ 182 0060 0346     		mov	r3, r0	@ _1,
+ 183              	@ genrtn.c:49:   uwLS = strlen(ubSrc);
+ 184              		.loc 1 49 8
+ 185 0062 BB82     		strh	r3, [r7, #20]	@ movhi	@ tmp131, uwLS
+ 186              	@ genrtn.c:50:   uwLD = strlen(ubDst);
+  50:genrtn.c      ****   uwLD = strlen(ubDst);
+ 187              		.loc 1 50 10
+ 188 0064 F868     		ldr	r0, [r7, #12]	@, ubDst
+ 189 0066 FFF7FEFF 		bl	strlen		@
+ 190 006a 0346     		mov	r3, r0	@ _2,
+ 191              	@ genrtn.c:50:   uwLD = strlen(ubDst);
+ 192              		.loc 1 50 8
+ 193 006c 7B82     		strh	r3, [r7, #18]	@ movhi	@ tmp132, uwLD
+ 194              	@ genrtn.c:54:   if (uwLen > uwLD) return FALSE;                 //--- Destination too small
+  51:genrtn.c      **** 
+  52:genrtn.c      ****   //--- Test that all the lengths are within range
+  53:genrtn.c      **** 
+  54:genrtn.c      ****   if (uwLen > uwLD) return FALSE;                 //--- Destination too small
+ 195              		.loc 1 54 6
+ 196 006e BA88     		ldrh	r2, [r7, #4]	@ tmp133, uwLen
+ 197 0070 7B8A     		ldrh	r3, [r7, #18]	@ tmp134, uwLD
+ 198 0072 9A42     		cmp	r2, r3	@ tmp133, tmp134
+ 199 0074 01D9     		bls	.L9		@,
+ 200              	@ genrtn.c:54:   if (uwLen > uwLD) return FALSE;                 //--- Destination too small
+ 201              		.loc 1 54 28 discriminator 1
+ 202 0076 0023     		movs	r3, #0	@ _17,
+ 203 0078 2EE0     		b	.L10		@
+ 204              	.L9:
+ 205              	@ genrtn.c:55:   if (uwLen > uwLS) return FALSE;                 //--- Source too small
+  55:genrtn.c      ****   if (uwLen > uwLS) return FALSE;                 //--- Source too small
+ 206              		.loc 1 55 6
+ 207 007a BA88     		ldrh	r2, [r7, #4]	@ tmp135, uwLen
+ 208 007c BB8A     		ldrh	r3, [r7, #20]	@ tmp136, uwLS
+ 209 007e 9A42     		cmp	r2, r3	@ tmp135, tmp136
+ 210 0080 01D9     		bls	.L11		@,
+ 211              	@ genrtn.c:55:   if (uwLen > uwLS) return FALSE;                 //--- Source too small
+ 212              		.loc 1 55 28 discriminator 1
+ 213 0082 0023     		movs	r3, #0	@ _17,
+ 214 0084 28E0     		b	.L10		@
+ 215              	.L11:
+ 216              	@ genrtn.c:56:   if ((!uwLS) || (!uwLD) || (!uwLen)) return FALSE; //--- Zero length strings
+  56:genrtn.c      ****   if ((!uwLS) || (!uwLD) || (!uwLen)) return FALSE; //--- Zero length strings
+ 217              		.loc 1 56 6
+ 218 0086 BB8A     		ldrh	r3, [r7, #20]	@ tmp137, uwLS
+ 219 0088 002B     		cmp	r3, #0	@ tmp137,
+ 220 008a 05D0     		beq	.L12		@,
+ 221              	@ genrtn.c:56:   if ((!uwLS) || (!uwLD) || (!uwLen)) return FALSE; //--- Zero length strings
+ 222              		.loc 1 56 15 discriminator 2
+ 223 008c 7B8A     		ldrh	r3, [r7, #18]	@ tmp138, uwLD
+ 224 008e 002B     		cmp	r3, #0	@ tmp138,
+ 225 0090 02D0     		beq	.L12		@,
+ 226              	@ genrtn.c:56:   if ((!uwLS) || (!uwLD) || (!uwLen)) return FALSE; //--- Zero length strings
+ 227              		.loc 1 56 26 discriminator 4
+ 228 0092 BB88     		ldrh	r3, [r7, #4]	@ tmp139, uwLen
+ 229 0094 002B     		cmp	r3, #0	@ tmp139,
+ 230 0096 01D1     		bne	.L13		@,
+ 231              	.L12:
+ 232              	@ genrtn.c:56:   if ((!uwLS) || (!uwLD) || (!uwLen)) return FALSE; //--- Zero length strings
+ 233              		.loc 1 56 46 discriminator 5
+ 234 0098 0023     		movs	r3, #0	@ _17,
+ 235 009a 1DE0     		b	.L10		@
+ 236              	.L13:
+ 237              	@ genrtn.c:57:   if ((uwPos + uwLen) > uwLD) return FALSE;       //--- Result won't fit
+  57:genrtn.c      ****   if ((uwPos + uwLen) > uwLD) return FALSE;       //--- Result won't fit
+ 238              		.loc 1 57 14
+ 239 009c FA88     		ldrh	r2, [r7, #6]	@ _3, uwPos
+ 240 009e BB88     		ldrh	r3, [r7, #4]	@ _4, uwLen
+ 241 00a0 1A44     		add	r2, r2, r3	@ _5, _4
+ 242              	@ genrtn.c:57:   if ((uwPos + uwLen) > uwLD) return FALSE;       //--- Result won't fit
+ 243              		.loc 1 57 23
+ 244 00a2 7B8A     		ldrh	r3, [r7, #18]	@ _6, uwLD
+ 245              	@ genrtn.c:57:   if ((uwPos + uwLen) > uwLD) return FALSE;       //--- Result won't fit
+ 246              		.loc 1 57 6
+ 247 00a4 9A42     		cmp	r2, r3	@ _5, _6
+ 248 00a6 01DD     		ble	.L14		@,
+ 249              	@ genrtn.c:57:   if ((uwPos + uwLen) > uwLD) return FALSE;       //--- Result won't fit
+ 250              		.loc 1 57 38 discriminator 1
+ 251 00a8 0023     		movs	r3, #0	@ _17,
+ 252 00aa 15E0     		b	.L10		@
+ 253              	.L14:
+ 254              	@ genrtn.c:61:   for (uwP = 0; uwP < uwLen; uwP++)
+  58:genrtn.c      **** 
+  59:genrtn.c      ****   //--- Copy characters from Src to Dst
+  60:genrtn.c      **** 
+  61:genrtn.c      ****   for (uwP = 0; uwP < uwLen; uwP++)
+ 255              		.loc 1 61 12
+ 256 00ac 0023     		movs	r3, #0	@ tmp141,
+ 257 00ae FB82     		strh	r3, [r7, #22]	@ movhi	@ tmp140, uwP
+ 258              	@ genrtn.c:61:   for (uwP = 0; uwP < uwLen; uwP++)
+ 259              		.loc 1 61 3
+ 260 00b0 0DE0     		b	.L15		@
+ 261              	.L16:
+ 262              	@ genrtn.c:63:     ubDst[uwPos + uwP] = ubSrc[uwP];
+  62:genrtn.c      ****   {
+  63:genrtn.c      ****     ubDst[uwPos + uwP] = ubSrc[uwP];
+ 263              		.loc 1 63 31 discriminator 3
+ 264 00b2 FB8A     		ldrh	r3, [r7, #22]	@ _7, uwP
+ 265 00b4 BA68     		ldr	r2, [r7, #8]	@ tmp142, ubSrc
+ 266 00b6 1A44     		add	r2, r2, r3	@ _8, _7
+ 267              	@ genrtn.c:63:     ubDst[uwPos + uwP] = ubSrc[uwP];
+ 268              		.loc 1 63 17 discriminator 3
+ 269 00b8 F988     		ldrh	r1, [r7, #6]	@ _9, uwPos
+ 270 00ba FB8A     		ldrh	r3, [r7, #22]	@ _10, uwP
+ 271 00bc 0B44     		add	r3, r3, r1	@ _11, _9
+ 272 00be 1946     		mov	r1, r3	@ _12, _11
+ 273              	@ genrtn.c:63:     ubDst[uwPos + uwP] = ubSrc[uwP];
+ 274              		.loc 1 63 10 discriminator 3
+ 275 00c0 FB68     		ldr	r3, [r7, #12]	@ tmp143, ubDst
+ 276 00c2 0B44     		add	r3, r3, r1	@ _13, _12
+ 277              	@ genrtn.c:63:     ubDst[uwPos + uwP] = ubSrc[uwP];
+ 278              		.loc 1 63 31 discriminator 3
+ 279 00c4 1278     		ldrb	r2, [r2]	@ zero_extendqisi2	@ _14, *_8
+ 280              	@ genrtn.c:63:     ubDst[uwPos + uwP] = ubSrc[uwP];
+ 281              		.loc 1 63 24 discriminator 3
+ 282 00c6 1A70     		strb	r2, [r3]	@ tmp144, *_13
+ 283              	@ genrtn.c:61:   for (uwP = 0; uwP < uwLen; uwP++)
+  61:genrtn.c      ****   {
+ 284              		.loc 1 61 33 discriminator 3
+ 285 00c8 FB8A     		ldrh	r3, [r7, #22]	@ uwP.1_15, uwP
+ 286 00ca 0133     		adds	r3, r3, #1	@ tmp145, uwP.1_15,
+ 287 00cc FB82     		strh	r3, [r7, #22]	@ movhi	@ tmp146, uwP
+ 288              	.L15:
+ 289              	@ genrtn.c:61:   for (uwP = 0; uwP < uwLen; uwP++)
+  61:genrtn.c      ****   {
+ 290              		.loc 1 61 3 discriminator 1
+ 291 00ce FA8A     		ldrh	r2, [r7, #22]	@ tmp147, uwP
+ 292 00d0 BB88     		ldrh	r3, [r7, #4]	@ tmp148, uwLen
+ 293 00d2 9A42     		cmp	r2, r3	@ tmp147, tmp148
+ 294 00d4 EDD3     		bcc	.L16		@,
+ 295              	@ genrtn.c:66:   return TRUE;
+  64:genrtn.c      ****   }
+  65:genrtn.c      **** 
+  66:genrtn.c      ****   return TRUE;
+ 296              		.loc 1 66 10
+ 297 00d6 0123     		movs	r3, #1	@ _17,
+ 298              	.L10:
+ 299              	@ genrtn.c:67: }
+  67:genrtn.c      **** }
+ 300              		.loc 1 67 1
+ 301 00d8 1846     		mov	r0, r3	@, <retval>
+ 302 00da 1837     		adds	r7, r7, #24	@,,
+ 303              	.LCFI9:
+ 304              		.cfi_def_cfa_offset 8
+ 305 00dc BD46     		mov	sp, r7	@,
+ 306              	.LCFI10:
+ 307              		.cfi_def_cfa_register 13
+ 308              		@ sp needed	@
+ 309 00de 80BD     		pop	{r7, pc}	@
+ 310              		.cfi_endproc
+ 311              	.LFE12:
+ 313              		.align	1
+ 314              		.global	fnFindSinS
+ 315              		.syntax unified
+ 316              		.thumb
+ 317              		.thumb_func
+ 318              		.fpu fpv4-sp-d16
+ 320              	fnFindSinS:
+ 321              	.LFB13:
+  68:genrtn.c      **** 
+  69:genrtn.c      **** //---------------------------------------------------------------------------------------------
+  70:genrtn.c      **** //                       Find one string inside of another String
+  71:genrtn.c      **** //
+  72:genrtn.c      **** //           Returns (-1) if not found or Character N+1 for Starting Location
+  73:genrtn.c      **** //---------------------------------------------------------------------------------------------
+  74:genrtn.c      **** s16   fnFindSinS (u08 ubFind[], u08 ubSrc[])
+  75:genrtn.c      **** {
+ 322              		.loc 1 75 1
+ 323              		.cfi_startproc
+ 324              		@ args = 0, pretend = 0, frame = 24
+ 325              		@ frame_needed = 1, uses_anonymous_args = 0
+ 326 00e0 80B5     		push	{r7, lr}	@
+ 327              	.LCFI11:
+ 328              		.cfi_def_cfa_offset 8
+ 329              		.cfi_offset 7, -8
+ 330              		.cfi_offset 14, -4
+ 331 00e2 86B0     		sub	sp, sp, #24	@,,
+ 332              	.LCFI12:
+ 333              		.cfi_def_cfa_offset 32
+ 334 00e4 00AF     		add	r7, sp, #0	@,,
+ 335              	.LCFI13:
+ 336              		.cfi_def_cfa_register 7
+ 337 00e6 7860     		str	r0, [r7, #4]	@ ubFind, ubFind
+ 338 00e8 3960     		str	r1, [r7]	@ ubSrc, ubSrc
+ 339              	@ genrtn.c:83:   uwLF = fnStrLen (ubFind);
+  76:genrtn.c      ****   u16 uwLF;
+  77:genrtn.c      ****   u16 uwLS;
+  78:genrtn.c      ****   u16 uwA;
+  79:genrtn.c      ****   u16 uwB;
+  80:genrtn.c      ****   u16 uwFlag;
+  81:genrtn.c      **** 
+  82:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+  83:genrtn.c      ****   uwLF = fnStrLen (ubFind);
+ 340              		.loc 1 83 10
+ 341 00ea 7868     		ldr	r0, [r7, #4]	@, ubFind
+ 342 00ec FFF7FEFF 		bl	fnStrLen		@
+ 343 00f0 0346     		mov	r3, r0	@ tmp127,
+ 344 00f2 3B82     		strh	r3, [r7, #16]	@ movhi	@ tmp128, uwLF
+ 345              	@ genrtn.c:84:   uwLS = fnStrLen (ubSrc);
+  84:genrtn.c      ****   uwLS = fnStrLen (ubSrc);
+ 346              		.loc 1 84 10
+ 347 00f4 3868     		ldr	r0, [r7]	@, ubSrc
+ 348 00f6 FFF7FEFF 		bl	fnStrLen		@
+ 349 00fa 0346     		mov	r3, r0	@ tmp129,
+ 350 00fc FB81     		strh	r3, [r7, #14]	@ movhi	@ tmp130, uwLS
+ 351              	@ genrtn.c:87:   for (uwA = 0; uwA < (uwLS - uwLF); uwA++)
+  85:genrtn.c      **** 
+  86:genrtn.c      ****   //--- Scan Source String for "Find" String
+  87:genrtn.c      ****   for (uwA = 0; uwA < (uwLS - uwLF); uwA++)
+ 352              		.loc 1 87 12
+ 353 00fe 0023     		movs	r3, #0	@ tmp132,
+ 354 0100 FB82     		strh	r3, [r7, #22]	@ movhi	@ tmp131, uwA
+ 355              	@ genrtn.c:87:   for (uwA = 0; uwA < (uwLS - uwLF); uwA++)
+ 356              		.loc 1 87 3
+ 357 0102 24E0     		b	.L18		@
+ 358              	.L25:
+ 359              	@ genrtn.c:89:     uwFlag = TRUE;                                //--- Preset Flag for Success
+  88:genrtn.c      ****   {
+  89:genrtn.c      ****     uwFlag = TRUE;                                //--- Preset Flag for Success
+ 360              		.loc 1 89 12
+ 361 0104 0123     		movs	r3, #1	@ tmp134,
+ 362 0106 7B82     		strh	r3, [r7, #18]	@ movhi	@ tmp133, uwFlag
+ 363              	@ genrtn.c:90:     for (uwB = 0; uwB < uwLF; uwB++)
+  90:genrtn.c      ****     for (uwB = 0; uwB < uwLF; uwB++)
+ 364              		.loc 1 90 14
+ 365 0108 0023     		movs	r3, #0	@ tmp136,
+ 366 010a BB82     		strh	r3, [r7, #20]	@ movhi	@ tmp135, uwB
+ 367              	@ genrtn.c:90:     for (uwB = 0; uwB < uwLF; uwB++)
+ 368              		.loc 1 90 5
+ 369 010c 12E0     		b	.L19		@
+ 370              	.L22:
+ 371              	@ genrtn.c:92:       if (ubSrc[uwA+uwB] != ubFind[uwB])          //--- Check each Src byte for matc
+  91:genrtn.c      ****     {
+  92:genrtn.c      ****       if (ubSrc[uwA+uwB] != ubFind[uwB])          //--- Check each Src byte for match in Find
+ 372              		.loc 1 92 20
+ 373 010e FA8A     		ldrh	r2, [r7, #22]	@ _1, uwA
+ 374 0110 BB8A     		ldrh	r3, [r7, #20]	@ _2, uwB
+ 375 0112 1344     		add	r3, r3, r2	@ _3, _1
+ 376 0114 1A46     		mov	r2, r3	@ _4, _3
+ 377              	@ genrtn.c:92:       if (ubSrc[uwA+uwB] != ubFind[uwB])          //--- Check each Src byte for matc
+ 378              		.loc 1 92 16
+ 379 0116 3B68     		ldr	r3, [r7]	@ tmp137, ubSrc
+ 380 0118 1344     		add	r3, r3, r2	@ _5, _4
+ 381 011a 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2	@ _6, *_5
+ 382              	@ genrtn.c:92:       if (ubSrc[uwA+uwB] != ubFind[uwB])          //--- Check each Src byte for matc
+ 383              		.loc 1 92 35
+ 384 011c BB8A     		ldrh	r3, [r7, #20]	@ _7, uwB
+ 385 011e 7968     		ldr	r1, [r7, #4]	@ tmp138, ubFind
+ 386 0120 0B44     		add	r3, r3, r1	@ _8, tmp138
+ 387 0122 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2	@ _9, *_8
+ 388              	@ genrtn.c:92:       if (ubSrc[uwA+uwB] != ubFind[uwB])          //--- Check each Src byte for matc
+ 389              		.loc 1 92 10
+ 390 0124 9A42     		cmp	r2, r3	@ _6, _9
+ 391 0126 02D0     		beq	.L20		@,
+ 392              	@ genrtn.c:94:         uwFlag = FALSE;                           //--- If non match set flag & Exit
+  93:genrtn.c      ****       {
+  94:genrtn.c      ****         uwFlag = FALSE;                           //--- If non match set flag & Exit
+ 393              		.loc 1 94 16
+ 394 0128 0023     		movs	r3, #0	@ tmp140,
+ 395 012a 7B82     		strh	r3, [r7, #18]	@ movhi	@ tmp139, uwFlag
+ 396              	@ genrtn.c:95:         break;
+  95:genrtn.c      ****         break;
+ 397              		.loc 1 95 9
+ 398 012c 06E0     		b	.L21		@
+ 399              	.L20:
+ 400              	@ genrtn.c:90:     for (uwB = 0; uwB < uwLF; uwB++)
+  90:genrtn.c      ****     {
+ 401              		.loc 1 90 34 discriminator 2
+ 402 012e BB8A     		ldrh	r3, [r7, #20]	@ uwB.2_10, uwB
+ 403 0130 0133     		adds	r3, r3, #1	@ tmp141, uwB.2_10,
+ 404 0132 BB82     		strh	r3, [r7, #20]	@ movhi	@ tmp142, uwB
+ 405              	.L19:
+ 406              	@ genrtn.c:90:     for (uwB = 0; uwB < uwLF; uwB++)
+  90:genrtn.c      ****     {
+ 407              		.loc 1 90 5 discriminator 1
+ 408 0134 BA8A     		ldrh	r2, [r7, #20]	@ tmp143, uwB
+ 409 0136 3B8A     		ldrh	r3, [r7, #16]	@ tmp144, uwLF
+ 410 0138 9A42     		cmp	r2, r3	@ tmp143, tmp144
+ 411 013a E8D3     		bcc	.L22		@,
+ 412              	.L21:
+ 413              	@ genrtn.c:100:     if (uwFlag)
+  96:genrtn.c      ****       }
+  97:genrtn.c      ****     }
+  98:genrtn.c      **** 
+  99:genrtn.c      ****     //--- If every thing matched then exit function with pos16er to start of string
+ 100:genrtn.c      ****     if (uwFlag)
+ 414              		.loc 1 100 8
+ 415 013c 7B8A     		ldrh	r3, [r7, #18]	@ tmp145, uwFlag
+ 416 013e 002B     		cmp	r3, #0	@ tmp145,
+ 417 0140 02D0     		beq	.L23		@,
+ 418              	@ genrtn.c:102:       return uwA;
+ 101:genrtn.c      ****     {
+ 102:genrtn.c      ****       return uwA;
+ 419              		.loc 1 102 14
+ 420 0142 B7F91630 		ldrsh	r3, [r7, #22]	@ _19, uwA
+ 421 0146 0AE0     		b	.L24		@
+ 422              	.L23:
+ 423              	@ genrtn.c:87:   for (uwA = 0; uwA < (uwLS - uwLF); uwA++)
+  87:genrtn.c      ****   {
+ 424              		.loc 1 87 41 discriminator 2
+ 425 0148 FB8A     		ldrh	r3, [r7, #22]	@ uwA.3_11, uwA
+ 426 014a 0133     		adds	r3, r3, #1	@ tmp146, uwA.3_11,
+ 427 014c FB82     		strh	r3, [r7, #22]	@ movhi	@ tmp147, uwA
+ 428              	.L18:
+ 429              	@ genrtn.c:87:   for (uwA = 0; uwA < (uwLS - uwLF); uwA++)
+  87:genrtn.c      ****   {
+ 430              		.loc 1 87 21 discriminator 1
+ 431 014e FA8A     		ldrh	r2, [r7, #22]	@ _12, uwA
+ 432              	@ genrtn.c:87:   for (uwA = 0; uwA < (uwLS - uwLF); uwA++)
+  87:genrtn.c      ****   {
+ 433              		.loc 1 87 29 discriminator 1
+ 434 0150 F989     		ldrh	r1, [r7, #14]	@ _13, uwLS
+ 435 0152 3B8A     		ldrh	r3, [r7, #16]	@ _14, uwLF
+ 436 0154 CB1A     		subs	r3, r1, r3	@ _15, _13, _14
+ 437              	@ genrtn.c:87:   for (uwA = 0; uwA < (uwLS - uwLF); uwA++)
+  87:genrtn.c      ****   {
+ 438              		.loc 1 87 3 discriminator 1
+ 439 0156 9A42     		cmp	r2, r3	@ _12, _15
+ 440 0158 D4DB     		blt	.L25		@,
+ 441              	@ genrtn.c:105:   return -1;                                      //--- -1 is failed to find
+ 103:genrtn.c      ****     }
+ 104:genrtn.c      ****   }
+ 105:genrtn.c      ****   return -1;                                      //--- -1 is failed to find
+ 442              		.loc 1 105 10
+ 443 015a 4FF0FF33 		mov	r3, #-1	@ _19,
+ 444              	.L24:
+ 445              	@ genrtn.c:106: }
+ 106:genrtn.c      **** }
+ 446              		.loc 1 106 1
+ 447 015e 1846     		mov	r0, r3	@, <retval>
+ 448 0160 1837     		adds	r7, r7, #24	@,,
+ 449              	.LCFI14:
+ 450              		.cfi_def_cfa_offset 8
+ 451 0162 BD46     		mov	sp, r7	@,
+ 452              	.LCFI15:
+ 453              		.cfi_def_cfa_register 13
+ 454              		@ sp needed	@
+ 455 0164 80BD     		pop	{r7, pc}	@
+ 456              		.cfi_endproc
+ 457              	.LFE13:
+ 459              		.align	1
+ 460              		.global	fnGrabArrayBytes
+ 461              		.syntax unified
+ 462              		.thumb
+ 463              		.thumb_func
+ 464              		.fpu fpv4-sp-d16
+ 466              	fnGrabArrayBytes:
+ 467              	.LFB14:
+ 107:genrtn.c      **** 
+ 108:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 109:genrtn.c      **** //                          Extract Part of A Character Array
+ 110:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 111:genrtn.c      **** void  fnGrabArrayBytes (u08 ubDstArray[], u08 ubSrcArray[], u16 uwPtr, u16 uwCount)
+ 112:genrtn.c      **** {
+ 468              		.loc 1 112 1
+ 469              		.cfi_startproc
+ 470              		@ args = 0, pretend = 0, frame = 24
+ 471              		@ frame_needed = 1, uses_anonymous_args = 0
+ 472              		@ link register save eliminated.
+ 473 0166 80B4     		push	{r7}	@
+ 474              	.LCFI16:
+ 475              		.cfi_def_cfa_offset 4
+ 476              		.cfi_offset 7, -4
+ 477 0168 87B0     		sub	sp, sp, #28	@,,
+ 478              	.LCFI17:
+ 479              		.cfi_def_cfa_offset 32
+ 480 016a 00AF     		add	r7, sp, #0	@,,
+ 481              	.LCFI18:
+ 482              		.cfi_def_cfa_register 7
+ 483 016c F860     		str	r0, [r7, #12]	@ ubDstArray, ubDstArray
+ 484 016e B960     		str	r1, [r7, #8]	@ ubSrcArray, ubSrcArray
+ 485 0170 1146     		mov	r1, r2	@ tmp117, uwPtr
+ 486 0172 1A46     		mov	r2, r3	@ tmp119, uwCount
+ 487 0174 0B46     		mov	r3, r1	@ movhi	@ tmp118, tmp117
+ 488 0176 FB80     		strh	r3, [r7, #6]	@ movhi	@ tmp118, uwPtr
+ 489 0178 1346     		mov	r3, r2	@ movhi	@ tmp120, tmp119
+ 490 017a BB80     		strh	r3, [r7, #4]	@ movhi	@ tmp120, uwCount
+ 491              	@ genrtn.c:117:   for (uwC = 0; uwC < uwCount; uwC++)
+ 113:genrtn.c      ****   u16 uwC;
+ 114:genrtn.c      **** 
+ 115:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 116:genrtn.c      **** 
+ 117:genrtn.c      ****   for (uwC = 0; uwC < uwCount; uwC++)
+ 492              		.loc 1 117 12
+ 493 017c 0023     		movs	r3, #0	@ tmp122,
+ 494 017e FB82     		strh	r3, [r7, #22]	@ movhi	@ tmp121, uwC
+ 495              	@ genrtn.c:117:   for (uwC = 0; uwC < uwCount; uwC++)
+ 496              		.loc 1 117 3
+ 497 0180 0DE0     		b	.L27		@
+ 498              	.L28:
+ 499              	@ genrtn.c:119:     ubDstArray[uwC] = ubSrcArray[uwPtr];
+ 118:genrtn.c      ****   {
+ 119:genrtn.c      ****     ubDstArray[uwC] = ubSrcArray[uwPtr];
+ 500              		.loc 1 119 33 discriminator 3
+ 501 0182 FB88     		ldrh	r3, [r7, #6]	@ _1, uwPtr
+ 502 0184 BA68     		ldr	r2, [r7, #8]	@ tmp123, ubSrcArray
+ 503 0186 1A44     		add	r2, r2, r3	@ _2, _1
+ 504              	@ genrtn.c:119:     ubDstArray[uwC] = ubSrcArray[uwPtr];
+ 505              		.loc 1 119 15 discriminator 3
+ 506 0188 FB8A     		ldrh	r3, [r7, #22]	@ _3, uwC
+ 507 018a F968     		ldr	r1, [r7, #12]	@ tmp124, ubDstArray
+ 508 018c 0B44     		add	r3, r3, r1	@ _4, tmp124
+ 509              	@ genrtn.c:119:     ubDstArray[uwC] = ubSrcArray[uwPtr];
+ 510              		.loc 1 119 33 discriminator 3
+ 511 018e 1278     		ldrb	r2, [r2]	@ zero_extendqisi2	@ _5, *_2
+ 512              	@ genrtn.c:119:     ubDstArray[uwC] = ubSrcArray[uwPtr];
+ 513              		.loc 1 119 21 discriminator 3
+ 514 0190 1A70     		strb	r2, [r3]	@ tmp125, *_4
+ 515              	@ genrtn.c:120:     uwPtr++;
+ 120:genrtn.c      ****     uwPtr++;
+ 516              		.loc 1 120 10 discriminator 3
+ 517 0192 FB88     		ldrh	r3, [r7, #6]	@ uwPtr.4_6, uwPtr
+ 518 0194 0133     		adds	r3, r3, #1	@ tmp126, uwPtr.4_6,
+ 519 0196 FB80     		strh	r3, [r7, #6]	@ movhi	@ tmp127, uwPtr
+ 520              	@ genrtn.c:117:   for (uwC = 0; uwC < uwCount; uwC++)
+ 117:genrtn.c      ****   {
+ 521              		.loc 1 117 35 discriminator 3
+ 522 0198 FB8A     		ldrh	r3, [r7, #22]	@ uwC.5_7, uwC
+ 523 019a 0133     		adds	r3, r3, #1	@ tmp128, uwC.5_7,
+ 524 019c FB82     		strh	r3, [r7, #22]	@ movhi	@ tmp129, uwC
+ 525              	.L27:
+ 526              	@ genrtn.c:117:   for (uwC = 0; uwC < uwCount; uwC++)
+ 117:genrtn.c      ****   {
+ 527              		.loc 1 117 3 discriminator 1
+ 528 019e FA8A     		ldrh	r2, [r7, #22]	@ tmp130, uwC
+ 529 01a0 BB88     		ldrh	r3, [r7, #4]	@ tmp131, uwCount
+ 530 01a2 9A42     		cmp	r2, r3	@ tmp130, tmp131
+ 531 01a4 EDD3     		bcc	.L28		@,
+ 532              	@ genrtn.c:122: }
+ 121:genrtn.c      ****   }
+ 122:genrtn.c      **** }
+ 533              		.loc 1 122 1
+ 534 01a6 00BF     		nop	
+ 535 01a8 00BF     		nop	
+ 536 01aa 1C37     		adds	r7, r7, #28	@,,
+ 537              	.LCFI19:
+ 538              		.cfi_def_cfa_offset 4
+ 539 01ac BD46     		mov	sp, r7	@,
+ 540              	.LCFI20:
+ 541              		.cfi_def_cfa_register 13
+ 542              		@ sp needed	@
+ 543 01ae 5DF8047B 		ldr	r7, [sp], #4	@,
+ 544              	.LCFI21:
+ 545              		.cfi_restore 7
+ 546              		.cfi_def_cfa_offset 0
+ 547 01b2 7047     		bx	lr	@
+ 548              		.cfi_endproc
+ 549              	.LFE14:
+ 551              		.align	1
+ 552              		.global	fnLTRIM
+ 553              		.syntax unified
+ 554              		.thumb
+ 555              		.thumb_func
+ 556              		.fpu fpv4-sp-d16
+ 558              	fnLTRIM:
+ 559              	.LFB15:
+ 123:genrtn.c      **** 
+ 124:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 125:genrtn.c      **** //                         Remove Left Most Tabs and Spaces from String
+ 126:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 127:genrtn.c      **** u32  fnLTRIM (u08  ubSrc[])
+ 128:genrtn.c      **** {
+ 560              		.loc 1 128 1
+ 561              		.cfi_startproc
+ 562              		@ args = 0, pretend = 0, frame = 16
+ 563              		@ frame_needed = 1, uses_anonymous_args = 0
+ 564 01b4 80B5     		push	{r7, lr}	@
+ 565              	.LCFI22:
+ 566              		.cfi_def_cfa_offset 8
+ 567              		.cfi_offset 7, -8
+ 568              		.cfi_offset 14, -4
+ 569 01b6 84B0     		sub	sp, sp, #16	@,,
+ 570              	.LCFI23:
+ 571              		.cfi_def_cfa_offset 24
+ 572 01b8 00AF     		add	r7, sp, #0	@,,
+ 573              	.LCFI24:
+ 574              		.cfi_def_cfa_register 7
+ 575 01ba 7860     		str	r0, [r7, #4]	@ ubSrc, ubSrc
+ 576              	@ genrtn.c:134:   ulL = strlen (ubSrc);
+ 129:genrtn.c      ****   u32 ulP;
+ 130:genrtn.c      ****   u32 ulL;
+ 131:genrtn.c      **** 
+ 132:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 133:genrtn.c      **** 
+ 134:genrtn.c      ****   ulL = strlen (ubSrc);
+ 577              		.loc 1 134 9
+ 578 01bc 7868     		ldr	r0, [r7, #4]	@, ubSrc
+ 579 01be FFF7FEFF 		bl	strlen		@
+ 580 01c2 B860     		str	r0, [r7, #8]	@, ulL
+ 581              	@ genrtn.c:136:   if (!ulL) return ulL;
+ 135:genrtn.c      **** 
+ 136:genrtn.c      ****   if (!ulL) return ulL;
+ 582              		.loc 1 136 6
+ 583 01c4 BB68     		ldr	r3, [r7, #8]	@ tmp120, ulL
+ 584 01c6 002B     		cmp	r3, #0	@ tmp120,
+ 585 01c8 1DD1     		bne	.L32		@,
+ 586              	@ genrtn.c:136:   if (!ulL) return ulL;
+ 587              		.loc 1 136 20 discriminator 1
+ 588 01ca BB68     		ldr	r3, [r7, #8]	@ _11, ulL
+ 589 01cc 28E0     		b	.L31		@
+ 590              	.L35:
+ 591              	@ genrtn.c:142:     for (ulP = 0; ulP < (ulL - 1); ulP++)
+ 137:genrtn.c      **** 
+ 138:genrtn.c      ****   //--- Test for Space or TAB as First Character
+ 139:genrtn.c      **** 
+ 140:genrtn.c      ****   while ((ubSrc[0] == 0x20) || (ubSrc[0] == 0x09))
+ 141:genrtn.c      ****   {
+ 142:genrtn.c      ****     for (ulP = 0; ulP < (ulL - 1); ulP++)
+ 592              		.loc 1 142 14
+ 593 01ce 0023     		movs	r3, #0	@ tmp121,
+ 594 01d0 FB60     		str	r3, [r7, #12]	@ tmp121, ulP
+ 595              	@ genrtn.c:142:     for (ulP = 0; ulP < (ulL - 1); ulP++)
+ 596              		.loc 1 142 5
+ 597 01d2 0BE0     		b	.L33		@
+ 598              	.L34:
+ 599              	@ genrtn.c:144:       ubSrc[ulP] = ubSrc[ulP + 1];
+ 143:genrtn.c      ****     {
+ 144:genrtn.c      ****       ubSrc[ulP] = ubSrc[ulP + 1];
+ 600              		.loc 1 144 25 discriminator 3
+ 601 01d4 FB68     		ldr	r3, [r7, #12]	@ tmp122, ulP
+ 602 01d6 0133     		adds	r3, r3, #1	@ _1, tmp122,
+ 603 01d8 7A68     		ldr	r2, [r7, #4]	@ tmp123, ubSrc
+ 604 01da 1A44     		add	r2, r2, r3	@ _2, _1
+ 605              	@ genrtn.c:144:       ubSrc[ulP] = ubSrc[ulP + 1];
+ 606              		.loc 1 144 12 discriminator 3
+ 607 01dc 7968     		ldr	r1, [r7, #4]	@ tmp124, ubSrc
+ 608 01de FB68     		ldr	r3, [r7, #12]	@ tmp125, ulP
+ 609 01e0 0B44     		add	r3, r3, r1	@ _3, tmp124
+ 610              	@ genrtn.c:144:       ubSrc[ulP] = ubSrc[ulP + 1];
+ 611              		.loc 1 144 25 discriminator 3
+ 612 01e2 1278     		ldrb	r2, [r2]	@ zero_extendqisi2	@ _4, *_2
+ 613              	@ genrtn.c:144:       ubSrc[ulP] = ubSrc[ulP + 1];
+ 614              		.loc 1 144 18 discriminator 3
+ 615 01e4 1A70     		strb	r2, [r3]	@ tmp126, *_3
+ 616              	@ genrtn.c:142:     for (ulP = 0; ulP < (ulL - 1); ulP++)
+ 142:genrtn.c      ****     {
+ 617              		.loc 1 142 39 discriminator 3
+ 618 01e6 FB68     		ldr	r3, [r7, #12]	@ tmp128, ulP
+ 619 01e8 0133     		adds	r3, r3, #1	@ tmp127, tmp128,
+ 620 01ea FB60     		str	r3, [r7, #12]	@ tmp127, ulP
+ 621              	.L33:
+ 622              	@ genrtn.c:142:     for (ulP = 0; ulP < (ulL - 1); ulP++)
+ 142:genrtn.c      ****     {
+ 623              		.loc 1 142 30 discriminator 1
+ 624 01ec BB68     		ldr	r3, [r7, #8]	@ tmp129, ulL
+ 625 01ee 013B     		subs	r3, r3, #1	@ _5, tmp129,
+ 626              	@ genrtn.c:142:     for (ulP = 0; ulP < (ulL - 1); ulP++)
+ 142:genrtn.c      ****     {
+ 627              		.loc 1 142 5 discriminator 1
+ 628 01f0 FA68     		ldr	r2, [r7, #12]	@ tmp130, ulP
+ 629 01f2 9A42     		cmp	r2, r3	@ tmp130, _5
+ 630 01f4 EED3     		bcc	.L34		@,
+ 631              	@ genrtn.c:146:     ubSrc[ulP] = 0;
+ 145:genrtn.c      ****     }
+ 146:genrtn.c      ****     ubSrc[ulP] = 0;
+ 632              		.loc 1 146 10
+ 633 01f6 7A68     		ldr	r2, [r7, #4]	@ tmp131, ubSrc
+ 634 01f8 FB68     		ldr	r3, [r7, #12]	@ tmp132, ulP
+ 635 01fa 1344     		add	r3, r3, r2	@ _6, tmp131
+ 636              	@ genrtn.c:146:     ubSrc[ulP] = 0;
+ 637              		.loc 1 146 16
+ 638 01fc 0022     		movs	r2, #0	@ tmp133,
+ 639 01fe 1A70     		strb	r2, [r3]	@ tmp134, *_6
+ 640              	@ genrtn.c:147:     ulL--;
+ 147:genrtn.c      ****     ulL--;
+ 641              		.loc 1 147 8
+ 642 0200 BB68     		ldr	r3, [r7, #8]	@ tmp136, ulL
+ 643 0202 013B     		subs	r3, r3, #1	@ tmp135, tmp136,
+ 644 0204 BB60     		str	r3, [r7, #8]	@ tmp135, ulL
+ 645              	.L32:
+ 646              	@ genrtn.c:140:   while ((ubSrc[0] == 0x20) || (ubSrc[0] == 0x09))
+ 140:genrtn.c      ****   {
+ 647              		.loc 1 140 16
+ 648 0206 7B68     		ldr	r3, [r7, #4]	@ tmp137, ubSrc
+ 649 0208 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2	@ _7, *ubSrc_16(D)
+ 650              	@ genrtn.c:140:   while ((ubSrc[0] == 0x20) || (ubSrc[0] == 0x09))
+ 140:genrtn.c      ****   {
+ 651              		.loc 1 140 9
+ 652 020a 202B     		cmp	r3, #32	@ _7,
+ 653 020c DFD0     		beq	.L35		@,
+ 654              	@ genrtn.c:140:   while ((ubSrc[0] == 0x20) || (ubSrc[0] == 0x09))
+ 140:genrtn.c      ****   {
+ 655              		.loc 1 140 38 discriminator 1
+ 656 020e 7B68     		ldr	r3, [r7, #4]	@ tmp138, ubSrc
+ 657 0210 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2	@ _8, *ubSrc_16(D)
+ 658              	@ genrtn.c:140:   while ((ubSrc[0] == 0x20) || (ubSrc[0] == 0x09))
+ 140:genrtn.c      ****   {
+ 659              		.loc 1 140 29 discriminator 1
+ 660 0212 092B     		cmp	r3, #9	@ _8,
+ 661 0214 DBD0     		beq	.L35		@,
+ 662              	@ genrtn.c:150:   ulL = strlen (ubSrc);
+ 148:genrtn.c      ****   }
+ 149:genrtn.c      **** 
+ 150:genrtn.c      ****   ulL = strlen (ubSrc);
+ 663              		.loc 1 150 9
+ 664 0216 7868     		ldr	r0, [r7, #4]	@, ubSrc
+ 665 0218 FFF7FEFF 		bl	strlen		@
+ 666 021c B860     		str	r0, [r7, #8]	@, ulL
+ 667              	@ genrtn.c:151:   return ulL;
+ 151:genrtn.c      ****   return ulL;
+ 668              		.loc 1 151 10
+ 669 021e BB68     		ldr	r3, [r7, #8]	@ _11, ulL
+ 670              	.L31:
+ 671              	@ genrtn.c:152: }
+ 152:genrtn.c      **** }
+ 672              		.loc 1 152 1
+ 673 0220 1846     		mov	r0, r3	@, <retval>
+ 674 0222 1037     		adds	r7, r7, #16	@,,
+ 675              	.LCFI25:
+ 676              		.cfi_def_cfa_offset 8
+ 677 0224 BD46     		mov	sp, r7	@,
+ 678              	.LCFI26:
+ 679              		.cfi_def_cfa_register 13
+ 680              		@ sp needed	@
+ 681 0226 80BD     		pop	{r7, pc}	@
+ 682              		.cfi_endproc
+ 683              	.LFE15:
+ 685              		.align	1
+ 686              		.global	fnRTRIM
+ 687              		.syntax unified
+ 688              		.thumb
+ 689              		.thumb_func
+ 690              		.fpu fpv4-sp-d16
+ 692              	fnRTRIM:
+ 693              	.LFB16:
+ 153:genrtn.c      **** 
+ 154:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 155:genrtn.c      **** //                        Remove Right Most Tabs and Spaces from String
+ 156:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 157:genrtn.c      **** u32  fnRTRIM (u08  ubSrc[])
+ 158:genrtn.c      **** {
+ 694              		.loc 1 158 1
+ 695              		.cfi_startproc
+ 696              		@ args = 0, pretend = 0, frame = 16
+ 697              		@ frame_needed = 1, uses_anonymous_args = 0
+ 698 0228 80B5     		push	{r7, lr}	@
+ 699              	.LCFI27:
+ 700              		.cfi_def_cfa_offset 8
+ 701              		.cfi_offset 7, -8
+ 702              		.cfi_offset 14, -4
+ 703 022a 84B0     		sub	sp, sp, #16	@,,
+ 704              	.LCFI28:
+ 705              		.cfi_def_cfa_offset 24
+ 706 022c 00AF     		add	r7, sp, #0	@,,
+ 707              	.LCFI29:
+ 708              		.cfi_def_cfa_register 7
+ 709 022e 7860     		str	r0, [r7, #4]	@ ubSrc, ubSrc
+ 710              	@ genrtn.c:164:   ulL = strlen (ubSrc);
+ 159:genrtn.c      ****   u32 ulP;
+ 160:genrtn.c      ****   u32 ulL;
+ 161:genrtn.c      **** 
+ 162:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 163:genrtn.c      **** 
+ 164:genrtn.c      ****   ulL = strlen (ubSrc);
+ 711              		.loc 1 164 9
+ 712 0230 7868     		ldr	r0, [r7, #4]	@, ubSrc
+ 713 0232 FFF7FEFF 		bl	strlen		@
+ 714 0236 B860     		str	r0, [r7, #8]	@, ulL
+ 715              	@ genrtn.c:166:   if (!ulL) return ulL;
+ 165:genrtn.c      **** 
+ 166:genrtn.c      ****   if (!ulL) return ulL;
+ 716              		.loc 1 166 6
+ 717 0238 BB68     		ldr	r3, [r7, #8]	@ tmp117, ulL
+ 718 023a 002B     		cmp	r3, #0	@ tmp117,
+ 719 023c 01D1     		bne	.L37		@,
+ 720              	@ genrtn.c:166:   if (!ulL) return ulL;
+ 721              		.loc 1 166 20 discriminator 1
+ 722 023e BB68     		ldr	r3, [r7, #8]	@ _8, ulL
+ 723 0240 22E0     		b	.L38		@
+ 724              	.L37:
+ 725              	@ genrtn.c:167:   ulP = ulL - 1;
+ 167:genrtn.c      ****   ulP = ulL - 1;
+ 726              		.loc 1 167 7
+ 727 0242 BB68     		ldr	r3, [r7, #8]	@ tmp119, ulL
+ 728 0244 013B     		subs	r3, r3, #1	@ tmp118, tmp119,
+ 729 0246 FB60     		str	r3, [r7, #12]	@ tmp118, ulP
+ 730              	@ genrtn.c:171:   while (((ubSrc[ulP] == 0x20) || (ubSrc[ulP] == 0x09)) && (ulL > 0))
+ 168:genrtn.c      **** 
+ 169:genrtn.c      ****   //--- Test for Space or TAB as First Character
+ 170:genrtn.c      **** 
+ 171:genrtn.c      ****   while (((ubSrc[ulP] == 0x20) || (ubSrc[ulP] == 0x09)) && (ulL > 0))
+ 731              		.loc 1 171 9
+ 732 0248 0AE0     		b	.L39		@
+ 733              	.L42:
+ 734              	@ genrtn.c:173:     ubSrc[ulP] = 0x00;
+ 172:genrtn.c      ****   {
+ 173:genrtn.c      ****     ubSrc[ulP] = 0x00;
+ 735              		.loc 1 173 10
+ 736 024a 7A68     		ldr	r2, [r7, #4]	@ tmp120, ubSrc
+ 737 024c FB68     		ldr	r3, [r7, #12]	@ tmp121, ulP
+ 738 024e 1344     		add	r3, r3, r2	@ _1, tmp120
+ 739              	@ genrtn.c:173:     ubSrc[ulP] = 0x00;
+ 740              		.loc 1 173 16
+ 741 0250 0022     		movs	r2, #0	@ tmp122,
+ 742 0252 1A70     		strb	r2, [r3]	@ tmp123, *_1
+ 743              	@ genrtn.c:174:     ulL--;
+ 174:genrtn.c      ****     ulL--;
+ 744              		.loc 1 174 8
+ 745 0254 BB68     		ldr	r3, [r7, #8]	@ tmp125, ulL
+ 746 0256 013B     		subs	r3, r3, #1	@ tmp124, tmp125,
+ 747 0258 BB60     		str	r3, [r7, #8]	@ tmp124, ulL
+ 748              	@ genrtn.c:175:     ulP--;
+ 175:genrtn.c      ****     ulP--;
+ 749              		.loc 1 175 8
+ 750 025a FB68     		ldr	r3, [r7, #12]	@ tmp127, ulP
+ 751 025c 013B     		subs	r3, r3, #1	@ tmp126, tmp127,
+ 752 025e FB60     		str	r3, [r7, #12]	@ tmp126, ulP
+ 753              	.L39:
+ 754              	@ genrtn.c:171:   while (((ubSrc[ulP] == 0x20) || (ubSrc[ulP] == 0x09)) && (ulL > 0))
+ 171:genrtn.c      ****   {
+ 755              		.loc 1 171 17
+ 756 0260 7A68     		ldr	r2, [r7, #4]	@ tmp128, ubSrc
+ 757 0262 FB68     		ldr	r3, [r7, #12]	@ tmp129, ulP
+ 758 0264 1344     		add	r3, r3, r2	@ _2, tmp128
+ 759 0266 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2	@ _3, *_2
+ 760              	@ genrtn.c:171:   while (((ubSrc[ulP] == 0x20) || (ubSrc[ulP] == 0x09)) && (ulL > 0))
+ 171:genrtn.c      ****   {
+ 761              		.loc 1 171 9
+ 762 0268 202B     		cmp	r3, #32	@ _3,
+ 763 026a 05D0     		beq	.L40		@,
+ 764              	@ genrtn.c:171:   while (((ubSrc[ulP] == 0x20) || (ubSrc[ulP] == 0x09)) && (ulL > 0))
+ 171:genrtn.c      ****   {
+ 765              		.loc 1 171 41 discriminator 2
+ 766 026c 7A68     		ldr	r2, [r7, #4]	@ tmp130, ubSrc
+ 767 026e FB68     		ldr	r3, [r7, #12]	@ tmp131, ulP
+ 768 0270 1344     		add	r3, r3, r2	@ _4, tmp130
+ 769 0272 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2	@ _5, *_4
+ 770              	@ genrtn.c:171:   while (((ubSrc[ulP] == 0x20) || (ubSrc[ulP] == 0x09)) && (ulL > 0))
+ 171:genrtn.c      ****   {
+ 771              		.loc 1 171 32 discriminator 2
+ 772 0274 092B     		cmp	r3, #9	@ _5,
+ 773 0276 02D1     		bne	.L41		@,
+ 774              	.L40:
+ 775              	@ genrtn.c:171:   while (((ubSrc[ulP] == 0x20) || (ubSrc[ulP] == 0x09)) && (ulL > 0))
+ 171:genrtn.c      ****   {
+ 776              		.loc 1 171 57 discriminator 3
+ 777 0278 BB68     		ldr	r3, [r7, #8]	@ tmp132, ulL
+ 778 027a 002B     		cmp	r3, #0	@ tmp132,
+ 779 027c E5D1     		bne	.L42		@,
+ 780              	.L41:
+ 781              	@ genrtn.c:178:   ulL = strlen (ubSrc);
+ 176:genrtn.c      ****   }
+ 177:genrtn.c      **** 
+ 178:genrtn.c      ****   ulL = strlen (ubSrc);
+ 782              		.loc 1 178 9
+ 783 027e 7868     		ldr	r0, [r7, #4]	@, ubSrc
+ 784 0280 FFF7FEFF 		bl	strlen		@
+ 785 0284 B860     		str	r0, [r7, #8]	@, ulL
+ 786              	@ genrtn.c:179:   return ulL;
+ 179:genrtn.c      ****   return ulL;
+ 787              		.loc 1 179 10
+ 788 0286 BB68     		ldr	r3, [r7, #8]	@ _8, ulL
+ 789              	.L38:
+ 790              	@ genrtn.c:180: }
+ 180:genrtn.c      **** }
+ 791              		.loc 1 180 1
+ 792 0288 1846     		mov	r0, r3	@, <retval>
+ 793 028a 1037     		adds	r7, r7, #16	@,,
+ 794              	.LCFI30:
+ 795              		.cfi_def_cfa_offset 8
+ 796 028c BD46     		mov	sp, r7	@,
+ 797              	.LCFI31:
+ 798              		.cfi_def_cfa_register 13
+ 799              		@ sp needed	@
+ 800 028e 80BD     		pop	{r7, pc}	@
+ 801              		.cfi_endproc
+ 802              	.LFE16:
+ 804              		.align	1
+ 805              		.global	fnLoByte
+ 806              		.syntax unified
+ 807              		.thumb
+ 808              		.thumb_func
+ 809              		.fpu fpv4-sp-d16
+ 811              	fnLoByte:
+ 812              	.LFB17:
+ 181:genrtn.c      **** 
+ 182:genrtn.c      **** 
+ 183:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 184:genrtn.c      **** //                       Functions to extract Hi & Lo Bytes of Word
+ 185:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 186:genrtn.c      **** 
+ 187:genrtn.c      **** u08   fnLoByte (u16 uwWord)
+ 188:genrtn.c      **** {
+ 813              		.loc 1 188 1
+ 814              		.cfi_startproc
+ 815              		@ args = 0, pretend = 0, frame = 8
+ 816              		@ frame_needed = 1, uses_anonymous_args = 0
+ 817              		@ link register save eliminated.
+ 818 0290 80B4     		push	{r7}	@
+ 819              	.LCFI32:
+ 820              		.cfi_def_cfa_offset 4
+ 821              		.cfi_offset 7, -4
+ 822 0292 83B0     		sub	sp, sp, #12	@,,
+ 823              	.LCFI33:
+ 824              		.cfi_def_cfa_offset 16
+ 825 0294 00AF     		add	r7, sp, #0	@,,
+ 826              	.LCFI34:
+ 827              		.cfi_def_cfa_register 7
+ 828 0296 0346     		mov	r3, r0	@ tmp112, uwWord
+ 829 0298 FB80     		strh	r3, [r7, #6]	@ movhi	@ tmp113, uwWord
+ 830              	@ genrtn.c:189:   return  (u08)(uwWord & 0x00FF);
+ 189:genrtn.c      ****   return  (u08)(uwWord & 0x00FF);
+ 831              		.loc 1 189 11
+ 832 029a FB88     		ldrh	r3, [r7, #6]	@ movhi	@ tmp114, uwWord
+ 833 029c DBB2     		uxtb	r3, r3	@ _2, tmp114
+ 834              	@ genrtn.c:190: }
+ 190:genrtn.c      **** }
+ 835              		.loc 1 190 1
+ 836 029e 1846     		mov	r0, r3	@, <retval>
+ 837 02a0 0C37     		adds	r7, r7, #12	@,,
+ 838              	.LCFI35:
+ 839              		.cfi_def_cfa_offset 4
+ 840 02a2 BD46     		mov	sp, r7	@,
+ 841              	.LCFI36:
+ 842              		.cfi_def_cfa_register 13
+ 843              		@ sp needed	@
+ 844 02a4 5DF8047B 		ldr	r7, [sp], #4	@,
+ 845              	.LCFI37:
+ 846              		.cfi_restore 7
+ 847              		.cfi_def_cfa_offset 0
+ 848 02a8 7047     		bx	lr	@
+ 849              		.cfi_endproc
+ 850              	.LFE17:
+ 852              		.align	1
+ 853              		.global	fnHiByte
+ 854              		.syntax unified
+ 855              		.thumb
+ 856              		.thumb_func
+ 857              		.fpu fpv4-sp-d16
+ 859              	fnHiByte:
+ 860              	.LFB18:
+ 191:genrtn.c      **** 
+ 192:genrtn.c      **** u08   fnHiByte (u16 uwWord)
+ 193:genrtn.c      **** {
+ 861              		.loc 1 193 1
+ 862              		.cfi_startproc
+ 863              		@ args = 0, pretend = 0, frame = 8
+ 864              		@ frame_needed = 1, uses_anonymous_args = 0
+ 865              		@ link register save eliminated.
+ 866 02aa 80B4     		push	{r7}	@
+ 867              	.LCFI38:
+ 868              		.cfi_def_cfa_offset 4
+ 869              		.cfi_offset 7, -4
+ 870 02ac 83B0     		sub	sp, sp, #12	@,,
+ 871              	.LCFI39:
+ 872              		.cfi_def_cfa_offset 16
+ 873 02ae 00AF     		add	r7, sp, #0	@,,
+ 874              	.LCFI40:
+ 875              		.cfi_def_cfa_register 7
+ 876 02b0 0346     		mov	r3, r0	@ tmp113, uwWord
+ 877 02b2 FB80     		strh	r3, [r7, #6]	@ movhi	@ tmp114, uwWord
+ 878              	@ genrtn.c:194:   return  (u08)((uwWord / 0x100) & 0x00FF);
+ 194:genrtn.c      ****   return  (u08)((uwWord / 0x100) & 0x00FF);
+ 879              		.loc 1 194 11
+ 880 02b4 FB88     		ldrh	r3, [r7, #6]	@ tmp116, uwWord
+ 881 02b6 1B0A     		lsrs	r3, r3, #8	@ tmp115, tmp116,
+ 882 02b8 9BB2     		uxth	r3, r3	@ _1, tmp115
+ 883 02ba DBB2     		uxtb	r3, r3	@ _3, _1
+ 884              	@ genrtn.c:195: }
+ 195:genrtn.c      **** }
+ 885              		.loc 1 195 1
+ 886 02bc 1846     		mov	r0, r3	@, <retval>
+ 887 02be 0C37     		adds	r7, r7, #12	@,,
+ 888              	.LCFI41:
+ 889              		.cfi_def_cfa_offset 4
+ 890 02c0 BD46     		mov	sp, r7	@,
+ 891              	.LCFI42:
+ 892              		.cfi_def_cfa_register 13
+ 893              		@ sp needed	@
+ 894 02c2 5DF8047B 		ldr	r7, [sp], #4	@,
+ 895              	.LCFI43:
+ 896              		.cfi_restore 7
+ 897              		.cfi_def_cfa_offset 0
+ 898 02c6 7047     		bx	lr	@
+ 899              		.cfi_endproc
+ 900              	.LFE18:
+ 902              		.align	1
+ 903              		.global	fnBytesToWord
+ 904              		.syntax unified
+ 905              		.thumb
+ 906              		.thumb_func
+ 907              		.fpu fpv4-sp-d16
+ 909              	fnBytesToWord:
+ 910              	.LFB19:
+ 196:genrtn.c      **** 
+ 197:genrtn.c      **** u16   fnBytesToWord (u08 ubLoByte, u08 ubHiByte)
+ 198:genrtn.c      **** {
+ 911              		.loc 1 198 1
+ 912              		.cfi_startproc
+ 913              		@ args = 0, pretend = 0, frame = 16
+ 914              		@ frame_needed = 1, uses_anonymous_args = 0
+ 915              		@ link register save eliminated.
+ 916 02c8 80B4     		push	{r7}	@
+ 917              	.LCFI44:
+ 918              		.cfi_def_cfa_offset 4
+ 919              		.cfi_offset 7, -4
+ 920 02ca 85B0     		sub	sp, sp, #20	@,,
+ 921              	.LCFI45:
+ 922              		.cfi_def_cfa_offset 24
+ 923 02cc 00AF     		add	r7, sp, #0	@,,
+ 924              	.LCFI46:
+ 925              		.cfi_def_cfa_register 7
+ 926 02ce 0346     		mov	r3, r0	@ tmp113, ubLoByte
+ 927 02d0 0A46     		mov	r2, r1	@ tmp115, ubHiByte
+ 928 02d2 FB71     		strb	r3, [r7, #7]	@ tmp114, ubLoByte
+ 929 02d4 1346     		mov	r3, r2	@ tmp116, tmp115
+ 930 02d6 BB71     		strb	r3, [r7, #6]	@ tmp116, ubHiByte
+ 931              	@ genrtn.c:203:   uwWork = (u16) ubHiByte;
+ 199:genrtn.c      ****   u16   uwWork;
+ 200:genrtn.c      **** 
+ 201:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 202:genrtn.c      **** 
+ 203:genrtn.c      ****   uwWork = (u16) ubHiByte;
+ 932              		.loc 1 203 10
+ 933 02d8 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2	@ tmp117, ubHiByte
+ 934 02da FB81     		strh	r3, [r7, #14]	@ movhi	@ tmp118, uwWork
+ 935              	@ genrtn.c:204:   uwWork = uwWork << 8;
+ 204:genrtn.c      ****   uwWork = uwWork << 8;
+ 936              		.loc 1 204 10
+ 937 02dc FB89     		ldrh	r3, [r7, #14]	@ movhi	@ tmp119, uwWork
+ 938 02de 1B02     		lsls	r3, r3, #8	@ tmp120, tmp119,
+ 939 02e0 FB81     		strh	r3, [r7, #14]	@ movhi	@ tmp121, uwWork
+ 940              	@ genrtn.c:205:   uwWork |= (u16) ubLoByte;
+ 205:genrtn.c      ****   uwWork |= (u16) ubLoByte;
+ 941              		.loc 1 205 10
+ 942 02e2 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2	@ tmp123, ubLoByte
+ 943 02e4 9AB2     		uxth	r2, r3	@ _1, tmp122
+ 944 02e6 FB89     		ldrh	r3, [r7, #14]	@ movhi	@ tmp124, uwWork
+ 945 02e8 1343     		orrs	r3, r3, r2	@, tmp125, tmp124, _1
+ 946 02ea FB81     		strh	r3, [r7, #14]	@ movhi	@ tmp126, uwWork
+ 947              	@ genrtn.c:206:   return uwWork;
+ 206:genrtn.c      ****   return uwWork;
+ 948              		.loc 1 206 10
+ 949 02ec FB89     		ldrh	r3, [r7, #14]	@ _7, uwWork
+ 950              	@ genrtn.c:207: }
+ 207:genrtn.c      **** }
+ 951              		.loc 1 207 1
+ 952 02ee 1846     		mov	r0, r3	@, <retval>
+ 953 02f0 1437     		adds	r7, r7, #20	@,,
+ 954              	.LCFI47:
+ 955              		.cfi_def_cfa_offset 4
+ 956 02f2 BD46     		mov	sp, r7	@,
+ 957              	.LCFI48:
+ 958              		.cfi_def_cfa_register 13
+ 959              		@ sp needed	@
+ 960 02f4 5DF8047B 		ldr	r7, [sp], #4	@,
+ 961              	.LCFI49:
+ 962              		.cfi_restore 7
+ 963              		.cfi_def_cfa_offset 0
+ 964 02f8 7047     		bx	lr	@
+ 965              		.cfi_endproc
+ 966              	.LFE19:
+ 968              		.align	1
+ 969              		.global	fnBCD2Bin
+ 970              		.syntax unified
+ 971              		.thumb
+ 972              		.thumb_func
+ 973              		.fpu fpv4-sp-d16
+ 975              	fnBCD2Bin:
+ 976              	.LFB20:
+ 208:genrtn.c      **** 
+ 209:genrtn.c      **** 
+ 210:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 211:genrtn.c      **** //                       Functions to Convert BCD to Binary and Back
+ 212:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 213:genrtn.c      **** u08   fnBCD2Bin (u08  ubBCD)
+ 214:genrtn.c      **** {
+ 977              		.loc 1 214 1
+ 978              		.cfi_startproc
+ 979              		@ args = 0, pretend = 0, frame = 16
+ 980              		@ frame_needed = 1, uses_anonymous_args = 0
+ 981              		@ link register save eliminated.
+ 982 02fa 80B4     		push	{r7}	@
+ 983              	.LCFI50:
+ 984              		.cfi_def_cfa_offset 4
+ 985              		.cfi_offset 7, -4
+ 986 02fc 85B0     		sub	sp, sp, #20	@,,
+ 987              	.LCFI51:
+ 988              		.cfi_def_cfa_offset 24
+ 989 02fe 00AF     		add	r7, sp, #0	@,,
+ 990              	.LCFI52:
+ 991              		.cfi_def_cfa_register 7
+ 992 0300 0346     		mov	r3, r0	@ tmp114, ubBCD
+ 993 0302 FB71     		strb	r3, [r7, #7]	@ tmp115, ubBCD
+ 994              	@ genrtn.c:219:   ubWork = ((ubBCD >> 4) & 0x0F) * 10;
+ 215:genrtn.c      ****   u08 ubWork;
+ 216:genrtn.c      **** 
+ 217:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 218:genrtn.c      **** 
+ 219:genrtn.c      ****   ubWork = ((ubBCD >> 4) & 0x0F) * 10;
+ 995              		.loc 1 219 10
+ 996 0304 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2	@ tmp116, ubBCD
+ 997 0306 1B09     		lsrs	r3, r3, #4	@ tmp117, tmp116,
+ 998 0308 DBB2     		uxtb	r3, r3	@ _1, tmp117
+ 999 030a 1A46     		mov	r2, r3	@ tmp119, tmp118
+ 1000 030c 9200     		lsls	r2, r2, #2	@ tmp120, tmp119,
+ 1001 030e 1344     		add	r3, r3, r2	@ tmp122, tmp121
+ 1002 0310 5B00     		lsls	r3, r3, #1	@ tmp124, tmp123,
+ 1003 0312 FB73     		strb	r3, [r7, #15]	@ tmp125, ubWork
+ 1004              	@ genrtn.c:220:   ubWork += ubBCD & 0x0F;
+ 220:genrtn.c      ****   ubWork += ubBCD & 0x0F;
+ 1005              		.loc 1 220 19
+ 1006 0314 FB79     		ldrb	r3, [r7, #7]	@ tmp126, ubBCD
+ 1007 0316 03F00F03 		and	r3, r3, #15	@ tmp127, tmp126,
+ 1008 031a DAB2     		uxtb	r2, r3	@ _2, tmp127
+ 1009              	@ genrtn.c:220:   ubWork += ubBCD & 0x0F;
+ 1010              		.loc 1 220 10
+ 1011 031c FB7B     		ldrb	r3, [r7, #15]	@ tmp128, ubWork
+ 1012 031e 1344     		add	r3, r3, r2	@ tmp129, _2
+ 1013 0320 FB73     		strb	r3, [r7, #15]	@ tmp130, ubWork
+ 1014              	@ genrtn.c:221:   return ubWork;
+ 221:genrtn.c      ****   return ubWork;
+ 1015              		.loc 1 221 10
+ 1016 0322 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2	@ _6, ubWork
+ 1017              	@ genrtn.c:222: }
+ 222:genrtn.c      **** }
+ 1018              		.loc 1 222 1
+ 1019 0324 1846     		mov	r0, r3	@, <retval>
+ 1020 0326 1437     		adds	r7, r7, #20	@,,
+ 1021              	.LCFI53:
+ 1022              		.cfi_def_cfa_offset 4
+ 1023 0328 BD46     		mov	sp, r7	@,
+ 1024              	.LCFI54:
+ 1025              		.cfi_def_cfa_register 13
+ 1026              		@ sp needed	@
+ 1027 032a 5DF8047B 		ldr	r7, [sp], #4	@,
+ 1028              	.LCFI55:
+ 1029              		.cfi_restore 7
+ 1030              		.cfi_def_cfa_offset 0
+ 1031 032e 7047     		bx	lr	@
+ 1032              		.cfi_endproc
+ 1033              	.LFE20:
+ 1035              		.align	1
+ 1036              		.global	fnBin2BCD
+ 1037              		.syntax unified
+ 1038              		.thumb
+ 1039              		.thumb_func
+ 1040              		.fpu fpv4-sp-d16
+ 1042              	fnBin2BCD:
+ 1043              	.LFB21:
+ 223:genrtn.c      **** 
+ 224:genrtn.c      **** u08   fnBin2BCD (u08  ubBin)
+ 225:genrtn.c      **** {
+ 1044              		.loc 1 225 1
+ 1045              		.cfi_startproc
+ 1046              		@ args = 0, pretend = 0, frame = 16
+ 1047              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1048              		@ link register save eliminated.
+ 1049 0330 80B4     		push	{r7}	@
+ 1050              	.LCFI56:
+ 1051              		.cfi_def_cfa_offset 4
+ 1052              		.cfi_offset 7, -4
+ 1053 0332 85B0     		sub	sp, sp, #20	@,,
+ 1054              	.LCFI57:
+ 1055              		.cfi_def_cfa_offset 24
+ 1056 0334 00AF     		add	r7, sp, #0	@,,
+ 1057              	.LCFI58:
+ 1058              		.cfi_def_cfa_register 7
+ 1059 0336 0346     		mov	r3, r0	@ tmp120, ubBin
+ 1060 0338 FB71     		strb	r3, [r7, #7]	@ tmp121, ubBin
+ 1061              	@ genrtn.c:230:   ubWork = ((ubBin / 10) << 4) & 0xF0;
+ 226:genrtn.c      ****   u08 ubWork;
+ 227:genrtn.c      **** 
+ 228:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 229:genrtn.c      **** 
+ 230:genrtn.c      ****   ubWork = ((ubBin / 10) << 4) & 0xF0;
+ 1062              		.loc 1 230 20
+ 1063 033a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2	@ tmp123, ubBin
+ 1064 033c 104A     		ldr	r2, .L53	@ tmp125,
+ 1065 033e A2FB0323 		umull	r2, r3, r2, r3	@ tmp138, tmp124, tmp125, tmp123
+ 1066 0342 DB08     		lsrs	r3, r3, #3	@ tmp122, tmp124,
+ 1067 0344 DBB2     		uxtb	r3, r3	@ _1, tmp122
+ 1068              	@ genrtn.c:230:   ubWork = ((ubBin / 10) << 4) & 0xF0;
+ 1069              		.loc 1 230 26
+ 1070 0346 1B01     		lsls	r3, r3, #4	@ _3, _2,
+ 1071              	@ genrtn.c:230:   ubWork = ((ubBin / 10) << 4) & 0xF0;
+ 1072              		.loc 1 230 10
+ 1073 0348 FB73     		strb	r3, [r7, #15]	@ tmp126, ubWork
+ 1074              	@ genrtn.c:231:   ubWork |= ((ubBin % 10) & 0x0F);
+ 231:genrtn.c      ****   ubWork |= ((ubBin % 10) & 0x0F);
+ 1075              		.loc 1 231 27
+ 1076 034a FA79     		ldrb	r2, [r7, #7]	@ zero_extendqisi2	@ tmp128, ubBin
+ 1077 034c 0C4B     		ldr	r3, .L53	@ tmp130,
+ 1078 034e A3FB0213 		umull	r1, r3, r3, r2	@ tmp139, tmp129, tmp130, tmp128
+ 1079 0352 D908     		lsrs	r1, r3, #3	@ tmp127, tmp129,
+ 1080 0354 0B46     		mov	r3, r1	@ tmp131, tmp127
+ 1081 0356 9B00     		lsls	r3, r3, #2	@ tmp131, tmp131,
+ 1082 0358 0B44     		add	r3, r3, r1	@ tmp131, tmp127
+ 1083 035a 5B00     		lsls	r3, r3, #1	@ tmp132, tmp131,
+ 1084 035c D31A     		subs	r3, r2, r3	@ tmp133, tmp128, tmp131
+ 1085 035e DBB2     		uxtb	r3, r3	@ _4, tmp133
+ 1086 0360 5BB2     		sxtb	r3, r3	@ _5, _4
+ 1087 0362 03F00F03 		and	r3, r3, #15	@ tmp134, _5,
+ 1088 0366 5AB2     		sxtb	r2, r3	@ _6, tmp134
+ 1089              	@ genrtn.c:231:   ubWork |= ((ubBin % 10) & 0x0F);
+ 1090              		.loc 1 231 10
+ 1091 0368 97F90F30 		ldrsb	r3, [r7, #15]	@ ubWork.6_7, ubWork
+ 1092 036c 1343     		orrs	r3, r3, r2	@, tmp135, ubWork.6_7, _6
+ 1093 036e 5BB2     		sxtb	r3, r3	@ _8, tmp135
+ 1094 0370 FB73     		strb	r3, [r7, #15]	@ tmp136, ubWork
+ 1095              	@ genrtn.c:232:   return ubWork;
+ 232:genrtn.c      ****   return ubWork;
+ 1096              		.loc 1 232 10
+ 1097 0372 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2	@ _12, ubWork
+ 1098              	@ genrtn.c:233: }
+ 233:genrtn.c      **** }
+ 1099              		.loc 1 233 1
+ 1100 0374 1846     		mov	r0, r3	@, <retval>
+ 1101 0376 1437     		adds	r7, r7, #20	@,,
+ 1102              	.LCFI59:
+ 1103              		.cfi_def_cfa_offset 4
+ 1104 0378 BD46     		mov	sp, r7	@,
+ 1105              	.LCFI60:
+ 1106              		.cfi_def_cfa_register 13
+ 1107              		@ sp needed	@
+ 1108 037a 5DF8047B 		ldr	r7, [sp], #4	@,
+ 1109              	.LCFI61:
+ 1110              		.cfi_restore 7
+ 1111              		.cfi_def_cfa_offset 0
+ 1112 037e 7047     		bx	lr	@
+ 1113              	.L54:
+ 1114              		.align	2
+ 1115              	.L53:
+ 1116 0380 CDCCCCCC 		.word	-858993459
+ 1117              		.cfi_endproc
+ 1118              	.LFE21:
+ 1120              		.align	1
+ 1121              		.global	fnByte2Hex
+ 1122              		.syntax unified
+ 1123              		.thumb
+ 1124              		.thumb_func
+ 1125              		.fpu fpv4-sp-d16
+ 1127              	fnByte2Hex:
+ 1128              	.LFB22:
+ 234:genrtn.c      **** 
+ 235:genrtn.c      **** 
+ 236:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 237:genrtn.c      **** //                     Functions to Convert a Byte Value to 2 Hex Characters
+ 238:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 239:genrtn.c      **** void  fnByte2Hex (u08 ubByte, u08 ubOut[])
+ 240:genrtn.c      **** {
+ 1129              		.loc 1 240 1
+ 1130              		.cfi_startproc
+ 1131              		@ args = 0, pretend = 0, frame = 16
+ 1132              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1133 0384 90B5     		push	{r4, r7, lr}	@
+ 1134              	.LCFI62:
+ 1135              		.cfi_def_cfa_offset 12
+ 1136              		.cfi_offset 4, -12
+ 1137              		.cfi_offset 7, -8
+ 1138              		.cfi_offset 14, -4
+ 1139 0386 85B0     		sub	sp, sp, #20	@,,
+ 1140              	.LCFI63:
+ 1141              		.cfi_def_cfa_offset 32
+ 1142 0388 00AF     		add	r7, sp, #0	@,,
+ 1143              	.LCFI64:
+ 1144              		.cfi_def_cfa_register 7
+ 1145 038a 0346     		mov	r3, r0	@ tmp116, ubByte
+ 1146 038c 3960     		str	r1, [r7]	@ ubOut, ubOut
+ 1147 038e FB71     		strb	r3, [r7, #7]	@ tmp117, ubByte
+ 1148              	@ genrtn.c:245:   ubWork = (ubByte & 0xF0) / 0x10;
+ 241:genrtn.c      ****   u08 ubWork;
+ 242:genrtn.c      **** 
+ 243:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 244:genrtn.c      **** 
+ 245:genrtn.c      ****   ubWork = (ubByte & 0xF0) / 0x10;
+ 1149              		.loc 1 245 20
+ 1150 0390 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2	@ _1, ubByte
+ 1151 0392 03F0F003 		and	r3, r3, #240	@ _2, _1,
+ 1152              	@ genrtn.c:245:   ubWork = (ubByte & 0xF0) / 0x10;
+ 1153              		.loc 1 245 28
+ 1154 0396 002B     		cmp	r3, #0	@ tmp118,
+ 1155 0398 00DA     		bge	.L56		@,
+ 1156 039a 0F33     		adds	r3, r3, #15	@ tmp118, tmp118,
+ 1157              	.L56:
+ 1158 039c 1B11     		asrs	r3, r3, #4	@ tmp119, tmp118,
+ 1159              	@ genrtn.c:245:   ubWork = (ubByte & 0xF0) / 0x10;
+ 1160              		.loc 1 245 10
+ 1161 039e FB73     		strb	r3, [r7, #15]	@ tmp120, ubWork
+ 1162              	@ genrtn.c:246:   ubOut[0] = fnByte2Chr (ubWork);
+ 246:genrtn.c      ****   ubOut[0] = fnByte2Chr (ubWork);
+ 1163              		.loc 1 246 14
+ 1164 03a0 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2	@ tmp121, ubWork
+ 1165 03a2 1846     		mov	r0, r3	@, tmp121
+ 1166 03a4 FFF7FEFF 		bl	fnByte2Chr		@
+ 1167 03a8 0346     		mov	r3, r0	@ tmp122,
+ 1168 03aa 1A46     		mov	r2, r3	@ _4, tmp122
+ 1169              	@ genrtn.c:246:   ubOut[0] = fnByte2Chr (ubWork);
+ 1170              		.loc 1 246 12
+ 1171 03ac 3B68     		ldr	r3, [r7]	@ tmp123, ubOut
+ 1172 03ae 1A70     		strb	r2, [r3]	@ tmp124, *ubOut_11(D)
+ 1173              	@ genrtn.c:247:   ubWork = (ubByte & 0x0F);
+ 247:genrtn.c      ****   ubWork = (ubByte & 0x0F);
+ 1174              		.loc 1 247 10
+ 1175 03b0 FB79     		ldrb	r3, [r7, #7]	@ tmp125, ubByte
+ 1176 03b2 03F00F03 		and	r3, r3, #15	@ tmp126, tmp125,
+ 1177 03b6 FB73     		strb	r3, [r7, #15]	@ tmp127, ubWork
+ 1178              	@ genrtn.c:248:   ubOut[1] = fnByte2Chr (ubWork);
+ 248:genrtn.c      ****   ubOut[1] = fnByte2Chr (ubWork);
+ 1179              		.loc 1 248 8
+ 1180 03b8 3B68     		ldr	r3, [r7]	@ tmp128, ubOut
+ 1181 03ba 5C1C     		adds	r4, r3, #1	@ _5, tmp128,
+ 1182              	@ genrtn.c:248:   ubOut[1] = fnByte2Chr (ubWork);
+ 1183              		.loc 1 248 14
+ 1184 03bc FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2	@ tmp129, ubWork
+ 1185 03be 1846     		mov	r0, r3	@, tmp129
+ 1186 03c0 FFF7FEFF 		bl	fnByte2Chr		@
+ 1187 03c4 0346     		mov	r3, r0	@ tmp130,
+ 1188              	@ genrtn.c:248:   ubOut[1] = fnByte2Chr (ubWork);
+ 1189              		.loc 1 248 12
+ 1190 03c6 2370     		strb	r3, [r4]	@ tmp131, *_5
+ 1191              	@ genrtn.c:249: }
+ 249:genrtn.c      **** }
+ 1192              		.loc 1 249 1
+ 1193 03c8 00BF     		nop	
+ 1194 03ca 1437     		adds	r7, r7, #20	@,,
+ 1195              	.LCFI65:
+ 1196              		.cfi_def_cfa_offset 12
+ 1197 03cc BD46     		mov	sp, r7	@,
+ 1198              	.LCFI66:
+ 1199              		.cfi_def_cfa_register 13
+ 1200              		@ sp needed	@
+ 1201 03ce 90BD     		pop	{r4, r7, pc}	@
+ 1202              		.cfi_endproc
+ 1203              	.LFE22:
+ 1205              		.align	1
+ 1206              		.global	fnByte2Chr
+ 1207              		.syntax unified
+ 1208              		.thumb
+ 1209              		.thumb_func
+ 1210              		.fpu fpv4-sp-d16
+ 1212              	fnByte2Chr:
+ 1213              	.LFB23:
+ 250:genrtn.c      **** 
+ 251:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 252:genrtn.c      **** //                   Functions to Convert a Byte Value a Hex Character 0-9/A-F
+ 253:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 254:genrtn.c      **** u08 fnByte2Chr (u08 ubByte)
+ 255:genrtn.c      **** {
+ 1214              		.loc 1 255 1
+ 1215              		.cfi_startproc
+ 1216              		@ args = 0, pretend = 0, frame = 16
+ 1217              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1218              		@ link register save eliminated.
+ 1219 03d0 80B4     		push	{r7}	@
+ 1220              	.LCFI67:
+ 1221              		.cfi_def_cfa_offset 4
+ 1222              		.cfi_offset 7, -4
+ 1223 03d2 85B0     		sub	sp, sp, #20	@,,
+ 1224              	.LCFI68:
+ 1225              		.cfi_def_cfa_offset 24
+ 1226 03d4 00AF     		add	r7, sp, #0	@,,
+ 1227              	.LCFI69:
+ 1228              		.cfi_def_cfa_register 7
+ 1229 03d6 0346     		mov	r3, r0	@ tmp115, ubByte
+ 1230 03d8 FB71     		strb	r3, [r7, #7]	@ tmp116, ubByte
+ 1231              	@ genrtn.c:256:   u08 ubWork = 0;
+ 256:genrtn.c      ****   u08 ubWork = 0;
+ 1232              		.loc 1 256 7
+ 1233 03da 0023     		movs	r3, #0	@ tmp117,
+ 1234 03dc FB73     		strb	r3, [r7, #15]	@ tmp118, ubWork
+ 1235              	@ genrtn.c:260:   ubByte &= 0x0F;
+ 257:genrtn.c      **** 
+ 258:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 259:genrtn.c      **** 
+ 260:genrtn.c      ****   ubByte &= 0x0F;
+ 1236              		.loc 1 260 10
+ 1237 03de FB79     		ldrb	r3, [r7, #7]	@ tmp119, ubByte
+ 1238 03e0 03F00F03 		and	r3, r3, #15	@ tmp120, tmp119,
+ 1239 03e4 FB71     		strb	r3, [r7, #7]	@ tmp121, ubByte
+ 1240              	@ genrtn.c:262:   switch (ubByte)
+ 261:genrtn.c      **** 
+ 262:genrtn.c      ****   switch (ubByte)
+ 1241              		.loc 1 262 3
+ 1242 03e6 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2	@ _1, ubByte
+ 1243 03e8 092B     		cmp	r3, #9	@ _1,
+ 1244 03ea 02DC     		bgt	.L58		@,
+ 1245 03ec 002B     		cmp	r3, #0	@ _1,
+ 1246 03ee 04DA     		bge	.L59		@,
+ 1247 03f0 0BE0     		b	.L60		@
+ 1248              	.L58:
+ 1249 03f2 0A3B     		subs	r3, r3, #10	@ _11, _10,
+ 1250 03f4 052B     		cmp	r3, #5	@ _11,
+ 1251 03f6 08D8     		bhi	.L60		@,
+ 1252 03f8 03E0     		b	.L63		@
+ 1253              	.L59:
+ 1254              	@ genrtn.c:266:       ubWork = 0x30 + ubByte;
+ 263:genrtn.c      ****   {
+ 264:genrtn.c      ****     case 0: case 1: case 2: case 3: case 4:
+ 265:genrtn.c      ****     case 5: case 6: case 7: case 8: case 9:
+ 266:genrtn.c      ****       ubWork = 0x30 + ubByte;
+ 1255              		.loc 1 266 14
+ 1256 03fa FB79     		ldrb	r3, [r7, #7]	@ tmp122, ubByte
+ 1257 03fc 3033     		adds	r3, r3, #48	@ tmp123, tmp122,
+ 1258 03fe FB73     		strb	r3, [r7, #15]	@ tmp124, ubWork
+ 1259              	@ genrtn.c:267:       break;
+ 267:genrtn.c      ****       break;
+ 1260              		.loc 1 267 7
+ 1261 0400 03E0     		b	.L60		@
+ 1262              	.L63:
+ 1263              	@ genrtn.c:270:       ubWork = ubByte + 0x37;
+ 268:genrtn.c      **** 
+ 269:genrtn.c      ****     case 10: case 11: case 12: case 13: case 14: case 15:
+ 270:genrtn.c      ****       ubWork = ubByte + 0x37;
+ 1264              		.loc 1 270 14
+ 1265 0402 FB79     		ldrb	r3, [r7, #7]	@ tmp125, ubByte
+ 1266 0404 3733     		adds	r3, r3, #55	@ tmp126, tmp125,
+ 1267 0406 FB73     		strb	r3, [r7, #15]	@ tmp127, ubWork
+ 1268              	@ genrtn.c:271:       break;
+ 271:genrtn.c      ****       break;
+ 1269              		.loc 1 271 7
+ 1270 0408 00BF     		nop	
+ 1271              	.L60:
+ 1272              	@ genrtn.c:274:   return ubWork;
+ 272:genrtn.c      ****   }
+ 273:genrtn.c      **** 
+ 274:genrtn.c      ****   return ubWork;
+ 1273              		.loc 1 274 10
+ 1274 040a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2	@ _8, ubWork
+ 1275              	@ genrtn.c:275: }
+ 275:genrtn.c      **** }
+ 1276              		.loc 1 275 1
+ 1277 040c 1846     		mov	r0, r3	@, <retval>
+ 1278 040e 1437     		adds	r7, r7, #20	@,,
+ 1279              	.LCFI70:
+ 1280              		.cfi_def_cfa_offset 4
+ 1281 0410 BD46     		mov	sp, r7	@,
+ 1282              	.LCFI71:
+ 1283              		.cfi_def_cfa_register 13
+ 1284              		@ sp needed	@
+ 1285 0412 5DF8047B 		ldr	r7, [sp], #4	@,
+ 1286              	.LCFI72:
+ 1287              		.cfi_restore 7
+ 1288              		.cfi_def_cfa_offset 0
+ 1289 0416 7047     		bx	lr	@
+ 1290              		.cfi_endproc
+ 1291              	.LFE23:
+ 1293              		.align	1
+ 1294              		.global	fnStrCpy
+ 1295              		.syntax unified
+ 1296              		.thumb
+ 1297              		.thumb_func
+ 1298              		.fpu fpv4-sp-d16
+ 1300              	fnStrCpy:
+ 1301              	.LFB24:
+ 276:genrtn.c      **** 
+ 277:genrtn.c      **** 
+ 278:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 279:genrtn.c      **** //                        Function to simply copy 1 string to another
+ 280:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 281:genrtn.c      **** void  fnStrCpy (u08 ubDst[], u08 ubSrc[])
+ 282:genrtn.c      **** {
+ 1302              		.loc 1 282 1
+ 1303              		.cfi_startproc
+ 1304              		@ args = 0, pretend = 0, frame = 16
+ 1305              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1306              		@ link register save eliminated.
+ 1307 0418 80B4     		push	{r7}	@
+ 1308              	.LCFI73:
+ 1309              		.cfi_def_cfa_offset 4
+ 1310              		.cfi_offset 7, -4
+ 1311 041a 85B0     		sub	sp, sp, #20	@,,
+ 1312              	.LCFI74:
+ 1313              		.cfi_def_cfa_offset 24
+ 1314 041c 00AF     		add	r7, sp, #0	@,,
+ 1315              	.LCFI75:
+ 1316              		.cfi_def_cfa_register 7
+ 1317 041e 7860     		str	r0, [r7, #4]	@ ubDst, ubDst
+ 1318 0420 3960     		str	r1, [r7]	@ ubSrc, ubSrc
+ 1319              	@ genrtn.c:283:   u16 uwPtr = 0;
+ 283:genrtn.c      ****   u16 uwPtr = 0;
+ 1320              		.loc 1 283 7
+ 1321 0422 0023     		movs	r3, #0	@ tmp122,
+ 1322 0424 FB81     		strh	r3, [r7, #14]	@ movhi	@ tmp121, uwPtr
+ 1323              	@ genrtn.c:287:   while (ubSrc[uwPtr])
+ 284:genrtn.c      **** 
+ 285:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 286:genrtn.c      **** 
+ 287:genrtn.c      ****   while (ubSrc[uwPtr])
+ 1324              		.loc 1 287 9
+ 1325 0426 0AE0     		b	.L65		@
+ 1326              	.L66:
+ 1327              	@ genrtn.c:289:     ubDst[uwPtr] = ubSrc[uwPtr];
+ 288:genrtn.c      ****   {
+ 289:genrtn.c      ****     ubDst[uwPtr] = ubSrc[uwPtr];
+ 1328              		.loc 1 289 25
+ 1329 0428 FB89     		ldrh	r3, [r7, #14]	@ _1, uwPtr
+ 1330 042a 3A68     		ldr	r2, [r7]	@ tmp123, ubSrc
+ 1331 042c 1A44     		add	r2, r2, r3	@ _2, _1
+ 1332              	@ genrtn.c:289:     ubDst[uwPtr] = ubSrc[uwPtr];
+ 1333              		.loc 1 289 10
+ 1334 042e FB89     		ldrh	r3, [r7, #14]	@ _3, uwPtr
+ 1335 0430 7968     		ldr	r1, [r7, #4]	@ tmp124, ubDst
+ 1336 0432 0B44     		add	r3, r3, r1	@ _4, tmp124
+ 1337              	@ genrtn.c:289:     ubDst[uwPtr] = ubSrc[uwPtr];
+ 1338              		.loc 1 289 25
+ 1339 0434 1278     		ldrb	r2, [r2]	@ zero_extendqisi2	@ _5, *_2
+ 1340              	@ genrtn.c:289:     ubDst[uwPtr] = ubSrc[uwPtr];
+ 1341              		.loc 1 289 18
+ 1342 0436 1A70     		strb	r2, [r3]	@ tmp125, *_4
+ 1343              	@ genrtn.c:290:     uwPtr++;
+ 290:genrtn.c      ****     uwPtr++;
+ 1344              		.loc 1 290 10
+ 1345 0438 FB89     		ldrh	r3, [r7, #14]	@ uwPtr.7_6, uwPtr
+ 1346 043a 0133     		adds	r3, r3, #1	@ tmp126, uwPtr.7_6,
+ 1347 043c FB81     		strh	r3, [r7, #14]	@ movhi	@ tmp127, uwPtr
+ 1348              	.L65:
+ 1349              	@ genrtn.c:287:   while (ubSrc[uwPtr])
+ 287:genrtn.c      ****   {
+ 1350              		.loc 1 287 15
+ 1351 043e FB89     		ldrh	r3, [r7, #14]	@ _7, uwPtr
+ 1352 0440 3A68     		ldr	r2, [r7]	@ tmp128, ubSrc
+ 1353 0442 1344     		add	r3, r3, r2	@ _8, tmp128
+ 1354 0444 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2	@ _9, *_8
+ 1355              	@ genrtn.c:287:   while (ubSrc[uwPtr])
+ 287:genrtn.c      ****   {
+ 1356              		.loc 1 287 9
+ 1357 0446 002B     		cmp	r3, #0	@ _9,
+ 1358 0448 EED1     		bne	.L66		@,
+ 1359              	@ genrtn.c:293:   ubDst[uwPtr] = 0;
+ 291:genrtn.c      ****   }
+ 292:genrtn.c      **** 
+ 293:genrtn.c      ****   ubDst[uwPtr] = 0;
+ 1360              		.loc 1 293 8
+ 1361 044a FB89     		ldrh	r3, [r7, #14]	@ _10, uwPtr
+ 1362 044c 7A68     		ldr	r2, [r7, #4]	@ tmp129, ubDst
+ 1363 044e 1344     		add	r3, r3, r2	@ _11, tmp129
+ 1364              	@ genrtn.c:293:   ubDst[uwPtr] = 0;
+ 1365              		.loc 1 293 16
+ 1366 0450 0022     		movs	r2, #0	@ tmp130,
+ 1367 0452 1A70     		strb	r2, [r3]	@ tmp131, *_11
+ 1368              	@ genrtn.c:294: }
+ 294:genrtn.c      **** }
+ 1369              		.loc 1 294 1
+ 1370 0454 00BF     		nop	
+ 1371 0456 1437     		adds	r7, r7, #20	@,,
+ 1372              	.LCFI76:
+ 1373              		.cfi_def_cfa_offset 4
+ 1374 0458 BD46     		mov	sp, r7	@,
+ 1375              	.LCFI77:
+ 1376              		.cfi_def_cfa_register 13
+ 1377              		@ sp needed	@
+ 1378 045a 5DF8047B 		ldr	r7, [sp], #4	@,
+ 1379              	.LCFI78:
+ 1380              		.cfi_restore 7
+ 1381              		.cfi_def_cfa_offset 0
+ 1382 045e 7047     		bx	lr	@
+ 1383              		.cfi_endproc
+ 1384              	.LFE24:
+ 1386              		.align	1
+ 1387              		.global	fnStrLen
+ 1388              		.syntax unified
+ 1389              		.thumb
+ 1390              		.thumb_func
+ 1391              		.fpu fpv4-sp-d16
+ 1393              	fnStrLen:
+ 1394              	.LFB25:
+ 295:genrtn.c      **** 
+ 296:genrtn.c      **** 
+ 297:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 298:genrtn.c      **** //                      Function to simply measure the length of a string
+ 299:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 300:genrtn.c      **** u16   fnStrLen (u08 ubSrc[])
+ 301:genrtn.c      **** {
+ 1395              		.loc 1 301 1
+ 1396              		.cfi_startproc
+ 1397              		@ args = 0, pretend = 0, frame = 16
+ 1398              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1399              		@ link register save eliminated.
+ 1400 0460 80B4     		push	{r7}	@
+ 1401              	.LCFI79:
+ 1402              		.cfi_def_cfa_offset 4
+ 1403              		.cfi_offset 7, -4
+ 1404 0462 85B0     		sub	sp, sp, #20	@,,
+ 1405              	.LCFI80:
+ 1406              		.cfi_def_cfa_offset 24
+ 1407 0464 00AF     		add	r7, sp, #0	@,,
+ 1408              	.LCFI81:
+ 1409              		.cfi_def_cfa_register 7
+ 1410 0466 7860     		str	r0, [r7, #4]	@ ubSrc, ubSrc
+ 1411              	@ genrtn.c:302:   u16 uwLen = 0;
+ 302:genrtn.c      ****   u16 uwLen = 0;
+ 1412              		.loc 1 302 7
+ 1413 0468 0023     		movs	r3, #0	@ tmp117,
+ 1414 046a FB81     		strh	r3, [r7, #14]	@ movhi	@ tmp116, uwLen
+ 1415              	@ genrtn.c:306:   while (ubSrc[uwLen])
+ 303:genrtn.c      **** 
+ 304:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 305:genrtn.c      **** 
+ 306:genrtn.c      ****   while (ubSrc[uwLen])
+ 1416              		.loc 1 306 9
+ 1417 046c 02E0     		b	.L68		@
+ 1418              	.L69:
+ 1419              	@ genrtn.c:308:     uwLen++;
+ 307:genrtn.c      ****   {
+ 308:genrtn.c      ****     uwLen++;
+ 1420              		.loc 1 308 10
+ 1421 046e FB89     		ldrh	r3, [r7, #14]	@ uwLen.8_1, uwLen
+ 1422 0470 0133     		adds	r3, r3, #1	@ tmp118, uwLen.8_1,
+ 1423 0472 FB81     		strh	r3, [r7, #14]	@ movhi	@ tmp119, uwLen
+ 1424              	.L68:
+ 1425              	@ genrtn.c:306:   while (ubSrc[uwLen])
+ 306:genrtn.c      ****   {
+ 1426              		.loc 1 306 15
+ 1427 0474 FB89     		ldrh	r3, [r7, #14]	@ _2, uwLen
+ 1428 0476 7A68     		ldr	r2, [r7, #4]	@ tmp120, ubSrc
+ 1429 0478 1344     		add	r3, r3, r2	@ _3, tmp120
+ 1430 047a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2	@ _4, *_3
+ 1431              	@ genrtn.c:306:   while (ubSrc[uwLen])
+ 306:genrtn.c      ****   {
+ 1432              		.loc 1 306 9
+ 1433 047c 002B     		cmp	r3, #0	@ _4,
+ 1434 047e F6D1     		bne	.L69		@,
+ 1435              	@ genrtn.c:310:   return uwLen;
+ 309:genrtn.c      ****   }
+ 310:genrtn.c      ****   return uwLen;
+ 1436              		.loc 1 310 10
+ 1437 0480 FB89     		ldrh	r3, [r7, #14]	@ _9, uwLen
+ 1438              	@ genrtn.c:311: }
+ 311:genrtn.c      **** }
+ 1439              		.loc 1 311 1
+ 1440 0482 1846     		mov	r0, r3	@, <retval>
+ 1441 0484 1437     		adds	r7, r7, #20	@,,
+ 1442              	.LCFI82:
+ 1443              		.cfi_def_cfa_offset 4
+ 1444 0486 BD46     		mov	sp, r7	@,
+ 1445              	.LCFI83:
+ 1446              		.cfi_def_cfa_register 13
+ 1447              		@ sp needed	@
+ 1448 0488 5DF8047B 		ldr	r7, [sp], #4	@,
+ 1449              	.LCFI84:
+ 1450              		.cfi_restore 7
+ 1451              		.cfi_def_cfa_offset 0
+ 1452 048c 7047     		bx	lr	@
+ 1453              		.cfi_endproc
+ 1454              	.LFE25:
+ 1456              		.align	1
+ 1457              		.global	fnCINTF
+ 1458              		.syntax unified
+ 1459              		.thumb
+ 1460              		.thumb_func
+ 1461              		.fpu fpv4-sp-d16
+ 1463              	fnCINTF:
+ 1464              	.LFB26:
+ 312:genrtn.c      **** 
+ 313:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 314:genrtn.c      **** //                        Convert Single Precision Value to Closest integer
+ 315:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 316:genrtn.c      **** s32 fnCINTF (flt sfFloat)
+ 317:genrtn.c      **** {
+ 1465              		.loc 1 317 1
+ 1466              		.cfi_startproc
+ 1467              		@ args = 0, pretend = 0, frame = 16
+ 1468              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1469              		@ link register save eliminated.
+ 1470 048e 80B4     		push	{r7}	@
+ 1471              	.LCFI85:
+ 1472              		.cfi_def_cfa_offset 4
+ 1473              		.cfi_offset 7, -4
+ 1474 0490 85B0     		sub	sp, sp, #20	@,,
+ 1475              	.LCFI86:
+ 1476              		.cfi_def_cfa_offset 24
+ 1477 0492 00AF     		add	r7, sp, #0	@,,
+ 1478              	.LCFI87:
+ 1479              		.cfi_def_cfa_register 7
+ 1480 0494 87ED010A 		vstr.32	s0, [r7, #4]	@ sfFloat, sfFloat
+ 1481              	@ genrtn.c:322:   slWork = (s32)sfFloat;
+ 318:genrtn.c      ****   s32 slWork;
+ 319:genrtn.c      **** 
+ 320:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 321:genrtn.c      **** 
+ 322:genrtn.c      ****   slWork = (s32)sfFloat;
+ 1482              		.loc 1 322 10
+ 1483 0498 D7ED017A 		vldr.32	s15, [r7, #4]	@ tmp116, sfFloat
+ 1484 049c FDEEE77A 		vcvt.s32.f32	s15, s15	@ tmp115, tmp116
+ 1485 04a0 17EE903A 		vmov	r3, s15	@ int	@ tmp115, tmp115
+ 1486 04a4 FB60     		str	r3, [r7, #12]	@ tmp115, slWork
+ 1487              	@ genrtn.c:326:   if (fabsf(sfFloat - (flt)slWork) > 0.5)
+ 323:genrtn.c      **** 
+ 324:genrtn.c      ****   //--- Test if we round up or down
+ 325:genrtn.c      **** 
+ 326:genrtn.c      ****   if (fabsf(sfFloat - (flt)slWork) > 0.5)
+ 1488              		.loc 1 326 23
+ 1489 04a6 FB68     		ldr	r3, [r7, #12]	@ tmp117, slWork
+ 1490 04a8 07EE903A 		vmov	s15, r3	@ int	@ tmp117, tmp117
+ 1491 04ac F8EEE77A 		vcvt.f32.s32	s15, s15	@ _1, tmp117
+ 1492              	@ genrtn.c:326:   if (fabsf(sfFloat - (flt)slWork) > 0.5)
+ 1493              		.loc 1 326 21
+ 1494 04b0 97ED017A 		vldr.32	s14, [r7, #4]	@ tmp118, sfFloat
+ 1495 04b4 77EE677A 		vsub.f32	s15, s14, s15	@ _2, tmp118, _1
+ 1496              	@ genrtn.c:326:   if (fabsf(sfFloat - (flt)slWork) > 0.5)
+ 1497              		.loc 1 326 7
+ 1498 04b8 F0EEE77A 		vabs.f32	s15, s15	@ _3, _2
+ 1499              	@ genrtn.c:326:   if (fabsf(sfFloat - (flt)slWork) > 0.5)
+ 1500              		.loc 1 326 6
+ 1501 04bc B6EE007A 		vmov.f32	s14, #5.0e-1	@ tmp119,
+ 1502 04c0 F4EEC77A 		vcmpe.f32	s15, s14	@ _3, tmp119
+ 1503 04c4 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1504 04c8 09DD     		ble	.L72		@,
+ 1505              	@ genrtn.c:328:     if (slWork >= 0)
+ 327:genrtn.c      ****   {
+ 328:genrtn.c      ****     if (slWork >= 0)
+ 1506              		.loc 1 328 8
+ 1507 04ca FB68     		ldr	r3, [r7, #12]	@ tmp120, slWork
+ 1508 04cc 002B     		cmp	r3, #0	@ tmp120,
+ 1509 04ce 03DB     		blt	.L74		@,
+ 1510              	@ genrtn.c:329:       slWork = slWork + 1;
+ 329:genrtn.c      ****       slWork = slWork + 1;
+ 1511              		.loc 1 329 14
+ 1512 04d0 FB68     		ldr	r3, [r7, #12]	@ tmp122, slWork
+ 1513 04d2 0133     		adds	r3, r3, #1	@ tmp121, tmp122,
+ 1514 04d4 FB60     		str	r3, [r7, #12]	@ tmp121, slWork
+ 1515 04d6 02E0     		b	.L72		@
+ 1516              	.L74:
+ 1517              	@ genrtn.c:331:       slWork = slWork - 1;
+ 330:genrtn.c      ****     else
+ 331:genrtn.c      ****       slWork = slWork - 1;
+ 1518              		.loc 1 331 14
+ 1519 04d8 FB68     		ldr	r3, [r7, #12]	@ tmp124, slWork
+ 1520 04da 013B     		subs	r3, r3, #1	@ tmp123, tmp124,
+ 1521 04dc FB60     		str	r3, [r7, #12]	@ tmp123, slWork
+ 1522              	.L72:
+ 1523              	@ genrtn.c:333:   return slWork;
+ 332:genrtn.c      ****   }
+ 333:genrtn.c      ****   return slWork;
+ 1524              		.loc 1 333 10
+ 1525 04de FB68     		ldr	r3, [r7, #12]	@ _9, slWork
+ 1526              	@ genrtn.c:334: }
+ 334:genrtn.c      **** }
+ 1527              		.loc 1 334 1
+ 1528 04e0 1846     		mov	r0, r3	@, <retval>
+ 1529 04e2 1437     		adds	r7, r7, #20	@,,
+ 1530              	.LCFI88:
+ 1531              		.cfi_def_cfa_offset 4
+ 1532 04e4 BD46     		mov	sp, r7	@,
+ 1533              	.LCFI89:
+ 1534              		.cfi_def_cfa_register 13
+ 1535              		@ sp needed	@
+ 1536 04e6 5DF8047B 		ldr	r7, [sp], #4	@,
+ 1537              	.LCFI90:
+ 1538              		.cfi_restore 7
+ 1539              		.cfi_def_cfa_offset 0
+ 1540 04ea 7047     		bx	lr	@
+ 1541              		.cfi_endproc
+ 1542              	.LFE26:
+ 1544              		.global	__aeabi_d2iz
+ 1545              		.global	__aeabi_i2d
+ 1546              		.global	__aeabi_dsub
+ 1547              		.global	__aeabi_dcmpgt
+ 1548              		.align	1
+ 1549              		.global	fnCINTD
+ 1550              		.syntax unified
+ 1551              		.thumb
+ 1552              		.thumb_func
+ 1553              		.fpu fpv4-sp-d16
+ 1555              	fnCINTD:
+ 1556              	.LFB27:
+ 335:genrtn.c      **** 
+ 336:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 337:genrtn.c      **** //                   Convert Float Double Precision Value to Closest integer
+ 338:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 339:genrtn.c      **** s32 fnCINTD (dbl dblFloat)
+ 340:genrtn.c      **** {
+ 1557              		.loc 1 340 1
+ 1558              		.cfi_startproc
+ 1559              		@ args = 0, pretend = 0, frame = 16
+ 1560              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1561 04ec B0B5     		push	{r4, r5, r7, lr}	@
+ 1562              	.LCFI91:
+ 1563              		.cfi_def_cfa_offset 16
+ 1564              		.cfi_offset 4, -16
+ 1565              		.cfi_offset 5, -12
+ 1566              		.cfi_offset 7, -8
+ 1567              		.cfi_offset 14, -4
+ 1568 04ee 84B0     		sub	sp, sp, #16	@,,
+ 1569              	.LCFI92:
+ 1570              		.cfi_def_cfa_offset 32
+ 1571 04f0 00AF     		add	r7, sp, #0	@,,
+ 1572              	.LCFI93:
+ 1573              		.cfi_def_cfa_register 7
+ 1574 04f2 87ED000B 		vstr.64	d0, [r7]	@ dblFloat, dblFloat
+ 1575              	@ genrtn.c:345:   slWork = (s32)dblFloat;
+ 341:genrtn.c      ****   s32 slWork;
+ 342:genrtn.c      **** 
+ 343:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 344:genrtn.c      **** 
+ 345:genrtn.c      ****   slWork = (s32)dblFloat;
+ 1576              		.loc 1 345 10
+ 1577 04f6 D7E90001 		ldrd	r0, [r7]	@, dblFloat
+ 1578 04fa FFF7FEFF 		bl	__aeabi_d2iz		@
+ 1579              	.LVL0:
+ 1580 04fe 0346     		mov	r3, r0	@ tmp115,
+ 1581 0500 FB60     		str	r3, [r7, #12]	@ tmp115, slWork
+ 1582              	@ genrtn.c:349:   if (fabs(dblFloat - (dbl)slWork) > 0.5)
+ 346:genrtn.c      **** 
+ 347:genrtn.c      ****   //--- Test if we round up or down
+ 348:genrtn.c      **** 
+ 349:genrtn.c      ****   if (fabs(dblFloat - (dbl)slWork) > 0.5)
+ 1583              		.loc 1 349 23
+ 1584 0502 F868     		ldr	r0, [r7, #12]	@, slWork
+ 1585 0504 FFF7FEFF 		bl	__aeabi_i2d		@
+ 1586              	.LVL1:
+ 1587 0508 0246     		mov	r2, r0	@ _1,
+ 1588 050a 0B46     		mov	r3, r1	@ _1,
+ 1589              	@ genrtn.c:349:   if (fabs(dblFloat - (dbl)slWork) > 0.5)
+ 1590              		.loc 1 349 21
+ 1591 050c D7E90001 		ldrd	r0, [r7]	@, dblFloat
+ 1592 0510 FFF7FEFF 		bl	__aeabi_dsub		@
+ 1593              	.LVL2:
+ 1594 0514 0246     		mov	r2, r0	@ tmp116,
+ 1595 0516 0B46     		mov	r3, r1	@,
+ 1596              	@ genrtn.c:349:   if (fabs(dblFloat - (dbl)slWork) > 0.5)
+ 1597              		.loc 1 349 7
+ 1598 0518 1446     		mov	r4, r2	@ _3, _2
+ 1599 051a 23F00045 		bic	r5, r3, #-2147483648	@ _3, _2,
+ 1600              	@ genrtn.c:349:   if (fabs(dblFloat - (dbl)slWork) > 0.5)
+ 1601              		.loc 1 349 6
+ 1602 051e 4FF00002 		mov	r2, #0	@,
+ 1603 0522 0B4B     		ldr	r3, .L83	@,
+ 1604 0524 2046     		mov	r0, r4	@, _3
+ 1605 0526 2946     		mov	r1, r5	@, _3
+ 1606 0528 FFF7FEFF 		bl	__aeabi_dcmpgt		@
+ 1607              	.LVL3:
+ 1608 052c 0346     		mov	r3, r0	@ tmp117,
+ 1609 052e 002B     		cmp	r3, #0	@ tmp117,
+ 1610 0530 09D0     		beq	.L78		@,
+ 1611              	@ genrtn.c:351:     if (slWork >= 0)
+ 350:genrtn.c      ****   {
+ 351:genrtn.c      ****     if (slWork >= 0)
+ 1612              		.loc 1 351 8
+ 1613 0532 FB68     		ldr	r3, [r7, #12]	@ tmp118, slWork
+ 1614 0534 002B     		cmp	r3, #0	@ tmp118,
+ 1615 0536 03DB     		blt	.L80		@,
+ 1616              	@ genrtn.c:352:       slWork = slWork + 1;
+ 352:genrtn.c      ****       slWork = slWork + 1;
+ 1617              		.loc 1 352 14
+ 1618 0538 FB68     		ldr	r3, [r7, #12]	@ tmp120, slWork
+ 1619 053a 0133     		adds	r3, r3, #1	@ tmp119, tmp120,
+ 1620 053c FB60     		str	r3, [r7, #12]	@ tmp119, slWork
+ 1621 053e 02E0     		b	.L78		@
+ 1622              	.L80:
+ 1623              	@ genrtn.c:354:       slWork = slWork - 1;
+ 353:genrtn.c      ****     else
+ 354:genrtn.c      ****       slWork = slWork - 1;
+ 1624              		.loc 1 354 14
+ 1625 0540 FB68     		ldr	r3, [r7, #12]	@ tmp122, slWork
+ 1626 0542 013B     		subs	r3, r3, #1	@ tmp121, tmp122,
+ 1627 0544 FB60     		str	r3, [r7, #12]	@ tmp121, slWork
+ 1628              	.L78:
+ 1629              	@ genrtn.c:356:   return slWork;
+ 355:genrtn.c      ****   }
+ 356:genrtn.c      ****   return slWork;
+ 1630              		.loc 1 356 10
+ 1631 0546 FB68     		ldr	r3, [r7, #12]	@ _9, slWork
+ 1632              	@ genrtn.c:357: }
+ 357:genrtn.c      **** }
+ 1633              		.loc 1 357 1
+ 1634 0548 1846     		mov	r0, r3	@, <retval>
+ 1635 054a 1037     		adds	r7, r7, #16	@,,
+ 1636              	.LCFI94:
+ 1637              		.cfi_def_cfa_offset 16
+ 1638 054c BD46     		mov	sp, r7	@,
+ 1639              	.LCFI95:
+ 1640              		.cfi_def_cfa_register 13
+ 1641              		@ sp needed	@
+ 1642 054e B0BD     		pop	{r4, r5, r7, pc}	@
+ 1643              	.L84:
+ 1644              		.align	2
+ 1645              	.L83:
+ 1646 0550 0000E03F 		.word	1071644672
+ 1647              		.cfi_endproc
+ 1648              	.LFE27:
+ 1650              		.align	1
+ 1651              		.global	fnLc2Uc
+ 1652              		.syntax unified
+ 1653              		.thumb
+ 1654              		.thumb_func
+ 1655              		.fpu fpv4-sp-d16
+ 1657              	fnLc2Uc:
+ 1658              	.LFB28:
+ 358:genrtn.c      **** 
+ 359:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 360:genrtn.c      **** //                       Convert a lower case (a-z) to Upper Case (A-Z)
+ 361:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 362:genrtn.c      **** u08 fnLc2Uc (u08  ubChar)
+ 363:genrtn.c      **** {
+ 1659              		.loc 1 363 1
+ 1660              		.cfi_startproc
+ 1661              		@ args = 0, pretend = 0, frame = 8
+ 1662              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1663              		@ link register save eliminated.
+ 1664 0554 80B4     		push	{r7}	@
+ 1665              	.LCFI96:
+ 1666              		.cfi_def_cfa_offset 4
+ 1667              		.cfi_offset 7, -4
+ 1668 0556 83B0     		sub	sp, sp, #12	@,,
+ 1669              	.LCFI97:
+ 1670              		.cfi_def_cfa_offset 16
+ 1671 0558 00AF     		add	r7, sp, #0	@,,
+ 1672              	.LCFI98:
+ 1673              		.cfi_def_cfa_register 7
+ 1674 055a 0346     		mov	r3, r0	@ tmp112, ubChar
+ 1675 055c FB71     		strb	r3, [r7, #7]	@ tmp113, ubChar
+ 1676              	@ genrtn.c:364:   if ((ubChar > 0x60) && (ubChar < 0x7B))
+ 364:genrtn.c      ****   if ((ubChar > 0x60) && (ubChar < 0x7B))
+ 1677              		.loc 1 364 6
+ 1678 055e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2	@ tmp116, ubChar
+ 1679 0560 602B     		cmp	r3, #96	@ tmp116,
+ 1680 0562 05D9     		bls	.L86		@,
+ 1681              	@ genrtn.c:364:   if ((ubChar > 0x60) && (ubChar < 0x7B))
+ 1682              		.loc 1 364 23 discriminator 1
+ 1683 0564 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2	@ tmp119, ubChar
+ 1684 0566 7A2B     		cmp	r3, #122	@ tmp119,
+ 1685 0568 02D8     		bhi	.L86		@,
+ 1686              	@ genrtn.c:366:     ubChar -= 0x20;
+ 365:genrtn.c      ****   {
+ 366:genrtn.c      ****     ubChar -= 0x20;
+ 1687              		.loc 1 366 12
+ 1688 056a FB79     		ldrb	r3, [r7, #7]	@ tmp120, ubChar
+ 1689 056c 203B     		subs	r3, r3, #32	@ tmp121, tmp120,
+ 1690 056e FB71     		strb	r3, [r7, #7]	@ tmp122, ubChar
+ 1691              	.L86:
+ 1692              	@ genrtn.c:369:   return ubChar;
+ 367:genrtn.c      ****   }
+ 368:genrtn.c      **** 
+ 369:genrtn.c      ****   return ubChar;
+ 1693              		.loc 1 369 10
+ 1694 0570 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2	@ _4, ubChar
+ 1695              	@ genrtn.c:370: }
+ 370:genrtn.c      **** }
+ 1696              		.loc 1 370 1
+ 1697 0572 1846     		mov	r0, r3	@, <retval>
+ 1698 0574 0C37     		adds	r7, r7, #12	@,,
+ 1699              	.LCFI99:
+ 1700              		.cfi_def_cfa_offset 4
+ 1701 0576 BD46     		mov	sp, r7	@,
+ 1702              	.LCFI100:
+ 1703              		.cfi_def_cfa_register 13
+ 1704              		@ sp needed	@
+ 1705 0578 5DF8047B 		ldr	r7, [sp], #4	@,
+ 1706              	.LCFI101:
+ 1707              		.cfi_restore 7
+ 1708              		.cfi_def_cfa_offset 0
+ 1709 057c 7047     		bx	lr	@
+ 1710              		.cfi_endproc
+ 1711              	.LFE28:
+ 1713              		.section	.rodata
+ 1714              		.align	2
+ 1715              	.LC0:
+ 1716 0000 234E614E 		.ascii	"#NaN\000"
+ 1716      00
+ 1717 0005 000000   		.align	2
+ 1718              	.LC1:
+ 1719 0008 23496E66 		.ascii	"#Inf\000"
+ 1719      00
+ 1720 000d 000000   		.align	2
+ 1721              	.LC2:
+ 1722 0010 302E3000 		.ascii	"0.0\000"
+ 1723              		.global	__aeabi_f2d
+ 1724              		.global	__aeabi_d2f
+ 1725              		.global	__aeabi_ddiv
+ 1726              		.text
+ 1727              		.align	1
+ 1728              		.global	ftoa
+ 1729              		.syntax unified
+ 1730              		.thumb
+ 1731              		.thumb_func
+ 1732              		.fpu fpv4-sp-d16
+ 1734              	ftoa:
+ 1735              	.LFB29:
+ 371:genrtn.c      **** 
+ 372:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 373:genrtn.c      **** //                Converts a Single Precision Floating-Point number to a String
+ 374:genrtn.c      **** //---------------------------------------------------------------------------------------------
+ 375:genrtn.c      **** void ftoa(flt sfIn, u08 sOut[])
+ 376:genrtn.c      **** {
+ 1736              		.loc 1 376 1
+ 1737              		.cfi_startproc
+ 1738              		@ args = 0, pretend = 0, frame = 40
+ 1739              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1740 057e B0B5     		push	{r4, r5, r7, lr}	@
+ 1741              	.LCFI102:
+ 1742              		.cfi_def_cfa_offset 16
+ 1743              		.cfi_offset 4, -16
+ 1744              		.cfi_offset 5, -12
+ 1745              		.cfi_offset 7, -8
+ 1746              		.cfi_offset 14, -4
+ 1747 0580 8AB0     		sub	sp, sp, #40	@,,
+ 1748              	.LCFI103:
+ 1749              		.cfi_def_cfa_offset 56
+ 1750 0582 00AF     		add	r7, sp, #0	@,,
+ 1751              	.LCFI104:
+ 1752              		.cfi_def_cfa_register 7
+ 1753 0584 87ED010A 		vstr.32	s0, [r7, #4]	@ sfIn, sfIn
+ 1754 0588 3860     		str	r0, [r7]	@ sOut, sOut
+ 1755              	@ genrtn.c:379:   u08   ubNflag = False;                          //--- Negative Number Flag
+ 377:genrtn.c      ****   s16   swDigit;                                  //--- Magnititude Values
+ 378:genrtn.c      ****   flt   sfMag, sfM1;                              //--- Magnititude Values
+ 379:genrtn.c      ****   u08   ubNflag = False;                          //--- Negative Number Flag
+ 1756              		.loc 1 379 9
+ 1757 058a 0023     		movs	r3, #0	@ tmp198,
+ 1758 058c FB77     		strb	r3, [r7, #31]	@ tmp199, ubNflag
+ 1759              	@ genrtn.c:380:   u08   ubEflag = False;                          //--- Use Exponent Flag
+ 380:genrtn.c      ****   u08   ubEflag = False;                          //--- Use Exponent Flag
+ 1760              		.loc 1 380 9
+ 1761 058e 0023     		movs	r3, #0	@ tmp200,
+ 1762 0590 BB77     		strb	r3, [r7, #30]	@ tmp201, ubEflag
+ 1763              	@ genrtn.c:388:   uwPtr = 0;                                      //--- Reset output character poin
+ 381:genrtn.c      ****   flt   sfWeight;                                 //--- Weight Temp Storage
+ 382:genrtn.c      ****   u16   uwFlag;                                   //--- Generic Boolean Flag
+ 383:genrtn.c      ****   u16   uwPtr;                                    //--- String Pointer
+ 384:genrtn.c      ****   s16   swI, swJ, swM0, swM1;                     //--- Temporary Variables
+ 385:genrtn.c      **** 
+ 386:genrtn.c      ****   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+ 387:genrtn.c      **** 
+ 388:genrtn.c      ****   uwPtr = 0;                                      //--- Reset output character pointer
+ 1764              		.loc 1 388 9
+ 1765 0592 0023     		movs	r3, #0	@ tmp203,
+ 1766 0594 BB83     		strh	r3, [r7, #28]	@ movhi	@ tmp202, uwPtr
+ 1767              	@ genrtn.c:389:   sOut[uwPtr] = 0;
+ 389:genrtn.c      ****   sOut[uwPtr] = 0;
+ 1768              		.loc 1 389 7
+ 1769 0596 BB8B     		ldrh	r3, [r7, #28]	@ _1, uwPtr
+ 1770 0598 3A68     		ldr	r2, [r7]	@ tmp204, sOut
+ 1771 059a 1344     		add	r3, r3, r2	@ _2, tmp204
+ 1772              	@ genrtn.c:389:   sOut[uwPtr] = 0;
+ 1773              		.loc 1 389 15
+ 1774 059c 0022     		movs	r2, #0	@ tmp205,
+ 1775 059e 1A70     		strb	r2, [r3]	@ tmp206, *_2
+ 1776              	@ genrtn.c:392:   uwFlag = isnan(sfIn);
+ 390:genrtn.c      **** 
+ 391:genrtn.c      ****   //--- Handle special cases
+ 392:genrtn.c      ****   uwFlag = isnan(sfIn);
+ 1777              		.loc 1 392 12
+ 1778 05a0 97ED017A 		vldr.32	s14, [r7, #4]	@ tmp208, sfIn
+ 1779 05a4 D7ED017A 		vldr.32	s15, [r7, #4]	@ tmp209, sfIn
+ 1780 05a8 B4EE677A 		vcmp.f32	s14, s15	@ tmp208, tmp209
+ 1781 05ac F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1782 05b0 6CBF     		ite	vs
+ 1783 05b2 0123     		movvs	r3, #1	@ tmp210,
+ 1784 05b4 0023     		movvc	r3, #0	@ tmp210,
+ 1785 05b6 DBB2     		uxtb	r3, r3	@ _3, tmp207
+ 1786              	@ genrtn.c:392:   uwFlag = isnan(sfIn);
+ 1787              		.loc 1 392 10
+ 1788 05b8 7B82     		strh	r3, [r7, #18]	@ movhi	@ tmp211, uwFlag
+ 1789              	@ genrtn.c:393:   if (uwFlag)                                     //--- Not a Number
+ 393:genrtn.c      ****   if (uwFlag)                                     //--- Not a Number
+ 1790              		.loc 1 393 6
+ 1791 05ba 7B8A     		ldrh	r3, [r7, #18]	@ tmp212, uwFlag
+ 1792 05bc 002B     		cmp	r3, #0	@ tmp212,
+ 1793 05be 06D0     		beq	.L89		@,
+ 1794              	@ genrtn.c:395:     strcpy(sOut, "#NaN");                         //--- Copy Notation and Exit
+ 394:genrtn.c      ****   {
+ 395:genrtn.c      ****     strcpy(sOut, "#NaN");                         //--- Copy Notation and Exit
+ 1795              		.loc 1 395 5
+ 1796 05c0 3B68     		ldr	r3, [r7]	@ tmp213, sOut
+ 1797 05c2 BB4A     		ldr	r2, .L135+8	@ tmp214,
+ 1798 05c4 1068     		ldr	r0, [r2]	@, MEM[(void *)"#NaN"]
+ 1799 05c6 1860     		str	r0, [r3]	@ unaligned	@, MEM[(void *)sOut_126(D)]
+ 1800 05c8 1279     		ldrb	r2, [r2, #4]	@ tmp217, MEM[(void *)"#NaN"]
+ 1801 05ca 1A71     		strb	r2, [r3, #4]	@ tmp218, MEM[(void *)sOut_126(D)]
+ 1802              	@ genrtn.c:396:     return;
+ 396:genrtn.c      ****     return;
+ 1803              		.loc 1 396 5
+ 1804 05cc FBE1     		b	.L88		@
+ 1805              	.L89:
+ 1806              	@ genrtn.c:399:   uwFlag = isinf(sfIn);                          //--- Infinite
+ 397:genrtn.c      ****   }
+ 398:genrtn.c      **** 
+ 399:genrtn.c      ****   uwFlag = isinf(sfIn);                          //--- Infinite
+ 1807              		.loc 1 399 12
+ 1808 05ce D7ED017A 		vldr.32	s15, [r7, #4]	@ tmp219, sfIn
+ 1809 05d2 F0EEE77A 		vabs.f32	s15, s15	@ _4, tmp219
+ 1810              	@ genrtn.c:399:   uwFlag = isinf(sfIn);                          //--- Infinite
+ 1811              		.loc 1 399 10
+ 1812 05d6 9FEDB77A 		vldr.32	s14, .L135+12	@ tmp220,
+ 1813 05da F4EE477A 		vcmp.f32	s15, s14	@ _4, tmp220
+ 1814 05de F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1815 05e2 01DC     		bgt	.L132		@,
+ 1816              	@ genrtn.c:399:   uwFlag = isinf(sfIn);                          //--- Infinite
+ 1817              		.loc 1 399 10 is_stmt 0 discriminator 1
+ 1818 05e4 0023     		movs	r3, #0	@ iftmp.10_112,
+ 1819 05e6 08E0     		b	.L93		@
+ 1820              	.L132:
+ 1821              	@ genrtn.c:399:   uwFlag = isinf(sfIn);                          //--- Infinite
+ 1822              		.loc 1 399 12 is_stmt 1 discriminator 2
+ 1823 05e8 7B68     		ldr	r3, [r7, #4]	@ tmp221, sfIn
+ 1824 05ea 03F00043 		and	r3, r3, #-2147483648	@ tmp222, tmp221,
+ 1825              	@ genrtn.c:399:   uwFlag = isinf(sfIn);                          //--- Infinite
+ 1826              		.loc 1 399 10 discriminator 2
+ 1827 05ee 002B     		cmp	r3, #0	@ _5,
+ 1828 05f0 02D0     		beq	.L94		@,
+ 1829              	@ genrtn.c:399:   uwFlag = isinf(sfIn);                          //--- Infinite
+ 1830              		.loc 1 399 10 is_stmt 0 discriminator 4
+ 1831 05f2 4FF6FF73 		movw	r3, #65535	@ iftmp.10_112,
+ 1832 05f6 00E0     		b	.L93		@
+ 1833              	.L94:
+ 1834              	@ genrtn.c:399:   uwFlag = isinf(sfIn);                          //--- Infinite
+ 1835              		.loc 1 399 10 discriminator 5
+ 1836 05f8 0123     		movs	r3, #1	@ iftmp.10_112,
+ 1837              	.L93:
+ 1838              	@ genrtn.c:399:   uwFlag = isinf(sfIn);                          //--- Infinite
+ 1839              		.loc 1 399 10 discriminator 8
+ 1840 05fa 7B82     		strh	r3, [r7, #18]	@ movhi	@ tmp223, uwFlag
+ 1841              	@ genrtn.c:400:   if (uwFlag)                                     //--- Not a Number
+ 400:genrtn.c      ****   if (uwFlag)                                     //--- Not a Number
+ 1842              		.loc 1 400 6 is_stmt 1 discriminator 8
+ 1843 05fc 7B8A     		ldrh	r3, [r7, #18]	@ tmp224, uwFlag
+ 1844 05fe 002B     		cmp	r3, #0	@ tmp224,
+ 1845 0600 06D0     		beq	.L96		@,
+ 1846              	@ genrtn.c:402:     strcpy(sOut, "#Inf");                         //--- Copy Notation and Exit
+ 401:genrtn.c      ****   {
+ 402:genrtn.c      ****     strcpy(sOut, "#Inf");                         //--- Copy Notation and Exit
+ 1847              		.loc 1 402 5
+ 1848 0602 3B68     		ldr	r3, [r7]	@ tmp225, sOut
+ 1849 0604 AC4A     		ldr	r2, .L135+16	@ tmp226,
+ 1850 0606 1068     		ldr	r0, [r2]	@, MEM[(void *)"#Inf"]
+ 1851 0608 1860     		str	r0, [r3]	@ unaligned	@, MEM[(void *)sOut_126(D)]
+ 1852 060a 1279     		ldrb	r2, [r2, #4]	@ tmp229, MEM[(void *)"#Inf"]
+ 1853 060c 1A71     		strb	r2, [r3, #4]	@ tmp230, MEM[(void *)sOut_126(D)]
+ 1854              	@ genrtn.c:403:     return;
+ 403:genrtn.c      ****     return;
+ 1855              		.loc 1 403 5
+ 1856 060e DAE1     		b	.L88		@
+ 1857              	.L96:
+ 1858              	@ genrtn.c:406:   if (sfIn == 0.0)
+ 404:genrtn.c      ****   }
+ 405:genrtn.c      **** 
+ 406:genrtn.c      ****   if (sfIn == 0.0)
+ 1859              		.loc 1 406 6
+ 1860 0610 D7ED017A 		vldr.32	s15, [r7, #4]	@ tmp231, sfIn
+ 1861 0614 F5EE407A 		vcmp.f32	s15, #0	@ tmp231
+ 1862 0618 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1863 061c 04D1     		bne	.L97		@,
+ 1864              	@ genrtn.c:408:     strcpy(sOut, "0.0");                          //--- Copy Notation and Exit
+ 407:genrtn.c      ****   {
+ 408:genrtn.c      ****     strcpy(sOut, "0.0");                          //--- Copy Notation and Exit
+ 1865              		.loc 1 408 5
+ 1866 061e 3B68     		ldr	r3, [r7]	@ tmp232, sOut
+ 1867 0620 A64A     		ldr	r2, .L135+20	@ tmp233,
+ 1868 0622 1068     		ldr	r0, [r2]	@, MEM[(void *)"0.0"]
+ 1869 0624 1860     		str	r0, [r3]	@ unaligned	@, MEM[(void *)sOut_126(D)]
+ 1870              	@ genrtn.c:409:     return;
+ 409:genrtn.c      ****     return;
+ 1871              		.loc 1 409 5
+ 1872 0626 CEE1     		b	.L88		@
+ 1873              	.L97:
+ 1874              	@ genrtn.c:413:   if (sfIn < 0)
+ 410:genrtn.c      ****   }
+ 411:genrtn.c      **** 
+ 412:genrtn.c      ****   //--- If number is negative then flip sign & set flag
+ 413:genrtn.c      ****   if (sfIn < 0)
+ 1875              		.loc 1 413 6
+ 1876 0628 D7ED017A 		vldr.32	s15, [r7, #4]	@ tmp236, sfIn
+ 1877 062c F5EEC07A 		vcmpe.f32	s15, #0	@ tmp236
+ 1878 0630 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1879 0634 10D5     		bpl	.L133		@,
+ 1880              	@ genrtn.c:415:     ubNflag = True;                               //--- Cet Negative Flag
+ 414:genrtn.c      ****   {
+ 415:genrtn.c      ****     ubNflag = True;                               //--- Cet Negative Flag
+ 1881              		.loc 1 415 13
+ 1882 0636 0123     		movs	r3, #1	@ tmp237,
+ 1883 0638 FB77     		strb	r3, [r7, #31]	@ tmp238, ubNflag
+ 1884              	@ genrtn.c:416:     sfIn = -sfIn;                                 //--- Reverse sign of number
+ 416:genrtn.c      ****     sfIn = -sfIn;                                 //--- Reverse sign of number
+ 1885              		.loc 1 416 10
+ 1886 063a D7ED017A 		vldr.32	s15, [r7, #4]	@ tmp240, sfIn
+ 1887 063e F1EE677A 		vneg.f32	s15, s15	@ tmp239, tmp240
+ 1888 0642 C7ED017A 		vstr.32	s15, [r7, #4]	@ tmp239, sfIn
+ 1889              	@ genrtn.c:417:     sOut[uwPtr] = '-';                            //--- Add Negative sign to output
+ 417:genrtn.c      ****     sOut[uwPtr] = '-';                            //--- Add Negative sign to output string
+ 1890              		.loc 1 417 9
+ 1891 0646 BB8B     		ldrh	r3, [r7, #28]	@ _6, uwPtr
+ 1892 0648 3A68     		ldr	r2, [r7]	@ tmp241, sOut
+ 1893 064a 1344     		add	r3, r3, r2	@ _7, tmp241
+ 1894              	@ genrtn.c:417:     sOut[uwPtr] = '-';                            //--- Add Negative sign to output
+ 1895              		.loc 1 417 17
+ 1896 064c 2D22     		movs	r2, #45	@ tmp242,
+ 1897 064e 1A70     		strb	r2, [r3]	@ tmp243, *_7
+ 1898              	@ genrtn.c:418:     uwPtr++;
+ 418:genrtn.c      ****     uwPtr++;
+ 1899              		.loc 1 418 10
+ 1900 0650 BB8B     		ldrh	r3, [r7, #28]	@ uwPtr.11_8, uwPtr
+ 1901 0652 0133     		adds	r3, r3, #1	@ tmp244, uwPtr.11_8,
+ 1902 0654 BB83     		strh	r3, [r7, #28]	@ movhi	@ tmp245, uwPtr
+ 1903 0656 01E0     		b	.L100		@
+ 1904              	.L133:
+ 1905              	@ genrtn.c:422:     ubNflag = False;                              //--- Clear negative flag
+ 419:genrtn.c      ****   }
+ 420:genrtn.c      ****   else
+ 421:genrtn.c      ****   {
+ 422:genrtn.c      ****     ubNflag = False;                              //--- Clear negative flag
+ 1906              		.loc 1 422 13
+ 1907 0658 0023     		movs	r3, #0	@ tmp246,
+ 1908 065a FB77     		strb	r3, [r7, #31]	@ tmp247, ubNflag
+ 1909              	.L100:
+ 1910              	@ genrtn.c:426:   sfMag = log10(sfIn);
+ 423:genrtn.c      ****   }
+ 424:genrtn.c      **** 
+ 425:genrtn.c      ****   //--- Calculate magnitude of number as an integer
+ 426:genrtn.c      ****   sfMag = log10(sfIn);
+ 1911              		.loc 1 426 11
+ 1912 065c 7868     		ldr	r0, [r7, #4]	@ float	@, sfIn
+ 1913 065e FFF7FEFF 		bl	__aeabi_f2d		@
+ 1914              	.LVL4:
+ 1915 0662 0246     		mov	r2, r0	@ _9,
+ 1916 0664 0B46     		mov	r3, r1	@ _9,
+ 1917 0666 43EC102B 		vmov	d0, r2, r3	@, _9
+ 1918 066a FFF7FEFF 		bl	log10		@
+ 1919 066e 53EC102B 		vmov	r2, r3, d0	@ _10,
+ 1920              	@ genrtn.c:426:   sfMag = log10(sfIn);
+ 1921              		.loc 1 426 9
+ 1922 0672 1046     		mov	r0, r2	@, _10
+ 1923 0674 1946     		mov	r1, r3	@, _10
+ 1924 0676 FFF7FEFF 		bl	__aeabi_d2f		@
+ 1925              	.LVL5:
+ 1926 067a 0346     		mov	r3, r0	@ float	@ tmp248,
+ 1927 067c 7B62     		str	r3, [r7, #36]	@ float	@ tmp248, sfMag
+ 1928              	@ genrtn.c:429:   if ((sfMag > 6.0) || (sfMag < -6.0) || (ubNflag && (sfMag > 6.0)))
+ 427:genrtn.c      **** 
+ 428:genrtn.c      ****   //--- See if we use exponent notation
+ 429:genrtn.c      ****   if ((sfMag > 6.0) || (sfMag < -6.0) || (ubNflag && (sfMag > 6.0)))
+ 1929              		.loc 1 429 6
+ 1930 067e D7ED097A 		vldr.32	s15, [r7, #36]	@ tmp249, sfMag
+ 1931 0682 B1EE087A 		vmov.f32	s14, #6.0e+0	@ tmp250,
+ 1932 0686 F4EEC77A 		vcmpe.f32	s15, s14	@ tmp249, tmp250
+ 1933 068a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1934 068e 14DC     		bgt	.L101		@,
+ 1935              	@ genrtn.c:429:   if ((sfMag > 6.0) || (sfMag < -6.0) || (ubNflag && (sfMag > 6.0)))
+ 1936              		.loc 1 429 21 discriminator 1
+ 1937 0690 D7ED097A 		vldr.32	s15, [r7, #36]	@ tmp251, sfMag
+ 1938 0694 B9EE087A 		vmov.f32	s14, #-6.0e+0	@ tmp252,
+ 1939 0698 F4EEC77A 		vcmpe.f32	s15, s14	@ tmp251, tmp252
+ 1940 069c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1941 06a0 0BD4     		bmi	.L101		@,
+ 1942              	@ genrtn.c:429:   if ((sfMag > 6.0) || (sfMag < -6.0) || (ubNflag && (sfMag > 6.0)))
+ 1943              		.loc 1 429 39 discriminator 2
+ 1944 06a2 FB7F     		ldrb	r3, [r7, #31]	@ zero_extendqisi2	@ tmp253, ubNflag
+ 1945 06a4 002B     		cmp	r3, #0	@ tmp253,
+ 1946 06a6 0AD0     		beq	.L102		@,
+ 1947              	@ genrtn.c:429:   if ((sfMag > 6.0) || (sfMag < -6.0) || (ubNflag && (sfMag > 6.0)))
+ 1948              		.loc 1 429 51 discriminator 3
+ 1949 06a8 D7ED097A 		vldr.32	s15, [r7, #36]	@ tmp254, sfMag
+ 1950 06ac B1EE087A 		vmov.f32	s14, #6.0e+0	@ tmp255,
+ 1951 06b0 F4EEC77A 		vcmpe.f32	s15, s14	@ tmp254, tmp255
+ 1952 06b4 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1953 06b8 01DD     		ble	.L102		@,
+ 1954              	.L101:
+ 1955              	@ genrtn.c:431:     ubEflag = True;
+ 430:genrtn.c      ****   {
+ 431:genrtn.c      ****     ubEflag = True;
+ 1956              		.loc 1 431 13
+ 1957 06ba 0123     		movs	r3, #1	@ tmp256,
+ 1958 06bc BB77     		strb	r3, [r7, #30]	@ tmp257, ubEflag
+ 1959              	.L102:
+ 1960              	@ genrtn.c:438:   if (ubEflag)
+ 432:genrtn.c      ****   }
+ 433:genrtn.c      **** 
+ 434:genrtn.c      ****   //  ubEflag = (m >= 7 || (ubNflag && m >= 7) || m <= -7);
+ 435:genrtn.c      **** 
+ 436:genrtn.c      ****   //--- If there are more than 6 digits then
+ 437:genrtn.c      ****   //    Set up for scientific notation
+ 438:genrtn.c      ****   if (ubEflag)
+ 1961              		.loc 1 438 6
+ 1962 06be BB7F     		ldrb	r3, [r7, #30]	@ zero_extendqisi2	@ tmp258, ubEflag
+ 1963 06c0 002B     		cmp	r3, #0	@ tmp258,
+ 1964 06c2 31D0     		beq	.L104		@,
+ 1965              	@ genrtn.c:441:     if (sfMag < 0.0) sfMag -= 1.0;
+ 439:genrtn.c      ****   {
+ 440:genrtn.c      ****     //--- is Exponent Negative?
+ 441:genrtn.c      ****     if (sfMag < 0.0) sfMag -= 1.0;
+ 1966              		.loc 1 441 8
+ 1967 06c4 D7ED097A 		vldr.32	s15, [r7, #36]	@ tmp259, sfMag
+ 1968 06c8 F5EEC07A 		vcmpe.f32	s15, #0	@ tmp259
+ 1969 06cc F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 1970 06d0 07D5     		bpl	.L105		@,
+ 1971              	@ genrtn.c:441:     if (sfMag < 0.0) sfMag -= 1.0;
+ 1972              		.loc 1 441 28 discriminator 1
+ 1973 06d2 D7ED097A 		vldr.32	s15, [r7, #36]	@ tmp261, sfMag
+ 1974 06d6 B7EE007A 		vmov.f32	s14, #1.0e+0	@ tmp262,
+ 1975 06da 77EEC77A 		vsub.f32	s15, s15, s14	@ tmp260, tmp261, tmp262
+ 1976 06de C7ED097A 		vstr.32	s15, [r7, #36]	@ tmp260, sfMag
+ 1977              	.L105:
+ 1978              	@ genrtn.c:442:     sfIn = sfIn / pow(10.0, sfMag);
+ 442:genrtn.c      ****     sfIn = sfIn / pow(10.0, sfMag);
+ 1979              		.loc 1 442 17
+ 1980 06e2 7868     		ldr	r0, [r7, #4]	@ float	@, sfIn
+ 1981 06e4 FFF7FEFF 		bl	__aeabi_f2d		@
+ 1982              	.LVL6:
+ 1983 06e8 0446     		mov	r4, r0	@ _11,
+ 1984 06ea 0D46     		mov	r5, r1	@ _11,
+ 1985              	@ genrtn.c:442:     sfIn = sfIn / pow(10.0, sfMag);
+ 1986              		.loc 1 442 19
+ 1987 06ec 786A     		ldr	r0, [r7, #36]	@ float	@, sfMag
+ 1988 06ee FFF7FEFF 		bl	__aeabi_f2d		@
+ 1989              	.LVL7:
+ 1990 06f2 0246     		mov	r2, r0	@ _12,
+ 1991 06f4 0B46     		mov	r3, r1	@ _12,
+ 1992 06f6 43EC112B 		vmov	d1, r2, r3	@, _12
+ 1993 06fa 9FED6B0B 		vldr.64	d0, .L135	@,
+ 1994 06fe FFF7FEFF 		bl	pow		@
+ 1995 0702 53EC102B 		vmov	r2, r3, d0	@ _13,
+ 1996              	@ genrtn.c:442:     sfIn = sfIn / pow(10.0, sfMag);
+ 1997              		.loc 1 442 17
+ 1998 0706 2046     		mov	r0, r4	@, _11
+ 1999 0708 2946     		mov	r1, r5	@, _11
+ 2000 070a FFF7FEFF 		bl	__aeabi_ddiv		@
+ 2001              	.LVL8:
+ 2002 070e 0246     		mov	r2, r0	@ tmp263,
+ 2003 0710 0B46     		mov	r3, r1	@,
+ 2004              	@ genrtn.c:442:     sfIn = sfIn / pow(10.0, sfMag);
+ 2005              		.loc 1 442 10
+ 2006 0712 1046     		mov	r0, r2	@, _14
+ 2007 0714 1946     		mov	r1, r3	@, _14
+ 2008 0716 FFF7FEFF 		bl	__aeabi_d2f		@
+ 2009              	.LVL9:
+ 2010 071a 0346     		mov	r3, r0	@ float	@ tmp264,
+ 2011 071c 7B60     		str	r3, [r7, #4]	@ float	@ tmp264, sfIn
+ 2012              	@ genrtn.c:443:     sfM1 = sfMag;
+ 443:genrtn.c      ****     sfM1 = sfMag;
+ 2013              		.loc 1 443 10
+ 2014 071e 7B6A     		ldr	r3, [r7, #36]	@ float	@ tmp265, sfMag
+ 2015 0720 3B62     		str	r3, [r7, #32]	@ float	@ tmp265, sfM1
+ 2016              	@ genrtn.c:444:     sfMag = 0;
+ 444:genrtn.c      ****     sfMag = 0;
+ 2017              		.loc 1 444 11
+ 2018 0722 4FF00003 		mov	r3, #0	@ tmp266,
+ 2019 0726 7B62     		str	r3, [r7, #36]	@ float	@ tmp266, sfMag
+ 2020              	.L104:
+ 2021              	@ genrtn.c:448:   if (sfMag < 1.0) sfMag = 0;
+ 445:genrtn.c      ****   }
+ 446:genrtn.c      **** 
+ 447:genrtn.c      ****   //--- Correct underflow
+ 448:genrtn.c      ****   if (sfMag < 1.0) sfMag = 0;
+ 2022              		.loc 1 448 6
+ 2023 0728 D7ED097A 		vldr.32	s15, [r7, #36]	@ tmp267, sfMag
+ 2024 072c B7EE007A 		vmov.f32	s14, #1.0e+0	@ tmp268,
+ 2025 0730 F4EEC77A 		vcmpe.f32	s15, s14	@ tmp267, tmp268
+ 2026 0734 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 2027 0738 02D5     		bpl	.L107		@,
+ 2028              	@ genrtn.c:448:   if (sfMag < 1.0) sfMag = 0;
+ 2029              		.loc 1 448 26 discriminator 1
+ 2030 073a 4FF00003 		mov	r3, #0	@ tmp269,
+ 2031 073e 7B62     		str	r3, [r7, #36]	@ float	@ tmp269, sfMag
+ 2032              	.L107:
+ 2033              	@ genrtn.c:449:   swM0 = (s16)sfMag;                              //--- Save integer magnititude
+ 449:genrtn.c      ****   swM0 = (s16)sfMag;                              //--- Save integer magnititude
+ 2034              		.loc 1 449 8
+ 2035 0740 D7ED097A 		vldr.32	s15, [r7, #36]	@ tmp271, sfMag
+ 2036 0744 FDEEE77A 		vcvt.s32.f32	s15, s15	@ tmp270, tmp271
+ 2037 0748 17EE903A 		vmov	r3, s15	@ int	@ tmp272, tmp270
+ 2038 074c FB82     		strh	r3, [r7, #22]	@ movhi	@ tmp272, swM0
+ 2039              	@ genrtn.c:452:   while ((sfIn > 0.0000001f) || swM0 >= 0)
+ 450:genrtn.c      **** 
+ 451:genrtn.c      ****   //--- Convert the number
+ 452:genrtn.c      ****   while ((sfIn > 0.0000001f) || swM0 >= 0)
+ 2040              		.loc 1 452 9
+ 2041 074e 69E0     		b	.L109		@
+ 2042              	.L115:
+ 2043              	@ genrtn.c:454:     sfWeight = powf(10.0, swM0);
+ 453:genrtn.c      ****   {
+ 454:genrtn.c      ****     sfWeight = powf(10.0, swM0);
+ 2044              		.loc 1 454 16
+ 2045 0750 B7F91630 		ldrsh	r3, [r7, #22]	@ tmp273, swM0
+ 2046 0754 07EE903A 		vmov	s15, r3	@ int	@ tmp273, tmp273
+ 2047 0758 F8EEE77A 		vcvt.f32.s32	s15, s15	@ _15, tmp273
+ 2048 075c F0EE670A 		vmov.f32	s1, s15	@, _15
+ 2049 0760 B2EE040A 		vmov.f32	s0, #1.0e+1	@,
+ 2050 0764 FFF7FEFF 		bl	powf		@
+ 2051 0768 87ED030A 		vstr.32	s0, [r7, #12]	@, sfWeight
+ 2052              	@ genrtn.c:457:     if ((sfWeight > 0) && (!isinf(sfWeight)))
+ 455:genrtn.c      **** 
+ 456:genrtn.c      ****     //--- Check Range
+ 457:genrtn.c      ****     if ((sfWeight > 0) && (!isinf(sfWeight)))
+ 2053              		.loc 1 457 8
+ 2054 076c D7ED037A 		vldr.32	s15, [r7, #12]	@ tmp274, sfWeight
+ 2055 0770 F5EEC07A 		vcmpe.f32	s15, #0	@ tmp274
+ 2056 0774 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 2057 0778 3DDD     		ble	.L110		@,
+ 2058              	@ genrtn.c:457:     if ((sfWeight > 0) && (!isinf(sfWeight)))
+ 2059              		.loc 1 457 29 discriminator 1
+ 2060 077a D7ED037A 		vldr.32	s15, [r7, #12]	@ tmp275, sfWeight
+ 2061 077e F0EEE77A 		vabs.f32	s15, s15	@ _16, tmp275
+ 2062              	@ genrtn.c:457:     if ((sfWeight > 0) && (!isinf(sfWeight)))
+ 2063              		.loc 1 457 24 discriminator 1
+ 2064 0782 9FED4C7A 		vldr.32	s14, .L135+12	@ tmp276,
+ 2065 0786 F4EE477A 		vcmp.f32	s15, s14	@ _16, tmp276
+ 2066 078a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 2067 078e 32DC     		bgt	.L110		@,
+ 2068              	@ genrtn.c:459:       swDigit = floor(sfIn / sfWeight);           //--- Calculate the Exponent Digi
+ 458:genrtn.c      ****     {
+ 459:genrtn.c      ****       swDigit = floor(sfIn / sfWeight);           //--- Calculate the Exponent Digits
+ 2069              		.loc 1 459 28
+ 2070 0790 97ED017A 		vldr.32	s14, [r7, #4]	@ tmp277, sfIn
+ 2071 0794 D7ED037A 		vldr.32	s15, [r7, #12]	@ tmp278, sfWeight
+ 2072 0798 C7EE276A 		vdiv.f32	s13, s14, s15	@ _17, tmp277, tmp278
+ 2073              	@ genrtn.c:459:       swDigit = floor(sfIn / sfWeight);           //--- Calculate the Exponent Digi
+ 2074              		.loc 1 459 17
+ 2075 079c 16EE900A 		vmov	r0, s13	@, _17
+ 2076 07a0 FFF7FEFF 		bl	__aeabi_f2d		@
+ 2077              	.LVL10:
+ 2078 07a4 0246     		mov	r2, r0	@ _18,
+ 2079 07a6 0B46     		mov	r3, r1	@ _18,
+ 2080 07a8 43EC102B 		vmov	d0, r2, r3	@, _18
+ 2081 07ac FFF7FEFF 		bl	floor		@
+ 2082 07b0 53EC102B 		vmov	r2, r3, d0	@ _19,
+ 2083              	@ genrtn.c:459:       swDigit = floor(sfIn / sfWeight);           //--- Calculate the Exponent Digi
+ 2084              		.loc 1 459 15
+ 2085 07b4 1046     		mov	r0, r2	@, _19
+ 2086 07b6 1946     		mov	r1, r3	@, _19
+ 2087 07b8 FFF7FEFF 		bl	__aeabi_d2iz		@
+ 2088              	.LVL11:
+ 2089 07bc 0346     		mov	r3, r0	@ tmp279,
+ 2090 07be 7B81     		strh	r3, [r7, #10]	@ movhi	@ tmp280, swDigit
+ 2091              	@ genrtn.c:460:       sfIn -= ((float)swDigit * sfWeight);
+ 460:genrtn.c      ****       sfIn -= ((float)swDigit * sfWeight);
+ 2092              		.loc 1 460 16
+ 2093 07c0 B7F90A30 		ldrsh	r3, [r7, #10]	@ tmp281, swDigit
+ 2094 07c4 07EE903A 		vmov	s15, r3	@ int	@ tmp281, tmp281
+ 2095 07c8 B8EEE77A 		vcvt.f32.s32	s14, s15	@ _20, tmp281
+ 2096              	@ genrtn.c:460:       sfIn -= ((float)swDigit * sfWeight);
+ 2097              		.loc 1 460 31
+ 2098 07cc D7ED037A 		vldr.32	s15, [r7, #12]	@ tmp282, sfWeight
+ 2099 07d0 67EE277A 		vmul.f32	s15, s14, s15	@ _21, _20, tmp282
+ 2100              	@ genrtn.c:460:       sfIn -= ((float)swDigit * sfWeight);
+ 2101              		.loc 1 460 12
+ 2102 07d4 97ED017A 		vldr.32	s14, [r7, #4]	@ tmp284, sfIn
+ 2103 07d8 77EE677A 		vsub.f32	s15, s14, s15	@ tmp283, tmp284, _21
+ 2104 07dc C7ED017A 		vstr.32	s15, [r7, #4]	@ tmp283, sfIn
+ 2105              	@ genrtn.c:461:       sOut[uwPtr] = 0x30 + swDigit;               //--- Add Digit to output string
+ 461:genrtn.c      ****       sOut[uwPtr] = 0x30 + swDigit;               //--- Add Digit to output string
+ 2106              		.loc 1 461 26
+ 2107 07e0 7B89     		ldrh	r3, [r7, #10]	@ movhi	@ tmp285, swDigit
+ 2108 07e2 DAB2     		uxtb	r2, r3	@ _22, tmp285
+ 2109              	@ genrtn.c:461:       sOut[uwPtr] = 0x30 + swDigit;               //--- Add Digit to output string
+ 2110              		.loc 1 461 11
+ 2111 07e4 BB8B     		ldrh	r3, [r7, #28]	@ _23, uwPtr
+ 2112 07e6 3968     		ldr	r1, [r7]	@ tmp286, sOut
+ 2113 07e8 0B44     		add	r3, r3, r1	@ _24, tmp286
+ 2114              	@ genrtn.c:461:       sOut[uwPtr] = 0x30 + swDigit;               //--- Add Digit to output string
+ 2115              		.loc 1 461 26
+ 2116 07ea 3032     		adds	r2, r2, #48	@ tmp287, _22,
+ 2117 07ec D2B2     		uxtb	r2, r2	@ _25, tmp287
+ 2118              	@ genrtn.c:461:       sOut[uwPtr] = 0x30 + swDigit;               //--- Add Digit to output string
+ 2119              		.loc 1 461 19
+ 2120 07ee 1A70     		strb	r2, [r3]	@ tmp288, *_24
+ 2121              	@ genrtn.c:462:       uwPtr++;
+ 462:genrtn.c      ****       uwPtr++;
+ 2122              		.loc 1 462 12
+ 2123 07f0 BB8B     		ldrh	r3, [r7, #28]	@ uwPtr.12_26, uwPtr
+ 2124 07f2 0133     		adds	r3, r3, #1	@ tmp289, uwPtr.12_26,
+ 2125 07f4 BB83     		strh	r3, [r7, #28]	@ movhi	@ tmp290, uwPtr
+ 2126              	.L110:
+ 2127              	@ genrtn.c:466:     if ((swM0 == 0) && (sfIn > 0))
+ 463:genrtn.c      ****     }
+ 464:genrtn.c      **** 
+ 465:genrtn.c      ****     //--- Place the decimal Point
+ 466:genrtn.c      ****     if ((swM0 == 0) && (sfIn > 0))
+ 2128              		.loc 1 466 8
+ 2129 07f6 B7F91630 		ldrsh	r3, [r7, #22]	@ tmp291, swM0
+ 2130 07fa 002B     		cmp	r3, #0	@ tmp291,
+ 2131 07fc 0ED1     		bne	.L113		@,
+ 2132              	@ genrtn.c:466:     if ((swM0 == 0) && (sfIn > 0))
+ 2133              		.loc 1 466 21 discriminator 1
+ 2134 07fe D7ED017A 		vldr.32	s15, [r7, #4]	@ tmp292, sfIn
+ 2135 0802 F5EEC07A 		vcmpe.f32	s15, #0	@ tmp292
+ 2136 0806 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 2137 080a 07DD     		ble	.L113		@,
+ 2138              	@ genrtn.c:468:       sOut[uwPtr] = '.';
+ 467:genrtn.c      ****     {
+ 468:genrtn.c      ****       sOut[uwPtr] = '.';
+ 2139              		.loc 1 468 11
+ 2140 080c BB8B     		ldrh	r3, [r7, #28]	@ _27, uwPtr
+ 2141 080e 3A68     		ldr	r2, [r7]	@ tmp293, sOut
+ 2142 0810 1344     		add	r3, r3, r2	@ _28, tmp293
+ 2143              	@ genrtn.c:468:       sOut[uwPtr] = '.';
+ 2144              		.loc 1 468 19
+ 2145 0812 2E22     		movs	r2, #46	@ tmp294,
+ 2146 0814 1A70     		strb	r2, [r3]	@ tmp295, *_28
+ 2147              	@ genrtn.c:469:       uwPtr++;
+ 469:genrtn.c      ****       uwPtr++;
+ 2148              		.loc 1 469 12
+ 2149 0816 BB8B     		ldrh	r3, [r7, #28]	@ uwPtr.13_29, uwPtr
+ 2150 0818 0133     		adds	r3, r3, #1	@ tmp296, uwPtr.13_29,
+ 2151 081a BB83     		strh	r3, [r7, #28]	@ movhi	@ tmp297, uwPtr
+ 2152              	.L113:
+ 2153              	@ genrtn.c:472:     swM0 -= 1;
+ 470:genrtn.c      ****     }
+ 471:genrtn.c      **** 
+ 472:genrtn.c      ****     swM0 -= 1;
+ 2154              		.loc 1 472 10
+ 2155 081c FB8A     		ldrh	r3, [r7, #22]	@ swM0.14_30, swM0
+ 2156 081e 013B     		subs	r3, r3, #1	@ tmp298, swM0.14_30,
+ 2157 0820 9BB2     		uxth	r3, r3	@ _31, tmp298
+ 2158 0822 FB82     		strh	r3, [r7, #22]	@ movhi	@ tmp299, swM0
+ 2159              	.L109:
+ 2160              	@ genrtn.c:452:   while ((sfIn > 0.0000001f) || swM0 >= 0)
+ 452:genrtn.c      ****   {
+ 2161              		.loc 1 452 9
+ 2162 0824 D7ED017A 		vldr.32	s15, [r7, #4]	@ tmp300, sfIn
+ 2163 0828 9FED257A 		vldr.32	s14, .L135+24	@ tmp301,
+ 2164 082c F4EEC77A 		vcmpe.f32	s15, s14	@ tmp300, tmp301
+ 2165 0830 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 2166 0834 8CDC     		bgt	.L115		@,
+ 2167              	@ genrtn.c:452:   while ((sfIn > 0.0000001f) || swM0 >= 0)
+ 452:genrtn.c      ****   {
+ 2168              		.loc 1 452 30 discriminator 1
+ 2169 0836 B7F91630 		ldrsh	r3, [r7, #22]	@ tmp304, swM0
+ 2170 083a 002B     		cmp	r3, #0	@ tmp304,
+ 2171 083c 88DA     		bge	.L115		@,
+ 2172              	@ genrtn.c:477:   if (ubEflag)
+ 473:genrtn.c      ****   }
+ 474:genrtn.c      **** 
+ 475:genrtn.c      ****   //--- Process The Exponent
+ 476:genrtn.c      ****   //    Convert the exponent
+ 477:genrtn.c      ****   if (ubEflag)
+ 2173              		.loc 1 477 6
+ 2174 083e BB7F     		ldrb	r3, [r7, #30]	@ zero_extendqisi2	@ tmp305, ubEflag
+ 2175 0840 002B     		cmp	r3, #0	@ tmp305,
+ 2176 0842 00F0BA80 		beq	.L116		@,
+ 2177              	@ genrtn.c:479:     sOut[uwPtr] = 'E';                            //--- Add exponent character to s
+ 478:genrtn.c      ****   {
+ 479:genrtn.c      ****     sOut[uwPtr] = 'E';                            //--- Add exponent character to string
+ 2178              		.loc 1 479 9
+ 2179 0846 BB8B     		ldrh	r3, [r7, #28]	@ _32, uwPtr
+ 2180 0848 3A68     		ldr	r2, [r7]	@ tmp306, sOut
+ 2181 084a 1344     		add	r3, r3, r2	@ _33, tmp306
+ 2182              	@ genrtn.c:479:     sOut[uwPtr] = 'E';                            //--- Add exponent character to s
+ 2183              		.loc 1 479 17
+ 2184 084c 4522     		movs	r2, #69	@ tmp307,
+ 2185 084e 1A70     		strb	r2, [r3]	@ tmp308, *_33
+ 2186              	@ genrtn.c:480:     uwPtr++;                                      //--- Bump Pointer
+ 480:genrtn.c      ****     uwPtr++;                                      //--- Bump Pointer
+ 2187              		.loc 1 480 10
+ 2188 0850 BB8B     		ldrh	r3, [r7, #28]	@ uwPtr.15_34, uwPtr
+ 2189 0852 0133     		adds	r3, r3, #1	@ tmp309, uwPtr.15_34,
+ 2190 0854 BB83     		strh	r3, [r7, #28]	@ movhi	@ tmp310, uwPtr
+ 2191              	@ genrtn.c:482:     if (sfM1 > 0)                                 //--- Add exponent sign to string
+ 481:genrtn.c      **** 
+ 482:genrtn.c      ****     if (sfM1 > 0)                                 //--- Add exponent sign to string
+ 2192              		.loc 1 482 8
+ 2193 0856 D7ED087A 		vldr.32	s15, [r7, #32]	@ tmp311, sfM1
+ 2194 085a F5EEC07A 		vcmpe.f32	s15, #0	@ tmp311
+ 2195 085e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 2196 0862 08DD     		ble	.L134		@,
+ 2197              	@ genrtn.c:484:       sOut[uwPtr] = '+';                          //--- Add exponent + sign to stri
+ 483:genrtn.c      ****     {
+ 484:genrtn.c      ****       sOut[uwPtr] = '+';                          //--- Add exponent + sign to string
+ 2198              		.loc 1 484 11
+ 2199 0864 BB8B     		ldrh	r3, [r7, #28]	@ _35, uwPtr
+ 2200 0866 3A68     		ldr	r2, [r7]	@ tmp312, sOut
+ 2201 0868 1344     		add	r3, r3, r2	@ _36, tmp312
+ 2202              	@ genrtn.c:484:       sOut[uwPtr] = '+';                          //--- Add exponent + sign to stri
+ 2203              		.loc 1 484 19
+ 2204 086a 2B22     		movs	r2, #43	@ tmp313,
+ 2205 086c 1A70     		strb	r2, [r3]	@ tmp314, *_36
+ 2206              	@ genrtn.c:485:       uwPtr++;                                    //--- Bump Pointer
+ 485:genrtn.c      ****       uwPtr++;                                    //--- Bump Pointer
+ 2207              		.loc 1 485 12
+ 2208 086e BB8B     		ldrh	r3, [r7, #28]	@ uwPtr.16_37, uwPtr
+ 2209 0870 0133     		adds	r3, r3, #1	@ tmp315, uwPtr.16_37,
+ 2210 0872 BB83     		strh	r3, [r7, #28]	@ movhi	@ tmp316, uwPtr
+ 2211 0874 0DE0     		b	.L119		@
+ 2212              	.L134:
+ 2213              	@ genrtn.c:489:       sOut[uwPtr] = '-';                          //--- Add exponent - sign to stri
+ 486:genrtn.c      ****     }
+ 487:genrtn.c      ****     else
+ 488:genrtn.c      ****     {
+ 489:genrtn.c      ****       sOut[uwPtr] = '-';                          //--- Add exponent - sign to string
+ 2214              		.loc 1 489 11
+ 2215 0876 BB8B     		ldrh	r3, [r7, #28]	@ _38, uwPtr
+ 2216 0878 3A68     		ldr	r2, [r7]	@ tmp317, sOut
+ 2217 087a 1344     		add	r3, r3, r2	@ _39, tmp317
+ 2218              	@ genrtn.c:489:       sOut[uwPtr] = '-';                          //--- Add exponent - sign to stri
+ 2219              		.loc 1 489 19
+ 2220 087c 2D22     		movs	r2, #45	@ tmp318,
+ 2221 087e 1A70     		strb	r2, [r3]	@ tmp319, *_39
+ 2222              	@ genrtn.c:490:       uwPtr++;                                    //--- Bump Pointer
+ 490:genrtn.c      ****       uwPtr++;                                    //--- Bump Pointer
+ 2223              		.loc 1 490 12
+ 2224 0880 BB8B     		ldrh	r3, [r7, #28]	@ uwPtr.17_40, uwPtr
+ 2225 0882 0133     		adds	r3, r3, #1	@ tmp320, uwPtr.17_40,
+ 2226 0884 BB83     		strh	r3, [r7, #28]	@ movhi	@ tmp321, uwPtr
+ 2227              	@ genrtn.c:491:       sfM1 = -sfM1;
+ 491:genrtn.c      ****       sfM1 = -sfM1;
+ 2228              		.loc 1 491 12
+ 2229 0886 D7ED087A 		vldr.32	s15, [r7, #32]	@ tmp323, sfM1
+ 2230 088a F1EE677A 		vneg.f32	s15, s15	@ tmp322, tmp323
+ 2231 088e C7ED087A 		vstr.32	s15, [r7, #32]	@ tmp322, sfM1
+ 2232              	.L119:
+ 2233              	@ genrtn.c:495:     swM1 = (s16)sfM1;
+ 492:genrtn.c      ****     }
+ 493:genrtn.c      **** 
+ 494:genrtn.c      ****     //--- Number of Digits as integer
+ 495:genrtn.c      ****     swM1 = (s16)sfM1;
+ 2234              		.loc 1 495 10
+ 2235 0892 D7ED087A 		vldr.32	s15, [r7, #32]	@ tmp325, sfM1
+ 2236 0896 FDEEE77A 		vcvt.s32.f32	s15, s15	@ tmp324, tmp325
+ 2237 089a 17EE903A 		vmov	r3, s15	@ int	@ tmp326, tmp324
+ 2238 089e BB82     		strh	r3, [r7, #20]	@ movhi	@ tmp326, swM1
+ 2239              	@ genrtn.c:496:     swM0 = 0;
+ 496:genrtn.c      ****     swM0 = 0;
+ 2240              		.loc 1 496 10
+ 2241 08a0 0023     		movs	r3, #0	@ tmp328,
+ 2242 08a2 FB82     		strh	r3, [r7, #22]	@ movhi	@ tmp327, swM0
+ 2243              	@ genrtn.c:499:     while (swM1 > 0)
+ 497:genrtn.c      **** 
+ 498:genrtn.c      ****     //--- Add padded zeros to string
+ 499:genrtn.c      ****     while (swM1 > 0)
+ 2244              		.loc 1 499 11
+ 2245 08a4 35E0     		b	.L120		@
+ 2246              	.L136:
+ 2247 08a6 00BF     		.align	3
+ 2248              	.L135:
+ 2249 08a8 00000000 		.word	0
+ 2250 08ac 00002440 		.word	1076101120
+ 2251 08b0 00000000 		.word	.LC0
+ 2252 08b4 FFFF7F7F 		.word	2139095039
+ 2253 08b8 08000000 		.word	.LC1
+ 2254 08bc 10000000 		.word	.LC2
+ 2255 08c0 95BFD633 		.word	869711765
+ 2256              	.L121:
+ 2257              	@ genrtn.c:501:       sOut[uwPtr] = '0' + (swM1 % 10);            //--- Place Numeric Character in 
+ 500:genrtn.c      ****     {
+ 501:genrtn.c      ****       sOut[uwPtr] = '0' + (swM1 % 10);            //--- Place Numeric Character in String
+ 2258              		.loc 1 501 25
+ 2259 08c4 B7F91420 		ldrsh	r2, [r7, #20]	@ tmp330, swM1
+ 2260 08c8 404B     		ldr	r3, .L137	@ tmp332,
+ 2261 08ca 83FB0213 		smull	r1, r3, r3, r2	@ tmp386, tmp331, tmp332, tmp330
+ 2262 08ce 9910     		asrs	r1, r3, #2	@ tmp333, tmp331,
+ 2263 08d0 D317     		asrs	r3, r2, #31	@ tmp334, tmp330,
+ 2264 08d2 C91A     		subs	r1, r1, r3	@ tmp329, tmp333, tmp334
+ 2265 08d4 0B46     		mov	r3, r1	@ tmp335, tmp329
+ 2266 08d6 9B00     		lsls	r3, r3, #2	@ tmp335, tmp335,
+ 2267 08d8 0B44     		add	r3, r3, r1	@ tmp335, tmp329
+ 2268 08da 5B00     		lsls	r3, r3, #1	@ tmp336, tmp335,
+ 2269 08dc D31A     		subs	r3, r2, r3	@ tmp337, tmp330, tmp335
+ 2270 08de 1BB2     		sxth	r3, r3	@ _41, tmp337
+ 2271 08e0 DAB2     		uxtb	r2, r3	@ _42, _41
+ 2272              	@ genrtn.c:501:       sOut[uwPtr] = '0' + (swM1 % 10);            //--- Place Numeric Character in 
+ 2273              		.loc 1 501 11
+ 2274 08e2 BB8B     		ldrh	r3, [r7, #28]	@ _43, uwPtr
+ 2275 08e4 3968     		ldr	r1, [r7]	@ tmp338, sOut
+ 2276 08e6 0B44     		add	r3, r3, r1	@ _44, tmp338
+ 2277              	@ genrtn.c:501:       sOut[uwPtr] = '0' + (swM1 % 10);            //--- Place Numeric Character in 
+ 2278              		.loc 1 501 25
+ 2279 08e8 3032     		adds	r2, r2, #48	@ tmp339, _42,
+ 2280 08ea D2B2     		uxtb	r2, r2	@ _45, tmp339
+ 2281              	@ genrtn.c:501:       sOut[uwPtr] = '0' + (swM1 % 10);            //--- Place Numeric Character in 
+ 2282              		.loc 1 501 19
+ 2283 08ec 1A70     		strb	r2, [r3]	@ tmp340, *_44
+ 2284              	@ genrtn.c:502:       uwPtr++;                                    //--- Bump Pointer
+ 502:genrtn.c      ****       uwPtr++;                                    //--- Bump Pointer
+ 2285              		.loc 1 502 12
+ 2286 08ee BB8B     		ldrh	r3, [r7, #28]	@ uwPtr.18_46, uwPtr
+ 2287 08f0 0133     		adds	r3, r3, #1	@ tmp341, uwPtr.18_46,
+ 2288 08f2 BB83     		strh	r3, [r7, #28]	@ movhi	@ tmp342, uwPtr
+ 2289              	@ genrtn.c:503:       swM1 /= 10;                                 //=== Divide by 10
+ 503:genrtn.c      ****       swM1 /= 10;                                 //=== Divide by 10
+ 2290              		.loc 1 503 12
+ 2291 08f4 B7F91430 		ldrsh	r3, [r7, #20]	@ tmp344, swM1
+ 2292 08f8 344A     		ldr	r2, .L137	@ tmp346,
+ 2293 08fa 82FB0312 		smull	r1, r2, r2, r3	@ tmp387, tmp345, tmp346, tmp344
+ 2294 08fe 9210     		asrs	r2, r2, #2	@ tmp347, tmp345,
+ 2295 0900 DB17     		asrs	r3, r3, #31	@ tmp348, tmp344,
+ 2296 0902 D31A     		subs	r3, r2, r3	@ tmp343, tmp347, tmp348
+ 2297 0904 BB82     		strh	r3, [r7, #20]	@ movhi	@ tmp349, swM1
+ 2298              	@ genrtn.c:504:       swM0++;                                     //--- Increment Magnitude
+ 504:genrtn.c      ****       swM0++;                                     //--- Increment Magnitude
+ 2299              		.loc 1 504 11
+ 2300 0906 B7F91630 		ldrsh	r3, [r7, #22]	@ swM0.19_47, swM0
+ 2301 090a 9BB2     		uxth	r3, r3	@ swM0.20_48, swM0.19_47
+ 2302 090c 0133     		adds	r3, r3, #1	@ tmp350, swM0.20_48,
+ 2303 090e 9BB2     		uxth	r3, r3	@ _49, tmp350
+ 2304 0910 FB82     		strh	r3, [r7, #22]	@ movhi	@ tmp351, swM0
+ 2305              	.L120:
+ 2306              	@ genrtn.c:499:     while (swM1 > 0)
+ 499:genrtn.c      ****     {
+ 2307              		.loc 1 499 11
+ 2308 0912 B7F91430 		ldrsh	r3, [r7, #20]	@ tmp354, swM1
+ 2309 0916 002B     		cmp	r3, #0	@ tmp354,
+ 2310 0918 D4DC     		bgt	.L121		@,
+ 2311              	@ genrtn.c:509:     for (swI = 0, swJ = swM0 - 1; swI < swJ; swI++, swJ--)
+ 505:genrtn.c      ****     }
+ 506:genrtn.c      **** 
+ 507:genrtn.c      ****     //--- Correct length of string for padding
+ 508:genrtn.c      **** 
+ 509:genrtn.c      ****     for (swI = 0, swJ = swM0 - 1; swI < swJ; swI++, swJ--)
+ 2312              		.loc 1 509 14
+ 2313 091a 0023     		movs	r3, #0	@ tmp356,
+ 2314 091c 7B83     		strh	r3, [r7, #26]	@ movhi	@ tmp355, swI
+ 2315              	@ genrtn.c:509:     for (swI = 0, swJ = swM0 - 1; swI < swJ; swI++, swJ--)
+ 2316              		.loc 1 509 30
+ 2317 091e FB8A     		ldrh	r3, [r7, #22]	@ swM0.21_50, swM0
+ 2318 0920 013B     		subs	r3, r3, #1	@ tmp357, swM0.21_50,
+ 2319 0922 9BB2     		uxth	r3, r3	@ _51, tmp357
+ 2320              	@ genrtn.c:509:     for (swI = 0, swJ = swM0 - 1; swI < swJ; swI++, swJ--)
+ 2321              		.loc 1 509 23
+ 2322 0924 3B83     		strh	r3, [r7, #24]	@ movhi	@ tmp358, swJ
+ 2323              	@ genrtn.c:509:     for (swI = 0, swJ = swM0 - 1; swI < swJ; swI++, swJ--)
+ 2324              		.loc 1 509 5
+ 2325 0926 3EE0     		b	.L122		@
+ 2326              	.L123:
+ 2327              	@ genrtn.c:512:       sOut[swI] ^= sOut[swJ];
+ 510:genrtn.c      ****     {
+ 511:genrtn.c      ****       //--- Swap Without Temporary
+ 512:genrtn.c      ****       sOut[swI] ^= sOut[swJ];
+ 2328              		.loc 1 512 17 discriminator 3
+ 2329 0928 B7F91A30 		ldrsh	r3, [r7, #26]	@ _52, swI
+ 2330 092c 3A68     		ldr	r2, [r7]	@ tmp359, sOut
+ 2331 092e 1344     		add	r3, r3, r2	@ _53, tmp359
+ 2332 0930 1978     		ldrb	r1, [r3]	@ zero_extendqisi2	@ _54, *_53
+ 2333              	@ genrtn.c:512:       sOut[swI] ^= sOut[swJ];
+ 2334              		.loc 1 512 24 discriminator 3
+ 2335 0932 B7F91830 		ldrsh	r3, [r7, #24]	@ _55, swJ
+ 2336 0936 3A68     		ldr	r2, [r7]	@ tmp360, sOut
+ 2337 0938 1344     		add	r3, r3, r2	@ _56, tmp360
+ 2338 093a 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2	@ _57, *_56
+ 2339              	@ genrtn.c:512:       sOut[swI] ^= sOut[swJ];
+ 2340              		.loc 1 512 17 discriminator 3
+ 2341 093c B7F91A30 		ldrsh	r3, [r7, #26]	@ _58, swI
+ 2342 0940 3868     		ldr	r0, [r7]	@ tmp361, sOut
+ 2343 0942 0344     		add	r3, r3, r0	@ _59, tmp361
+ 2344 0944 4A40     		eors	r2, r2, r1	@, tmp362, _57, _54
+ 2345 0946 D2B2     		uxtb	r2, r2	@ _60, tmp362
+ 2346 0948 1A70     		strb	r2, [r3]	@ tmp363, *_59
+ 2347              	@ genrtn.c:513:       sOut[swJ] ^= sOut[swI];
+ 513:genrtn.c      ****       sOut[swJ] ^= sOut[swI];
+ 2348              		.loc 1 513 17 discriminator 3
+ 2349 094a B7F91830 		ldrsh	r3, [r7, #24]	@ _61, swJ
+ 2350 094e 3A68     		ldr	r2, [r7]	@ tmp364, sOut
+ 2351 0950 1344     		add	r3, r3, r2	@ _62, tmp364
+ 2352 0952 1978     		ldrb	r1, [r3]	@ zero_extendqisi2	@ _63, *_62
+ 2353              	@ genrtn.c:513:       sOut[swJ] ^= sOut[swI];
+ 2354              		.loc 1 513 24 discriminator 3
+ 2355 0954 B7F91A30 		ldrsh	r3, [r7, #26]	@ _64, swI
+ 2356 0958 3A68     		ldr	r2, [r7]	@ tmp365, sOut
+ 2357 095a 1344     		add	r3, r3, r2	@ _65, tmp365
+ 2358 095c 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2	@ _66, *_65
+ 2359              	@ genrtn.c:513:       sOut[swJ] ^= sOut[swI];
+ 2360              		.loc 1 513 17 discriminator 3
+ 2361 095e B7F91830 		ldrsh	r3, [r7, #24]	@ _67, swJ
+ 2362 0962 3868     		ldr	r0, [r7]	@ tmp366, sOut
+ 2363 0964 0344     		add	r3, r3, r0	@ _68, tmp366
+ 2364 0966 4A40     		eors	r2, r2, r1	@, tmp367, _66, _63
+ 2365 0968 D2B2     		uxtb	r2, r2	@ _69, tmp367
+ 2366 096a 1A70     		strb	r2, [r3]	@ tmp368, *_68
+ 2367              	@ genrtn.c:514:       sOut[swI] ^= sOut[swJ];
+ 514:genrtn.c      ****       sOut[swI] ^= sOut[swJ];
+ 2368              		.loc 1 514 17 discriminator 3
+ 2369 096c B7F91A30 		ldrsh	r3, [r7, #26]	@ _70, swI
+ 2370 0970 3A68     		ldr	r2, [r7]	@ tmp369, sOut
+ 2371 0972 1344     		add	r3, r3, r2	@ _71, tmp369
+ 2372 0974 1978     		ldrb	r1, [r3]	@ zero_extendqisi2	@ _72, *_71
+ 2373              	@ genrtn.c:514:       sOut[swI] ^= sOut[swJ];
+ 2374              		.loc 1 514 24 discriminator 3
+ 2375 0976 B7F91830 		ldrsh	r3, [r7, #24]	@ _73, swJ
+ 2376 097a 3A68     		ldr	r2, [r7]	@ tmp370, sOut
+ 2377 097c 1344     		add	r3, r3, r2	@ _74, tmp370
+ 2378 097e 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2	@ _75, *_74
+ 2379              	@ genrtn.c:514:       sOut[swI] ^= sOut[swJ];
+ 2380              		.loc 1 514 17 discriminator 3
+ 2381 0980 B7F91A30 		ldrsh	r3, [r7, #26]	@ _76, swI
+ 2382 0984 3868     		ldr	r0, [r7]	@ tmp371, sOut
+ 2383 0986 0344     		add	r3, r3, r0	@ _77, tmp371
+ 2384 0988 4A40     		eors	r2, r2, r1	@, tmp372, _75, _72
+ 2385 098a D2B2     		uxtb	r2, r2	@ _78, tmp372
+ 2386 098c 1A70     		strb	r2, [r3]	@ tmp373, *_77
+ 2387              	@ genrtn.c:509:     for (swI = 0, swJ = swM0 - 1; swI < swJ; swI++, swJ--)
+ 509:genrtn.c      ****     {
+ 2388              		.loc 1 509 49 discriminator 3
+ 2389 098e B7F91A30 		ldrsh	r3, [r7, #26]	@ swI.22_79, swI
+ 2390 0992 9BB2     		uxth	r3, r3	@ swI.23_80, swI.22_79
+ 2391 0994 0133     		adds	r3, r3, #1	@ tmp374, swI.23_80,
+ 2392 0996 9BB2     		uxth	r3, r3	@ _81, tmp374
+ 2393 0998 7B83     		strh	r3, [r7, #26]	@ movhi	@ tmp375, swI
+ 2394              	@ genrtn.c:509:     for (swI = 0, swJ = swM0 - 1; swI < swJ; swI++, swJ--)
+ 509:genrtn.c      ****     {
+ 2395              		.loc 1 509 56 discriminator 3
+ 2396 099a B7F91830 		ldrsh	r3, [r7, #24]	@ swJ.24_82, swJ
+ 2397 099e 9BB2     		uxth	r3, r3	@ swJ.25_83, swJ.24_82
+ 2398 09a0 013B     		subs	r3, r3, #1	@ tmp376, swJ.25_83,
+ 2399 09a2 9BB2     		uxth	r3, r3	@ _84, tmp376
+ 2400 09a4 3B83     		strh	r3, [r7, #24]	@ movhi	@ tmp377, swJ
+ 2401              	.L122:
+ 2402              	@ genrtn.c:509:     for (swI = 0, swJ = swM0 - 1; swI < swJ; swI++, swJ--)
+ 509:genrtn.c      ****     {
+ 2403              		.loc 1 509 5 discriminator 1
+ 2404 09a6 B7F91A20 		ldrsh	r2, [r7, #26]	@ tmp378, swI
+ 2405 09aa B7F91830 		ldrsh	r3, [r7, #24]	@ tmp379, swJ
+ 2406 09ae 9A42     		cmp	r2, r3	@ tmp378, tmp379
+ 2407 09b0 BADB     		blt	.L123		@,
+ 2408              	@ genrtn.c:517:     uwPtr += swM0;                                //--- Point to end of string
+ 515:genrtn.c      ****     }
+ 516:genrtn.c      **** 
+ 517:genrtn.c      ****     uwPtr += swM0;                                //--- Point to end of string
+ 2409              		.loc 1 517 11
+ 2410 09b2 FA8A     		ldrh	r2, [r7, #22]	@ swM0.26_85, swM0
+ 2411 09b4 BB8B     		ldrh	r3, [r7, #28]	@ movhi	@ tmp380, uwPtr
+ 2412 09b6 1344     		add	r3, r3, r2	@ tmp381, swM0.26_85
+ 2413 09b8 BB83     		strh	r3, [r7, #28]	@ movhi	@ tmp382, uwPtr
+ 2414              	.L116:
+ 2415              	@ genrtn.c:520:   sOut[uwPtr] = 0;                                //--- Terminate output string
+ 518:genrtn.c      ****   }
+ 519:genrtn.c      **** 
+ 520:genrtn.c      ****   sOut[uwPtr] = 0;                                //--- Terminate output string
+ 2416              		.loc 1 520 7
+ 2417 09ba BB8B     		ldrh	r3, [r7, #28]	@ _86, uwPtr
+ 2418 09bc 3A68     		ldr	r2, [r7]	@ tmp383, sOut
+ 2419 09be 1344     		add	r3, r3, r2	@ _87, tmp383
+ 2420              	@ genrtn.c:520:   sOut[uwPtr] = 0;                                //--- Terminate output string
+ 2421              		.loc 1 520 15
+ 2422 09c0 0022     		movs	r2, #0	@ tmp384,
+ 2423 09c2 1A70     		strb	r2, [r3]	@ tmp385, *_87
+ 2424              	@ genrtn.c:521:   return;
+ 521:genrtn.c      ****   return;
+ 2425              		.loc 1 521 3
+ 2426 09c4 00BF     		nop	
+ 2427              	.L88:
+ 2428              	@ genrtn.c:522: }
+ 522:genrtn.c      **** }
+ 2429              		.loc 1 522 1
+ 2430 09c6 2837     		adds	r7, r7, #40	@,,
+ 2431              	.LCFI105:
+ 2432              		.cfi_def_cfa_offset 16
+ 2433 09c8 BD46     		mov	sp, r7	@,
+ 2434              	.LCFI106:
+ 2435              		.cfi_def_cfa_register 13
+ 2436              		@ sp needed	@
+ 2437 09ca B0BD     		pop	{r4, r5, r7, pc}	@
+ 2438              	.L138:
+ 2439              		.align	2
+ 2440              	.L137:
+ 2441 09cc 67666666 		.word	1717986919
+ 2442              		.cfi_endproc
+ 2443              	.LFE29:
+ 2445              		.bss
+ 2446              		.align	2
+ 2447              	heap:
+ 2448 0000 00000000 		.space	4
+ 2450              		.text
+ 2451              		.align	1
+ 2452              		.global	_sbrk
+ 2453              		.syntax unified
+ 2454              		.thumb
+ 2455              		.thumb_func
+ 2456              		.fpu fpv4-sp-d16
+ 2458              	_sbrk:
+ 2459              	.LFB30:
+ 523:genrtn.c      **** 
+ 524:genrtn.c      **** //=============================================================================================
+ 525:genrtn.c      **** //    Substitute Source for _sbrk
+ 526:genrtn.c      **** //    low level bulk memory allocator - used by malloc
+ 527:genrtn.c      **** //=============================================================================================
+ 528:genrtn.c      **** extern s16 _HEAP_START;
+ 529:genrtn.c      **** extern s16 _HEAP_END;
+ 530:genrtn.c      **** static caddr_t heap = NULL;
+ 531:genrtn.c      **** 
+ 532:genrtn.c      **** //--- Note: HEAP Starts at Highest Address of Stack Space BSS + StackSize and progresses
+ 533:genrtn.c      **** //          upward to end of RAM.  Stack progresses from highest Stack Address to lowest
+ 534:genrtn.c      **** //          and decrements for each value pushed onto stack.
+ 535:genrtn.c      **** 
+ 536:genrtn.c      **** caddr_t _sbrk ( int increment )
+ 537:genrtn.c      **** {
+ 2460              		.loc 1 537 1
+ 2461              		.cfi_startproc
+ 2462              		@ args = 0, pretend = 0, frame = 16
+ 2463              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2464              		@ link register save eliminated.
+ 2465 09d0 80B4     		push	{r7}	@
+ 2466              	.LCFI107:
+ 2467              		.cfi_def_cfa_offset 4
+ 2468              		.cfi_offset 7, -4
+ 2469 09d2 85B0     		sub	sp, sp, #20	@,,
+ 2470              	.LCFI108:
+ 2471              		.cfi_def_cfa_offset 24
+ 2472 09d4 00AF     		add	r7, sp, #0	@,,
+ 2473              	.LCFI109:
+ 2474              		.cfi_def_cfa_register 7
+ 2475 09d6 7860     		str	r0, [r7, #4]	@ increment, increment
+ 2476              	@ genrtn.c:541:   if (heap == NULL)
+ 538:genrtn.c      ****   caddr_t prevHeap;
+ 539:genrtn.c      ****   caddr_t nextHeap;
+ 540:genrtn.c      **** 
+ 541:genrtn.c      ****   if (heap == NULL)
+ 2477              		.loc 1 541 12
+ 2478 09d8 134B     		ldr	r3, .L144	@ tmp121,
+ 2479 09da 1B68     		ldr	r3, [r3]	@ heap.27_1, heap
+ 2480              	@ genrtn.c:541:   if (heap == NULL)
+ 2481              		.loc 1 541 6
+ 2482 09dc 002B     		cmp	r3, #0	@ heap.27_1,
+ 2483 09de 02D1     		bne	.L140		@,
+ 2484              	@ genrtn.c:544:     heap = (caddr_t)&_HEAP_START;
+ 542:genrtn.c      ****   {
+ 543:genrtn.c      ****     // first allocation
+ 544:genrtn.c      ****     heap = (caddr_t)&_HEAP_START;
+ 2485              		.loc 1 544 10
+ 2486 09e0 114B     		ldr	r3, .L144	@ tmp122,
+ 2487 09e2 124A     		ldr	r2, .L144+4	@ tmp123,
+ 2488 09e4 1A60     		str	r2, [r3]	@ tmp123, heap
+ 2489              	.L140:
+ 2490              	@ genrtn.c:547:   prevHeap = heap;
+ 545:genrtn.c      ****   }
+ 546:genrtn.c      **** 
+ 547:genrtn.c      ****   prevHeap = heap;
+ 2491              		.loc 1 547 12
+ 2492 09e6 104B     		ldr	r3, .L144	@ tmp124,
+ 2493 09e8 1B68     		ldr	r3, [r3]	@ tmp125, heap
+ 2494 09ea FB60     		str	r3, [r7, #12]	@ tmp125, prevHeap
+ 2495              	@ genrtn.c:550:   nextHeap = (caddr_t)(((s16)(heap + increment) + 7) & ~7);
+ 548:genrtn.c      **** 
+ 549:genrtn.c      ****   // Always return data aligned on a 8 byte boundary
+ 550:genrtn.c      ****   nextHeap = (caddr_t)(((s16)(heap + increment) + 7) & ~7);
+ 2496              		.loc 1 550 36
+ 2497 09ec 0E4B     		ldr	r3, .L144	@ tmp126,
+ 2498 09ee 1A68     		ldr	r2, [r3]	@ heap.28_2, heap
+ 2499 09f0 7B68     		ldr	r3, [r7, #4]	@ increment.29_3, increment
+ 2500 09f2 1344     		add	r3, r3, r2	@ _4, heap.28_2
+ 2501              	@ genrtn.c:550:   nextHeap = (caddr_t)(((s16)(heap + increment) + 7) & ~7);
+ 2502              		.loc 1 550 25
+ 2503 09f4 1BB2     		sxth	r3, r3	@ _6, _5
+ 2504              	@ genrtn.c:550:   nextHeap = (caddr_t)(((s16)(heap + increment) + 7) & ~7);
+ 2505              		.loc 1 550 49
+ 2506 09f6 0733     		adds	r3, r3, #7	@ _8, _7,
+ 2507              	@ genrtn.c:550:   nextHeap = (caddr_t)(((s16)(heap + increment) + 7) & ~7);
+ 2508              		.loc 1 550 54
+ 2509 09f8 23F00703 		bic	r3, r3, #7	@ _9, _8,
+ 2510              	@ genrtn.c:550:   nextHeap = (caddr_t)(((s16)(heap + increment) + 7) & ~7);
+ 2511              		.loc 1 550 12
+ 2512 09fc BB60     		str	r3, [r7, #8]	@ _9, nextHeap
+ 2513              	@ genrtn.c:559:   if (((nextHeap < (caddr_t)&_HEAP_START)) || (nextHeap >= (caddr_t)&_HEAP_END))
+ 551:genrtn.c      **** 
+ 552:genrtn.c      ****   // get current stack pos16er
+ 553:genrtn.c      ****   // register caddr_t stackPtr asm ("sp");
+ 554:genrtn.c      ****   // Check enough space and there is no collision with stack coming the other way
+ 555:genrtn.c      ****   // if stack is above start of heap
+ 556:genrtn.c      **** 
+ 557:genrtn.c      **** //  if ((((caddr_t)&_HEAP_START < stackPtr) && (nextHeap > stackPtr)) || (nextHeap >= (caddr_t)&_HE
+ 558:genrtn.c      **** 
+ 559:genrtn.c      ****   if (((nextHeap < (caddr_t)&_HEAP_START)) || (nextHeap >= (caddr_t)&_HEAP_END))
+ 2514              		.loc 1 559 6
+ 2515 09fe BB68     		ldr	r3, [r7, #8]	@ tmp127, nextHeap
+ 2516 0a00 0A4A     		ldr	r2, .L144+4	@ tmp128,
+ 2517 0a02 9342     		cmp	r3, r2	@ tmp127, tmp128
+ 2518 0a04 03D3     		bcc	.L141		@,
+ 2519              	@ genrtn.c:559:   if (((nextHeap < (caddr_t)&_HEAP_START)) || (nextHeap >= (caddr_t)&_HEAP_END))
+ 2520              		.loc 1 559 44 discriminator 1
+ 2521 0a06 BB68     		ldr	r3, [r7, #8]	@ tmp129, nextHeap
+ 2522 0a08 094A     		ldr	r2, .L144+8	@ tmp130,
+ 2523 0a0a 9342     		cmp	r3, r2	@ tmp129, tmp130
+ 2524 0a0c 01D3     		bcc	.L142		@,
+ 2525              	.L141:
+ 2526              	@ genrtn.c:561:     return NULL; // error - no more memory
+ 560:genrtn.c      ****   {
+ 561:genrtn.c      ****     return NULL; // error - no more memory
+ 2527              		.loc 1 561 12
+ 2528 0a0e 0023     		movs	r3, #0	@ _10,
+ 2529 0a10 03E0     		b	.L143		@
+ 2530              	.L142:
+ 2531              	@ genrtn.c:565:     heap = nextHeap;
+ 562:genrtn.c      ****   }
+ 563:genrtn.c      ****   else
+ 564:genrtn.c      ****   {
+ 565:genrtn.c      ****     heap = nextHeap;
+ 2532              		.loc 1 565 10
+ 2533 0a12 054A     		ldr	r2, .L144	@ tmp131,
+ 2534 0a14 BB68     		ldr	r3, [r7, #8]	@ tmp132, nextHeap
+ 2535 0a16 1360     		str	r3, [r2]	@ tmp132, heap
+ 2536              	@ genrtn.c:566:     return (caddr_t) prevHeap;
+ 566:genrtn.c      ****     return (caddr_t) prevHeap;
+ 2537              		.loc 1 566 12
+ 2538 0a18 FB68     		ldr	r3, [r7, #12]	@ _10, prevHeap
+ 2539              	.L143:
+ 2540              	@ genrtn.c:568: }
+ 567:genrtn.c      ****   }
+ 568:genrtn.c      **** }
+ 2541              		.loc 1 568 1
+ 2542 0a1a 1846     		mov	r0, r3	@, <retval>
+ 2543 0a1c 1437     		adds	r7, r7, #20	@,,
+ 2544              	.LCFI110:
+ 2545              		.cfi_def_cfa_offset 4
+ 2546 0a1e BD46     		mov	sp, r7	@,
+ 2547              	.LCFI111:
+ 2548              		.cfi_def_cfa_register 13
+ 2549              		@ sp needed	@
+ 2550 0a20 5DF8047B 		ldr	r7, [sp], #4	@,
+ 2551              	.LCFI112:
+ 2552              		.cfi_restore 7
+ 2553              		.cfi_def_cfa_offset 0
+ 2554 0a24 7047     		bx	lr	@
+ 2555              	.L145:
+ 2556 0a26 00BF     		.align	2
+ 2557              	.L144:
+ 2558 0a28 00000000 		.word	heap
+ 2559 0a2c 00000000 		.word	_HEAP_START
+ 2560 0a30 00000000 		.word	_HEAP_END
+ 2561              		.cfi_endproc
+ 2562              	.LFE30:
+ 2564              	.Letext0:
+ 2565              		.file 2 "c:\\gcc\\arm-eabi\\lib\\gcc\\arm-none-eabi\\9.3.1\\include\\stddef.h"
+ 2566              		.file 3 "c:\\gcc\\arm-eabi\\arm-none-eabi\\include\\sys\\_types.h"
+ 2567              		.file 4 "c:\\gcc\\arm-eabi\\arm-none-eabi\\include\\sys\\reent.h"
+ 2568              		.file 5 "c:\\gcc\\arm-eabi\\arm-none-eabi\\include\\sys\\lock.h"
+ 2569              		.file 6 "c:\\gcc\\arm-eabi\\arm-none-eabi\\include\\sys\\errno.h"
+ 2570              		.file 7 "c:\\gcc\\arm-eabi\\arm-none-eabi\\include\\sys\\types.h"
+ 2571              		.file 8 "c:\\gcc\\arm-eabi\\arm-none-eabi\\include\\time.h"
+ 2572              		.file 9 "c:\\gcc\\arm-eabi\\arm-none-eabi\\include\\stdlib.h"
+ 2573              		.file 10 "c:\\gcc\\arm-eabi\\arm-none-eabi\\include\\math.h"
+ 2574              		.file 11 "commonheader.h"
+ 2575              		.file 12 "opsys.h"
+ 2576              		.file 13 "sys_tick.h"
+ 2577              		.file 14 "main.h"
+ 2578              		.file 15 "startup.h"
+ 2579              		.file 16 "interrupts.h"
+ 2580              		.file 17 "test_help.h"
+ 2581              		.file 18 "uart_com.h"
+DEFINED SYMBOLS
+                            *ABS*:00000000 genrtn.c
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:55     .text:00000000 $t
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:63     .text:00000000 fnZeroString
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:153    .text:00000044 fnMergString
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:320    .text:000000e0 fnFindSinS
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:1393   .text:00000460 fnStrLen
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:466    .text:00000166 fnGrabArrayBytes
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:558    .text:000001b4 fnLTRIM
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:692    .text:00000228 fnRTRIM
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:811    .text:00000290 fnLoByte
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:859    .text:000002aa fnHiByte
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:909    .text:000002c8 fnBytesToWord
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:975    .text:000002fa fnBCD2Bin
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:1042   .text:00000330 fnBin2BCD
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:1116   .text:00000380 $d
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:1120   .text:00000384 $t
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:1127   .text:00000384 fnByte2Hex
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:1212   .text:000003d0 fnByte2Chr
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:1300   .text:00000418 fnStrCpy
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:1463   .text:0000048e fnCINTF
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:1555   .text:000004ec fnCINTD
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:1646   .text:00000550 $d
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:1650   .text:00000554 $t
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:1657   .text:00000554 fnLc2Uc
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:1714   .rodata:00000000 $d
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:1734   .text:0000057e ftoa
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:2249   .text:000008a8 $d
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:2259   .text:000008c4 $t
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:2441   .text:000009cc $d
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:2446   .bss:00000000 $d
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:2447   .bss:00000000 heap
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:2451   .text:000009d0 $t
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:2458   .text:000009d0 _sbrk
+C:\Users\Jim\AppData\Local\Temp\ccOMBuFA.s:2558   .text:00000a28 $d
+
+UNDEFINED SYMBOLS
+strlen
+__aeabi_d2iz
+__aeabi_i2d
+__aeabi_dsub
+__aeabi_dcmpgt
+__aeabi_f2d
+__aeabi_d2f
+__aeabi_ddiv
+log10
+pow
+powf
+floor
+_HEAP_START
+_HEAP_END
