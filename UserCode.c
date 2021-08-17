@@ -10,8 +10,6 @@
 
 int main (void)
 {
-  u32 uwDelay; //was a u16 changed to u32
-
   //--- Main Infinite Loop Entry Point
   while (1)
   {
