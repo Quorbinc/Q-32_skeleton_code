@@ -18,9 +18,6 @@
 
 #include "projectdefs.h"
 
-//--- Define test pulses to output on Bit PA14
-#define PULSES
-
 //---------------------------------------------------------------------------------------------
 //    Select Pulse Out GPIO Pins
 //---------------------------------------------------------------------------------------------
@@ -37,12 +34,12 @@ u08 ubSpoFlag = 0;                                //--- Flag that Pulse Bit Port
 u08 ubPulseCntr;                                  //--- Number of Sequential Pulses to output
 
 //--- Set up Pins to use for Pulse Data Outs
-void  fnDefinePortPins (u08 ubCpin, u08 ubDpin)
+void  fnDefinePortPins (u08 ubClkPin, u08 ubDataPin)
 {
   ubSpoFlag = 0xFF;
 
   //--- Define the Clock GPIO Port Address
-  switch (ubCpin & 0xF0)
+  switch (ubClkPin & 0xF0)
   {
     case 0x00:
       Cptr = &GPIOA_BSRR;
@@ -93,11 +90,11 @@ void  fnDefinePortPins (u08 ubCpin, u08 ubDpin)
   }
 
   //--- Define the Port Pin for Clock Out
-  ulCsetMask = (0x00000001 << (ubCpin & 0x0F));
-  ulCclrMask = ~(0x00000001 << ((ubCpin & 0x0F) + 16));
+  ulCsetMask = (0x00000001 << (ubClkPin & 0x0F));
+  ulCclrMask = ~(0x00000001 << ((ubClkPin & 0x0F) + 16));
 
   //--- Define the Clock GPIO Port Address
-  switch (ubDpin & 0xF0)
+  switch (ubDataPin & 0xF0)
   {
     case 0x00:
       Dptr = &GPIOA_BSRR;
@@ -148,8 +145,8 @@ void  fnDefinePortPins (u08 ubCpin, u08 ubDpin)
   }
 
   //--- Define the Port Pin for Data Out
-  ulDsetMask = (0x00000001 << (ubCpin & 0x0F));
-  ulDclrMask = ~(0x00000001 << ((ubCpin & 0x0F) + 16));
+  ulDsetMask = (0x00000001 << (ubDataPin & 0x0F));
+  ulDclrMask = ~(0x00000001 << ((ubDataPin & 0x0F) + 16));
 }
 
 //--- Functions to Set and Clear Pulse Out Pins
@@ -308,17 +305,18 @@ void  fnPulseLongOut (u32 ulPulseLong)
 }
 
 //---------------------------------------------------------------------------------------------
-//    Output a series of Pulses on PA14
+//    Output a series of Pulses on Clock Pin
 //---------------------------------------------------------------------------------------------
 void  fnPulseOut (void)
 {
   //--- Output a short pulse
   if (ubPulseCntr)
   {
-    SET_PA14;                                 //--- Pulse Out Hi
-    nop12;                                    //--- Tiny Delay
-    CLR_PA14;                                 //--- Pulse Out Lo
+    fnSetDpin ();
+    nop8;                                    //--- Tiny Delay
+    fnClrDpin ();
     ubPulseCntr--;                            //--- Down Count # of Pulses
+    nop12;
   }
 }
 
