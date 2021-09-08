@@ -83,23 +83,43 @@
   #define STACK_SIZE  4096                        //--- Stack Size = 4K   By Default
 
   //--- Enable these flags for the peripherial drivers that are USED in your program
-  #define USART_FLAG                              //--- This program uses UARTS
   #define TESTHELP_FLAG                           //--- Test Functions enabled
-  //  #define I2C_FLAG                                //--- This program uses I2C memory
-  //  #define SPI_FLAG
-  //  #define QSPI_FLAG
-  //  #define USB_FLAG
-
-  //--- MPU Timers
-  //  #define TIM1_FLAG
-  //  #define TIM2_FLAG
-  //  #define TIM3_FLAG
-  //  #define TIM15_FLAG
-  //  #define TIM16_FLAG
-  //  #define TIM6_FLAG
-  //  #define TIM7_FLAG
-  //  #define LPTIM1_FLAG
-  //  #define LPTIM2_FLAG
+  //  #define ADC_FLAG                                //--- Uses High Speed ADC
+  //  #define DAC1_FLAG                               //--- Uses DAC-1
+  //  #define DAC2_FLAG                               //--- Uses DAC-2
+  //  #define USART1_FLAG                             //--- This program uses UARTS
+  //  #define USART2_FLAG                             //--- This program uses UARTS
+  //  #define USART3_FLAG                             //--- This program uses UARTS
+  //  #define I2C1_FLAG                               //--- Uses I2C1
+  //  #define I2C2_FLAG                               //--- Uses I2C2
+  //  #define SPI1_FLAG                               //--- Uses SPI-1 Interface
+  //  #define SPI2_FLAG                               //--- Uses SPI-2 Interface
+  //  #define QSPI_FLAG                               //--- Uses QSPI Interface
+  //  #define USB_FLAG                                //--- Uses USB Full Speed
+  //  #define RTC_FLAG                                //--- Uses Real Time Clock
+  //  #define RNG_FLAG                                //--- Uses Random Number Generator
+  //  #define IWDG_FLAG                               //--- Uses Independant Watch Dog
+  //  #define IRTIM_FLAG                              //--- Uses IRTIM InfaRed Interface
+  //  #define RTC_FLAG                                //--- Uses Real Time Clock
+  //  #define WWTG_FLAG                               //--- Uses Windowed WatchDog
+  //  #define TAMP_FLAG                               //--- Uses Tamper Detection
+  //  #define SWPMI_FLAG                              //--- Uses Serial Wire Interface
+  //  #define CAN_FLAG                                //--- Uses CAN 2.0 Interface
+  //  #define SAI_FLAG                                //--- Uses SAI Interface
+  //  #define DMA_FLAG                                //--- Uses DMA Interface
+  //  #define CRC_FLAG                                //--- Uses CRC Generator
+  //  #define PGA_FLAG                                //--- Uses Programable OpAmp
+  //  #define COMP1_FLAG                              //--- Uses Comparator #1
+  //  #define COMP2_FLAG                              //--- Uses Comparator #2
+  //  #define TIM1_FLAG                               //--- Uses Timer-1
+  //  #define TIM2_FLAG                               //--- Uses Timer-2
+  //  #define TIM3_FLAG                               //--- Uses Timer-3
+  //  #define TIM6_FLAG                               //--- Uses Timer-6
+  //  #define TIM7_FLAG                               //--- Uses Timer-7
+  //  #define TIM15_FLAG                              //--- Uses Timer-15
+  //  #define TIM16_FLAG                              //--- Uses Timer-16
+  //  #define LPTIM1_FLAG                             //--- Uses LPtimer1
+  //  #define LPTIM2_FLAG                             //--- Uses LPtimer2
 
   //-------------------------------------------------------------------------------------------
   //    Header files for libraries and program sections
@@ -128,7 +148,7 @@
   #include  "genrtn.h"                            //--- Useful functions
   #include  "interrupts.h"                        //--- Interrupt Definitions & Functions
 
-  //--- Include the common definitions used by QUORB Inc.
+  //--- Include the common definitions used by QUORB
   #ifdef TESTHELP_FLAG
     #include  "test_help.h"
   #endif
@@ -137,7 +157,7 @@
     #include  "uart_com.h"                        //--- USART Code
   #endif
 
-  #ifdef I2C_FLAG
+  #ifdef I2C1_FLAG
     #include  "i2c.h"                             //--- I2C Code
   #endif
 
@@ -146,6 +166,6 @@
   #endif
 
   #ifdef TIM1_FLAG
-    #include  "timers.h"                          //--- TIMERS Code
+    #include  "timers.h"                          //--- TIMER-1 Code
   #endif
 #endif
