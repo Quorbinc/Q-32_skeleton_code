@@ -199,11 +199,12 @@
   //--- 32 Bit Variable union
   union LWB
   {
-    u32 ulLong;
-    u16 uwWord[2];
-    s16 swWord[2];
-    u08 ubByte[4];
-    s08 sbByte[4];
+    u32   ulLong;                 //--- 1 32 Bit unsigned Long
+    s32   slLong;                 //--- 1 32 Bit Signed Long
+    u16   uwWord[2];              //--- 2 Unsigned Word
+    s16   swWord[2];              //--- 2 Signed Word
+    u08   ubByte[4];              //--- 4 Unsigned Bytes
+    s08   sbByte[4];              //--- 4 Signed Bytes
   };
 
 
@@ -211,7 +212,7 @@
   //--- 32 Bit Multi Number Type unions
   union   FLWB                    //--- 4 Bytes of Pass Data
   {
-    flt   sfFlt;
+    flt   sfFlt;                  //--- 1 single precision floating point
     u32   ulLong;                 //--- 1 Unsigned Long
     s32   slLong;                 //--- 1 Signed Long
     u16   uwWord[2];              //--- 2 Unsigned Word
@@ -223,7 +224,7 @@
   };
 
   //--- Double Float Long Word Byte Pointer Union
-  //--- 64 Bit Variable integer union
+  //--- 8 Byte Variable nion
   union DFLWB                     //--- 8 Bytes Binary / Integer Storage
   {
     dbl   dfFlt;                  //--- 1 Double Precision Float
@@ -237,11 +238,11 @@
     u08   ubByte[8];              //--- 8 Unsigned Bytes
     s08   sbByte[8];              //--- 8 Signed Bytes
     u08*  ubPtr[2];               //--- 2 General Purpose Pointers (byte]
-    void* vPntr[2];               //--- 2 Void Type Pointers
+    void* vPtr[2];                //--- 2 Void Type Pointers
   };
 
   //--- Double Float Long Word Byte Pointer Union
-  //--- 32 Byte (256 Bit) Variable union
+  //--- 32 Byte Variable union
   union DFLWB32                   //--- 32 Bytes Variable
   {
     dbl   dfFlt[4];               //--- 4 Double Precision Float
@@ -259,7 +260,7 @@
   };
 
   //--- Double Float Long Word Byte Pointer Union
-  //--- 256 Byte (4096 Bit) Variable union
+  //--- 256 Byte Variable union
   union DFLWB256                  //--- 256 Byte Variable
   {
     dbl   dfFlt[32];              //--- 32 Double Precision Float
@@ -273,13 +274,12 @@
     u08   ubByte[256];            //--- 256 Unsigned Bytes
     s08   sbByte[256];            //--- 256 Signed Bytes
     u08*  ubPtr[64];              //--- 64 General Purpose Pointers (byte]
-    void* vPntr[64];              //--- 64 Void Type Pointers
+    void* vPtr[64];               //--- 64 Void Type Pointers
   };
 
   //------------------------------------------------------------------------------------------
   //  Single I/O Port Bit Toggeling
   //------------------------------------------------------------------------------------------
-
   #define SET_BIT(Adds, Bit)  ((Adds) |=  (0x00000001 << (Bit)))
   #define CLR_BIT(Adds, Bit)  ((Adds) &= ~(0x00000001 << (Bit)))
 
