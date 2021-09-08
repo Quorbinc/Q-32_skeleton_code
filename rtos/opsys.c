@@ -26,7 +26,7 @@
 //  struct Task
 //  {
 //    u32     ulTimer;                            //--- Timer delay Value (0000 - 4G milliseconds)
-//    void    (*ptrTask);                         //--- Address Pointer to Task
+//    void    (*ptrTask);                         //--- Address Pointer of Task
 //    struct  PassData stPassData;                //--- Generic stPassData Structure
 //      8 Bytes Time Stamp;                       //--- .uxTimeStamp
 //      union DFLWB                               //--- Data Union unTaskData
@@ -35,6 +35,13 @@
 //
 //  Task Function Definition:
 //  fnFunctionName (struct PassData stTaskData)
+//
+//
+//  structure PassData
+//  {
+//    u64   uxTimeStamp;                          //--- Time Stamp when Schedueled
+//    union DFLWB stTaskData;                     //--- DFLWB Data union
+//  }
 //
 //---------------------------------------------------------------------------------------------
 //  Task Data Union Definition
@@ -57,12 +64,6 @@
 //  };
 //
 //
-//  structure PassData
-//  {
-//    u64   uxTimeStamp;                          //--- Time Stamp when Schedueled
-//    union DFLWB stTaskData;                     //--- DFLWB Data union
-//  }
-//
 //---------------------------------------------------------------------------------------------
 
 //            TASK_QUEUE_SIZE   32                //--- UpTo 32 Tasks Max waiting in dispatcher
@@ -70,9 +71,9 @@ struct  Task  stTaskQueue[TASK_QUEUE_SIZE];
 //            TIMER_QUEUE_SIZE  8                 //--- UpTo 8 Timers
 struct  Task  stTimerQueue[TIMER_QUEUE_SIZE];
 
-u16 volatile  uwTaskIptr;                         //--- Task FIFO In Pointer
-u16 volatile  uwTaskOptr;                         //--- Task FIFO Out Pointer
-u16 volatile  uwTaskCntr;                         //--- Task FIFO Task Counter
+u16 volatile  uwTaskIptr;                         //--- Task Queue In Pointer
+u16 volatile  uwTaskOptr;                         //--- Task Queue Out Pointer
+u16 volatile  uwTaskCntr;                         //--- Task Queue Task Counter
 
 
 //---------------------------------------------------------------------------------------------
@@ -97,7 +98,7 @@ u08 fnScheduleTask (struct Task stInTask)
 
   GID;                                            //--- Kill All Interrutps
 
-  //--- Test (if Task Timer Set > 0) if so then schedule as a timer each value = 1 mSec
+  //--- Test (if Task Timer Set > 0), if so then schedule as a timer each value = 1 mSec
   if (stInTask.ulTimer != 0)
   {
     //--- This is a Timer Find First Empty Timer in Timer QUEUE
@@ -158,6 +159,10 @@ void  fnDispatcher (void)
   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   GID;                                            //--- Kill Interrupts on Entry
 
+  #ifdef TESTHELP_FLAG
+    SET_PA10;                                     //--- Dispatcher Test Pulse Hi
+  #endif
+
   //--- Test if Task waiting in Dispatch FIFO  TaskCounter > 0
   if (uwTaskCntr > 0)
   {
@@ -170,10 +175,9 @@ void  fnDispatcher (void)
     uwTaskOptr++;                                 //--- Bump the Out Pointer
     uwTaskOptr %= TASK_QUEUE_SIZE;                //--- Roll the Out Pointer Over
 
-
     GIE;                                          //--- Enable Interrupts On Exit
+    nop4;                                         //--- Wait for pending Interrupt
     (*ptrTask)(stPassData);                       //--- Call Task Function With Data
-
   }
   else
   {
@@ -183,10 +187,9 @@ void  fnDispatcher (void)
   //--- Interrupt Catch-Up Pause Period
   nop8;
 
-  #ifdef PacerTest
-    CLR_PA10;                                     //--- Dispatcher Test Pulse Hi
+  #ifdef TESTHELP_FLAG
+    CLR_PA10;                                     //--- Dispatcher Test Pulse Lo
   #endif
-
 }
 
 //---------------------------------------------------------------------------------------------
@@ -240,47 +243,74 @@ void  fnNullTask (struct PassData stPassData)
   GIE;                                            //--- Enable Interrupts
 }
 
+//---------------------------------------------------------------------------------------------
+//    Reurn an empty Task Data Field
+//---------------------------------------------------------------------------------------------
+
+struct PassData fnEmptyData (void)
+{
+  struct PassData stEmptyData;
+
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+  //--- Zero Task Data Structure
+  stEmptyData.uxTimeStamp = (u64) 0;              //--- Return Empty Time Stamp
+  stEmptyData.unTaskData.uxBig = (u64) 0;         //--- Return Empty Data Fields
+
+  return stEmptyData;
+}
+
+
+
 //=============================================================================================
 //   How the RTOS Functions Work
 //=============================================================================================
 //
-//  This RTOS System is a simplified Event Driven Operating System.  It is composed of 3 main
-//  functions
+//  This RTOS System is a powerful yet simplified Event Driven Operating System that operates
+//  with very little system resource overhead.  It is composed of 3 main sections.
 //
-//  (1) The Task Scheduling and Dispatching section.  This section takes requests for Tasks
-//      and
+//  (1) The Task Scheduling and Dispatching section.
+//      --------------------------------------------
+//      This section takes requests for Tasks and places them in either a Task Queue or
+//      into a Timer Queue. All Tasks, when schedueled, have a system Time Stamp Value
+//      This time stamp allows for timing corrections should the Task require it.
 //
 //  (2) The Event Driven Interrupts
+//      ---------------------------
 //      These interrupts occur after a particular hardware or software event occurs.  The
 //      interrupt services the hardware and either takes immediate action or the event is
-//      converted to a Task and is schedueled for execution based on priority level.
+//      converted to a Task and is schedueled for execution. The Task may be schedueled to
+//      execute at a pre determined time delay if required.
 //
 //  (3) The uninterruptable PACER time and phase interrupt.
-//      This One of these Events is the "Pacer" interrupt which occurs at intervals
-//      of 100 uSec (10,000 times / second). Items that reoccur at precise intervals are
-//      scheduled by the Pacer
+//      ---------------------------------------------------
+//      This is the "HeartBeat" of the system and is known as "The Pacer" interrupt which
+//      occurs at interval of 100 uSec or (10,000 times / second). Items that need to reoccur
+//      at precise intervals are scheduled by the Pacer.  In addition the Pacer handles the
+//      transmission of data via USART1 or USART2 and automatically adjusts for different
+//      Baud Rates.
 //
 //  The Task Sheduling and Dispatching allowes for fast reaction to events with the ability to
 //  process important data and calculations in the background.  An Event schedules a Task
 //  and passes the data for that Task to a FIFO buffer.  When the current Task finishes its
-//  operations
-//  it returns to the Dispatcher where the next Task is executed.  Very little time is spent
-//  in the Interrupt, Scheduling and Dispatching process, thus making sure there are little or
-//  no conflicts between Interrupts and Events.
+//  operations it returns to the Dispatcher where the next Task is executed.
+//  Very little time is spent in the Interrupt service routine. The Scheduling and Dispatching
+//  process, thus making sure there are little or no conflicts between Interrupts and Events.
 //
-//  In the RTOS system there exists a set of delayed action timers that allow for execution
+//  In the RTOS system there exists a set of 8 delayed action timers that allow for execution
 //  of functions at an exact time in the future.  Each time the Pacer Interrupt is entered the
 //  timers are decremented by 1.  When a timer reaches 0 the corrisponding function is
 //  scheduled then executed. This prevents the OS from having to sit in a loop just testing
-//  if it is time to do something.
+//  if it is time to do something.  The granularity of the Timers is 1 mSec.
 //
-//  A Task is defined as a pointer to a function.  Along with the Task Address upto 8 bytes of
-//  task data may be passed.  The data may be of any type (Numeric, String, Pointers, Etc.)
-//  which allows for flexible data and variable passage.
+//  A Task is defined as a pointer to a function location.  Along with the Task Address upto
+//  8 bytes of task data may be passed.  The data may be of any allowable "C" type
+//  (Numeric, String, Pointers, Etc.) which allows for flexible data and variable passage. In
+//  addition each task contains a TimeStamp within the data field so analysis related to
+//  time synchronization can be easily be accomplished.
 //
-//  There are 4 Delayed Task Timers which allow a task to be executed after a defined delay
-//  The task can be delayed in 100 uSec increments.  After a time out the task is scheduled
-//  for execution.  Latency depends on its position in the Task FIFO.
+//  Tasks may be recursive in nature giving them the ability to periodically reschedule
+//  themselves with little or no operating system burden load.
 //
 //=============================================================================================
 
