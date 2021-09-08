@@ -1,15 +1,18 @@
 
 //=============================================================================================
-//                                Fredsti Industries,  Ltd.
+//                                        Quorb Inc.
 //                                -------------------------
 //
-//                      USART and Communications Including USB C2102
+//                        Real Time Operating System Core Programs
+//                  -----------------------------------------------------
 //
-//                           Written By:  Sancar James Fredsti
+//    This code is for use on the STM32L432 Processor Series of Micro Controllers it is
+//    It is not fully compatible with other STM32     Series Micro Controller Products
 //
-//                                Created: 01 August 2007
+//                             Written By:  Sancar James Fredsti
 //
 //=============================================================================================
+
 
 //---------------------------------------------------------------------------------------------
 //                        Program Defines and RAM Storage Definitions
