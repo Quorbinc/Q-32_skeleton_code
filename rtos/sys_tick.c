@@ -183,12 +183,14 @@ void fnSysTick (void)
         }
       }
 
-      //--- Every 25 mSec change LED PWM on the 17 mSec Count
+      //---------------------------------------------------------------------------------------
+      //    Every 25 mSec change LED PWM on the 17 mSec Count
+      //---------------------------------------------------------------------------------------
       if ((uwPacerTick % 25) == 17)
       {
         if (ulSystemFlags & 0x80000000)           //--- Test Brightening / Dimming
         {
-          uwLEDcntr--;
+          uwLEDcntr--;                            //--- Decrement Counter
           if (uwLEDcntr < 2)
           {
             ulSystemFlags &= 0x7FFFFFFF;          //--- Clear Brightening Flag LED dims
@@ -196,7 +198,7 @@ void fnSysTick (void)
         }
         else
         {
-          uwLEDcntr++;
+          uwLEDcntr++;                            //--- Increment Counter
           if (uwLEDcntr > 24)
           {
             ulSystemFlags |= 0x80000000;          //--- Set Brightening Flag LED brightens
@@ -207,7 +209,7 @@ void fnSysTick (void)
       }
 
       //--- Turn LED On/Off variable time amounts
-      if (uwLEDtime)
+      if (uwLEDtime)                              //--- If Timer Active
       {
         uwLEDtime--;                              //--- Decrement LED On Timer
 
@@ -275,8 +277,11 @@ void fnSysTick (void)
       uwPacerTick %= 60000;                       //--- 60,000 Pacer Ticks = 1 Minuite
       break;
 
-    //--- Error in state machine
+    //-----------------------------------------------------------------------------------------
+    //    If you get here something is wrong
+    //-----------------------------------------------------------------------------------------
     default:
+      ulSystemFlags |= 0x10000000;                //--- Set the Systick Error Flag
       uwPacerPhase = 0;
       break;
   }
@@ -291,23 +296,24 @@ void fnSysTick (void)
   //    Depending on the BaudRate for the UART Port
   //    This TX method can transmit at any BAUD rate up to 115200
 
-  if (uwXmit_1_Count)                         //--- Is Xmit Timer Active?
+
+  if (uwXmit_1_Count)                             //--- Is Xmit Timer Active?
   {
-    uwXmit_1_Count--;                         //--- Yes so decrement Counter
-    if (!uwXmit_1_Count)                      //--- Did we reach TX period time?
+    uwXmit_1_Count--;                             //--- Yes so decrement Counter
+    if (!uwXmit_1_Count)                          //--- Did we reach TX period time?
     {
-      uwXmit_1_Count = uwXmit_1_Delay;        //--- Refresh the Period Count
-      fnXmitSvc_1 ();                         //--- Call the Xmit Service Routine
+      uwXmit_1_Count = uwXmit_1_Delay;            //--- Refresh the Period Count
+      fnXmitSvc_1 ();                             //--- Call the Xmit Service Routine
     }
   }
 
-  if (uwXmit_2_Count)                         //--- Is Xmit Timer Active?
+  if (uwXmit_2_Count)                             //--- Is Xmit Timer Active?
   {
-    uwXmit_2_Count--;                         //--- Yes so decrement Counter
-    if (!uwXmit_2_Count)                      //--- Did we reach TX period time?
+    uwXmit_2_Count--;                             //--- Yes so decrement Counter
+    if (!uwXmit_2_Count)                          //--- Did we reach TX period time?
     {
-      uwXmit_2_Count = uwXmit_2_Delay;        //--- Refresh the Period Count
-      fnXmitSvc_2 ();                         //--- Call the Xmit Service Routine
+      uwXmit_2_Count = uwXmit_2_Delay;            //--- Refresh the Period Count
+      fnXmitSvc_2 ();                             //--- Call the Xmit Service Routine
     }
   }
 
