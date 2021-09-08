@@ -3,13 +3,11 @@
 //                                        Quorb Inc.
 //                                -------------------------
 //
-//                        Real Time Operating System Core Programs
-//                  -----------------------------------------------------
+//                                   USART Communications
 //
-//    This code is for use on the STM32L432 Processor Series of Micro Controllers it is
-//    It is not fully compatible with other STM32     Series Micro Controller Products
+//                           Written By:  Sancar James Fredsti
 //
-//                             Written By:  Sancar James Fredsti
+//                                Created: 12 August 2021
 //
 //=============================================================================================
 
