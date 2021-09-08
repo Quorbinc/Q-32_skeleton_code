@@ -104,7 +104,7 @@ CINCS =
 #--------------------------------------------------------------------------
 # Place -D or -U options for ASM here
 #--------------------------------------------------------------------------
-ADEFS =  -D$(RUN_MODE)
+ADEFS = -D$(RUN_MODE)
 
 #----------------------------------------------------------------------------------------------
 # Compiler flags.
@@ -119,7 +119,8 @@ ADEFS =  -D$(RUN_MODE)
 CFLAGS = $(CDEFS) $(CINCS)
 CFLAGS += -O$(OPT) -fverbose-asm -mfpu=fpv4-sp-d16 -mfloat-abi=hard
 CFLAGS += -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums -Wno-pointer-sign
-CFLAGS += -Wall -Wimplicit -Wunused-but-set-variable -Wunused-variable
+# CFLAGS += -Wall -Wimplicit -Wunused-but-set-variable -Wunused-variable
+CFLAGS += -Wall -Wimplicit
 CFLAGS += -Wpointer-arith -Wswitch -Wno-int-to-pointer-cast -Wno-pointer-to-int-cast
 CFLAGS += -Wredundant-decls -Wreturn-type -Wshadow -Wunused
 CFLAGS += -Wa,-adhlns=$(<:.c=.lsc),-g$(DEBUG)
