@@ -1,15 +1,16 @@
 //=============================================================================================
-//                                Fredsti Industries,  Ltd.
+//                                        Quorb Inc.
 //                                -------------------------
 //
-//                         Real Time Operating System Core Header
-//                         --------------------------------------
+//                        Real Time Operating System Core Programs
+//                  -----------------------------------------------------
 //
-//                           Written By:  Sancar James Fredsti
-//                                                                                           
-//                                Created: 01 August 2007                                    
-//                                                                                           
-//===========================================================================================//
+//    This code is for use on the STM32L432 Processor Series of Micro Controllers it is
+//    It is not fully compatible with other STM32     Series Micro Controller Products
+//
+//                             Written By:  Sancar James Fredsti
+//
+//=============================================================================================
 
 //---------------------------------------------------------------------------------------------
 //                       Program Defines and RAM Storage Definitions
