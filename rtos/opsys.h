@@ -1,19 +1,19 @@
-//===========================================================================================//
-//                                Fredsti Industries,  Ltd.                                  //
-//                                -------------------------                                  //
-//                                                                                           //
-//                         Real Time Operating System Core Header                            //
-//                         --------------------------------------                            //
-//                                                                                           //
-//                           Written By:  Sancar James Fredsti                               //
+//=============================================================================================
+//                                Fredsti Industries,  Ltd.
+//                                -------------------------
+//
+//                         Real Time Operating System Core Header
+//                         --------------------------------------
+//
+//                           Written By:  Sancar James Fredsti
 //                                                                                           //
 //                                Created: 01 August 2007                                    //
 //                                                                                           //
 //===========================================================================================//
 
-//------------------------------------------------------------------------------------------//
-//                       Program Defines and RAM Storage Definitions                        //
-//------------------------------------------------------------------------------------------//
+//---------------------------------------------------------------------------------------------
+//                       Program Defines and RAM Storage Definitions
+//---------------------------------------------------------------------------------------------
 
 #ifndef OPSYS_H
   #define OPSYS_H
@@ -36,6 +36,7 @@
     void   (*ptrTask);                            //--- Address Pointer to Task
     struct PassData stPassData;                   //--- Data to pass to function
   };
+
 
   //--- Task and Timer Queue Definitions
   extern    struct  Task  stTaskQueue[TASK_QUEUE_SIZE];
@@ -94,6 +95,8 @@
   void  fnDispatcher (void);
   void  fnPurgeTask (void (*ptrTask));
   void  fnNullTask (struct PassData stPassData);
+  struct PassData fnEmptyData (void);
+
 #endif
 
 //|....|....|....*....|....|....*....|....|....^....|....|....*....|....|....*....|....|....|..
