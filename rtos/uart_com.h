@@ -27,7 +27,6 @@
   #define USART1_TX_SIZE        1024              //--- Up to 1024 Characters for TX FIFO
   #define USART1_MAX_TX_IN      1022              //--- Up to 1022 Characters ready to go out
 
-
   //--- ComData Formatted Communications Message (Sans Headers & LRC)
   struct  RxMsg_1
   {
@@ -38,7 +37,7 @@
   };
 
   extern    u08   ubTxt[256];                     //--- Generic Message Constructor String
-  extern    u08   ubStr[256];                     //--- Sub Constructor String
+  extern    u08   ubStr[128];                     //--- Sub Constructor String
 
   //-------------------------------------------------------------------------------------------
   //                         USART Control RAM & ROM definitions
