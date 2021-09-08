@@ -15,6 +15,21 @@
 #ifndef TESTHELP_H
   #define TESTHELP_H
 
+//--- Define test pulses to output
+#ifndef PULSES
+  #define PULSES
+  //--- Default Data Pin = 0xB4
+  #ifndef DPIN
+    #define DPIN 0xB4
+  #endif
+  //--- Default Clock Pin = 0xB5
+  #ifndef CPIN
+    #define CPIN 0xB5
+  #endif
+
+    fnDefinePortPins (CPIN, DPIN);
+  #endif
+
   extern  vu32* Cptr;                             //--- Clock Bit Pointer
   extern  u32 ulCsetMask;                         //--- Clock Bit Mask General
   extern  u32 ulCclrMask;                         //--- Clock Bit Mask General
