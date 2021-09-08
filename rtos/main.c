@@ -10,7 +10,7 @@ u32 ulValue;                                      //--- Global Long (32 Bit)
 u16 uwValue;                                      //--- Global Word (16 Bit)
 u08 ubValue;                                      //--- Global Byte ( 8 Bit)
 
-struct Task stWorkTask;                           //--- Global Task for schedueling
+struct Task stGlobalTask;                         //--- Global Task for schedueling
 
 //---------------------------------------------------------------------------------------------
 //   System Flags Bit Map Definition
@@ -52,49 +52,101 @@ struct Task stWorkTask;                           //--- Global Task for scheduel
 //  26                                    0 =                       1 =
 //  27                                    0 =                       1 =
 //
-//  28                                    0 =                       1 =
+//  28    SysTick Error Flag              0 = Everything is OK      1 = Something screwed UP
 //  29    EEPROM Write Busy               0 = Not Busy              1 = EEPROM Write Busy
 //  30    Boot Complete Flag              0 = Booting               1 = Boot Complete
 //  31    LED Flag for Min/Max PACER LED BRIGHTNESS Flag Bit
 //---------------------------------------------------------------------------------------------
 
+//
+//  //--- 24 Bytes / Task
+//  struct Task
+//  {
+//    u32     ulTimer;                            //--- Timer delay Value (0000 - 4G milliseconds)
+//    void    (*ptrTask);                         //--- Address Pointer to Task
+//    struct  PassData stPassData;                //--- Generic stPassData Structure
+//      8 Bytes Time Stamp;                       //--- .uxTimeStamp
+//      union DFLWB                               //--- Data Union unTaskData
+//  };
+//
+//
+//  Task Function Definition:
+//  fnFunctionName (struct PassData stTaskData)
+//
 
+//---------------------------------------------------------------------------------------------
+//    Main Program Entry Point
+//---------------------------------------------------------------------------------------------
 int main (void)
 {
+  struct Task stWorkTask;                         //--- Disposable Temp Task Definition
+
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+  //--- If Testing Enabled then schedule recursive timer Task
+  #ifdef TESTHELP_FLAG
+    //--- Schedule the recursive timer funtion
+    stWorkTask.ulTimer = 333;                       //--- Schedule once per 333 mSec
+    stWorkTask.ptrTask = &fnRecursive;
+    stWorkTask.stPassData = fnEmptyData();
+    fnScheduleTask (stWorkTask);
+  #endif
+
+
 
   //--- Main Infinite Loop Entry Point Calls DispatchCall
   while (1)
   {
-    // u16 uwRxData;                                 //--- Data to be processed from GetNextUSART1
-
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
     //--- The Dispatcher is called from the main endless loop
 
-    SET_PA05;
     fnDispatcher();
-    CLR_PA05;
 
-    nop12;
+    #ifdef TESTHELP_FLAG
+      fnPulseLongOut (ulSystemFlags);
+    #endif
+
+
+    //-----------------------------------------------------------------------------------------
     //--- Add Any Polled or Loop Functions Here
-
     //-----------------------------------------------------------------------------------------
-    //    Test if there are bytes waiting in RX FIFO for USART1
-    //    If data is waiting it can be either Processes Now or Processed as a Task
-    //-----------------------------------------------------------------------------------------
-//    uwRxData = fnGetNextUSART1 ();                  //--- See if Rx Data Available
 
-    //--- If RX Data Ready then Immediately process it
-//    if (uwRxData & 0x8000)
-//    {
-//      GIE;
-      //--- Add Call to Rx Processing Routine
-      //    Or process as a Task
-
-      // fnRxProcessUSART1();
-//      nop4;                                         //--- Code Place Holder delete this
-//      GID;
-//    }
   }
 }
 
+
+//---------------------------------------------------------------------------------------------
+//    Recursive Timer Task for testing 3 times / second
+//    This is an example routine for recursivly scheduling a recurring task
+//---------------------------------------------------------------------------------------------
+#ifdef TESTHELP_FLAG
+  void fnRecursive (struct PassData stPassData)
+  {
+    struct Task stWorkTask;
+
+    //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    stWorkTask.ulTimer = 333;                           //--- Schedule once per 333 mSec
+    stWorkTask.ptrTask = &fnRecursive;
+
+    //--- Is the Color Red (1) or Green (0)
+    if (stPassData.unTaskData.ulLong[0] & 0x00000001)
+    {
+      //--- Illuminate the RED LED
+      stPassData.unTaskData.ulLong[0] = 0x00000000;
+      SET_PA04;
+      CLR_PA05;
+    }
+    else
+    {
+      //--- Illuminate the GREEN
+      stPassData.unTaskData.ulLong[0] = 0x00000001;
+      SET_PA05;
+      CLR_PA04;
+    }
+
+    stWorkTask.stPassData = stPassData;               //--- Pass the data basc to the new task
+    fnScheduleTask (stWorkTask);                      //--- Schedule it
+  }
+#endif
 
