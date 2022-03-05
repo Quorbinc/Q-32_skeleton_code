@@ -57,7 +57,7 @@
   #define SCB_CPUID_PARTNO_Msk               (0xFFFUL << SCB_CPUID_PARTNO_Pos)     //--- SCB CPUID: PARTNO Mask
 
   #define SCB_CPUID_REVISION_Pos              0U                                   //--- SCB CPUID: REVISION Position
-  #define SCB_CPUID_REVISION_Msk             (0xFUL << SCB_CPUID_REVISION_Pos*/)   //--- SCB CPUID: REVISION Mask
+  #define SCB_CPUID_REVISION_Msk             (0xFUL << SCB_CPUID_REVISION_Pos)   //--- SCB CPUID: REVISION Mask
 
   //  SCB Interrupt Control State Register Definitions
   #define SCB_ICSR_NMIPENDSET_Pos            31U                                   //--- SCB ICSR: NMIPENDSET Position
@@ -386,7 +386,7 @@
   #include  "commonheader.h"
   #include  "STM32L432_Map.h"                     //--- Processor Address and Definition MAP
   #include  "STM32L432_BitDefs.h"                 //--- Processor Peripherial Definitions
-  #include  "UserCode.h"                          //--- Main Program
+  #include  "projectcode.h"                          //--- Main Program
   #include  "startup.h"                           //--- Initialization Functions & Routines
   #include  "genrtn.h"
   #include  "interrupts.h"                        //--- Interrupt Definitions
