@@ -4,10 +4,7 @@
 
 #include "projectdefs.h"
 
-extern  u32 ulValue;
-extern  u16 uwValue;
-extern  u08 ubValue;
-extern  u64 uxNextTime;
+//--- Write the prototypes for any functions you define in projectcode.c
 
 int main (void);
 
