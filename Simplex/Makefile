@@ -32,7 +32,7 @@ SHELL = /bin/sh
 #--------------------------------------------------------------------------
 
 # Target file name (without extension). CHANGE THIS FOR YOUR PROJECT!!!
-TARGET = UserCode
+TARGET = projectcode
 
 # List C source files here. (C dependencies are automatically generated.)
 # use file-extension c for "c-only"-files
