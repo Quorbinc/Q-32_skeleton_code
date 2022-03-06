@@ -1810,8 +1810,8 @@
   void __WFI(void);
   void __WFE(void);
   void __SEV(void);
-//  void __ISB(void);
-//  void __DSB(void);
+  void __ISB(void);
+  void __DSB(void);
   void __DMB(void);
   void __SVC(void);
   u32  __MRS_CONTROL(void);
