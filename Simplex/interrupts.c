@@ -511,41 +511,6 @@ u32 ulDownCount;                                //--- Counter 32 Bit
 
 void fnSysTick_IRQ(void)                        //--- IRQ_- 1
 {
-  //--- Put out a little Pulse
-  SET_PA14;
-  nop12;
-  CLR_PA14;
-
-  //--- Bump System Time Counter
-  uxSysTicker++;
-
-  //--- Blink the PACER LED
-  //--- Turn On LED
-  if ((uxSysTicker % 2000) == 1000) CLR_PC15;
-
-  //--- Turn Off LED
-  if ((uxSysTicker % 2000) == 0000) SET_PC15;
-
-  //--- Every 1000 Counts output 1 square wave cycle on PA13
-  //--- Test if downcounter == 0
-  if (ulDownCount)
-  {
-    //--- No = DownCount--
-    ulDownCount--;
-
-    if (ulDownCount > 500)
-    {
-      SET_PA13;                                 //--- Set PA14 to Hi
-    }
-    else
-    {
-      CLR_PA13;                                 //--- Clear PA14 Bit
-    }
-  }
-  else
-  {
-    ulDownCount = 1000;                         //--- Reset Down Counter
-  }
 }
 
 
