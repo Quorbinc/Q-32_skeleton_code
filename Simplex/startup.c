@@ -80,7 +80,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //    Prefetch Enabled
   //    4 Wait States for Flash to run @ 72Mhz Clock
   FLASH_ACR = 0x00000704;
-  nop12;
+  nop4;
 
   //-------------------------------------------------------------------------------------------
   //    Clear Clocks & RCC Registers
@@ -108,7 +108,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   RCC_AHB3RSTR = 0xFFFFFFFF;                      //--- Reset All Peripherials
   RCC_AHB3RSTR = 0x00000000;                      //--- Clear All Peripherial Resets
 
-  nop48;                                          //--- Waste a little time
+  nop4;                                          //--- Waste a little time
 
   //-------------------------------------------------------------------------------------------
   //    Enable the following APB1 Peripherials To Start With
@@ -130,7 +130,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   RCC_APB1ENR1 = 0x10000400;
   RCC_APB1SMENR1 = 0x10000400;
 
-  nop12;                                          //--- Waste a little time
+  nop4;                                          //--- Waste a little time
   //--- Power Control Register #1
   //    SET VOS to range 1 & DBP to RTC Access OK
   //      3322 2222 2222 1111 1111 1100 0000 0000
@@ -151,7 +151,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //
   PWR_CR1 |= 0x00000300;                            //--- Enable BDCR Write
 
-  nop12;
+  nop4;
 
   //--- This is for setting LSE with Oscillator
   //      3322 2222 2222 1111 1111 1100 0000 0000
@@ -181,7 +181,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   while (!(RCC_BDCR & 0x00000002) && (ulT > 0))
   {
     ulT--;                                        //--- Decrement Period Counter
-    nop12;
+    nop4;
   }
 
   //--- Notate Success of LSE in SystemFlags
@@ -232,7 +232,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
   {
     ulT--;                                        //--- Decrement Period Counter
-    nop12;
+    nop4;
   }
 
   //--- Notate Success of MSI @ 4 MHz at StartUp
@@ -267,7 +267,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //    PLLSAI1_ON       26         Off
 
   RCC_CR |= 0x0000006D;
-  nop48;
+  nop4;
 
   //--- Wait for MSI Clock PLL to settle
   ulT = 100000;
@@ -275,7 +275,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   while (((RCC_CR & 0x00000002) != 0x00000002) && (ulT > 0))
   {
     ulT--;                                        //--- Decrement Period Counter
-    nop12;
+    nop4;
   }
 
   //--- Notate Success of MSI PLL @ 4 MHz at StartUp
@@ -312,7 +312,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //    PLLVCO INPUT = ((4000000 / 1) * 72) = 288 MHz
   //    PLLCLK = VCO / 4 = 72 MHz
   RCC_PLLCFGR = 0x03504801;
-  nop48;
+  nop4;
 
   //--- Turn on Main PLL Enable
   //      3322 2222 2222 1111 1111 1100 0000 0000
@@ -335,7 +335,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //    Main System      24         Off
   //    PLLSAI1_ON       26         Off
   RCC_CR |= 0x0100006D;
-  nop48;
+  nop4;
 
   //--- Wait for PLL & MSI clocks to show "Ready"
   ulT = 100000;  //    Wait for upto 100K Loops
@@ -343,7 +343,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   while (((RCC_CR & 0x02000002) != 0x02000002) && ulT)
   {
     ulT--;                                        //--- Decrement Period Counter
-    nop12;
+    nop4;
   }
 
   //--- Notate Success of Main PLL StartUp
@@ -408,7 +408,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   while (((RCC_CFGR & 0x0000000C) != 0x0000000C) && ulT)
   {
     ulT--;                                        //--- Decrement Period Counter
-    nop12;
+    nop4;
   }
 
   //--- Notate Success of PLL StartUp
@@ -543,7 +543,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   RCC_APB2SMENR = 0x00000001;
 
   //--- Wait to settle down
-  nop100;
+  nop4;
 
   //===========================================================================================
   //    Configure GPIO Ports
@@ -563,7 +563,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   // GPIOA_MODER = 0x55555555;                       //--- Pin PA08 = Regular I/O
 
   //----- Test Configuration ------------
-  GPIOA_MODER = 0x55565555;                   //--- Set PA08 = I/O Type A08 = MOC Out
+  GPIOA_MODER = 0x55555555;                   //--- Set PA08 = I/O Type A08 = MOC Out
   //-------------------------------------
 
   //      GPIO OTYPE
@@ -638,7 +638,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //      .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
   //      00 00 00 00 00 00 00 00 01 01 01 01 01 01 01 01
   //      IN IN.IN IN.IN IN.IN IN.OT OT.OT OT.OT OT.OT OT
-  GPIOB_MODER = 0x00005555;
+  GPIOB_MODER = 0x55555555;
 
   //      GPIO OTYPE
   //      3322 2222 2222 1111 1111 1100 0000 0000
@@ -700,7 +700,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   GPIOB_AFRH = 0x00000000;
 
   //--- Waste a little Time for things to settle down
-  nop48;
+  nop4;
 
   //-------------------------------------------------------------------------------------------
   //      Configure GPIO_C
@@ -713,7 +713,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //      .w .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
   //      01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
   //      OT IN.IN IN.IN IN.IN IN.IN IN.IN IN.IN IN.IN IN
-  GPIOC_MODER = 0x40000000;
+  GPIOC_MODER = 0x55555555;
 
   //      GPIO OTYPE
   //      3322 2222 2222 1111 1111 1100 0000 0000
@@ -775,7 +775,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   GPIOC_AFRH = 0x00000000;
 
   //--- Waste a little Time for things to settle down
-  nop48;
+  nop4;
 
   //--- Set Priviledged Mode to Enable
   ubSVCn = 0x05;                                  //--- Set the SVC Number
@@ -811,7 +811,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //--- Show that Init Complete
   ulSystemFlags |= 0x40000000;                    //--- Hi = Reset Complete
 
-  nop24;
+  nop4;
 
   //--- Call the Main Function after basic boot complete
   main();
