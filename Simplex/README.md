@@ -1,7 +1,7 @@
 # Quorb Inc. Simplex
 
 ## Overview
-
+Simplex is our most redimentry system for embedded programming.  The main intent behind simplex is to just initialize the chip and get it to the main loop, making simplex perfect for simple tasks or educational purposes.
 
 ## The files
 
