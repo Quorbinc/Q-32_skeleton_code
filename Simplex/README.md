@@ -2,6 +2,7 @@
 
 ## Overview
 
+
 ## The files
 
 ### Makefile
@@ -29,5 +30,7 @@ Projectcode.c is where you will put your code in the main loop.  projectcode.h i
 Projectdefs.h is where all of your headerfiles come together.  Every header file has its include statement in this file so all that is required in any additional files you write is include projectdefs.h.
 
 ### strtup.c and .h
+Startup.c and startup.h are exactly what they sound like.  These programs run the reset interrupt function to initialize the chip and bring all the registers to a starting phase.
 
 ### timers.c and .h
+Timers.c and timers.h as their name suggests, deal with timer peripherals.  These have functions to initialize any timers you may use as well as use the timers as you need such as delays, timer input and output, and PWM.
