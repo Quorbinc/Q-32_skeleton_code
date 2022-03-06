@@ -386,8 +386,9 @@
   #include  "commonheader.h"
   #include  "STM32L432_Map.h"                     //--- Processor Address and Definition MAP
   #include  "STM32L432_BitDefs.h"                 //--- Processor Peripherial Definitions
-  #include  "projectcode.h"                          //--- Main Program
+  #include  "projectcode.h"                       //--- Main Program
   #include  "startup.h"                           //--- Initialization Functions & Routines
   #include  "genrtn.h"
   #include  "interrupts.h"                        //--- Interrupt Definitions
+  #include  "timers.h"                            //--- Timer initialization and functions
 #endif
