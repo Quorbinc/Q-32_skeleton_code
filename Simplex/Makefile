@@ -40,6 +40,7 @@ TARGET = projectcode
 SRC = startup.c
 SRC += genrtn.c
 SRC += interrupts.c
+SRC += timers.c
 SRC += $(TARGET).c
 
 #--------------------------------------------------------------------------
