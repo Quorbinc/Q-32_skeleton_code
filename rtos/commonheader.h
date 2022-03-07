@@ -277,7 +277,7 @@
     void* vPtr[64];               //--- 64 Void Type Pointers
   };
 
-//-------------------------------------------------------------------------------------------
+  //-------------------------------------------------------------------------------------------
   //    Set and or Clear bit ad system address
   //    --------------------------------------
   //    Adds = Memory / I/O System Address
@@ -291,320 +291,321 @@
   #define CLR_BITS(Adds, Bits)  ((Adds) &= ~(Bits))
 
 
-  //----------Pin definition macros----------//
-  /***************************************************
-  |These Macros and and then or a target pin in order|
-  |to define the pin as the user desires such as an  |
-  |input, output, analog, or alternate function pin. |
-  ***************************************************/
+  //--- Pin definition macros
 
-  //---------------------------------------//
-  //          GPIOA pin changes          //
-  //----------------------------------//
+  //--------------------------------------------------------------------------------------
+  //   These Macros and and then or a target pin in order
+  //   to define the pin as the user desires such as an  
+  //   input, output, analog, or alternate function pin. 
+  //--------------------------------------------------------------------------------------
 
-  //---Pin 00 settings---//
+  //----------------------------------
+  //          GPIOA pin changes       
+  //----------------------------------
+
+  //--- Pin 00 settings
   #define PA00_IN  GPIOA_MODER &= 0xFFFFFFFC; GPIOA_MODER |= 0x00000000;
   #define PA00_OUT GPIOA_MODER &= 0xFFFFFFFC; GPIOA_MODER |= 0x00000001;
   #define PA00_ALT GPIOA_MODER &= 0xFFFFFFFC; GPIOA_MODER |= 0x00000002;
   #define PA00_ANA GPIOA_MODER &= 0xFFFFFFFC; GPIOA_MODER |= 0x00000003;
 
-  //---Pin 01 settings---//
+  //--- Pin 01 settings
   #define PA01_IN  GPIOA_MODER &= 0xFFFFFFF3; GPIOA_MODER |= 0x00000000;
   #define PA01_OUT GPIOA_MODER &= 0xFFFFFFF3; GPIOA_MODER |= 0x00000004;
   #define PA01_ALT GPIOA_MODER &= 0xFFFFFFF3; GPIOA_MODER |= 0x00000008;
   #define PA01_ANA GPIOA_MODER &= 0xFFFFFFF3; GPIOA_MODER |= 0x0000000C;
 
-  //---Pin 02 settings---//
+  //--- Pin 02 settings
   #define PA02_IN  GPIOA_MODER &= 0xFFFFFFCF; GPIOA_MODER |= 0x00000000;
   #define PA02_OUT GPIOA_MODER &= 0xFFFFFFCF; GPIOA_MODER |= 0x00000010;
   #define PA02_ALT GPIOA_MODER &= 0xFFFFFFCF; GPIOA_MODER |= 0x00000020;
   #define PA02_ANA GPIOA_MODER &= 0xFFFFFFCF; GPIOA_MODER |= 0x00000030;
 
-  //---Pin 03 settings---//
+  //--- Pin 03 settings
   #define PA03_IN  GPIOA_MODER &= 0xFFFFFF3F; GPIOA_MODER |= 0x00000000;
   #define PA03_OUT GPIOA_MODER &= 0xFFFFFF3F; GPIOA_MODER |= 0x00000040;
   #define PA03_ALT GPIOA_MODER &= 0xFFFFFF3F; GPIOA_MODER |= 0x00000080;
   #define PA03_ANA GPIOA_MODER &= 0xFFFFFF3F; GPIOA_MODER |= 0x000000C0;
 
-  //---Pin 04 settings---//
+  //--- Pin 04 settings
   #define PA04_IN  GPIOA_MODER &= 0xFFFFFCFF; GPIOA_MODER |= 0x00000000;
   #define PA04_OUT GPIOA_MODER &= 0xFFFFFCFF; GPIOA_MODER |= 0x00000100;
   #define PA04_ALT GPIOA_MODER &= 0xFFFFFCFF; GPIOA_MODER |= 0x00000200;
   #define PA04_ANA GPIOA_MODER &= 0xFFFFFCFF; GPIOA_MODER |= 0x00000300;
 
-  //---Pin 05 settings---//
+  //--- Pin 05 settings
   #define PA05_IN  GPIOA_MODER &= 0xFFFFF3FF; GPIOA_MODER |= 0x00000000;
   #define PA05_OUT GPIOA_MODER &= 0xFFFFF3FF; GPIOA_MODER |= 0x00000400;
   #define PA05_ALT GPIOA_MODER &= 0xFFFFF3FF; GPIOA_MODER |= 0x00000800;
   #define PA05_ANA GPIOA_MODER &= 0xFFFFF3FF; GPIOA_MODER |= 0x00000C00;
 
-  //---Pin 06 settings---//
+  //--- Pin 06 settings
   #define PA06_IN  GPIOA_MODER &= 0xFFFFCFFF; GPIOA_MODER |= 0x00000000;
   #define PA06_OUT GPIOA_MODER &= 0xFFFFCFFF; GPIOA_MODER |= 0x00001000;
   #define PA06_ALT GPIOA_MODER &= 0xFFFFCFFF; GPIOA_MODER |= 0x00002000;
   #define PA06_ANA GPIOA_MODER &= 0xFFFFCFFF; GPIOA_MODER |= 0x00003000;
 
-  //---Pin 07 settings---//
+  //--- Pin 07 settings
   #define PA07_IN  GPIOA_MODER &= 0xFFFF3FFF; GPIOA_MODER |= 0x00000000;
   #define PA07_OUT GPIOA_MODER &= 0xFFFF3FFF; GPIOA_MODER |= 0x00004000;
   #define PA07_ALT GPIOA_MODER &= 0xFFFF3FFF; GPIOA_MODER |= 0x00008000;
   #define PA07_ANA GPIOA_MODER &= 0xFFFF3FFF; GPIOA_MODER |= 0x0000C000;
 
-  //---Pin 08 settings---//
+  //--- Pin 08 settings
   #define PA08_IN  GPIOA_MODER &= 0xFFFCFFFF; GPIOA_MODER |= 0x00000000;
   #define PA08_OUT GPIOA_MODER &= 0xFFFCFFFF; GPIOA_MODER |= 0x00010000;
   #define PA08_ALT GPIOA_MODER &= 0xFFFCFFFF; GPIOA_MODER |= 0x00020000;
   #define PA08_ANA GPIOA_MODER &= 0xFFFCFFFF; GPIOA_MODER |= 0x00030000;
 
-  //---Pin 09 settings---//
+  //--- Pin 09 settings
   #define PA09_IN  GPIOA_MODER &= 0xFFF3FFFF; GPIOA_MODER |= 0x00000000;
   #define PA09_OUT GPIOA_MODER &= 0xFFF3FFFF; GPIOA_MODER |= 0x00040000;
   #define PA09_ALT GPIOA_MODER &= 0xFFF3FFFF; GPIOA_MODER |= 0x00080000;
   #define PA09_ANA GPIOA_MODER &= 0xFFF3FFFF; GPIOA_MODER |= 0x000C0000;
 
-  //---Pin 10 settings---//
+  //--- Pin 10 settings
   #define PA10_IN  GPIOA_MODER &= 0xFFCFFFFF; GPIOA_MODER |= 0x00000000;
   #define PA10_OUT GPIOA_MODER &= 0xFFCFFFFF; GPIOA_MODER |= 0x00100000;
   #define PA10_ALT GPIOA_MODER &= 0xFFCFFFFF; GPIOA_MODER |= 0x00200000;
   #define PA10_ANA GPIOA_MODER &= 0xFFCFFFFF; GPIOA_MODER |= 0x00300000;
 
-  //---Pin 11 settings---//
+  //--- Pin 11 settings
   #define PA11_IN  GPIOA_MODER &= 0xFF3FFFFF; GPIOA_MODER |= 0x00000000;
   #define PA11_OUT GPIOA_MODER &= 0xFF3FFFFF; GPIOA_MODER |= 0x00400000;
   #define PA11_ALT GPIOA_MODER &= 0xFF3FFFFF; GPIOA_MODER |= 0x00800000;
   #define PA11_ANA GPIOA_MODER &= 0xFF3FFFFF; GPIOA_MODER |= 0x00C00000;
 
-  //---Pin 12 settings---//
+  //--- Pin 12 settings
   #define PA12_IN  GPIOA_MODER &= 0xFCFFFFFF; GPIOA_MODER |= 0x00000000;
   #define PA12_OUT GPIOA_MODER &= 0xFCFFFFFF; GPIOA_MODER |= 0x01000000;
   #define PA12_ALT GPIOA_MODER &= 0xFCFFFFFF; GPIOA_MODER |= 0x02000000;
   #define PA12_ANA GPIOA_MODER &= 0xFCFFFFFF; GPIOA_MODER |= 0x03000000;
 
-  //---Pin 13 settings---//
+  //--- Pin 13 settings
   #define PA13_IN  GPIOA_MODER &= 0xF3FFFFFF; GPIOA_MODER |= 0x00000000;
   #define PA13_OUT GPIOA_MODER &= 0xF3FFFFFF; GPIOA_MODER |= 0x04000000;
   #define PA13_ALT GPIOA_MODER &= 0xF3FFFFFF; GPIOA_MODER |= 0x08000000;
   #define PA13_ANA GPIOA_MODER &= 0xF3FFFFFF; GPIOA_MODER |= 0x0C000000;
 
-  //---Pin 14 settings---//
+  //--- Pin 14 settings
   #define PA14_IN  GPIOA_MODER &= 0xCFFFFFFF; GPIOA_MODER |= 0x00000000;
   #define PA14_OUT GPIOA_MODER &= 0xCFFFFFFF; GPIOA_MODER |= 0x10000000;
   #define PA14_ALT GPIOA_MODER &= 0xCFFFFFFF; GPIOA_MODER |= 0x20000000;
   #define PA14_ANA GPIOA_MODER &= 0xCFFFFFFF; GPIOA_MODER |= 0x30000000;
 
-  //---Pin 15 settings---//
+  //--- Pin 15 settings
   #define PA15_IN  GPIOA_MODER &= 0x3FFFFFFF; GPIOA_MODER |= 0x00000000;
   #define PA15_OUT GPIOA_MODER &= 0x3FFFFFFF; GPIOA_MODER |= 0x40000000;
   #define PA15_ALT GPIOA_MODER &= 0x3FFFFFFF; GPIOA_MODER |= 0x80000000;
   #define PA15_ANA GPIOA_MODER &= 0x3FFFFFFF; GPIOA_MODER |= 0xC0000000;
 
 
-  //---------------------------------------//
-  //          GPIOB pin changes          //
-  //----------------------------------//
+  //----------------------------------
+  //          GPIOB pin changes       
+  //----------------------------------
 
-  //---Pin 00 settings---//
+  //--- Pin 00 settings
   #define PB00_IN  GPIOB_MODER &= 0xFFFFFFFC; GPIOB_MODER |= 0x00000000;
   #define PB00_OUT GPIOB_MODER &= 0xFFFFFFFC; GPIOB_MODER |= 0x00000001;
   #define PB00_ALT GPIOB_MODER &= 0xFFFFFFFC; GPIOB_MODER |= 0x00000002;
   #define PB00_ANA GPIOB_MODER &= 0xFFFFFFFC; GPIOB_MODER |= 0x00000003;
 
-  //---Pin 01 settings---//
+  //--- Pin 01 settings
   #define PB01_IN  GPIOB_MODER &= 0xFFFFFFF3; GPIOB_MODER |= 0x00000000;
   #define PB01_OUT GPIOB_MODER &= 0xFFFFFFF3; GPIOB_MODER |= 0x00000004;
   #define PB01_ALT GPIOB_MODER &= 0xFFFFFFF3; GPIOB_MODER |= 0x00000008;
   #define PB01_ANA GPIOB_MODER &= 0xFFFFFFF3; GPIOB_MODER |= 0x0000000C;
 
-  //---Pin 02 settings---//
+  //--- Pin 02 settings
   #define PB02_IN  GPIOB_MODER &= 0xFFFFFFCF; GPIOB_MODER |= 0x00000000;
   #define PB02_OUT GPIOB_MODER &= 0xFFFFFFCF; GPIOB_MODER |= 0x00000010;
   #define PB02_ALT GPIOB_MODER &= 0xFFFFFFCF; GPIOB_MODER |= 0x00000020;
   #define PB02_ANA GPIOB_MODER &= 0xFFFFFFCF; GPIOB_MODER |= 0x00000030;
 
-  //---Pin 03 settings---//
+  //--- Pin 03 settings
   #define PB03_IN  GPIOB_MODER &= 0xFFFFFF3F; GPIOB_MODER |= 0x00000000;
   #define PB03_OUT GPIOB_MODER &= 0xFFFFFF3F; GPIOB_MODER |= 0x00000040;
   #define PB03_ALT GPIOB_MODER &= 0xFFFFFF3F; GPIOB_MODER |= 0x00000080;
   #define PB03_ANA GPIOB_MODER &= 0xFFFFFF3F; GPIOB_MODER |= 0x000000C0;
 
-  //---Pin 04 settings---//
+  //--- Pin 04 settings
   #define PB04_IN  GPIOB_MODER &= 0xFFFFFCFF; GPIOB_MODER |= 0x00000000;
   #define PB04_OUT GPIOB_MODER &= 0xFFFFFCFF; GPIOB_MODER |= 0x00000100;
   #define PB04_ALT GPIOB_MODER &= 0xFFFFFCFF; GPIOB_MODER |= 0x00000200;
   #define PB04_ANA GPIOB_MODER &= 0xFFFFFCFF; GPIOB_MODER |= 0x00000300;
 
-  //---Pin 05 settings---//
+  //--- Pin 05 settings
   #define PB05_IN  GPIOB_MODER &= 0xFFFFF3FF; GPIOB_MODER |= 0x00000000;
   #define PB05_OUT GPIOB_MODER &= 0xFFFFF3FF; GPIOB_MODER |= 0x00000400;
   #define PB05_ALT GPIOB_MODER &= 0xFFFFF3FF; GPIOB_MODER |= 0x00000800;
   #define PB05_ANA GPIOB_MODER &= 0xFFFFF3FF; GPIOB_MODER |= 0x00000C00;
 
-  //---Pin 06 settings---//
+  //--- Pin 06 settings
   #define PB06_IN  GPIOB_MODER &= 0xFFFFCFFF; GPIOB_MODER |= 0x00000000;
   #define PB06_OUT GPIOB_MODER &= 0xFFFFCFFF; GPIOB_MODER |= 0x00001000;
   #define PB06_ALT GPIOB_MODER &= 0xFFFFCFFF; GPIOB_MODER |= 0x00002000;
   #define PB06_ANA GPIOB_MODER &= 0xFFFFCFFF; GPIOB_MODER |= 0x00003000;
 
-  //---Pin 07 settings---//
+  //--- Pin 07 settings
   #define PB07_IN  GPIOB_MODER &= 0xFFFF3FFF; GPIOB_MODER |= 0x00000000;
   #define PB07_OUT GPIOB_MODER &= 0xFFFF3FFF; GPIOB_MODER |= 0x00004000;
   #define PB07_ALT GPIOB_MODER &= 0xFFFF3FFF; GPIOB_MODER |= 0x00008000;
   #define PB07_ANA GPIOB_MODER &= 0xFFFF3FFF; GPIOB_MODER |= 0x0000C000;
 
-  //---Pin 08 settings---//
+  //--- Pin 08 settings
   #define PB08_IN  GPIOB_MODER &= 0xFFFCFFFF; GPIOB_MODER |= 0x00000000;
   #define PB08_OUT GPIOB_MODER &= 0xFFFCFFFF; GPIOB_MODER |= 0x00010000;
   #define PB08_ALT GPIOB_MODER &= 0xFFFCFFFF; GPIOB_MODER |= 0x00020000;
   #define PB08_ANA GPIOB_MODER &= 0xFFFCFFFF; GPIOB_MODER |= 0x00030000;
 
-  //---Pin 09 settings---//
+  //--- Pin 09 settings
   #define PB09_IN  GPIOB_MODER &= 0xFFF3FFFF; GPIOB_MODER |= 0x00000000;
   #define PB09_OUT GPIOB_MODER &= 0xFFF3FFFF; GPIOB_MODER |= 0x00040000;
   #define PB09_ALT GPIOB_MODER &= 0xFFF3FFFF; GPIOB_MODER |= 0x00080000;
   #define PB09_ANA GPIOB_MODER &= 0xFFF3FFFF; GPIOB_MODER |= 0x000C0000;
 
-  //---Pin 10 settings---//
+  //--- Pin 10 settings
   #define PB10_IN  GPIOB_MODER &= 0xFFCFFFFF; GPIOB_MODER |= 0x00000000;
   #define PB10_OUT GPIOB_MODER &= 0xFFCFFFFF; GPIOB_MODER |= 0x00100000;
   #define PB10_ALT GPIOB_MODER &= 0xFFCFFFFF; GPIOB_MODER |= 0x00200000;
   #define PB10_ANA GPIOB_MODER &= 0xFFCFFFFF; GPIOB_MODER |= 0x00300000;
 
-  //---Pin 11 settings---//
+  //--- Pin 11 settings
   #define PB11_IN  GPIOB_MODER &= 0xFF3FFFFF; GPIOB_MODER |= 0x00000000;
   #define PB11_OUT GPIOB_MODER &= 0xFF3FFFFF; GPIOB_MODER |= 0x00400000;
   #define PB11_ALT GPIOB_MODER &= 0xFF3FFFFF; GPIOB_MODER |= 0x00800000;
   #define PB11_ANA GPIOB_MODER &= 0xFF3FFFFF; GPIOB_MODER |= 0x00C00000;
 
-  //---Pin 12 settings---//
+  //--- Pin 12 settings
   #define PB12_IN  GPIOB_MODER &= 0xFCFFFFFF; GPIOB_MODER |= 0x00000000;
   #define PB12_OUT GPIOB_MODER &= 0xFCFFFFFF; GPIOB_MODER |= 0x01000000;
   #define PB12_ALT GPIOB_MODER &= 0xFCFFFFFF; GPIOB_MODER |= 0x02000000;
   #define PB12_ANA GPIOB_MODER &= 0xFCFFFFFF; GPIOB_MODER |= 0x03000000;
 
-  //---Pin 13 settings---//
+  //--- Pin 13 settings
   #define PB13_IN  GPIOB_MODER &= 0xF3FFFFFF; GPIOB_MODER |= 0x00000000;
   #define PB13_OUT GPIOB_MODER &= 0xF3FFFFFF; GPIOB_MODER |= 0x04000000;
   #define PB13_ALT GPIOB_MODER &= 0xF3FFFFFF; GPIOB_MODER |= 0x08000000;
   #define PB13_ANA GPIOB_MODER &= 0xF3FFFFFF; GPIOB_MODER |= 0x0C000000;
 
-  //---Pin 14 settings---//
+  //--- Pin 14 settings
   #define PB14_IN  GPIOB_MODER &= 0xCFFFFFFF; GPIOB_MODER |= 0x00000000;
   #define PB14_OUT GPIOB_MODER &= 0xCFFFFFFF; GPIOB_MODER |= 0x10000000;
   #define PB14_ALT GPIOB_MODER &= 0xCFFFFFFF; GPIOB_MODER |= 0x20000000;
   #define PB14_ANA GPIOB_MODER &= 0xCFFFFFFF; GPIOB_MODER |= 0x30000000;
 
-  //---Pin 15 settings---//
+  //--- Pin 15 settings
   #define PB15_IN  GPIOB_MODER &= 0x3FFFFFFF; GPIOB_MODER |= 0x00000000;
   #define PB15_OUT GPIOB_MODER &= 0x3FFFFFFF; GPIOB_MODER |= 0x40000000;
   #define PB15_ALT GPIOB_MODER &= 0x3FFFFFFF; GPIOB_MODER |= 0x80000000;
   #define PB15_ANA GPIOB_MODER &= 0x3FFFFFFF; GPIOB_MODER |= 0xC0000000;
 
 
-  //---------------------------------------//
-  //          GPIOC pin changes          //
-  //----------------------------------//
+  //----------------------------------
+  //          GPIOC pin changes       
+  //----------------------------------
 
-  //---Pin 00 settings---//
+  //--- Pin 00 settings
   #define PC00_IN  GPIOC_MODER &= 0xFFFFFFFC; GPIOC_MODER |= 0x00000000;
   #define PC00_OUT GPIOC_MODER &= 0xFFFFFFFC; GPIOC_MODER |= 0x00000001;
   #define PC00_ALT GPIOC_MODER &= 0xFFFFFFFC; GPIOC_MODER |= 0x00000002;
   #define PC00_ANA GPIOC_MODER &= 0xFFFFFFFC; GPIOC_MODER |= 0x00000003;
 
-  //---Pin 01 settings---//
+  //--- Pin 01 settings
   #define PC01_IN  GPIOC_MODER &= 0xFFFFFFF3; GPIOC_MODER |= 0x00000000;
   #define PC01_OUT GPIOC_MODER &= 0xFFFFFFF3; GPIOC_MODER |= 0x00000004;
   #define PC01_ALT GPIOC_MODER &= 0xFFFFFFF3; GPIOC_MODER |= 0x00000008;
   #define PC01_ANA GPIOC_MODER &= 0xFFFFFFF3; GPIOC_MODER |= 0x0000000C;
 
-  //---Pin 02 settings---//
+  //--- Pin 02 settings
   #define PC02_IN  GPIOC_MODER &= 0xFFFFFFCF; GPIOC_MODER |= 0x00000000;
   #define PC02_OUT GPIOC_MODER &= 0xFFFFFFCF; GPIOC_MODER |= 0x00000010;
   #define PC02_ALT GPIOC_MODER &= 0xFFFFFFCF; GPIOC_MODER |= 0x00000020;
   #define PC02_ANA GPIOC_MODER &= 0xFFFFFFCF; GPIOC_MODER |= 0x00000030;
 
-  //---Pin 03 settings---//
+  //--- Pin 03 settings
   #define PC03_IN  GPIOC_MODER &= 0xFFFFFF3F; GPIOC_MODER |= 0x00000000;
   #define PC03_OUT GPIOC_MODER &= 0xFFFFFF3F; GPIOC_MODER |= 0x00000040;
   #define PC03_ALT GPIOC_MODER &= 0xFFFFFF3F; GPIOC_MODER |= 0x00000080;
   #define PC03_ANA GPIOC_MODER &= 0xFFFFFF3F; GPIOC_MODER |= 0x000000C0;
 
-  //---Pin 04 settings---//
+  //--- Pin 04 settings
   #define PC04_IN  GPIOC_MODER &= 0xFFFFFCFF; GPIOC_MODER |= 0x00000000;
   #define PC04_OUT GPIOC_MODER &= 0xFFFFFCFF; GPIOC_MODER |= 0x00000100;
   #define PC04_ALT GPIOC_MODER &= 0xFFFFFCFF; GPIOC_MODER |= 0x00000200;
   #define PC04_ANA GPIOC_MODER &= 0xFFFFFCFF; GPIOC_MODER |= 0x00000300;
 
-  //---Pin 05 settings---//
+  //--- Pin 05 settings
   #define PC05_IN  GPIOC_MODER &= 0xFFFFF3FF; GPIOC_MODER |= 0x00000000;
   #define PC05_OUT GPIOC_MODER &= 0xFFFFF3FF; GPIOC_MODER |= 0x00000400;
   #define PC05_ALT GPIOC_MODER &= 0xFFFFF3FF; GPIOC_MODER |= 0x00000800;
   #define PC05_ANA GPIOC_MODER &= 0xFFFFF3FF; GPIOC_MODER |= 0x00000C00;
 
-  //---Pin 06 settings---//
+  //--- Pin 06 settings
   #define PC06_IN  GPIOC_MODER &= 0xFFFFCFFF; GPIOC_MODER |= 0x00000000;
   #define PC06_OUT GPIOC_MODER &= 0xFFFFCFFF; GPIOC_MODER |= 0x00001000;
   #define PC06_ALT GPIOC_MODER &= 0xFFFFCFFF; GPIOC_MODER |= 0x00002000;
   #define PC06_ANA GPIOC_MODER &= 0xFFFFCFFF; GPIOC_MODER |= 0x00003000;
 
-  //---Pin 07 settings---//
+  //--- Pin 07 settings
   #define PC07_IN  GPIOC_MODER &= 0xFFFF3FFF; GPIOC_MODER |= 0x00000000;
   #define PC07_OUT GPIOC_MODER &= 0xFFFF3FFF; GPIOC_MODER |= 0x00004000;
   #define PC07_ALT GPIOC_MODER &= 0xFFFF3FFF; GPIOC_MODER |= 0x00008000;
   #define PC07_ANA GPIOC_MODER &= 0xFFFF3FFF; GPIOC_MODER |= 0x0000C000;
 
-  //---Pin 08 settings---//
+  //--- Pin 08 settings
   #define PC08_IN  GPIOC_MODER &= 0xFFFCFFFF; GPIOC_MODER |= 0x00000000;
   #define PC08_OUT GPIOC_MODER &= 0xFFFCFFFF; GPIOC_MODER |= 0x00010000;
   #define PC08_ALT GPIOC_MODER &= 0xFFFCFFFF; GPIOC_MODER |= 0x00020000;
   #define PC08_ANA GPIOC_MODER &= 0xFFFCFFFF; GPIOC_MODER |= 0x00030000;
 
-  //---Pin 09 settings---//
+  //--- Pin 09 settings
   #define PC09_IN  GPIOC_MODER &= 0xFFF3FFFF; GPIOC_MODER |= 0x00000000;
   #define PC09_OUT GPIOC_MODER &= 0xFFF3FFFF; GPIOC_MODER |= 0x00040000;
   #define PC09_ALT GPIOC_MODER &= 0xFFF3FFFF; GPIOC_MODER |= 0x00080000;
   #define PC09_ANA GPIOC_MODER &= 0xFFF3FFFF; GPIOC_MODER |= 0x000C0000;
 
-  //---Pin 10 settings---//
+  //--- Pin 10 settings
   #define PC10_IN  GPIOC_MODER &= 0xFFCFFFFF; GPIOC_MODER |= 0x00000000;
   #define PC10_OUT GPIOC_MODER &= 0xFFCFFFFF; GPIOC_MODER |= 0x00100000;
   #define PC10_ALT GPIOC_MODER &= 0xFFCFFFFF; GPIOC_MODER |= 0x00200000;
   #define PC10_ANA GPIOC_MODER &= 0xFFCFFFFF; GPIOC_MODER |= 0x00300000;
 
-  //---Pin 11 settings---//
+  //--- Pin 11 settings
   #define PC11_IN  GPIOC_MODER &= 0xFF3FFFFF; GPIOC_MODER |= 0x00000000;
   #define PC11_OUT GPIOC_MODER &= 0xFF3FFFFF; GPIOC_MODER |= 0x00400000;
   #define PC11_ALT GPIOC_MODER &= 0xFF3FFFFF; GPIOC_MODER |= 0x00800000;
   #define PC11_ANA GPIOC_MODER &= 0xFF3FFFFF; GPIOC_MODER |= 0x00C00000;
 
-  //---Pin 12 settings---//
+  //--- Pin 12 settings
   #define PC12_IN  GPIOC_MODER &= 0xFCFFFFFF; GPIOC_MODER |= 0x00000000;
   #define PC12_OUT GPIOC_MODER &= 0xFCFFFFFF; GPIOC_MODER |= 0x01000000;
   #define PC12_ALT GPIOC_MODER &= 0xFCFFFFFF; GPIOC_MODER |= 0x02000000;
   #define PC12_ANA GPIOC_MODER &= 0xFCFFFFFF; GPIOC_MODER |= 0x03000000;
 
-  //---Pin 13 settings---//
+  //--- Pin 13 settings
   #define PC13_IN  GPIOC_MODER &= 0xF3FFFFFF; GPIOC_MODER |= 0x00000000;
   #define PC13_OUT GPIOC_MODER &= 0xF3FFFFFF; GPIOC_MODER |= 0x04000000;
   #define PC13_ALT GPIOC_MODER &= 0xF3FFFFFF; GPIOC_MODER |= 0x08000000;
   #define PC13_ANA GPIOC_MODER &= 0xF3FFFFFF; GPIOC_MODER |= 0x0C000000;
 
-  //---Pin 14 settings---//
+  //--- Pin 14 settings
   #define PC14_IN  GPIOC_MODER &= 0xCFFFFFFF; GPIOC_MODER |= 0x00000000;
   #define PC14_OUT GPIOC_MODER &= 0xCFFFFFFF; GPIOC_MODER |= 0x10000000;
   #define PC14_ALT GPIOC_MODER &= 0xCFFFFFFF; GPIOC_MODER |= 0x20000000;
   #define PC14_ANA GPIOC_MODER &= 0xCFFFFFFF; GPIOC_MODER |= 0x30000000;
 
-  //---Pin 15 settings---//
+  //--- Pin 15 settings
   #define PC15_IN  GPIOC_MODER &= 0x3FFFFFFF; GPIOC_MODER |= 0x00000000;
   #define PC15_OUT GPIOC_MODER &= 0x3FFFFFFF; GPIOC_MODER |= 0x40000000;
   #define PC15_ALT GPIOC_MODER &= 0x3FFFFFFF; GPIOC_MODER |= 0x80000000;
   #define PC15_ANA GPIOC_MODER &= 0x3FFFFFFF; GPIOC_MODER |= 0xC0000000;
 
-  //-----------------------------------//
-  //     GPIOA alternate functions     //
-  //-----------------------------------//
+  //-----------------------------------
+  //     GPIOA alternate functions     
+  //-----------------------------------
 
-  //---PA00 alternate functions---//
+  //--- PA00 alternate functions
   #define PA00_AF00 GPIOA_AFRL &= 0xFFFFFFF0; GPIOA_AFRL |= 0x00000000;
   #define PA00_AF01 GPIOA_AFRL &= 0xFFFFFFF0; GPIOA_AFRL |= 0x00000001;
   #define PA00_AF02 GPIOA_AFRL &= 0xFFFFFFF0; GPIOA_AFRL |= 0x00000002;
@@ -623,7 +624,7 @@
   #define PA00_AF15 GPIOA_AFRL &= 0xFFFFFFF0; GPIOA_AFRL |= 0x0000000F;
 
 
-  //---PA01 alternate functions---//
+  //--- PA01 alternate functions
   #define PA01_AF00 GPIOA_AFRL &= 0xFFFFFF0F; GPIOA_AFRL |= 0x00000000;
   #define PA01_AF01 GPIOA_AFRL &= 0xFFFFFF0F; GPIOA_AFRL |= 0x00000010;
   #define PA01_AF02 GPIOA_AFRL &= 0xFFFFFF0F; GPIOA_AFRL |= 0x00000020;
@@ -642,7 +643,7 @@
   #define PA01_AF15 GPIOA_AFRL &= 0xFFFFFF0F; GPIOA_AFRL |= 0x000000F0;
 
 
-  //---PA02 alternate functions---//
+  //--- PA02 alternate functions
   #define PA02_AF00 GPIOA_AFRL &= 0xFFFFF0FF; GPIOA_AFRL |= 0x00000000;
   #define PA02_AF01 GPIOA_AFRL &= 0xFFFFF0FF; GPIOA_AFRL |= 0x00000100;
   #define PA02_AF02 GPIOA_AFRL &= 0xFFFFF0FF; GPIOA_AFRL |= 0x00000200;
@@ -661,7 +662,7 @@
   #define PA02_AF15 GPIOA_AFRL &= 0xFFFFF0FF; GPIOA_AFRL |= 0x00000F00;
 
 
-  //---PA03 alternate functions---//
+  //--- PA03 alternate functions
   #define PA03_AF00 GPIOA_AFRL &= 0xFFFF0FFF; GPIOA_AFRL |= 0x00000000;
   #define PA03_AF01 GPIOA_AFRL &= 0xFFFF0FFF; GPIOA_AFRL |= 0x00001000;
   #define PA03_AF02 GPIOA_AFRL &= 0xFFFF0FFF; GPIOA_AFRL |= 0x00002000;
@@ -680,7 +681,7 @@
   #define PA03_AF15 GPIOA_AFRL &= 0xFFFF0FFF; GPIOA_AFRL |= 0x0000F000;
 
 
-  //---PA04 alternate functions---//
+  //--- PA04 alternate functions
   #define PA04_AF00 GPIOA_AFRL &= 0xFFF0FFFF; GPIOA_AFRL |= 0x00000000;
   #define PA04_AF01 GPIOA_AFRL &= 0xFFF0FFFF; GPIOA_AFRL |= 0x00010000;
   #define PA04_AF02 GPIOA_AFRL &= 0xFFF0FFFF; GPIOA_AFRL |= 0x00020000;
@@ -699,7 +700,7 @@
   #define PA04_AF15 GPIOA_AFRL &= 0xFFF0FFFF; GPIOA_AFRL |= 0x000F0000;
 
 
-  //---PA05 alternate functions---//
+  //--- PA05 alternate functions
   #define PA05_AF00 GPIOA_AFRL &= 0xFF0FFFFF; GPIOA_AFRL |= 0x00000000;
   #define PA05_AF01 GPIOA_AFRL &= 0xFF0FFFFF; GPIOA_AFRL |= 0x00100000;
   #define PA05_AF02 GPIOA_AFRL &= 0xFF0FFFFF; GPIOA_AFRL |= 0x00200000;
@@ -718,7 +719,7 @@
   #define PA05_AF15 GPIOA_AFRL &= 0xFF0FFFFF; GPIOA_AFRL |= 0x00F00000;
 
 
-  //---PA06 alternate functions---//
+  //--- PA06 alternate functions
   #define PA06_AF00 GPIOA_AFRL &= 0xF0FFFFFF; GPIOA_AFRL |= 0x00000000;
   #define PA06_AF01 GPIOA_AFRL &= 0xF0FFFFFF; GPIOA_AFRL |= 0x01000000;
   #define PA06_AF02 GPIOA_AFRL &= 0xF0FFFFFF; GPIOA_AFRL |= 0x02000000;
@@ -737,7 +738,7 @@
   #define PA06_AF15 GPIOA_AFRL &= 0xF0FFFFFF; GPIOA_AFRL |= 0x0F000000;
 
 
-  //---PA07 alternate functions---//
+  //--- PA07 alternate functions
   #define PA07_AF00 GPIOA_AFRL &= 0x0FFFFFFF; GPIOA_AFRL |= 0x00000000;
   #define PA07_AF01 GPIOA_AFRL &= 0x0FFFFFFF; GPIOA_AFRL |= 0x10000000;
   #define PA07_AF02 GPIOA_AFRL &= 0x0FFFFFFF; GPIOA_AFRL |= 0x20000000;
@@ -756,7 +757,7 @@
   #define PA07_AF15 GPIOA_AFRL &= 0x0FFFFFFF; GPIOA_AFRL |= 0xF0000000;
 
 
-  //---PA08 alternate functions---//
+  //--- PA08 alternate functions
   #define PA08_AF00 GPIOA_AFRH &= 0xFFFFFFF0; GPIOA_AFRH |= 0x00000000;
   #define PA08_AF01 GPIOA_AFRH &= 0xFFFFFFF0; GPIOA_AFRH |= 0x00000001;
   #define PA08_AF02 GPIOA_AFRH &= 0xFFFFFFF0; GPIOA_AFRH |= 0x00000002;
@@ -775,7 +776,7 @@
   #define PA08_AF15 GPIOA_AFRH &= 0xFFFFFFF0; GPIOA_AFRH |= 0x0000000F;
 
 
-  //---PA09 alternate functions---//
+  //--- PA09 alternate functions
   #define PA09_AF00 GPIOA_AFRH &= 0xFFFFFF0F; GPIOA_AFRH |= 0x00000000;
   #define PA09_AF01 GPIOA_AFRH &= 0xFFFFFF0F; GPIOA_AFRH |= 0x00000010;
   #define PA09_AF02 GPIOA_AFRH &= 0xFFFFFF0F; GPIOA_AFRH |= 0x00000020;
@@ -794,7 +795,7 @@
   #define PA09_AF15 GPIOA_AFRH &= 0xFFFFFF0F; GPIOA_AFRH |= 0x000000F0;
 
 
-  //---PA10 alternate functions---//
+  //--- PA10 alternate functions
   #define PA10_AF00 GPIOA_AFRH &= 0xFFFFF0FF; GPIOA_AFRH |= 0x00000000;
   #define PA10_AF01 GPIOA_AFRH &= 0xFFFFF0FF; GPIOA_AFRH |= 0x00000100;
   #define PA10_AF02 GPIOA_AFRH &= 0xFFFFF0FF; GPIOA_AFRH |= 0x00000200;
@@ -813,7 +814,7 @@
   #define PA10_AF15 GPIOA_AFRH &= 0xFFFFF0FF; GPIOA_AFRH |= 0x00000F00;
 
 
-  //---PA11 alternate functions---//
+  //--- PA11 alternate functions
   #define PA11_AF00 GPIOA_AFRH &= 0xFFFF0FFF; GPIOA_AFRH |= 0x00000000;
   #define PA11_AF01 GPIOA_AFRH &= 0xFFFF0FFF; GPIOA_AFRH |= 0x00001000;
   #define PA11_AF02 GPIOA_AFRH &= 0xFFFF0FFF; GPIOA_AFRH |= 0x00002000;
@@ -832,7 +833,7 @@
   #define PA11_AF15 GPIOA_AFRH &= 0xFFFF0FFF; GPIOA_AFRH |= 0x0000F000;
 
 
-  //---PA12 alternate functions---//
+  //--- PA12 alternate functions
   #define PA12_AF00 GPIOA_AFRH &= 0xFFF0FFFF; GPIOA_AFRH |= 0x00000000;
   #define PA12_AF01 GPIOA_AFRH &= 0xFFF0FFFF; GPIOA_AFRH |= 0x00010000;
   #define PA12_AF02 GPIOA_AFRH &= 0xFFF0FFFF; GPIOA_AFRH |= 0x00020000;
@@ -851,7 +852,7 @@
   #define PA12_AF15 GPIOA_AFRH &= 0xFFF0FFFF; GPIOA_AFRH |= 0x000F0000;
 
 
-  //---PA13 alternate functions---//
+  //--- PA13 alternate functions
   #define PA13_AF00 GPIOA_AFRH &= 0xFF0FFFFF; GPIOA_AFRH |= 0x00000000;
   #define PA13_AF01 GPIOA_AFRH &= 0xFF0FFFFF; GPIOA_AFRH |= 0x00100000;
   #define PA13_AF02 GPIOA_AFRH &= 0xFF0FFFFF; GPIOA_AFRH |= 0x00200000;
@@ -870,7 +871,7 @@
   #define PA13_AF15 GPIOA_AFRH &= 0xFF0FFFFF; GPIOA_AFRH |= 0x00F00000;
 
 
-  //---PA14 alternate functions---//
+  //--- PA14 alternate functions
   #define PA14_AF00 GPIOA_AFRH &= 0xF0FFFFFF; GPIOA_AFRH |= 0x00000000;
   #define PA14_AF01 GPIOA_AFRH &= 0xF0FFFFFF; GPIOA_AFRH |= 0x01000000;
   #define PA14_AF02 GPIOA_AFRH &= 0xF0FFFFFF; GPIOA_AFRH |= 0x02000000;
@@ -889,7 +890,7 @@
   #define PA14_AF15 GPIOA_AFRH &= 0xF0FFFFFF; GPIOA_AFRH |= 0x0F000000;
 
 
-  //---PA15 alternate functions---//
+  //--- PA15 alternate functions
   #define PA15_AF00 GPIOA_AFRH &= 0x0FFFFFFF; GPIOA_AFRH |= 0x00000000;
   #define PA15_AF01 GPIOA_AFRH &= 0x0FFFFFFF; GPIOA_AFRH |= 0x10000000;
   #define PA15_AF02 GPIOA_AFRH &= 0x0FFFFFFF; GPIOA_AFRH |= 0x20000000;
@@ -908,11 +909,11 @@
   #define PA15_AF15 GPIOA_AFRH &= 0x0FFFFFFF; GPIOA_AFRH |= 0xF0000000;
 
 
-  //-----------------------------------//
-  //     GPIOB alternate functions     //
-  //-----------------------------------//
+  //-----------------------------------
+  //     GPIOB alternate functions     
+  //-----------------------------------
 
-  //---PB00 alternate functions---//
+  //--- PB00 alternate functions
   #define PB00_AF00 GPIOB_AFRL &= 0xFFFFFFF0; GPIOB_AFRL |= 0x00000000;
   #define PB00_AF01 GPIOB_AFRL &= 0xFFFFFFF0; GPIOB_AFRL |= 0x00000001;
   #define PB00_AF02 GPIOB_AFRL &= 0xFFFFFFF0; GPIOB_AFRL |= 0x00000002;
@@ -931,7 +932,7 @@
   #define PB00_AF15 GPIOB_AFRL &= 0xFFFFFFF0; GPIOB_AFRL |= 0x0000000F;
 
 
-  //---PB01 alternate functions---//
+  //--- PB01 alternate functions
   #define PB01_AF00 GPIOB_AFRL &= 0xFFFFFF0F; GPIOB_AFRL |= 0x00000000;
   #define PB01_AF01 GPIOB_AFRL &= 0xFFFFFF0F; GPIOB_AFRL |= 0x00000010;
   #define PB01_AF02 GPIOB_AFRL &= 0xFFFFFF0F; GPIOB_AFRL |= 0x00000020;
@@ -950,7 +951,7 @@
   #define PB01_AF15 GPIOB_AFRL &= 0xFFFFFF0F; GPIOB_AFRL |= 0x000000F0;
 
 
-  //---PB02 alternate functions---//
+  //--- PB02 alternate functions
   #define PB02_AF00 GPIOB_AFRL &= 0xFFFFF0FF; GPIOB_AFRL |= 0x00000000;
   #define PB02_AF01 GPIOB_AFRL &= 0xFFFFF0FF; GPIOB_AFRL |= 0x00000100;
   #define PB02_AF02 GPIOB_AFRL &= 0xFFFFF0FF; GPIOB_AFRL |= 0x00000200;
@@ -969,7 +970,7 @@
   #define PB02_AF15 GPIOB_AFRL &= 0xFFFFF0FF; GPIOB_AFRL |= 0x00000F00;
 
 
-  //---PB03 alternate functions---//
+  //--- PB03 alternate functions
   #define PB03_AF00 GPIOB_AFRL &= 0xFFFF0FFF; GPIOB_AFRL |= 0x00000000;
   #define PB03_AF01 GPIOB_AFRL &= 0xFFFF0FFF; GPIOB_AFRL |= 0x00001000;
   #define PB03_AF02 GPIOB_AFRL &= 0xFFFF0FFF; GPIOB_AFRL |= 0x00002000;
@@ -988,7 +989,7 @@
   #define PB03_AF15 GPIOB_AFRL &= 0xFFFF0FFF; GPIOB_AFRL |= 0x0000F000;
 
 
-  //---PB04 alternate functions---//
+  //--- PB04 alternate functions
   #define PB04_AF00 GPIOB_AFRL &= 0xFFF0FFFF; GPIOB_AFRL |= 0x00000000;
   #define PB04_AF01 GPIOB_AFRL &= 0xFFF0FFFF; GPIOB_AFRL |= 0x00010000;
   #define PB04_AF02 GPIOB_AFRL &= 0xFFF0FFFF; GPIOB_AFRL |= 0x00020000;
@@ -1007,7 +1008,7 @@
   #define PB04_AF15 GPIOB_AFRL &= 0xFFF0FFFF; GPIOB_AFRL |= 0x000F0000;
 
 
-  //---PB05 alternate functions---//
+  //--- PB05 alternate functions
   #define PB05_AF00 GPIOB_AFRL &= 0xFF0FFFFF; GPIOB_AFRL |= 0x00000000;
   #define PB05_AF01 GPIOB_AFRL &= 0xFF0FFFFF; GPIOB_AFRL |= 0x00100000;
   #define PB05_AF02 GPIOB_AFRL &= 0xFF0FFFFF; GPIOB_AFRL |= 0x00200000;
@@ -1026,7 +1027,7 @@
   #define PB05_AF15 GPIOB_AFRL &= 0xFF0FFFFF; GPIOB_AFRL |= 0x00F00000;
 
 
-  //---PB06 alternate functions---//
+  //--- PB06 alternate functions
   #define PB06_AF00 GPIOB_AFRL &= 0xF0FFFFFF; GPIOB_AFRL |= 0x00000000;
   #define PB06_AF01 GPIOB_AFRL &= 0xF0FFFFFF; GPIOB_AFRL |= 0x01000000;
   #define PB06_AF02 GPIOB_AFRL &= 0xF0FFFFFF; GPIOB_AFRL |= 0x02000000;
@@ -1045,7 +1046,7 @@
   #define PB06_AF15 GPIOB_AFRL &= 0xF0FFFFFF; GPIOB_AFRL |= 0x0F000000;
 
 
-  //---PB07 alternate functions---//
+  //--- PB07 alternate functions
   #define PB07_AF00 GPIOB_AFRL &= 0x0FFFFFFF; GPIOB_AFRL |= 0x00000000;
   #define PB07_AF01 GPIOB_AFRL &= 0x0FFFFFFF; GPIOB_AFRL |= 0x10000000;
   #define PB07_AF02 GPIOB_AFRL &= 0x0FFFFFFF; GPIOB_AFRL |= 0x20000000;
@@ -1064,7 +1065,7 @@
   #define PB07_AF15 GPIOB_AFRL &= 0x0FFFFFFF; GPIOB_AFRL |= 0xF0000000;
 
 
-  //---PB08 alternate functions---//
+  //--- PB08 alternate functions
   #define PB08_AF00 GPIOB_AFRH &= 0xFFFFFFF0; GPIOB_AFRH |= 0x00000000;
   #define PB08_AF01 GPIOB_AFRH &= 0xFFFFFFF0; GPIOB_AFRH |= 0x00000001;
   #define PB08_AF02 GPIOB_AFRH &= 0xFFFFFFF0; GPIOB_AFRH |= 0x00000002;
@@ -1083,7 +1084,7 @@
   #define PB08_AF15 GPIOB_AFRH &= 0xFFFFFFF0; GPIOB_AFRH |= 0x0000000F;
 
 
-  //---PB09 alternate functions---//
+  //--- PB09 alternate functions
   #define PB09_AF00 GPIOB_AFRH &= 0xFFFFFF0F; GPIOB_AFRH |= 0x00000000;
   #define PB09_AF01 GPIOB_AFRH &= 0xFFFFFF0F; GPIOB_AFRH |= 0x00000010;
   #define PB09_AF02 GPIOB_AFRH &= 0xFFFFFF0F; GPIOB_AFRH |= 0x00000020;
@@ -1102,7 +1103,7 @@
   #define PB09_AF15 GPIOB_AFRH &= 0xFFFFFF0F; GPIOB_AFRH |= 0x000000F0;
 
 
-  //---PB10 alternate functions---//
+  //--- PB10 alternate functions
   #define PB10_AF00 GPIOB_AFRH &= 0xFFFFF0FF; GPIOB_AFRH |= 0x00000000;
   #define PB10_AF01 GPIOB_AFRH &= 0xFFFFF0FF; GPIOB_AFRH |= 0x00000100;
   #define PB10_AF02 GPIOB_AFRH &= 0xFFFFF0FF; GPIOB_AFRH |= 0x00000200;
@@ -1121,7 +1122,7 @@
   #define PB10_AF15 GPIOB_AFRH &= 0xFFFFF0FF; GPIOB_AFRH |= 0x00000F00;
 
 
-  //---PB11 alternate functions---//
+  //--- PB11 alternate functions
   #define PB11_AF00 GPIOB_AFRH &= 0xFFFF0FFF; GPIOB_AFRH |= 0x00000000;
   #define PB11_AF01 GPIOB_AFRH &= 0xFFFF0FFF; GPIOB_AFRH |= 0x00001000;
   #define PB11_AF02 GPIOB_AFRH &= 0xFFFF0FFF; GPIOB_AFRH |= 0x00002000;
@@ -1140,7 +1141,7 @@
   #define PB11_AF15 GPIOB_AFRH &= 0xFFFF0FFF; GPIOB_AFRH |= 0x0000F000;
 
 
-  //---PB12 alternate functions---//
+  //--- PB12 alternate functions
   #define PB12_AF00 GPIOB_AFRH &= 0xFFF0FFFF; GPIOB_AFRH |= 0x00000000;
   #define PB12_AF01 GPIOB_AFRH &= 0xFFF0FFFF; GPIOB_AFRH |= 0x00010000;
   #define PB12_AF02 GPIOB_AFRH &= 0xFFF0FFFF; GPIOB_AFRH |= 0x00020000;
@@ -1159,7 +1160,7 @@
   #define PB12_AF15 GPIOB_AFRH &= 0xFFF0FFFF; GPIOB_AFRH |= 0x000F0000;
 
 
-  //---PB13 alternate functions---//
+  //--- PB13 alternate functions
   #define PB13_AF00 GPIOB_AFRH &= 0xFF0FFFFF; GPIOB_AFRH |= 0x00000000;
   #define PB13_AF01 GPIOB_AFRH &= 0xFF0FFFFF; GPIOB_AFRH |= 0x00100000;
   #define PB13_AF02 GPIOB_AFRH &= 0xFF0FFFFF; GPIOB_AFRH |= 0x00200000;
@@ -1178,7 +1179,7 @@
   #define PB13_AF15 GPIOB_AFRH &= 0xFF0FFFFF; GPIOB_AFRH |= 0x00F00000;
 
 
-  //---PB14 alternate functions---//
+  //--- PB14 alternate functions
   #define PB14_AF00 GPIOB_AFRH &= 0xF0FFFFFF; GPIOB_AFRH |= 0x00000000;
   #define PB14_AF01 GPIOB_AFRH &= 0xF0FFFFFF; GPIOB_AFRH |= 0x01000000;
   #define PB14_AF02 GPIOB_AFRH &= 0xF0FFFFFF; GPIOB_AFRH |= 0x02000000;
@@ -1197,7 +1198,7 @@
   #define PB14_AF15 GPIOB_AFRH &= 0xF0FFFFFF; GPIOB_AFRH |= 0x0F000000;
 
 
-  //---PB15 alternate functions---//
+  //--- PB15 alternate functions
   #define PB15_AF00 GPIOB_AFRH &= 0x0FFFFFFF; GPIOB_AFRH |= 0x00000000;
   #define PB15_AF01 GPIOB_AFRH &= 0x0FFFFFFF; GPIOB_AFRH |= 0x10000000;
   #define PB15_AF02 GPIOB_AFRH &= 0x0FFFFFFF; GPIOB_AFRH |= 0x20000000;
@@ -1216,11 +1217,11 @@
   #define PB15_AF15 GPIOB_AFRH &= 0x0FFFFFFF; GPIOB_AFRH |= 0xF0000000;
 
 
-  //-----------------------------------//
-  //     GPIOC alternate functions     //
-  //-----------------------------------//
+  //-----------------------------------
+  //     GPIOC alternate functions     
+  //-----------------------------------
 
-  //---PC00 alternate functions---//
+  //--- PC00 alternate functions
   #define PC00_AF00 GPIOC_AFRL &= 0xFFFFFFF0; GPIOC_AFRL |= 0x00000000;
   #define PC00_AF01 GPIOC_AFRL &= 0xFFFFFFF0; GPIOC_AFRL |= 0x00000001;
   #define PC00_AF02 GPIOC_AFRL &= 0xFFFFFFF0; GPIOC_AFRL |= 0x00000002;
@@ -1239,7 +1240,7 @@
   #define PC00_AF15 GPIOC_AFRL &= 0xFFFFFFF0; GPIOC_AFRL |= 0x0000000F;
 
 
-  //---PC01 alternate functions---//
+  //--- PC01 alternate functions
   #define PC01_AF00 GPIOC_AFRL &= 0xFFFFFF0F; GPIOC_AFRL |= 0x00000000;
   #define PC01_AF01 GPIOC_AFRL &= 0xFFFFFF0F; GPIOC_AFRL |= 0x00000010;
   #define PC01_AF02 GPIOC_AFRL &= 0xFFFFFF0F; GPIOC_AFRL |= 0x00000020;
@@ -1258,7 +1259,7 @@
   #define PC01_AF15 GPIOC_AFRL &= 0xFFFFFF0F; GPIOC_AFRL |= 0x000000F0;
 
 
-  //---PC02 alternate functions---//
+  //--- PC02 alternate functions
   #define PC02_AF00 GPIOC_AFRL &= 0xFFFFF0FF; GPIOC_AFRL |= 0x00000000;
   #define PC02_AF01 GPIOC_AFRL &= 0xFFFFF0FF; GPIOC_AFRL |= 0x00000100;
   #define PC02_AF02 GPIOC_AFRL &= 0xFFFFF0FF; GPIOC_AFRL |= 0x00000200;
@@ -1277,7 +1278,7 @@
   #define PC02_AF15 GPIOC_AFRL &= 0xFFFFF0FF; GPIOC_AFRL |= 0x00000F00;
 
 
-  //---PC03 alternate functions---//
+  //--- PC03 alternate functions
   #define PC03_AF00 GPIOC_AFRL &= 0xFFFF0FFF; GPIOC_AFRL |= 0x00000000;
   #define PC03_AF01 GPIOC_AFRL &= 0xFFFF0FFF; GPIOC_AFRL |= 0x00001000;
   #define PC03_AF02 GPIOC_AFRL &= 0xFFFF0FFF; GPIOC_AFRL |= 0x00002000;
@@ -1296,7 +1297,7 @@
   #define PC03_AF15 GPIOC_AFRL &= 0xFFFF0FFF; GPIOC_AFRL |= 0x0000F000;
 
 
-  //---PC04 alternate functions---//
+  //--- PC04 alternate functions
   #define PC04_AF00 GPIOC_AFRL &= 0xFFF0FFFF; GPIOC_AFRL |= 0x00000000;
   #define PC04_AF01 GPIOC_AFRL &= 0xFFF0FFFF; GPIOC_AFRL |= 0x00010000;
   #define PC04_AF02 GPIOC_AFRL &= 0xFFF0FFFF; GPIOC_AFRL |= 0x00020000;
@@ -1315,7 +1316,7 @@
   #define PC04_AF15 GPIOC_AFRL &= 0xFFF0FFFF; GPIOC_AFRL |= 0x000F0000;
 
 
-  //---PC05 alternate functions---//
+  //--- PC05 alternate functions
   #define PC05_AF00 GPIOC_AFRL &= 0xFF0FFFFF; GPIOC_AFRL |= 0x00000000;
   #define PC05_AF01 GPIOC_AFRL &= 0xFF0FFFFF; GPIOC_AFRL |= 0x00100000;
   #define PC05_AF02 GPIOC_AFRL &= 0xFF0FFFFF; GPIOC_AFRL |= 0x00200000;
@@ -1334,7 +1335,7 @@
   #define PC05_AF15 GPIOC_AFRL &= 0xFF0FFFFF; GPIOC_AFRL |= 0x00F00000;
 
 
-  //---PC06 alternate functions---//
+  //--- PC06 alternate functions
   #define PC06_AF00 GPIOC_AFRL &= 0xF0FFFFFF; GPIOC_AFRL |= 0x00000000;
   #define PC06_AF01 GPIOC_AFRL &= 0xF0FFFFFF; GPIOC_AFRL |= 0x01000000;
   #define PC06_AF02 GPIOC_AFRL &= 0xF0FFFFFF; GPIOC_AFRL |= 0x02000000;
@@ -1353,7 +1354,7 @@
   #define PC06_AF15 GPIOC_AFRL &= 0xF0FFFFFF; GPIOC_AFRL |= 0x0F000000;
 
 
-  //---PC07 alternate functions---//
+  //--- PC07 alternate functions
   #define PC07_AF00 GPIOC_AFRL &= 0x0FFFFFFF; GPIOC_AFRL |= 0x00000000;
   #define PC07_AF01 GPIOC_AFRL &= 0x0FFFFFFF; GPIOC_AFRL |= 0x10000000;
   #define PC07_AF02 GPIOC_AFRL &= 0x0FFFFFFF; GPIOC_AFRL |= 0x20000000;
@@ -1372,7 +1373,7 @@
   #define PC07_AF15 GPIOC_AFRL &= 0x0FFFFFFF; GPIOC_AFRL |= 0xF0000000;
 
 
-  //---PC08 alternate functions---//
+  //--- PC08 alternate functions
   #define PC08_AF00 GPIOC_AFRH &= 0xFFFFFFF0; GPIOC_AFRH |= 0x00000000;
   #define PC08_AF01 GPIOC_AFRH &= 0xFFFFFFF0; GPIOC_AFRH |= 0x00000001;
   #define PC08_AF02 GPIOC_AFRH &= 0xFFFFFFF0; GPIOC_AFRH |= 0x00000002;
@@ -1391,7 +1392,7 @@
   #define PC08_AF15 GPIOC_AFRH &= 0xFFFFFFF0; GPIOC_AFRH |= 0x0000000F;
 
 
-  //---PC09 alternate functions---//
+  //--- PC09 alternate functions
   #define PC09_AF00 GPIOC_AFRH &= 0xFFFFFF0F; GPIOC_AFRH |= 0x00000000;
   #define PC09_AF01 GPIOC_AFRH &= 0xFFFFFF0F; GPIOC_AFRH |= 0x00000010;
   #define PC09_AF02 GPIOC_AFRH &= 0xFFFFFF0F; GPIOC_AFRH |= 0x00000020;
@@ -1410,7 +1411,7 @@
   #define PC09_AF15 GPIOC_AFRH &= 0xFFFFFF0F; GPIOC_AFRH |= 0x000000F0;
 
 
-  //---PC10 alternate functions---//
+  //--- PC10 alternate functions
   #define PC10_AF00 GPIOC_AFRH &= 0xFFFFF0FF; GPIOC_AFRH |= 0x00000000;
   #define PC10_AF01 GPIOC_AFRH &= 0xFFFFF0FF; GPIOC_AFRH |= 0x00000100;
   #define PC10_AF02 GPIOC_AFRH &= 0xFFFFF0FF; GPIOC_AFRH |= 0x00000200;
@@ -1429,7 +1430,7 @@
   #define PC10_AF15 GPIOC_AFRH &= 0xFFFFF0FF; GPIOC_AFRH |= 0x00000F00;
 
 
-  //---PC11 alternate functions---//
+  //--- PC11 alternate functions
   #define PC11_AF00 GPIOC_AFRH &= 0xFFFF0FFF; GPIOC_AFRH |= 0x00000000;
   #define PC11_AF01 GPIOC_AFRH &= 0xFFFF0FFF; GPIOC_AFRH |= 0x00001000;
   #define PC11_AF02 GPIOC_AFRH &= 0xFFFF0FFF; GPIOC_AFRH |= 0x00002000;
@@ -1448,7 +1449,7 @@
   #define PC11_AF15 GPIOC_AFRH &= 0xFFFF0FFF; GPIOC_AFRH |= 0x0000F000;
 
 
-  //---PC12 alternate functions---//
+  //--- PC12 alternate functions
   #define PC12_AF00 GPIOC_AFRH &= 0xFFF0FFFF; GPIOC_AFRH |= 0x00000000;
   #define PC12_AF01 GPIOC_AFRH &= 0xFFF0FFFF; GPIOC_AFRH |= 0x00010000;
   #define PC12_AF02 GPIOC_AFRH &= 0xFFF0FFFF; GPIOC_AFRH |= 0x00020000;
@@ -1467,7 +1468,7 @@
   #define PC12_AF15 GPIOC_AFRH &= 0xFFF0FFFF; GPIOC_AFRH |= 0x000F0000;
 
 
-  //---PC13 alternate functions---//
+  //--- PC13 alternate functions
   #define PC13_AF00 GPIOC_AFRH &= 0xFF0FFFFF; GPIOC_AFRH |= 0x00000000;
   #define PC13_AF01 GPIOC_AFRH &= 0xFF0FFFFF; GPIOC_AFRH |= 0x00100000;
   #define PC13_AF02 GPIOC_AFRH &= 0xFF0FFFFF; GPIOC_AFRH |= 0x00200000;
@@ -1486,7 +1487,7 @@
   #define PC13_AF15 GPIOC_AFRH &= 0xFF0FFFFF; GPIOC_AFRH |= 0x00F00000;
 
 
-  //---PC14 alternate functions---//
+  //--- PC14 alternate functions
   #define PC14_AF00 GPIOC_AFRH &= 0xF0FFFFFF; GPIOC_AFRH |= 0x00000000;
   #define PC14_AF01 GPIOC_AFRH &= 0xF0FFFFFF; GPIOC_AFRH |= 0x01000000;
   #define PC14_AF02 GPIOC_AFRH &= 0xF0FFFFFF; GPIOC_AFRH |= 0x02000000;
@@ -1505,7 +1506,7 @@
   #define PC14_AF15 GPIOC_AFRH &= 0xF0FFFFFF; GPIOC_AFRH |= 0x0F000000;
 
 
-  //---PC15 alternate functions---//
+  //--- PC15 alternate functions
   #define PC15_AF00 GPIOC_AFRH &= 0x0FFFFFFF; GPIOC_AFRH |= 0x00000000;
   #define PC15_AF01 GPIOC_AFRH &= 0x0FFFFFFF; GPIOC_AFRH |= 0x10000000;
   #define PC15_AF02 GPIOC_AFRH &= 0x0FFFFFFF; GPIOC_AFRH |= 0x20000000;
