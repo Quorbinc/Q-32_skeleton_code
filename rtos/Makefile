@@ -43,6 +43,7 @@ SRC += uart_com.c
 SRC += sys_tick.c
 SRC += interrupts.c
 SRC += test_help.c
+SRC += timers.c
 SRC += $(TARGET).c
 
 #--------------------------------------------------------------------------
