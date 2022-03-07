@@ -33,7 +33,6 @@
   void  fnByte2Hex (u08 ubByte, u08 ubOut[]);
   u08 fnByte2Chr (u08 ubByte);
   void  fnStrCpy (u08 ubDst[], u08 ubSrc[]);
-  u16   fnStrLen (u08 ubSrc[]);
   s32 fnCINTF (flt sfFloat);
   s32 fnCINTD (dbl dblFloat);
   u08 fnLc2Uc (u08  ubChar);
