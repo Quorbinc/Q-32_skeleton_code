@@ -51,12 +51,6 @@
   void  fnSetDpin (void);
   void  fnClrDpin (void);
 
-  //--- Function Prototypes
-  void  fnPulseByteOut (u08 ubPulseByte);
-  void  fnPulseWordOut (u16 uwPulseWord);
-  void  fnPulseLongOut (u32 ulPulseLong);
-
-  void  fnPulseOut (void);
 
 #endif
 
