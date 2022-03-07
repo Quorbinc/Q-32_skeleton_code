@@ -567,6 +567,197 @@ caddr_t _sbrk ( int increment )
   }
 }
 
+//---------------------------------------------------------------------------------------------
+//     Output a single pulse on PIN PA09
+//---------------------------------------------------------------------------------------------
+
+void  fnDoPulse (void)
+{
+  SET_PA09;                                       //--- Pulse Hi
+  nop12;
+  CLR_PA09;                                       //--- Pulse Lo
+}
+
+//---------------------------------------------------------------------------------------------
+//     Output a series of Pulses Representing a Word Value  Clock Bit on PA07  DATA on PA06
+//---------------------------------------------------------------------------------------------
+//--- Bit PA07 = Clock Bit
+//--- Bit PA06 = Data Bit Hi to Low
+
+//--- Output a 8 Bit Byte Value
+void  fnPulseByteOut (u08 ubPulseByte)
+{
+  u16 uwA;
+  u08 ubB = 0x80;                                 //--- Set High Bit Mask
+
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+  CLR_PA06;                                       //--- Clear Bit Out
+  CLR_PA07;                                       //--- Clear Clk Out
+
+  for (uwA = 0; uwA < 8; uwA++)
+  {
+    if (ubPulseByte & ubB)
+    {
+      SET_PA06;                                   //--- Set Bit Hi
+    }
+    else
+    {
+      CLR_PA06;                                   //--- Set Bit Lo
+    }
+
+    nop4;
+
+    SET_PA07;                                     //--- Set Clk Hi
+
+    nop4;
+
+    CLR_PA07;                                     //--- Set Clk Lo
+
+    nop4;
+
+    CLR_PA06;                                     //--- Set Bit Lo
+
+    ubB = ubB >> 1;                               //--- Rotate to Next Bit
+  }
+
+  nop24;
+}
+
+//--- Output a 16 Bit Word Value
+void  fnPulseWordOut (u16 uwPulseWord)
+{
+  u16 uwA;
+  u16 uwB = 0x8000;
+
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+  CLR_PA06;                                       //--- Clear Bit Out
+  CLR_PA07;                                       //--- Clear Clk Out
+
+  for (uwA = 0; uwA < 16; uwA++)
+  {
+    if (uwPulseWord & uwB)
+    {
+      SET_PA06;                                   //--- Set Bit Hi
+    }
+    else
+    {
+      CLR_PA06;                                   //--- Set Bit Lo
+    }
+
+    nop4;
+
+    SET_PA07;                                     //--- Set Clk Hi
+
+    nop4;
+
+    CLR_PA07;                                     //--- Set Clk Lo
+
+    nop4;
+
+    CLR_PA06;                                     //--- Set Bit Lo
+
+    uwB = uwB >> 1;                               //--- Rotate to Next Bit
+  }
+
+  nop24;
+}
+
+//--- Output a 32 Bit Long Value
+void  fnPulseLongOut (u32 ulPulseLong)
+{
+  u16 uwA;
+  u32 ulB = 0x80000000;
+
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+  CLR_PA06;                                       //--- Clear Bit Out
+  CLR_PA07;                                       //--- Clear Clk Out
+
+  for (uwA = 0; uwA < 32; uwA++)
+  {
+    if (ulPulseLong & ulB)
+    {
+      SET_PA06;                                   //--- Set Bit Hi
+    }
+    else
+    {
+      CLR_PA06;                                   //--- Set Bit Lo
+    }
+
+    nop4;
+
+    SET_PA07;                                     //--- Set Clk Hi
+
+    nop4;
+
+    CLR_PA07;                                     //--- Set Clk Lo
+
+    nop4;
+
+    CLR_PA06;                                     //--- Set Bit Lo
+
+    ulB = ulB >> 1;                               //--- Rotate to Next Bit
+  }
+
+  nop24;
+}
+
+
+//--- Output a 64 Bit Long Value
+void  fnPulseBigOut (u64 uxPulseBig)
+{
+  u16 uwA;
+  u64 uxB = 0x8000000000000000;
+
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+  CLR_PA06;                                       //--- Clear Bit Out
+  CLR_PA07;                                       //--- Clear Clk Out
+
+  for (uwA = 0; uwA < 64; uwA++)
+  {
+    if (uxPulseBig & uxB)
+    {
+      SET_PA06;                                   //--- Set Bit Hi
+    }
+    else
+    {
+      CLR_PA06;                                   //--- Set Bit Lo
+    }
+
+    nop4;
+
+    SET_PA07;                                     //--- Set Clk Hi
+
+    nop4;
+
+    CLR_PA07;                                     //--- Set Clk Lo
+
+    nop4;
+
+    CLR_PA06;                                     //--- Set Bit Lo
+
+    uxB = uxB >> 1;                               //--- Rotate to Next Bit
+  }
+
+  nop24;
+}
+
+void  fnPulseOut (void)
+{
+  //--- Output a short pulse
+  if (ubPulseCntr)
+  {
+    fnSetDpin ();
+    nop8;                                    //--- Tiny Delay
+    fnClrDpin ();
+    ubPulseCntr--;                            //--- Down Count # of Pulses
+    nop12;
+  }
+}
+
 //=============================================================================================
 //     Standardized comment blocks
 //=============================================================================================
