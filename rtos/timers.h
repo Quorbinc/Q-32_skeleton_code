@@ -8,7 +8,7 @@
 //    This code is for use on the STM32F05X Processor Series of Micro Controllers it is
 //    It is not fully compatible with other STM32FXXX Series Micro Controller Products
 //
-//                             Written By:  Sancar James Fredsti
+//                             Written By:  Ethan James Fredsti
 //
 //=============================================================================================
 
