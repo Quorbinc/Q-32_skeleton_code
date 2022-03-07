@@ -18,15 +18,34 @@
 
 #ifndef GENRTN_H
   #define GENRTN_H
-
-  void  fnDoPulse (void);
-  void  fnPulseByteOut  (u08 ubPulseByte);
-  void  fnPulseWordOut  (u16 uwPulseWord);
-  void  fnPulseLongOut  (u32 ulPulseLong);
-  void  fnPulseBigOut   (u64 uxPulseBig);
-
-  //--- Generic Function for STM32
+  
+  void  fnZeroString (u08 ubS[], u16 uwLen);
+  u32   fnMergString (u08 ubDst[], u08 ubSrc[], u16 uwPos, u16 uwLen);
+  s16   fnFindSinS (u08 ubFind[], u08 ubSrc[]);
+  void  fnGrabArrayBytes (u08 ubDstArray[], u08 ubSrcArray[], u16 uwPtr, u16 uwCount);
+  u32  fnLTRIM (u08  ubSrc[]);
+  u32  fnRTRIM (u08  ubSrc[]);
+  u08   fnLoByte (u16 uwWord);
+  u08   fnHiByte (u16 uwWord);
+  u16   fnBytesToWord (u08 ubLoByte, u08 ubHiByte);
+  u08   fnBCD2Bin (u08  ubBCD);
+  u08   fnBin2BCD (u08  ubBin);
+  void  fnByte2Hex (u08 ubByte, u08 ubOut[]);
+  u08 fnByte2Chr (u08 ubByte);
+  void  fnStrCpy (u08 ubDst[], u08 ubSrc[]);
+  u16   fnStrLen (u08 ubSrc[]);
+  s32 fnCINTF (flt sfFloat);
+  s32 fnCINTD (dbl dblFloat);
+  u08 fnLc2Uc (u08  ubChar);
+  void fnFtoA(flt sfIn, u08 sOut[]);
   caddr_t _sbrk ( int increment );
+  void  fnDoPulse (void);
+  void  fnPulseByteOut (u08 ubPulseByte);
+  void  fnPulseWordOut (u16 uwPulseWord);
+  void  fnPulseLongOut (u32 ulPulseLong);
+  void  fnPulseBigOut (u64 uxPulseBig);
+  void  fnPulseOut (void);
+
 #endif
 
 //=============================================================================================
