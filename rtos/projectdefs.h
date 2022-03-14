@@ -143,7 +143,7 @@
   #include  "STM32L432_BitDefs.h"                 //--- Processor Peripherial Definitions
   #include  "opsys.h"                             //--- OpSys Core MUST BE INCLUDED
   #include  "sys_tick.h"                          //--- System Tick Interrupt MUST BE INCLUDED
-  #include  "main.h"                              //--- Main Program
+  #include  "projectcode.h"                              //--- Main Program
   #include  "startup.h"                           //--- Initialization Functions & Routines
   #include  "genrtn.h"                            //--- Useful functions
   #include  "interrupts.h"                        //--- Interrupt Definitions & Functions
