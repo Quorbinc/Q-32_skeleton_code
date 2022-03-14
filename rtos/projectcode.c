@@ -6,10 +6,6 @@
 
 //-=- Global Variables available to every function
 
-u32 ulValue;                                      //--- Global Long (32 Bit)
-u16 uwValue;                                      //--- Global Word (16 Bit)
-u08 ubValue;                                      //--- Global Byte ( 8 Bit)
-
 struct Task stGlobalTask;                         //--- Global Task for schedueling
 
 //---------------------------------------------------------------------------------------------
