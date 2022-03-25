@@ -9,7 +9,7 @@ Simplex is our most redimentry system for embedded programming.  The main intent
 The makefile outputs the target .hex file as well as the target.elf file for debugging.  as well as other target files which can additional debugging options.  If you write any additional .c files, make sure you list it in the source section of the makefile.
 
 ### STM32L432_BitDefs.h
-Defines the bits for all of the registers in the chip for easy editing.
+BitDefs is provided by ST and defines the bits for all of the registers in the chip for easy editing.  
 
 ### STM32L432_Map.h
 Lays out the addresses for all of the registers in the chip.
