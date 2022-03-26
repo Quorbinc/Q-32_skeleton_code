@@ -22,7 +22,7 @@ A TASK is defined as a structure placed into a storage location for execution at
 ### TASK STRUCTURE DEFINED:
 A Task is defined as a function with a predefined Data Input Construct and a predefined Return Construct. Containing the following structures and fields.  A TASK has a fixed length of 16 bytes
 
-```
+```C
 //--- 16 Byte Task Definition
 struct TASK
 {
