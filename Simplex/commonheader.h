@@ -175,11 +175,6 @@
   //--- Software Interrupt Service Call
   #define SVC_CALL  asm ("SVC #0x00\n\t" ::)
 
-  //--- DSB & ISB
-  #define __DSB     asm ( "DSB\n\t" ::)
-
-  #define __ISB     asm ( "ISB\n\t" ::)
-
   //--- Floating Point Hardware Enable
   #define FPU_ENA   asm ( "LDR.W R0, = 0xE000ED88\n\t" \
                           "LDR R1, [R0]\n\t" \
