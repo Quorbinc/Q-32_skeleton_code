@@ -67,45 +67,6 @@ u32   fnMergString (u08 ubDst[], u08 ubSrc[], u16 uwPos, u16 uwLen)
 }
 
 //---------------------------------------------------------------------------------------------
-//                       Find one string inside of another String
-//
-//           Returns (-1) if not found or Character N+1 for Starting Location
-//---------------------------------------------------------------------------------------------
-s16   fnFindSinS (u08 ubFind[], u08 ubSrc[])
-{
-  u16 uwLF;
-  u16 uwLS;
-  u16 uwA;
-  u16 uwB;
-  u16 uwFlag;
-
-  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-  uwLF = fnStrLen (ubFind);
-  uwLS = fnStrLen (ubSrc);
-
-  //--- Scan Source String for "Find" String
-  for (uwA = 0; uwA < (uwLS - uwLF); uwA++)
-  {
-    uwFlag = TRUE;                                //--- Preset Flag for Success
-    for (uwB = 0; uwB < uwLF; uwB++)
-    {
-      if (ubSrc[uwA+uwB] != ubFind[uwB])          //--- Check each Src byte for match in Find
-      {
-        uwFlag = FALSE;                           //--- If non match set flag & Exit
-        break;
-      }
-    }
-
-    //--- If every thing matched then exit function with pos16er to start of string
-    if (uwFlag)
-    {
-      return uwA;
-    }
-  }
-  return -1;                                      //--- -1 is failed to find
-}
-
-//---------------------------------------------------------------------------------------------
 //                          Extract Part of A Character Array
 //---------------------------------------------------------------------------------------------
 void  fnGrabArrayBytes (u08 ubDstArray[], u08 ubSrcArray[], u16 uwPtr, u16 uwCount)
@@ -205,7 +166,6 @@ u16   fnBytesToWord (u08 ubLoByte, u08 ubHiByte)
   uwWork |= (u16) ubLoByte;
   return uwWork;
 }
-
 
 //---------------------------------------------------------------------------------------------
 //                       Functions to Convert BCD to Binary and Back
@@ -568,7 +528,10 @@ void  fnDoPulse (void)
 //--- Bit PA07 = Clock Bit
 //--- Bit PA06 = Data Bit Hi to Low
 
-//--- Output a 8 Bit Byte Value
+//---------------------------------------------------------------------------------------------
+//     Output an 8 Bit Byte Value
+//---------------------------------------------------------------------------------------------
+
 void  fnPulseByteOut (u08 ubPulseByte)
 {
   u16 uwA;
@@ -608,7 +571,10 @@ void  fnPulseByteOut (u08 ubPulseByte)
   nop24;
 }
 
-//--- Output a 16 Bit Word Value
+//---------------------------------------------------------------------------------------------
+//     Output a 16 Bit word Value
+//---------------------------------------------------------------------------------------------
+
 void  fnPulseWordOut (u16 uwPulseWord)
 {
   u16 uwA;
@@ -648,7 +614,10 @@ void  fnPulseWordOut (u16 uwPulseWord)
   nop24;
 }
 
-//--- Output a 32 Bit Long Value
+//---------------------------------------------------------------------------------------------
+//     Output a 32 Bit Long Value
+//---------------------------------------------------------------------------------------------
+
 void  fnPulseLongOut (u32 ulPulseLong)
 {
   u16 uwA;
@@ -688,8 +657,10 @@ void  fnPulseLongOut (u32 ulPulseLong)
   nop24;
 }
 
+//---------------------------------------------------------------------------------------------
+//     Output a 64 Bit Long Value
+//---------------------------------------------------------------------------------------------
 
-//--- Output a 64 Bit Long Value
 void  fnPulseBigOut (u64 uxPulseBig)
 {
   u16 uwA;
@@ -727,19 +698,6 @@ void  fnPulseBigOut (u64 uxPulseBig)
   }
 
   nop24;
-}
-
-void  fnPulseOut (void)
-{
-  //--- Output a short pulse
-  if (ubPulseCntr)
-  {
-    fnSetDpin ();
-    nop8;                                    //--- Tiny Delay
-    fnClrDpin ();
-    ubPulseCntr--;                            //--- Down Count # of Pulses
-    nop12;
-  }
 }
 
 //=============================================================================================
