@@ -21,7 +21,6 @@
   
   void  fnZeroString (u08 ubS[], u16 uwLen);
   u32   fnMergString (u08 ubDst[], u08 ubSrc[], u16 uwPos, u16 uwLen);
-  s16   fnFindSinS (u08 ubFind[], u08 ubSrc[]);
   void  fnGrabArrayBytes (u08 ubDstArray[], u08 ubSrcArray[], u16 uwPtr, u16 uwCount);
   u32  fnLTRIM (u08  ubSrc[]);
   u32  fnRTRIM (u08  ubSrc[]);
@@ -43,7 +42,6 @@
   void  fnPulseWordOut (u16 uwPulseWord);
   void  fnPulseLongOut (u32 ulPulseLong);
   void  fnPulseBigOut (u64 uxPulseBig);
-  void  fnPulseOut (void);
 
 #endif
 
