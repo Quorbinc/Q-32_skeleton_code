@@ -39,6 +39,7 @@
   //  Structures                        = st      stExample.uwData
   //  Unions                            = un      unExample.uwData
   //  Functions                         = fn      fnExample ()
+  //  Tasks                             = tk      tkA_Task
   //
   //-------------------------------------------------------------------------------------------
 
@@ -221,7 +222,8 @@
   //    *vPntr == Pointer to VOID Values / Functions        *void
   //------------------------------------------------------------------------------------------
 
-  //--- 16 Bit Variable union
+  //--- 16 Bit Word Byte Variable union
+  //--- 2 Byte Variable union
   union WB
   {
     u16 uwWord;
@@ -230,7 +232,7 @@
     s08 sbByte[2];
   };
 
-  //--- 32 Bit Variable union (4 Bytes) Non Float
+  //--- 32 Bit LongWordByte Variable union (4 Bytes) Non Float
   //--- 4 Byte Variable union
   union LWB
   {
