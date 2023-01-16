@@ -7,7 +7,7 @@
 extern  u32 ulValue;
 extern  u16 uwValue;
 extern  u08 ubValue;
-extern  struct Task stGlobalTask;                           //--- Global Task for schedueling
+
 //---------------------------------------------------------------------------------------------
 //   System Flags Bit Map Definition 28 Bits of assignable System Flags
 //---------------------------------------------------------------------------------------------
@@ -59,4 +59,5 @@ extern  u32 volatile ulSystemFlags;                         //--- ulSystemFlags
 int main (void);
 
 //--- Recursive Routine Sample Function
-//void fnRecursive (union DFLWB unTaskData);
+u16   tkRecursion (union DFLWB unTD);
+

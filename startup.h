@@ -183,6 +183,7 @@
 //  #define USART2_FLAG
 
   extern  u32     ulT;
+  extern  u16     uwReturnVal;
 
   //--- Function Prototypes
   void  fnReset_IRQ(void);

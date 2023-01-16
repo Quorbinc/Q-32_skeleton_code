@@ -36,6 +36,7 @@
 u08     ubSVCn;                                   //--- Software Interrupt Select Numberin RAM
 u32     tmp;                                      //--- Temporary Number
 u32     ulT = 0;
+u16     uwReturnVal;
 
 //---------------------------------------------------------------------------------------------
 //      This is the Reset Code Entry Point from the RESET Pin
@@ -860,8 +861,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //  VREFBUF_CSR = 0x00000001;                     //--- VREF = 2.048V Internal Ref
   //  VREFBUF_CSR = 0x00000000;                     //--- VREF = External Reference
 
-  //--- Set Start Up Flag
-  SET_PA04;
+  unEmptyData.uxBig = 0;
 
   //-------------------------------------------------------------------------------------------
   //  Start Up SysTick Timer As Pacer Set for 10 KHz  100uSec base frequency
@@ -877,9 +877,6 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //-------------------------------------------------------------------------------------------
   fnInitUSART2 (115200);                          //--- Initialize USART2 Communications
 
-  //--- Set USART2 Start Up Flag
-  SET_PA06;
-
   //--- Output Start Message on USART #2
   fnStringOut_2 ("I'm Alive, Mu Ah Ah Ah! \r\n Ready --> ");
 
@@ -890,6 +887,13 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
 
   nop4;                                           //--- A Brief Pause
   GIE;                                            //--- Enable All Other Interrupts
+
+  //--- Schedule First Recursion Task
+  stWorkTask.uwTimer = 1000;                      //--- Timer Delay = 1000
+  stWorkTask.ptrTask = &tkRecursion;              //--- Reschedule This Task
+  stWorkTask.uwFlags = 0;                         //--- No Flags
+  stWorkTask.unTaskData = unEmptyData;            //--- Clear First Try
+  uwReturnVal = fnScheduleTask (stWorkTask);
 
   //--- Call the Main Function after basic boot complete
   main();

@@ -18,6 +18,8 @@
 
 #include "projectdefs.h"
 
+  #define TESTHELP_FLAG
+
 //---------------------------------------------------------------------------------------------
 //  Task Definition
 //---------------------------------------------------------------------------------------------
@@ -115,6 +117,8 @@ u16 volatile  uwTaskIptr;                         //--- Task Queue In Pointer
 u16 volatile  uwTaskOptr;                         //--- Task Queue Out Pointer
 u16 volatile  uwTaskCntr;                         //--- Task Queue Task Counter
 
+struct  Task  stWorkTask;                         //--- Generic Global Work Task
+
 //---------------------------------------------------------------------------------------------
 //
 //                 Real Time Operating System Task Schedueling Function
@@ -133,8 +137,6 @@ u16 volatile  uwTaskCntr;                         //--- Task Queue Task Counter
 //      MSB value of Byte[3] = Error Code ( 0 = No Error, Otherwise Error in Schedueling
 //---------------------------------------------------------------------------------------------
 
-#define SCHED_TEST
-
 u32 fnScheduleTask (struct Task stInTask)
 {
   u16   uwError = 0;                              //--- Schedule Return Value/Error
@@ -144,9 +146,8 @@ u32 fnScheduleTask (struct Task stInTask)
 
   GID;                                            //--- Kill All Interrutps
 
-  #ifdef SCHED_TEST
-    //--- Set Schedule Test Bit High
-    SET_PA11;
+  #ifdef TESTHELP_FLAG
+    SET_PA05;
   #endif
 
   STK_CTRL &= 0x00000005;                         //--- Keep SysTick Enabled - Ignore New Int
@@ -208,11 +209,8 @@ u32 fnScheduleTask (struct Task stInTask)
 
   STK_CTRL |= 0x00000007;                         //--- Re Enable SysTick Interrupt
 
-  //--- If Error then return error number (0x0001 to 0xFFFF)
-
-  //--- Set Schedule Test Bit High
-  #ifdef SCHED_TEST
-    CLR_PA11;
+  #ifdef TESTHELP_FLAG
+    CLR_PA05;
   #endif
 
   return uwError;
@@ -230,8 +228,6 @@ u32 fnScheduleTask (struct Task stInTask)
 u16   uwLTP;                  //--- FIFO Location of Last Task Executed
 u16   uwNTP;                  //--- FIFO Location of Next Available Empty Task in FIFO
 
-#define TESTHELP_FLAG
-
 void  fnDispatcher (void)
 {
   union DFLWB unTaskData;                         //--- Task Pass Data Union
@@ -246,7 +242,7 @@ void  fnDispatcher (void)
 
 //--- output everytime you enter the dispatcher
   #ifdef TESTHELP_FLAG
-    SET_PA05;                                     //--- Dispatcher Test Pulse Hi on PA10
+    SET_PA04;                                     //--- Dispatcher Test Pulse Hi on PA10
   #endif
 
   //--- Test if Task waiting in Dispatch FIFO  TaskCounter > 0
@@ -283,7 +279,7 @@ void  fnDispatcher (void)
   nop8;
 
   #ifdef TESTHELP_FLAG
-    CLR_PA05;                                     //--- Dispatcher Test Pulse Lo on PA10
+    CLR_PA04;                                     //--- Dispatcher Test Pulse Lo on PA10
   #endif
 }
 
@@ -330,24 +326,16 @@ void  fnPurgeTask (void (*ptrTask))
 //---------------------------------------------------------------------------------------------
 //                                  Null or Do Nothing Task
 //---------------------------------------------------------------------------------------------
-void  fnNullTask (union DFLWB unEmptyData)
+void  fnNullTask (union DFLWB unNothing)
 {
   GIE;                                            //--- Enable Interrupts on Exit
 }
 
 //---------------------------------------------------------------------------------------------
-//    Reurn an empty Task Data Field
+//    Define an empty Task Data Field
 //---------------------------------------------------------------------------------------------
-union DFLWB fnEmptyData (void)
-{
-  union DFLWB stEmptyData;
 
-  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-  //--- Zero Task Data Structure
-  stEmptyData.uxBig = (u64) 0;         //--- Return Empty Data Fields
-  return stEmptyData;
-}
+union DFLWB unEmptyData;
 
 //=============================================================================================
 //   How the RTOS Functions Work

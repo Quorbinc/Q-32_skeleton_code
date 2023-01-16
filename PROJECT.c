@@ -10,8 +10,6 @@ u32 ulValue;                                      //--- Global Long (32 Bit)
 u16 uwValue;                                      //--- Global Word (16 Bit)
 u08 ubValue;                                      //--- Global Byte ( 8 Bit)
 
-struct Task stGlobalTask;                         //--- Global Task for schedueling
-
 #define ReleaseVersion 0x0100                     //--- Release 1.0
 
 u32 volatile ulSystemFlags;                       //--- ulSystemFlags
@@ -20,7 +18,7 @@ u32 volatile ulSystemFlags;                       //--- ulSystemFlags
 //---------------------------------------------------------------------------------------------
 //  Bit   Function
 //  ---   -------------------------------------------------------------------------------------
-//  00                                    0 =                       1 =
+//  00    Recursion Mode Flag             0 = Flash Red             1 = Flash Green
 //  01                                    0 =                       1 =
 //  02                                    0 =                       1 =
 //  03                                    0 =                       1 =
@@ -77,9 +75,6 @@ u32 volatile ulSystemFlags;                       //--- ulSystemFlags
 //  fnFunctionName (struct PassData stTaskData)
 //
 
-struct Task stWorkTask;                         //--- Disposable Temp Task Definition
-
-
 //---------------------------------------------------------------------------------------------
 //    Main Program Entry Point Add your user code
 //---------------------------------------------------------------------------------------------
@@ -106,24 +101,28 @@ int main (void)
     }
 
     //--- Output the STK_CTRL Value to PA06 & PA07
-    fnPulseLongOut (STK_CTRL);
+    #ifdef TESTHELP_FLAG
+      fnPulseLongOut (STK_CTRL);
 
-    //--- Spacing Delay
-    for (ulC = 0; ulC < 10; ulC++)
-    {
-      nop4;
-    }
+      //--- Spacing Delay
+      for (ulC = 0; ulC < 10; ulC++)
+      {
+        nop4;
+      }
+    #endif
 
     //--- Pulse Out STK_LOAD Value
-    fnPulseLongOut (STK_LOAD);
+    #ifdef TESTHELP_FLAG
+      fnPulseLongOut (STK_LOAD);
 
-    //--- The Dispatcher is called from the main endless loop
+      //--- The Dispatcher is called from the main endless loop
 
-    //--- Spacing Delay
-    for (ulC = 0; ulC < 10; ulC++)
-    {
-      nop4;
-    }
+      //--- Spacing Delay
+      for (ulC = 0; ulC < 10; ulC++)
+      {
+        nop4;
+      }
+    #endif
 
     fnDispatcher();
 
@@ -136,3 +135,110 @@ int main (void)
 
   }
 }
+
+
+  //-------------------------------------------------------------------------------------------
+  //  Task Definition
+  //-------------------------------------------------------------------------------------------
+  //
+  //  //--- 16 Bytes / Task
+  //  struct Task
+  //  {
+  //    u16     uwTimer;                            //--- Task Timer delay value (0 - 65535 mSec)
+  //    u16     uwFlags;                            //--- Temporary Flags to Pass
+  //    void    (*ptrTask);                         //--- Address Pointer of Task
+  //    union DFLWB unTaskData;                     //--- Generic unDFLB Data Union
+  //  };
+  //
+  //  Task Function Definition:
+  //  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //  ALL Tasks MUST use this Function Definition
+  //  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  //
+  //  (u16) uwRetCode fnFunctionName (u32 ulTimeStamp, union DFLWB unTaskData)
+  //
+  //-------------------------------------------------------------------------------------------
+  //  Task Data Union Definition
+  //-------------------------------------------------------------------------------------------
+  //
+  //  union DFLWB                                   //--- 8 Bytes Binary / Integer Storage
+  //  {
+  //    dbl   dfFlt;                                //--- 1 Double Precision Float
+  //    u64   uxLL;                                 //--- 1 Unsigned 64 Bit Long Long Integer
+  //    s64   sxLL;                                 //--- 1 Signed 64 Bit Long Long Integer
+  //    u08*  ubPtr[2];                             //--- 2 General Purpose Byte Pointers
+  //    void* vPntr[2];                             //--- 2 Void Type Pointers
+  //    flt   sfFlt[2];                             //--- 2 Single Precision Floats
+  //    u32   ulLong[2];                            //--- 2 Unsigned Long
+  //    s32   slLong[2];                            //--- 2 Signed Long
+  //    u16   uwWord[4];                            //--- 4 Unsigned Words (16 Bit)
+  //    s16   swWord[4];                            //--- 4 Signed Words (16 Bit)
+  //    u08   ubByte[8];                            //--- 8 Unsigned Bytes
+  //    s08   sbByte[8];                            //--- 8 Signed Bytes
+  //  };
+  //
+  //
+  //-------------------------------------------------------------------------------------------
+
+
+//---------------------------------------------------------------------------------------------
+//  Task To Flip Test LED on PA00 & PA01 from Red to Green
+//  This Task Recursivily scheduels it self at 1000 mSec Intervals
+//---------------------------------------------------------------------------------------------
+u16  tkRecursion (union DFLWB unTD)
+{
+  struct  Task stWork;
+
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+  //--- Reverse Polarity to Solve Task
+  if (unTD.ubByte[0] != 0)
+  {
+    //--- Red Light On
+    SET_PA00;
+    CLR_PA01;
+    ulSystemFlags &= 0xFFFFFFFE;                    //--- Clear Recursive Flag
+    unTD.ubByte[0] = 0;
+  }
+  else
+  {
+    //--- Green Light On
+    CLR_PA00;
+    SET_PA01;
+    ulSystemFlags |= 0x00000001;                    //--- Set Recursive Flag
+    unTD.ubByte[0] = 0xFF;
+  }
+
+  //--- Reschedule This Once / Second
+  stWork.uwTimer = 1000;                            //--- Timer Delay = 1000
+  stWork.ptrTask = &tkRecursion;                    //--- Reschedule This Task
+  stWork.uwFlags = 0;                               //--- No Flags
+  stWork.unTaskData = unTD;                         //--- Reverse Color Flag
+  uwReturnVal = fnScheduleTask (stWork);
+  return uwReturnVal;                               //--- Return Schedule Error
+}
+
+
+//|....|....|....*....|....|....*....|....|....^....|....|....*....|....|....*....|....|....|..
+
+//=============================================================================================
+//
+//=============================================================================================
+
+//---------------------------------------------------------------------------------------------
+//
+//---------------------------------------------------------------------------------------------
+
+  //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+  //-------------------------------------------------------------------------------------------
+  //
+  //-------------------------------------------------------------------------------------------
+
+    //-----------------------------------------------------------------------------------------
+    //
+    //-----------------------------------------------------------------------------------------
+
+      //---------------------------------------------------------------------------------------
+      //
+      //---------------------------------------------------------------------------------------

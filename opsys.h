@@ -26,7 +26,7 @@
   //--- Structure has 8 Bytes of Data
   //    1 u32 length Timestamp
   //    1 union of 20 Byte DFLWB for Task Data
-  union DFLWB unPassData;                        //--- DFLWB Data union 8 Bytes
+//  union DFLWB unPassData;                        //--- DFLWB Data union 8 Bytes
 
   //--- 16 Bytes / Task
   struct Task
@@ -44,7 +44,8 @@
     u16 uwRetVal;           //--- Generic Return Value
   };
 
-//
+  //--- Work Task Definition
+  extern    struct  Task  stWorkTask;
 
   //--- Task and Timer Queue Definitions
   extern    struct  Task  stTaskQueue[TASK_QUEUE_SIZE];
@@ -54,6 +55,9 @@
   extern    u16 volatile  uwTaskIptr;
   extern    u16 volatile  uwTaskOptr;
   extern    u16 volatile  uwTaskCntr;
+
+  //--- Define Empty Data Union.
+  extern    union DFLWB unEmptyData;
 
   //-------------------------------------------------------------------------------------------
   //  Task Definition
@@ -99,7 +103,6 @@
   //-------------------------------------------------------------------------------------------
 
   //--- Function Prototypes for Public Use
-  union DFLWB fnEmptyData (void);
   u32   fnScheduleTask (struct Task stInTask);
   void  fnDispatcher (void);
   void  fnPurgeTask (void (*ptrTask));

@@ -81,9 +81,9 @@ void fnSysTick_IRQ(void)                        //--- IRQ_- 1
 
   //--- Set Test Pulse Hi   OUTPUT PA15
   //    Comment this out if PA15 used for something else
-//  #ifdef PacerTest
-    SET_PA15;                                     //--- Pacer Test Pulse Hi
-//  #endif
+  #ifdef PacerTest
+    SET_PA03;                                     //--- Pacer Test Pulse Hi
+  #endif
 
   uxSysTick++;                                    //--- Advance the gross 64 bit Timer
 
@@ -125,9 +125,9 @@ void fnSysTick_IRQ(void)                        //--- IRQ_- 1
 
     //--- If test mode defined then show where Phase (0) is
     #ifdef PacerTest
-      SET_PA00;
+      SET_PA02;
       nop8;
-      CLR_PA00;
+      CLR_PA02;
     #endif
 
       //--- Add additional actions to be performed during Phase_0 Here
@@ -418,9 +418,9 @@ void fnSysTick_IRQ(void)                        //--- IRQ_- 1
 
   //--- Set Test Pulse Lo   OUTPUT PA15
   //    Comment this out if PA15 used for something else
-//  #ifdef PacerTest
-    CLR_PA15;                                    //--- Pacer Test Pulse Lo
-//  #endif
+  #ifdef PacerTest
+    CLR_PA03;                                    //--- Pacer Test Pulse Lo
+  #endif
 }
 
 //---------------------------------------------------------------------------------------------
