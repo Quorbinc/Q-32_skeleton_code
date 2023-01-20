@@ -22,4 +22,4 @@ int main (void)
   }
 }
 ```
-
+The above code will set PA_14 as an output, turn it on, wait for a half second, turn it off, wait for another half second and repeat the loop.  This looping method is a common way microcontrollers are programmed to operate but we have thrown in a different operating method.
