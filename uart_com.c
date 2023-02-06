@@ -29,7 +29,7 @@ u08   ubStr[128];                                 //--- Generic Sub String Const
 //                         USART Control RAM & ROM definitions
 //---------------------------------------------------------------------------------------------
 
-#ifdef USART1_FLAG
+#ifdef USART1_USED
   //--- USART Channel #1 Definitions
   u16   uwUSART1TxCntr;                           //--- Tx Chr Cntr
   u16   uwUSART1TxIptr;                           //--- Tx In Pointer
@@ -207,7 +207,7 @@ u08   ubStr[128];                                 //--- Generic Sub String Const
 //    USART-2 is a character based communications used for DeBug and Messaging Functions
 //---------------------------------------------------------------------------------------------
 
-// #ifdef USART2_FLAG
+#ifdef USART2_USED
   //--- USART Channel #2 Definitions
   u16   uwUSART2TxCntr;                             //--- Tx Chr Cntr
   u16   uwUSART2TxIptr;                             //--- Tx In Pointer

@@ -36,18 +36,18 @@ TARGET = PROJECT
 # List C source files here. (C dependencies are automatically generated.)
 # use file-extension c for "c-only"-files
 
-SRC = startup.c
+SRC = $(TARGET).c
+SRC += startup.c
 SRC += genrtn.c
 SRC += opsys.c
-SRC += uart_com.c
+# SRC += usart1.c
+# SRC += usart2.c
+# SRC += i2c1.c
+# SRC += eeprom.c
 SRC += sys_tick.c
 SRC += interrupts.c
 SRC += test_help.c
 SRC += errors.c
-# UnComment if I2C1 Used
-	# SRC += i2c1.c
-	# SRC += eeprom.c
-SRC += $(TARGET).c
 
 #--------------------------------------------------------------------------
 # List Assembler source files here.

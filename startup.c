@@ -33,7 +33,6 @@
 //
 //--------------------------------------------------------------------------------------------
 
-u08     ubSVCn;                                   //--- Software Interrupt Select Numberin RAM
 u32     tmp;                                      //--- Temporary Number
 u32     ulT = 0;
 u16     uwReturnVal;
@@ -190,16 +189,6 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
     nop4;
   }
 
-  //--- Notate Success of LSE in SystemFlags
-  if (ulT > 0)
-  {
-    ulSystemFlags |= 0x00000001;                  //--- Success = Hi Bit (0)
-  }
-  else
-  {
-    ulSystemFlags &= 0xFFFFFFFE;                  //--- Failure = Lo Bit (0)
-  }
-
   //-------------------------------------------------------------------------------------------
   //    Configure System Clocks
   //-------------------------------------------------------------------------------------------
@@ -235,16 +224,6 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
     nop12;
   }
 
-  //--- Notate Success of MSI @ 4 MHz at StartUp
-  if (ulT > 0)
-  {
-    ulSystemFlags |= 0x00000002;                  //--- Success = Hi
-  }
-  else
-  {
-    ulSystemFlags &= 0xFFFFFFFD;                  //--- Failure = Lo
-  }
-
   //--- Turn on MSI PLL link to LSE
   //      3322 2222 2222 1111 1111 1100 0000 0000
   //      1098 7654 3210 9876 5432 1098 7654 3210
@@ -277,16 +256,6 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
     nop12;
   }
 
-  //--- Notate Success of MSI PLL @ 4 MHz at StartUp
-  if (ulT > 0)
-  {
-    ulSystemFlags |= 0x00000004;                  //--- Success = Hi
-  }
-  else
-  {
-    ulSystemFlags &= 0xFFFFFFFB;                  //--- Failure = Lo
-  }
-
   //--- Enable Main PLL in RCC_PLLCFGR
   //--- RCC_PLLCFGR
   //      3322 2222 2222 1111 1111 1100 0000 0000
@@ -311,7 +280,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //    PLLVCO INPUT = ((4000000 / 1) * 72) = 288 MHz
   //    PLLCLK = VCO / 4 = 72 MHz
   RCC_PLLCFGR = 0x03504801;
-  nop48;
+  nop12;
 
   //--- Turn on Main PLL Enable
   //      3322 2222 2222 1111 1111 1100 0000 0000
@@ -334,7 +303,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //    Main System PLL  24         On
   //    PLLSAI1_ON       26         Off
   RCC_CR |= 0x0100006D;
-  nop48;
+  nop12;                                          //--- Delay to let PLL Catch Up
 
   //--- Wait for PLL & MSI clocks to show "Ready"
   ulT = 100000;  //    Wait for upto 100K Loops
@@ -343,16 +312,6 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   {
     ulT--;                                        //--- Decrement Period Counter
     nop12;
-  }
-
-  //--- Notate Success of Main PLL StartUp
-  if (ulT > 0)
-  {
-    ulSystemFlags |= 0x00000008;                  //--- Success = Hi
-  }
-  else
-  {
-    ulSystemFlags &= 0xFFFFFFF7;                  //--- Failure = Lo
   }
 
   //--- RCC_CSR is Preset to 0x0C000600
@@ -419,17 +378,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   while (((RCC_CFGR & 0x0000000C) != 0x0000000C) && ulT)
   {
     ulT--;                                        //--- Decrement Period Counter
-    nop12;
-  }
-
-  //--- Notate Success of PLL StartUp
-  if (ulT > 0)
-  {
-    ulSystemFlags |= 0x00000010;                  //--- Success = Hi
-  }
-  else
-  {
-    ulSystemFlags &= 0xFFFFFFEF;                  //--- Failure = Lo
+    nop4;
   }
 
   //--- Independant Clock Config Register
@@ -589,7 +538,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   RCC_APB2SMENR = 0x00000001;
 
   //--- Wait to settle down
-  nop12;
+  nop4;
 
   //--- Initialize NVIC Table of Vectors
   fnInitNVIC();
@@ -681,7 +630,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   GPIOA_AFRH = 0x00000000;                        //--- Set AFRH to 0
 
   //--- Waste a little Time for things to settle down
-  nop12;
+  nop4;
 
   //-------------------------------------------------------------------------------------------
   //      Configure GPIO_B
@@ -769,7 +718,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   GPIOB_AFRH = 0x00000000;
 
   //--- Waste a little Time for things to settle down
-  nop12;
+  nop4;
 
   //-------------------------------------------------------------------------------------------
   //      Configure GPIO_C
@@ -845,7 +794,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   GPIOC_AFRH = 0x00000000;
 
   //--- Waste a little Time for things to settle down
-  nop12;
+  nop4;
 
   //--- Always Enable FPU in STM32L432
   FPU_ENA;
@@ -861,39 +810,39 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //  VREFBUF_CSR = 0x00000001;                     //--- VREF = 2.048V Internal Ref
   //  VREFBUF_CSR = 0x00000000;                     //--- VREF = External Reference
 
-  unEmptyData.uxBig = 0;
+  unEmptyData.uxBig = 0;                          //--- Preset EmptyData to 0
 
   //-------------------------------------------------------------------------------------------
   //  Start Up SysTick Timer As Pacer Set for 10 KHz  100uSec base frequency
   //-------------------------------------------------------------------------------------------
 
-  SET_PRIVLEGED_MODE;
+  SET_PRIVLEGED_MODE;                             //--- Make sure we are in privileged mode
 
-  fnInitSysTick ();
-
-/*
-  //-------------------------------------------------------------------------------------------
-  //  Add Other Peripherial Initializations Here USART #2 = Debug USART
-  //-------------------------------------------------------------------------------------------
-  fnInitUSART2 (115200);                          //--- Initialize USART2 Communications
-
-  //--- Output Start Message on USART #2
-  fnStringOut_2 ("I'm Alive, Mu Ah Ah Ah! \r\n Ready --> ");
-
-  */
+  fnInitSysTick ();                               //--- Start Up System Timer
 
   //--- Show that Init Complete
-  ulSystemFlags |= 0xC0000000;                    //--- Start-Up Success = Hi
+  ulSystemFlags = 0x80000000;                     //--- Show Systick Initialized
+
+  //-------------------------------------------------------------------------------------------
+  //  Add Other Peripherial Initializations Here
+  //-------------------------------------------------------------------------------------------
+  #ifdef USART1_USED
+    fnInitUSART1 (115200);                        //--- Initialize USART1 Communications
+    //--- Show USART1 Init Complete
+    ulSystemFlags |= 0x1000000;                   //--- Show USART1 Initialized
+  #endif
+
+  #ifdef USART2_USED
+    fnInitUSART2 (115200);                        //--- Initialize USART2 Communications
+    //--- Show USART2 Init Complete
+    ulSystemFlags |= 0x2000000;                   //--- Show USART1 Initialized
+  #endif
+
+  //--- Output Start Message on USART #1
+ // fnTxtToFIFO_1 ("\r\nI'm Alive, Mu Ah Ah Ah! \r\n Ready --> ");
 
   nop4;                                           //--- A Brief Pause
   GIE;                                            //--- Enable All Other Interrupts
-
-  //--- Schedule First Recursion Task
-  stWorkTask.uwTimer = 1000;                      //--- Timer Delay = 1000
-  stWorkTask.ptrTask = &tkRecursion;              //--- Reschedule This Task
-  stWorkTask.uwFlags = 0;                         //--- No Flags
-  stWorkTask.unTaskData = unEmptyData;            //--- Clear First Try
-  uwReturnVal = fnScheduleTask (stWorkTask);
 
   //--- Call the Main Function after basic boot complete
   main();

@@ -46,7 +46,7 @@ u32   ulFastTimeCount[4];                       //--- Handy Down Counters
 void  fnInitSysTick (void)
 {
   INIT_SYSTICK;
-
+}
 
 //  u32 ulCount = (SYSCLK / TickRate) - 1;        //--- Calculate SysTick Clock Down Count 7199
 
@@ -56,7 +56,6 @@ void  fnInitSysTick (void)
 //  STK_LOAD = ulCount;                           //--- Set the SysTick Load Value
 //  STK_VAL = ulCount - 1;                        //--- Preset Initial DownCount
 //  STK_CTRL = 0x00000007;                        //--- Enable SysTick, Interrupt Use SysClock
-}
 
 //---------------------------------------------------------------------------------------------
 //                   Pacer Interrupt Service Call By SYS_TICK_IRQ
@@ -80,10 +79,7 @@ void fnSysTick_IRQ(void)                        //--- IRQ_- 1
   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
   //--- Set Test Pulse Hi   OUTPUT PA15
-  //    Comment this out if PA15 used for something else
-  #ifdef PacerTest
-    SET_PA03;                                     //--- Pacer Test Pulse Hi
-  #endif
+  //  SET_PA03;                                     //--- Pacer Test Pulse Hi
 
   uxSysTick++;                                    //--- Advance the gross 64 bit Timer
 
@@ -123,13 +119,6 @@ void fnSysTick_IRQ(void)                        //--- IRQ_- 1
         }
       }
 
-    //--- If test mode defined then show where Phase (0) is
-    #ifdef PacerTest
-      SET_PA02;
-      nop8;
-      CLR_PA02;
-    #endif
-
       //--- Add additional actions to be performed during Phase_0 Here
       break;
 
@@ -165,7 +154,7 @@ void fnSysTick_IRQ(void)                        //--- IRQ_- 1
         //--- Decrement Timer
         stTimerQueue[2].uwTimer--;
 
-        //--- If Timer now == 0 then treat it as a regular task by changing Task Flags
+       //--- If Timer now == 0 then treat it as a regular task by changing Task Flags
         if (!stTimerQueue[2].uwTimer)
         {
           uwErrCode = fnScheduleTask (stTimerQueue[2]);
@@ -217,6 +206,40 @@ void fnSysTick_IRQ(void)                        //--- IRQ_- 1
           if (uwErrCode) fnError (uwErrCode);
         }
       }
+
+
+
+      //--- Every 10 mSec output System Flags
+      //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+      switch (uwPacerTick % 5)
+      {
+        case 0:
+          ulSystemFlags &= 0xFFFFFF0F;
+          ulSystemFlags |= 0x00000010;
+          break;
+
+        case 1:
+          ulSystemFlags &= 0xFFFFFF0F;
+          ulSystemFlags |= 0x00000020;
+          break;
+
+        case 2:
+          ulSystemFlags &= 0xFFFFFF0F;
+          ulSystemFlags |= 0x00000040;
+          break;
+
+        case 3:
+          ulSystemFlags &= 0xFFFFFF0F;
+          ulSystemFlags |= 0x00000080;
+          break;
+
+        case 4:
+          ulSystemFlags &= 0xFFFFFF0F;
+          ulSystemFlags |= 0x000000F0;
+          break;
+      }
+
+      fnPulseLongOut (ulSystemFlags);
 
       //--- Add additional actions to be performed during Phase_4 Here
       break;
@@ -369,7 +392,7 @@ void fnSysTick_IRQ(void)                        //--- IRQ_- 1
         }
       }
 
-      //--- Bump the Pacer Tick
+      //--- Bump the Pacer 1 mSec Tick
       uwPacerTick++;                              //--- Bump 1ms Pacer Tick
       uwPacerTick %= 60000;                       //--- 60,000 Pacer Ticks = 1 Minuite
 
@@ -381,7 +404,7 @@ void fnSysTick_IRQ(void)                        //--- IRQ_- 1
     //-----------------------------------------------------------------------------------------
     default:
       ulSystemFlags |= 0x10000000;                //--- Set the Systick Error Flag
-      uwPacerPhase = 0;
+      uwPacerPhase = 0;                           //--- ReSync Pacer Phases
       break;
   }
 
@@ -395,33 +418,36 @@ void fnSysTick_IRQ(void)                        //--- IRQ_- 1
   //    Depending on the BaudRate for the UART Port
   //    This TX method can transmit at any BAUD rate up to 115200
 
-
-  if (uwXmit_1_Count)                             //--- Is Xmit Timer Active?
-  {
-    uwXmit_1_Count--;                             //--- Yes so decrement Counter
-    if (!uwXmit_1_Count)                          //--- Did we reach TX period time?
+  //--- Test if USART1 Defined
+  #ifdef USART1_USED
+    if (uwXmit_1_Count)                             //--- Is Xmit Timer Active?
     {
-      uwXmit_1_Count = uwXmit_1_Delay;            //--- Refresh the Period Count
-      fnXmitSvc_1 ();                             //--- Call the Xmit Service Routine
+      uwXmit_1_Count--;                             //--- Yes so decrement Counter
+      if (!uwXmit_1_Count)                          //--- Did we reach TX period time?
+      {
+        uwXmit_1_Count = uwXmit_1_Delay;            //--- Refresh the Period Count
+        fnXmitSvc_1 ();                             //--- Call the Xmit Service Routine
+      }
     }
-  }
-
-  if (uwXmit_2_Count)                             //--- Is Xmit Timer Active?
-  {
-    uwXmit_2_Count--;                             //--- Yes so decrement Counter
-    if (!uwXmit_2_Count)                          //--- Did we reach TX period time?
-    {
-      uwXmit_2_Count = uwXmit_2_Delay;            //--- Refresh the Period Count
-      fnXmitSvc_2 ();                             //--- Call the Xmit Service Routine
-    }
-  }
-
-  //--- Set Test Pulse Lo   OUTPUT PA15
-  //    Comment this out if PA15 used for something else
-  #ifdef PacerTest
-    CLR_PA03;                                    //--- Pacer Test Pulse Lo
   #endif
+
+
+  //--- Test if USART2 Defined
+  #ifdef USART2_USED
+    if (uwXmit_2_Count)                             //--- Is Xmit Timer Active?
+    {
+      uwXmit_2_Count--;                             //--- Yes so decrement Counter
+      if (!uwXmit_2_Count)                          //--- Did we reach TX period time?
+      {
+        uwXmit_2_Count = uwXmit_2_Delay;            //--- Refresh the Period Count
+        fnXmitSvc_2 ();                             //--- Call the Xmit Service Routine
+      }
+    }
+  #endif
+
+  //  CLR_PA03;                                    //--- Pacer Test Pulse Lo
 }
+
 
 //---------------------------------------------------------------------------------------------
 //    Fast Timer Down Count Functions

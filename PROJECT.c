@@ -9,6 +9,7 @@
 u32 ulValue;                                      //--- Global Long (32 Bit)
 u16 uwValue;                                      //--- Global Word (16 Bit)
 u08 ubValue;                                      //--- Global Byte ( 8 Bit)
+u08 testvalue = 0;
 
 #define ReleaseVersion 0x0100                     //--- Release 1.0
 
@@ -80,49 +81,26 @@ u32 volatile ulSystemFlags;                       //--- ulSystemFlags
 //---------------------------------------------------------------------------------------------
 int main (void)
 {
-  u32  ulC;
+  // u32  ulC;
 
   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+  PA14_OUT;                                 //--- Set PA14 as Output
+
+
+
+  stWorkTask.uwTimer = 333;
+  stWorkTask.ptrTask = &tkBlinkLED;
+  stWorkTask.uwFlags = 0;
+  stWorkTask.unTaskData = unEmptyData;      //--- Empty Data to Start
+  uwReturnVal = fnScheduleTask(stWorkTask);
 
   //--- Main Infinite Loop entry point calls Dispatcher and any polled actions
   while (1)
   {
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-    #ifdef TESTHELP_FLAG
-      // fnPulseLongOut (fnReadCPUregister(20));     //--- Show System CONTROL
-      fnPulseLongOut (0x00FF0F35);     //--- Pulse Out Orientation
-    #endif
-
-    //--- Spacing Delay
-    for (ulC = 0; ulC < 10; ulC++)
-    {
-      nop4;
-    }
-
     //--- Output the STK_CTRL Value to PA06 & PA07
-    #ifdef TESTHELP_FLAG
-      fnPulseLongOut (STK_CTRL);
-
-      //--- Spacing Delay
-      for (ulC = 0; ulC < 10; ulC++)
-      {
-        nop4;
-      }
-    #endif
-
-    //--- Pulse Out STK_LOAD Value
-    #ifdef TESTHELP_FLAG
-      fnPulseLongOut (STK_LOAD);
-
-      //--- The Dispatcher is called from the main endless loop
-
-      //--- Spacing Delay
-      for (ulC = 0; ulC < 10; ulC++)
-      {
-        nop4;
-      }
-    #endif
 
     fnDispatcher();
 
@@ -132,7 +110,6 @@ int main (void)
     //    If required add a function call for any activities that are required to be handled
     //    in the "main" loop.
     //-----------------------------------------------------------------------------------------
-
   }
 }
 
@@ -179,44 +156,36 @@ int main (void)
   //
   //
   //-------------------------------------------------------------------------------------------
-
-
 //---------------------------------------------------------------------------------------------
-//  Task To Flip Test LED on PA00 & PA01 from Red to Green
-//  This Task Recursivily scheduels it self at 1000 mSec Intervals
+//    Recursive Task to blink an LED on GPIO PA14
 //---------------------------------------------------------------------------------------------
-u16  tkRecursion (union DFLWB unTD)
+void tkBlinkLED (union DFLWB unTD)
 {
-  struct  Task stWork;
+  struct  Task stTask;                              //--- Task Model for Scheduling Tasks
+  struct  TaskRet stTaskRet;                        //--- Return Structure
 
   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-  //--- Reverse Polarity to Solve Task
-  if (unTD.ubByte[0] != 0)
+  if (TST_PA14)
   {
-    //--- Red Light On
-    SET_PA00;
-    CLR_PA01;
-    ulSystemFlags &= 0xFFFFFFFE;                    //--- Clear Recursive Flag
-    unTD.ubByte[0] = 0;
+      CLR_PA14;
   }
   else
   {
-    //--- Green Light On
-    CLR_PA00;
-    SET_PA01;
-    ulSystemFlags |= 0x00000001;                    //--- Set Recursive Flag
-    unTD.ubByte[0] = 0xFF;
+      SET_PA14;
   }
 
-  //--- Reschedule This Once / Second
-  stWork.uwTimer = 1000;                            //--- Timer Delay = 1000
-  stWork.ptrTask = &tkRecursion;                    //--- Reschedule This Task
-  stWork.uwFlags = 0;                               //--- No Flags
-  stWork.unTaskData = unTD;                         //--- Reverse Color Flag
-  uwReturnVal = fnScheduleTask (stWork);
-  return uwReturnVal;                               //--- Return Schedule Error
+
+  //--- Reschedule this task 3 times / Second
+  stTask.uwTimer = 333;                             //--- Repeat 3 times / Second
+  stTask.ptrTask = &tkBlinkLED;
+  stTask.uwFlags = 0;
+  stTask.unTaskData = unTD;
+  uwReturnVal = fnScheduleTask (stTask);
+                                                    //--- Return Code is Ignored
+  //stTaskRet.uwErrorCode = 0;
 }
+
+
 
 
 //|....|....|....*....|....|....*....|....|....^....|....|....*....|....|....*....|....|....|..

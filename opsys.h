@@ -17,7 +17,7 @@
 
 #ifndef OPSYS_H
   #define OPSYS_H
-  #define TASK_QUEUE_SIZE   16                    //--- UpTo 32 Tasks Max waiting in dispatcher
+  #define TASK_QUEUE_SIZE   16                    //--- UpTo 16 Tasks Max waiting in dispatcher
   #define TIMER_QUEUE_SIZE  10                    //--- Number of Pacer Timers available
 
   #define ERR_RTOS_SCHED_QUEUE_FULL   0xF001      //--- No Queue Slots Available
@@ -37,11 +37,11 @@
     union DFLWB unTaskData;                     //--- Generic (8 Byte) PassData Union
   };
 
-  //--- Structure Returned by ALL Tasks
+  //--- Structure for Task Return
   struct TaskRet
   {
-    u16 uwErrCode;          //--- Returned Error Code Value.  (0x0000 = No Error)
-    u16 uwRetVal;           //--- Generic Return Value
+    u16         uwErrorCode;                    //--- Called Task Return Error Code
+    union LWB   unRetValue;                     //--- Generic LWB union return values
   };
 
   //--- Work Task Definition
@@ -77,7 +77,7 @@
   //  ALL Tasks MUST use this Function Definition
   //  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   //
-  //  (u16) uwRetCode fnFunctionName (u32 ulTimeStamp, union DFLWB unTaskData)
+  //  (u08) ubRetCode tkTaskName (union DFLWB unTaskData)
   //
   //-------------------------------------------------------------------------------------------
   //  Task Data Union Definition
@@ -102,11 +102,17 @@
   //
   //-------------------------------------------------------------------------------------------
 
-  //--- Function Prototypes for Public Use
-  u32   fnScheduleTask (struct Task stInTask);
+  //--- Function used to schedule a new Task
+  u16   fnScheduleTask (struct Task stInTask);
+
+  //--- Function to fetch the next available Task from the Task Queue
   void  fnDispatcher (void);
+
+  //--- Function to Purge a Task waiting in the Queue
   void  fnPurgeTask (void (*ptrTask));
-  void  fnNullTask (union DFLWB unTaskData);
+
+  //--- Do Nothing Task
+  void  tkNullTask (union DFLWB unTaskData);
 
 #endif
 

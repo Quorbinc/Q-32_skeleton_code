@@ -130,7 +130,6 @@
   #define PA15_ALT GPIOA_MODER &= 0x3FFFFFFF; GPIOA_MODER |= 0x80000000;
   #define PA15_ANA GPIOA_MODER &= 0x3FFFFFFF; GPIOA_MODER |= 0xC0000000;
 
-
   //----------------------------------
   //          GPIOB pin changes
   //----------------------------------

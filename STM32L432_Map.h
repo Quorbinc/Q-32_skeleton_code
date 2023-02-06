@@ -510,6 +510,7 @@
   #define GPIOA_LCKR            *(vu32 *)(GPIOA_BASE + 0x0000001C)
   #define GPIOA_AFRL            *(vu32 *)(GPIOA_BASE + 0x00000020)
   #define GPIOA_AFRH            *(vu32 *)(GPIOA_BASE + 0x00000024)
+  #define GPIOA_BRR             *(vu32 *)(GPIOA_BASE + 0x00000028)
 
   //--- GPIO-B
   #define GPIOB_MODER           *(vu32 *)(GPIOB_BASE + 0x00000000)
@@ -522,6 +523,7 @@
   #define GPIOB_LCKR            *(vu32 *)(GPIOB_BASE + 0x0000001C)
   #define GPIOB_AFRL            *(vu32 *)(GPIOB_BASE + 0x00000020)
   #define GPIOB_AFRH            *(vu32 *)(GPIOB_BASE + 0x00000024)
+  #define GPIOB_BRR             *(vu32 *)(GPIOB_BASE + 0x00000028)
 
   //--- GPIO-C
   #define GPIOC_MODER           *(vu32 *)(GPIOC_BASE + 0x00000000)
@@ -534,6 +536,7 @@
   #define GPIOC_LCKR            *(vu32 *)(GPIOC_BASE + 0x0000001C)
   #define GPIOC_AFRL            *(vu32 *)(GPIOC_BASE + 0x00000020)
   #define GPIOC_AFRH            *(vu32 *)(GPIOC_BASE + 0x00000024)
+  #define GPIOC_BRR             *(vu32 *)(GPIOC_BASE + 0x00000028)
 
   //--- GPIO-D
   #define GPIOD_MODER           *(vu32 *)(GPIOD_BASE + 0x00000000)
@@ -546,6 +549,7 @@
   #define GPIOD_LCKR            *(vu32 *)(GPIOD_BASE + 0x0000001C)
   #define GPIOD_AFRL            *(vu32 *)(GPIOD_BASE + 0x00000020)
   #define GPIOD_AFRH            *(vu32 *)(GPIOD_BASE + 0x00000024)
+  #define GPIOD_BRR             *(vu32 *)(GPIOD_BASE + 0x00000028)
 
   //--- GPIO-E
   #define GPIOE_MODER           *(vu32 *)(GPIOE_BASE + 0x00000000)
@@ -558,6 +562,7 @@
   #define GPIOE_LCKR            *(vu32 *)(GPIOE_BASE + 0x0000001C)
   #define GPIOE_AFRL            *(vu32 *)(GPIOE_BASE + 0x00000020)
   #define GPIOE_AFRH            *(vu32 *)(GPIOE_BASE + 0x00000024)
+  #define GPIOE_BRR             *(vu32 *)(GPIOE_BASE + 0x00000028)
 
   //--- GPIO-F
   #define GPIOF_MODER           *(vu32 *)(GPIOF_BASE + 0x00000000)
@@ -570,6 +575,7 @@
   #define GPIOF_LCKR            *(vu32 *)(GPIOF_BASE + 0x0000001C)
   #define GPIOF_AFRL            *(vu32 *)(GPIOF_BASE + 0x00000020)
   #define GPIOF_AFRH            *(vu32 *)(GPIOF_BASE + 0x00000024)
+  #define GPIOF_BRR             *(vu32 *)(GPIOF_BASE + 0x00000028)
 
   //--- GPIO-G
   #define GPIOG_MODER           *(vu32 *)(GPIOG_BASE + 0x00000000)
@@ -582,6 +588,7 @@
   #define GPIOG_LCKR            *(vu32 *)(GPIOG_BASE + 0x0000001C)
   #define GPIOG_AFRL            *(vu32 *)(GPIOG_BASE + 0x00000020)
   #define GPIOG_AFRH            *(vu32 *)(GPIOG_BASE + 0x00000024)
+  #define GPIOG_BRR             *(vu32 *)(GPIOG_BASE + 0x00000028)
 
   //--- GPIO-H
   #define GPIOH_MODER           *(vu32 *)(GPIOH_BASE + 0x00000000)
@@ -594,6 +601,7 @@
   #define GPIOH_LCKR            *(vu32 *)(GPIOH_BASE + 0x0000001C)
   #define GPIOH_AFRL            *(vu32 *)(GPIOH_BASE + 0x00000020)
   #define GPIOH_AFRH            *(vu32 *)(GPIOH_BASE + 0x00000024)
+  #define GPIOH_BRR             *(vu32 *)(GPIOH_BASE + 0x00000028)
 
   //--- GPIO-I
   #define GPIOI_MODER           *(vu32 *)(GPIOI_BASE + 0x00000000)
@@ -606,6 +614,7 @@
   #define GPIOI_LCKR            *(vu32 *)(GPIOI_BASE + 0x0000001C)
   #define GPIOI_AFRL            *(vu32 *)(GPIOI_BASE + 0x00000020)
   #define GPIOI_AFRH            *(vu32 *)(GPIOI_BASE + 0x00000024)
+  #define GPIOI_BRR             *(vu32 *)(GPIOI_BASE + 0x00000028)
 
   //--- GPIO-J
   #define GPIOJ_MODER           *(vu32 *)(GPIOJ_BASE + 0x00000000)
@@ -618,6 +627,7 @@
   #define GPIOJ_LCKR            *(vu32 *)(GPIOJ_BASE + 0x0000001C)
   #define GPIOJ_AFRL            *(vu32 *)(GPIOJ_BASE + 0x00000020)
   #define GPIOJ_AFRH            *(vu32 *)(GPIOJ_BASE + 0x00000024)
+  #define GPIOJ_BRR             *(vu32 *)(GPIOJ_BASE + 0x00000028)
 
   //--- GPIO-K
   #define GPIOK_MODER           *(vu32 *)(GPIOK_BASE + 0x00000000)
@@ -630,6 +640,7 @@
   #define GPIOK_LCKR            *(vu32 *)(GPIOK_BASE + 0x0000001C)
   #define GPIOK_AFRL            *(vu32 *)(GPIOK_BASE + 0x00000020)
   #define GPIOK_AFRH            *(vu32 *)(GPIOK_BASE + 0x00000024)
+  #define GPIOK_BRR             *(vu32 *)(GPIOK_BASE + 0x00000028)
 
   //------------------------------------------------------------------------------------------
   //  GPIO Pin Number Defines   - This gives each I/O Pin a Unique Number (00 to FF)
@@ -854,32 +865,55 @@
   //-------------------------------------------------------------------------------------------
   //      UART Registers
   //-------------------------------------------------------------------------------------------
-  //--- UART # 1 Registers
-  #define USART1_SR             *(vu32 *)(USART1_BASE + 0x00000000)
-  #define USART1_DR             *(vu32 *)(USART1_BASE + 0x00000004)
-  #define USART1_BRR            *(vu32 *)(USART1_BASE + 0x00000008)
-  #define USART1_CR1            *(vu32 *)(USART1_BASE + 0x0000000C)
-  #define USART1_CR2            *(vu32 *)(USART1_BASE + 0x00000010)
-  #define USART1_CR3            *(vu32 *)(USART1_BASE + 0x00000014)
-  #define USART1_GTPR           *(vu32 *)(USART1_BASE + 0x00000018)
+  //--- UART #1 Registers
+  #define USART1_CR1            *(vu32 *)(USART1_BASE + 0x00000000)
+  #define USART1_CR2            *(vu32 *)(USART1_BASE + 0x00000004)
+  #define USART1_CR3            *(vu32 *)(USART1_BASE + 0x00000008)
+  #define USART1_BRR            *(vu32 *)(USART1_BASE + 0x0000000C)
+  #define USART1_GPTR           *(vu32 *)(USART1_BASE + 0x00000010)
+  #define USART1_RTOR           *(vu32 *)(USART1_BASE + 0x00000014)
+  #define USART1_RQR            *(vu32 *)(USART1_BASE + 0x00000018)
+  #define USART1_ISR            *(vu32 *)(USART1_BASE + 0x0000001C)
+  #define USART1_ICR            *(vu32 *)(USART1_BASE + 0x00000020)
+  #define USART1_RDR            *(vu32 *)(USART1_BASE + 0x00000024)
+  #define USART1_TDR            *(vu32 *)(USART1_BASE + 0x00000028)
 
-  //--- UART # 2 Registers
-  #define USART2_SR             *(vu32 *)(USART2_BASE + 0x00000000)
-  #define USART2_DR             *(vu32 *)(USART2_BASE + 0x00000004)
-  #define USART2_BRR            *(vu32 *)(USART2_BASE + 0x00000008)
-  #define USART2_CR1            *(vu32 *)(USART2_BASE + 0x0000000C)
-  #define USART2_CR2            *(vu32 *)(USART2_BASE + 0x00000010)
-  #define USART2_CR3            *(vu32 *)(USART2_BASE + 0x00000014)
-  #define USART2_GTPR           *(vu32 *)(USART2_BASE + 0x00000018)
+  //--- UART #2 Registers
+  #define USART2_CR1            *(vu32 *)(USART2_BASE + 0x00000000)
+  #define USART2_CR2            *(vu32 *)(USART2_BASE + 0x00000004)
+  #define USART2_CR3            *(vu32 *)(USART2_BASE + 0x00000008)
+  #define USART2_BRR            *(vu32 *)(USART2_BASE + 0x0000000C)
+  #define USART2_GPTR           *(vu32 *)(USART2_BASE + 0x00000010)
+  #define USART2_RTOR           *(vu32 *)(USART2_BASE + 0x00000014)
+  #define USART2_RQR            *(vu32 *)(USART2_BASE + 0x00000018)
+  #define USART2_ISR            *(vu32 *)(USART2_BASE + 0x0000001C)
+  #define USART2_ICR            *(vu32 *)(USART2_BASE + 0x00000020)
+  #define USART2_RDR            *(vu32 *)(USART2_BASE + 0x00000024)
+  #define USART2_TDR            *(vu32 *)(USART2_BASE + 0x00000028)
 
-  //--- UART # 3 Registers
-  #define USART3_SR             *(vu32 *)(USART3_BASE + 0x00000000)
-  #define USART3_DR             *(vu32 *)(USART3_BASE + 0x00000004)
-  #define USART3_BRR            *(vu32 *)(USART3_BASE + 0x00000008)
-  #define USART3_CR1            *(vu32 *)(USART3_BASE + 0x0000000C)
-  #define USART3_CR2            *(vu32 *)(USART3_BASE + 0x00000010)
-  #define USART3_CR3            *(vu32 *)(USART3_BASE + 0x00000014)
-  #define USART3_GTPR           *(vu32 *)(USART3_BASE + 0x00000018)
+  //--- UART #3 Registers
+  #define USART3_CR1            *(vu32 *)(USART3_BASE + 0x00000000)
+  #define USART3_CR2            *(vu32 *)(USART3_BASE + 0x00000004)
+  #define USART3_CR3            *(vu32 *)(USART3_BASE + 0x00000008)
+  #define USART3_BRR            *(vu32 *)(USART3_BASE + 0x0000000C)
+  #define USART3_GPTR           *(vu32 *)(USART3_BASE + 0x00000010)
+  #define USART3_RTOR           *(vu32 *)(USART3_BASE + 0x00000014)
+  #define USART3_RQR            *(vu32 *)(USART3_BASE + 0x00000018)
+  #define USART3_ISR            *(vu32 *)(USART3_BASE + 0x0000001C)
+  #define USART3_ICR            *(vu32 *)(USART3_BASE + 0x00000020)
+  #define USART3_RDR            *(vu32 *)(USART3_BASE + 0x00000024)
+  #define USART3_TDR            *(vu32 *)(USART3_BASE + 0x00000028)
+
+  //--- LPUART #1 Registers
+  #define LPUART1_CR1            *(vu32 *)(LPUART1_BASE + 0x00000000)
+  #define LPUART1_CR2            *(vu32 *)(LPUART1_BASE + 0x00000004)
+  #define LPUART1_CR3            *(vu32 *)(LPUART1_BASE + 0x00000008)
+  #define LPUART1_BRR            *(vu32 *)(LPUART1_BASE + 0x0000000C)
+  #define LPUART1_RQR            *(vu32 *)(LPUART1_BASE + 0x00000018)
+  #define LPUART1_ISR            *(vu32 *)(LPUART1_BASE + 0x0000001C)
+  #define LPUART1_ICR            *(vu32 *)(LPUART1_BASE + 0x00000020)
+  #define LPUART1_RDR            *(vu32 *)(LPUART1_BASE + 0x00000024)
+  #define LPUART1_TDR            *(vu32 *)(LPUART1_BASE + 0x00000028)
 
   //-------------------------------------------------------------------------------------------
   //      I2C Registers
@@ -1417,27 +1451,6 @@
   #define LPTIM_BDTR            *(vu32 *)(LPTIM_BASE + 0x00000044)
   #define LPTIM_DCR             *(vu32 *)(LPTIM_BASE + 0x00000048)
   #define LPTIM_DMAR            *(vu32 *)(LPTIM_BASE + 0x0000004C)
-
-  //-------------------------------------------------------------------------------------------
-  //    UART Register Maps
-  //-------------------------------------------------------------------------------------------
-  //--- UART # 1 Registers
-  #define USART1_SR             *(vu32 *)(USART1_BASE + 0x00000000)
-  #define USART1_DR             *(vu32 *)(USART1_BASE + 0x00000004)
-  #define USART1_BRR            *(vu32 *)(USART1_BASE + 0x00000008)
-  #define USART1_CR1            *(vu32 *)(USART1_BASE + 0x0000000C)
-  #define USART1_CR2            *(vu32 *)(USART1_BASE + 0x00000010)
-  #define USART1_CR3            *(vu32 *)(USART1_BASE + 0x00000014)
-  #define USART1_GTPR           *(vu32 *)(USART1_BASE + 0x00000018)
-
-  //--- UART # 2 Registers
-  #define USART2_SR             *(vu32 *)(USART2_BASE + 0x00000000)
-  #define USART2_DR             *(vu32 *)(USART2_BASE + 0x00000004)
-  #define USART2_BRR            *(vu32 *)(USART2_BASE + 0x00000008)
-  #define USART2_CR1            *(vu32 *)(USART2_BASE + 0x0000000C)
-  #define USART2_CR2            *(vu32 *)(USART2_BASE + 0x00000010)
-  #define USART2_CR3            *(vu32 *)(USART2_BASE + 0x00000014)
-  #define USART2_GTPR           *(vu32 *)(USART2_BASE + 0x00000018)
 
   //-------------------------------------------------------------------------------------------
   //      QUADSPI Interface Registers

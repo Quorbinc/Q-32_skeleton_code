@@ -59,5 +59,5 @@ extern  u32 volatile ulSystemFlags;                         //--- ulSystemFlags
 int main (void);
 
 //--- Recursive Routine Sample Function
-u16   tkRecursion (union DFLWB unTD);
-
+void tkBlinkLED (union DFLWB unTD);
+//struct TaskRet tkRecursion (union DFLWB unTD);

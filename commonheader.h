@@ -171,6 +171,7 @@
 
   //--- Initialize SYS_TICK
                               //--- Point to STK_CTRL Base Address
+                              //    Initialize To 7200 SYSCLK Cycles (#=7199)
   #define INIT_SYSTICK  asm ( "MOV    R0, #0xE010\n\t" \
                               "MOVT   R0, #0xE000\n\t" \
                               "MOV    R1, #0x0004\n\t" \

@@ -153,7 +153,7 @@
 //---------------------------------------------------------------------------------------------
 __attribute__ ((section(".isr_vector"))) void (* const g_pfnVectors[]) (void) =
 {
-  _estack,               //--- Points to Top of Stack location in RAM  0x20010000
+  _estack,               //--- Points to Top of Stack location in RAM  @      0x20010000
 
   //--- System Interrupts
   //    System Function Interrupt Vectors
@@ -226,9 +226,24 @@ __attribute__ ((section(".isr_vector"))) void (* const g_pfnVectors[]) (void) =
   fnSPI1_IRQ,            // 35 . 0x23  - SPI1 General Interrupt               0x000000CC
   fnSPI2_IRQ,            // 36 . 0x24  - SPI2 General Interrupt               0x000000D0
 
-  fnUSART1_IRQ,          // 37 . 0x25  - USART1 General Interrupt             0x000000D4
-  fnUSART2_IRQ,          // 38 . 0x26  - USART2 General Interrupt             0x000000D8
-  fnUSART3_IRQ,          // 39 . 0x27  - USART3 General Interrupt             0x000000DC
+  //--- Select Appropriate Driver depending on USART Use
+  #ifdef USART1_USED
+    fnUSART1_IRQ,        // 37 . 0x25  - USART1 General Interrupt             0x000000D4
+  #else
+    fnNull_IRQ,          // 37 Null IRQ
+  #endif
+
+  #ifdef USART2_USED
+    fnUSART2_IRQ,        // 38 . 0x26  - USART2 General Interrupt             0x000000D8
+  #else
+    fnNull_IRQ,          // 38 Null IRQ
+  #endif
+
+  #ifdef USART3_USED
+    fnUSART3_IRQ,        // 39 . 0x27  - USART1 General Interrupt             0x000000DC
+  #else
+    fnNull_IRQ,          // 39 Null IRQ
+  #endif
 
   fnEXTI_10_15_IRQ,      // 40 . 0x28  - EXTI Lines 10-15                     0x000000E0
   fnRTC_ALARM_IRQ,       // 41 . 0x29  - RTC Alarm+                           0x000000E4
@@ -246,7 +261,12 @@ __attribute__ ((section(".isr_vector"))) void (* const g_pfnVectors[]) (void) =
   fnNull_IRQ,            // 50 . 0x32  - Blank                                0x00000108
 
   fnSPI3_IRQ,            // 51 . 0x33  - SPI3 General Interrupt               0x0000010C
-  fnUSART4_IRQ,          // 52 . 0x34  - USART4 General Interrupt             0x00000110
+
+  #ifdef USART3_USED
+    fnUSART4_IRQ,        // 52 . 0x34  - USART1 General Interrupt             0x00000110
+  #else
+    fnNull_IRQ,          // 52 Null IRQ
+  #endif
 
   fnNull_IRQ,            // 53 . 0x35  - Blank                                0x00000114
 
@@ -617,11 +637,10 @@ void fnIllegal_IRQ(void)                        //--- IRQ_-10
 //  Function Name  : SVCIRQ
 //  -----------------------
 //  Up to 256 individual SVC Request Types can be executed The first 16 are covered here
-//  SVC Calls are automaticall raised to CPU Privileged State.
+//  SVC Calls are automatically raised to CPU Privileged State.
 //
 //  SVC Call Type Code is placed in ubSVCn prior to the actual call code
 //---------------------------------------------------------------------------------------------
-
 
 void fnSVC_IRQ(void)                            //--- IRQ # -5
 {

@@ -16,12 +16,25 @@
 
 #define EEPROM_ADDS 0xA0
 
-u08   ubEEPROM_Count;
-u08   ubEEPROMpage[32];                             //--- Active EEPROM Read/Write Page
+u08   ubEEPROMdata[32];                             //--- Active EEPROM Read/Write Page
+u32   ulEEPROMadds;                                 //--- Byte Address inside EEPROM
+u16   uwEEPROMpage;                                 //--- Page number
+u16   uwEEPROMoffset;                               //--- Byte Location within Page
 
-//--- Functions:
-//      Read EEPROM Page
-//      Write EEPROM Page
+//  struct EEPROM_Adds
+//  {
+//    u32 ulByteAddr;
+//    u16 uwPageNum;
+//    u16 uwBufferOffset;
+//  };
+
+//--- Driver Functions:
+//      Read EEPROM Page    u08 fnReadEEPROMpage (u32 ulPageNumber)
+//      Returns 0 if successful   !0 if Error
+
+//      Write EEPROM Page  u08 fnWriteEEPROMpage (u32 ulPageNumber)
+//      Returns 0 if successful   !0 if Error
+
 //      Write_Page_Wait
 //
 
@@ -86,8 +99,79 @@ u08 fnWrite_EEPROM_Page (u16 uwPageNumber)
 //
 }
 
-u08 fnEEPROM_Wait (u08 ubMSec)
+
+//---------------------------------------------------------------------------------------------
+//    EEPROM Page Write Function Wait
+//---------------------------------------------------------------------------------------------
+struct TaskRet tkEEPROMwait (union DFLWB unTD)
 {
+  struct  Task stWork;                              //--- Reschedueling Task Model
+  struct  TaskRet stTaskRet;                        //--- Return Structure
+
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+  //--- First Test if EEPROM Write Timed Out
+
+
+  //  1.0 Write Command Sequence to EEPROM via I2C Bus
+  //  2.0 Did we get an ACK Bit?
+  //
+  //      Yes = Write Complete so exit with no errors
+  //
+  //      No  = Decrement unTD.ubByte[0]
+  //            Is unTD.ubByte[0] == 0?
+  //
+  //            Yes = Failure of EEPROM Write
+  //                  Return Error from Task
+  //
+  //            No =  Reschedule This Task
+
+
+  //  2.0 Wait 8 nops
+  //    Is unTD.ubByte[0] == 0?
+  //      Yes = Failure of EEPROM Write
+  //      No =
+  //--- Reschedule This in 5 mSec
+  stWork.uwTimer = 5;                               //--- Timer Delay = 5 mSec
+  stWork.ptrTask = &tkEEPROMwait;                   //--- Reschedule This Task
+  stWork.uwFlags = 0;                               //--- No Flags
+  stWork.unTaskData = unTD;                         //--- Reverse Color Flag
+  uwReturnVal = fnScheduleTask (stWork);
+
+  if (uwReturnVal <> 0)
+  {
+    //--- Error in Schedueling
+  }
+
+
+
+  if (!unTD.ubByte[0])
+  {
+    //--- Red Light On
+    CLR_PA01;
+    ulSystemFlags &= 0xFFFFFFFE;                    //--- Clear Recursive Flag
+    unTD.ubByte[0] = 0;
+  }
+  else
+  {
+    //--- Green Light On
+    CLR_PA00;
+    SET_PA01;
+    ulSystemFlags |= 0x00000001;                    //--- Set Recursive Flag
+    unTD.ubByte[0] = 0xFF;
+  }
+
+  //--- Reschedule This Once / Second
+  stWork.uwTimer = 5;                               //--- Timer Delay = 5 mSec
+  stWork.ptrTask = &tkRecursion;                    //--- Reschedule This Task
+  stWork.uwFlags = 0;                               //--- No Flags
+  stWork.unTaskData = unTD;                         //--- Reverse Color Flag
+  uwReturnVal = fnScheduleTask (stWork);
+
+  stTaskRet.uwErrorCode = 0;
+  return stTaskRet;                                 //--- Return Schedule Error
+
+
 
 }
 
@@ -180,4 +264,4 @@ u08 fnEEPROM_Page_Wait (void)
       //
       //---------------------------------------------------------------------------------------
 
-        //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
+        //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

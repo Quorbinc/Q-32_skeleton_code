@@ -65,13 +65,13 @@
 //    };
 
 //---------------------------------------------------------------------------------------------
-//    Initialize I2C1 for 400 KHz as Master
+//    Initialize I2C1 for 100 KHz as Master
 //
 //    Init Configuration:
 //    1.  Port Pins:  PB06 as SCL signal
 //    2.  Port Pin:   PB07 as SDA signal
 //    3.  I2C Drive Clock = HSI-16MHz
-//    4.  SCL Speed = 400 KHz
+//    4.  SCL Speed = 100 KHz
 //---------------------------------------------------------------------------------------------
 u08   fnInitI2C1_Master (u32 ulSpeed)
 {
@@ -157,7 +157,7 @@ u08   fnInitI2C1_Master (u32 ulSpeed)
   //      33 22 22 22 22 22 11 11 11 11 11 00 00 00 00 00
   //      10 98 76 54 32 10 98 76 54 32 10 98 76 54 32 10
   //      .. ..|.. ..|.. ..|.. ..|.. ..|.. ..|.. ..|.. ..
-  //      00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  //      01 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00
   //      NP NP NP NP NP NP NP NP NP NP NP NP NP NP NP NP
   //  GPIOB Pins 6 & 7 Have Pullups
   GPIOB_PUPDR &= 0xFFFF0FFF;
@@ -340,9 +340,10 @@ u08   fnI2C1_Cmd_Seq (u08 ubTrueAdds, u08 ubRWflag)
 
   //--- Wait for response (ACK) up to 200 uSec
   ulFastTimeCount[3] = 2;
-  while ulFastTimeCount[3]
-  {
-    if
+
+//  while ulFastTimeCount[3]
+//  {
+//    if
 
 }
 
@@ -636,4 +637,4 @@ void  fnI2C1_ER_IRQ (void)
       //
       //---------------------------------------------------------------------------------------
 
-        //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: 
+        //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
