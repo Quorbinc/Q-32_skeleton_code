@@ -81,20 +81,8 @@ u32 volatile ulSystemFlags;                       //--- ulSystemFlags
 //---------------------------------------------------------------------------------------------
 int main (void)
 {
-  // u32  ulC;
-
-  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-  PA14_OUT;                                 //--- Set PA14 as Output
-
-
-
-  stWorkTask.uwTimer = 333;
-  stWorkTask.ptrTask = &tkBlinkLED;
-  stWorkTask.uwFlags = 0;
-  stWorkTask.unTaskData = unEmptyData;      //--- Empty Data to Start
-  uwReturnVal = fnScheduleTask(stWorkTask);
-
+  //--- setup for your program or initial tasks will be set here before the main loop
+  
   //--- Main Infinite Loop entry point calls Dispatcher and any polled actions
   while (1)
   {
@@ -156,34 +144,7 @@ int main (void)
   //
   //
   //-------------------------------------------------------------------------------------------
-//---------------------------------------------------------------------------------------------
-//    Recursive Task to blink an LED on GPIO PA14
-//---------------------------------------------------------------------------------------------
-void tkBlinkLED (union DFLWB unTD)
-{
-  struct  Task stTask;                              //--- Task Model for Scheduling Tasks
-  struct  TaskRet stTaskRet;                        //--- Return Structure
 
-  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-  if (TST_PA14)
-  {
-      CLR_PA14;
-  }
-  else
-  {
-      SET_PA14;
-  }
-
-
-  //--- Reschedule this task 3 times / Second
-  stTask.uwTimer = 333;                             //--- Repeat 3 times / Second
-  stTask.ptrTask = &tkBlinkLED;
-  stTask.uwFlags = 0;
-  stTask.unTaskData = unTD;
-  uwReturnVal = fnScheduleTask (stTask);
-                                                    //--- Return Code is Ignored
-  //stTaskRet.uwErrorCode = 0;
-}
 
 
 
