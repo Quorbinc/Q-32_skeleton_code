@@ -34,4 +34,8 @@ else
 ```
 
 ### assigning alternate functions to pins.
-
+Alternate functions are not strongly tied to the pin itself, instead they are tied to other hardware within the chip such as i2c, timers, and uart.  Assigning an alternate function to a pin merely routes the pin to that other piece of hardware.  It is important to keep in mind that not every pin will go to every other piece of hardware in the chip.  For example, functions tied to timer 16 in the QMX-32 are only tied to pins A06, B05 and B06.  Which alternate functions tie to which pins can be determined in the datasheet or reference manual.  To assign an alternate function, define the target pin as an alternate pin and then the command after is ```P'PIN'_AF'NUMBER'```  Some code syntax is laid out below.
+```C
+PA06_ALT;     //--- Pin A06 is defined as an alternate pin
+PA06_AF14;    //--- Alternate function 14 is used which is Channel one of timer 16.
+```
