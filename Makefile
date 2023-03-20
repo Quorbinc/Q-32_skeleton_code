@@ -48,6 +48,7 @@ SRC += sys_tick.c
 SRC += interrupts.c
 SRC += test_help.c
 SRC += errors.c
+SRC += timers.c
 
 #--------------------------------------------------------------------------
 # List Assembler source files here.
