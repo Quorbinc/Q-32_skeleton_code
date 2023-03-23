@@ -152,7 +152,7 @@
   #include  "startup.h"                           //--- Initialization Functions & Routines
   #include  "genrtn.h"                            //--- Useful functions
   #include  "interrupts.h"                        //--- Interrupt Definitions & Functions
-
+  #include  "timers.h"                            //--- Timer definitions and functions
 
   //--- Include the common definitions used by QUORB
   #ifdef TESTHELP_USED
