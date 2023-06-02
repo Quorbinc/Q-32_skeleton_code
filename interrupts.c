@@ -153,7 +153,7 @@
 //---------------------------------------------------------------------------------------------
 __attribute__ ((section(".isr_vector"))) void (* const g_pfnVectors[]) (void) =
 {
-  _estack,               //--- Points to Top of Stack location in RAM  @      0x20010000
+  _estack,               //--- Points to Top of Stack location in RAM  0x20010000
 
   //--- System Interrupts
   //    System Function Interrupt Vectors
@@ -218,31 +218,42 @@ __attribute__ ((section(".isr_vector"))) void (* const g_pfnVectors[]) (void) =
   fnTIM3_IRQ,            // 29 . 0x1D  - TIM3 Global                          0x000000B4
   fnTIM4_IRQ,            // 30 . 0x1E  - TIM4 Global                          0x000000B8
 
-  fnI2C1_EV_IRQ,         // 31 . 0x1F  - I2C1 Event                           0x000000BC
-  fnI2C1_ER_IRQ,         // 32 . 0x20  - I2C1 Error                           0x000000C0
-  fnI2C2_EV_IRQ,         // 33 . 0x21  - I2C2 Event                           0x000000C4
-  fnI2C2_ER_IRQ,         // 34 . 0x22  - I2C2 Error                           0x000000C8
+
+  #ifdef I2C1_FLAG
+    fnI2C1_EV_IRQ,         // 31 . 0x1F  - I2C1 Event                           0x000000BC
+    fnI2C1_ER_IRQ,         // 32 . 0x20  - I2C1 Error                           0x000000C0
+  #else
+    fnNull_IRQ,            // 31 . 0x1F  - Blank                                0x000000E8
+    fnNull_IRQ,            // 32 . 0x20  - Blank                                0x000000E8
+  #endif
+
+  #ifdef I2C1_FLAG
+    fnI2C2_EV_IRQ,         // 33 . 0x21  - I2C2 Event                           0x000000C4
+    fnI2C2_ER_IRQ,         // 34 . 0x22  - I2C2 Error                           0x000000C8
+  #else
+    fnNull_IRQ,            // 33 . 0x21  - Blank                                0x000000E8
+    fnNull_IRQ,            // 34 . 0x22  - Blank                                0x000000E8
+  #endif
 
   fnSPI1_IRQ,            // 35 . 0x23  - SPI1 General Interrupt               0x000000CC
   fnSPI2_IRQ,            // 36 . 0x24  - SPI2 General Interrupt               0x000000D0
 
-  //--- Select Appropriate Driver depending on USART Use
-  #ifdef USART1_USED
-    fnUSART1_IRQ,        // 37 . 0x25  - USART1 General Interrupt             0x000000D4
+  #ifdef USART1_FLAG
+    fnUSART1_IRQ,          // 37 . 0x25  - USART1 General Interrupt             0x000000D4
   #else
-    fnNull_IRQ,          // 37 Null IRQ
+    fnNull_IRQ,            // 37 . 0x25  - Blank                                0x000000E8
   #endif
 
-  #ifdef USART2_USED
-    fnUSART2_IRQ,        // 38 . 0x26  - USART2 General Interrupt             0x000000D8
+  #ifdef USART1_FLAG
+    fnUSART2_IRQ,          // 38 . 0x26  - USART2 General Interrupt             0x000000D8
   #else
-    fnNull_IRQ,          // 38 Null IRQ
+    fnNull_IRQ,            // 38 . 0x26  - Blank                                0x000000E8
   #endif
 
-  #ifdef USART3_USED
-    fnUSART3_IRQ,        // 39 . 0x27  - USART1 General Interrupt             0x000000DC
+  #ifdef USART1_FLAG
+    fnUSART3_IRQ,          // 39 . 0x27  - USART3 General Interrupt             0x000000DC
   #else
-    fnNull_IRQ,          // 39 Null IRQ
+    fnNull_IRQ,            // 39 . 0x27  - Blank                                0x000000E8
   #endif
 
   fnEXTI_10_15_IRQ,      // 40 . 0x28  - EXTI Lines 10-15                     0x000000E0
@@ -261,12 +272,7 @@ __attribute__ ((section(".isr_vector"))) void (* const g_pfnVectors[]) (void) =
   fnNull_IRQ,            // 50 . 0x32  - Blank                                0x00000108
 
   fnSPI3_IRQ,            // 51 . 0x33  - SPI3 General Interrupt               0x0000010C
-
-  #ifdef USART3_USED
-    fnUSART4_IRQ,        // 52 . 0x34  - USART1 General Interrupt             0x00000110
-  #else
-    fnNull_IRQ,          // 52 Null IRQ
-  #endif
+  fnUSART4_IRQ,          // 52 . 0x34  - USART4 General Interrupt             0x00000110
 
   fnNull_IRQ,            // 53 . 0x35  - Blank                                0x00000114
 
@@ -508,9 +514,13 @@ void  fnInitNVIC (void)
 //---------------------------------------------------------------------------------------------
 //--- Note: Priority Level of 0 = Interrupt OFF
 //
+//    Interrupt Priority Table is defined for all 256 Possible Interrupt Numbers
+//
 //    Interrupts IRQn # 0 to 239 are at top of table
 //    Interrupts with offsets of -1 to -15 are located
 //    at bottom of table in reverse order ie.  -1 = 0xFF and -15 = 0xF0
+//
+//    Lowest Priority = 15  Highest Priority = 1  Off = 0
 //---------------------------------------------------------------------------------------------
 
 const u08 ubNVIC_Ptable_Image [0x100] =
@@ -522,7 +532,7 @@ const u08 ubNVIC_Ptable_Image [0x100] =
             15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
 
     //Int2-  0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
-            15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
+            15,15,15,15,15,15, 7,15,15,15,15,15,15,15,15,15,
 
     //Int3-  0  1  2  3  4  5  6  7  8  9  A  B  C  D  E  F
             15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,15,
@@ -637,10 +647,11 @@ void fnIllegal_IRQ(void)                        //--- IRQ_-10
 //  Function Name  : SVCIRQ
 //  -----------------------
 //  Up to 256 individual SVC Request Types can be executed The first 16 are covered here
-//  SVC Calls are automatically raised to CPU Privileged State.
+//  SVC Calls are automaticall raised to CPU Privileged State.
 //
 //  SVC Call Type Code is placed in ubSVCn prior to the actual call code
 //---------------------------------------------------------------------------------------------
+
 
 void fnSVC_IRQ(void)                            //--- IRQ # -5
 {

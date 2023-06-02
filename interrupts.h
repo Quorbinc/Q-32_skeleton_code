@@ -570,5 +570,4 @@
     return(((u32)NVIC->IP[((u32)IRQn)] >> (8 - __NVIC_PRIO_BITS)));
   }
 
-
 #endif

@@ -176,11 +176,8 @@
   //  #define sfAPB1_CLK = (flt)80000000.0           /1
   //  #define sfAPB2_CLK = (flt)80000000.0           /1
   //
-//  #define SYSCLK    80000000UL                   //--- System Clock 80.0000MHz
-//  #define PCLK1     SYSCLK                       //--- PCLK1 = 80.0000 MHz
-//  #define PCLK2     SYSCLK                       //--- PCLK2 = 80.0000 MHz
 
-//  #define USART2_FLAG
+  #define USART2_FLAG
 
   extern  u32     ulT;
   extern  u16     uwReturnVal;

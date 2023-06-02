@@ -9,7 +9,6 @@
 u32 ulValue;                                      //--- Global Long (32 Bit)
 u16 uwValue;                                      //--- Global Word (16 Bit)
 u08 ubValue;                                      //--- Global Byte ( 8 Bit)
-u08 testvalue = 0;
 
 #define ReleaseVersion 0x0100                     //--- Release 1.0
 
@@ -81,15 +80,51 @@ u32 volatile ulSystemFlags;                       //--- ulSystemFlags
 //---------------------------------------------------------------------------------------------
 int main (void)
 {
-  //--- setup for your program or initial tasks will be set here before the main loop
-  
+
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
+  //--- Output Start Message on USART #2
+  fnStringOut_2 ("\r\nQuorb is Alive, Mu Ah Ah Ah! \r\n Ready --> ");
+
+
   //--- Main Infinite Loop entry point calls Dispatcher and any polled actions
   while (1)
   {
     //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-    //--- Output the STK_CTRL Value to PA06 & PA07
+    #ifdef TESTHELP_FLAG
+      u32   ulC;
 
+      // fnPulseLongOut (fnReadCPUregister(20));     //--- Show System CONTROL
+      fnPulseLongOut (0x00FF0F35);     //--- Pulse Out Orientation
+
+      //--- Spacing Delay
+      for (ulC = 0; ulC < 10; ulC++)
+      {
+        nop4;
+      }
+
+    //--- Output the STK_CTRL Value to PA06 & PA07
+      fnPulseLongOut (STK_CTRL);
+
+      //--- Spacing Delay
+      for (ulC = 0; ulC < 10; ulC++)
+      {
+        nop4;
+      }
+
+    //--- Pulse Out STK_LOAD Value
+      fnPulseLongOut (STK_LOAD);
+
+      //--- Spacing Delay
+      for (ulC = 0; ulC < 10; ulC++)
+      {
+        nop4;
+      }
+    #endif
+
+    //--- The Dispatcher is called from the main endless loop
     fnDispatcher();
 
     //-----------------------------------------------------------------------------------------
@@ -98,6 +133,31 @@ int main (void)
     //    If required add a function call for any activities that are required to be handled
     //    in the "main" loop.
     //-----------------------------------------------------------------------------------------
+
+    //--- Process the USART1 Rx
+    #ifdef USART1_FLAG
+      u16   uwRX1;                                //--- Local storage for USART1
+
+      uwRX1 = fnGetNextUSART1();                  //--- Test to see if RX Data Ready on USART1
+      //--- Data Ready if Bit 15 is Set
+      if (uwRX1 & 0x8000)
+      {
+        //--- Call or Schedule Rx Processing for USART #1
+      }
+    #endif
+
+    //--- Process the USART2 Rx
+    #ifdef USART2_FLAG
+      u16   uwRX2;                                //--- Local storage for USART2
+
+      uwRX2 = fnGetNextUSART2();                  //--- Test to see if RX Data Ready on USART2
+      //--- Data Ready if Bit 15 is Set
+      if (uwRX2 & 0x8000)
+      {
+        //--- Call or Schedule Rx Processing for USART #2
+      }
+    #endif
+
   }
 }
 
@@ -146,7 +206,46 @@ int main (void)
   //-------------------------------------------------------------------------------------------
 
 
+//---------------------------------------------------------------------------------------------
+//  Task To Flip Test LED on PA00 & PA01 from Red to Green
+//  This Task Recursivily scheduels it self at 1000 mSec Intervals
+//---------------------------------------------------------------------------------------------
+u16  tkRecursion (union DFLWB unTD)
+{
+  struct  Task stWork;
 
+  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+  //--- Reverse Polarity to Solve Task
+  if (unTD.ubByte[0] != 0)
+  {
+    //--- Red Light On
+    SET_PA00;
+    CLR_PA01;
+    ulSystemFlags &= 0xFFFFFFFE;                    //--- Clear Recursive Flag
+    unTD.ubByte[0] = 0;
+  }
+  else
+  {
+    //--- Green Light On
+    CLR_PA00;
+    SET_PA01;
+    ulSystemFlags |= 0x00000001;                    //--- Set Recursive Flag
+    unTD.ubByte[0] = 0xFF;
+  }
+
+  //--- Print String to UART#2
+  fnStringOut_2 ("OkiDoki Message Out\r\n");        //--- 21 Characters
+
+  //--- Reschedule This Once / Second
+  stWork.uwTimer = 333;                             //--- Timer Delay = 333 mSec
+  stWork.ptrTask = &tkRecursion;                    //--- Reschedule This Task
+  stWork.uwFlags = 0;                               //--- No Flags
+  stWork.unTaskData = unTD;                         //--- Reverse Color Flag
+
+  uwReturnVal = fnScheduleTask (stWork);
+  return uwReturnVal;                               //--- Return Schedule Error
+}
 
 
 //|....|....|....*....|....|....*....|....|....^....|....|....*....|....|....*....|....|....|..
@@ -172,3 +271,4 @@ int main (void)
       //---------------------------------------------------------------------------------------
       //
       //---------------------------------------------------------------------------------------
+

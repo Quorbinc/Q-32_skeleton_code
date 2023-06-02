@@ -137,11 +137,10 @@ struct  Task  stWorkTask;                         //--- Generic Global Work Task
 //      MSB value of Byte[3] = Error Code ( 0 = No Error, Otherwise Error in Schedueling
 //---------------------------------------------------------------------------------------------
 
-u16 fnScheduleTask (struct Task stInTask)
+u32 fnScheduleTask (struct Task stInTask)
 {
   u16   uwError = 0;                              //--- Schedule Return Value/Error
   u32   ulC;                                      //--- Generic Counter
-  u08   ubFlag = FALSE;
 
   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
@@ -149,9 +148,29 @@ u16 fnScheduleTask (struct Task stInTask)
 
   STK_CTRL &= 0x00000005;                         //--- Keep SysTick Enabled - Ignore New Int
 
+  // stInTask.ulTimeStamp = (u32)(uxSysTick & 0xFFFFFFFF);  //--- Get Schedule Time Stamp
+  // ubIP = stInTask.ubPriority;                     //--- Grab the Incomming Priority Level
+
   //--- Test (if Task Timer Set > 0)
   //    If > 0 then schedule this as a Timer Task  with 1mSec Resoultion
-  if (stInTask.uwTimer == 0)                      //--- This Task is NOT a Timer?
+  if (stInTask.uwTimer > 0)
+  {
+    //--- If this is a Timer Task, find the first empty timer location in Timer QUEUE
+    for (ulC = 0; ulC < TIMER_QUEUE_SIZE; ulC++)
+    {
+      if (!(stTimerQueue[ulC].uwTimer))           //--- Test if timer type is requested
+      {
+        stTimerQueue[ulC] = stInTask;             //--- Save Task to TimerQueue
+        uwError = NO_ERROR;                       //--- ErrorCode = success
+      }
+      else
+      {
+        uwError = ERR_RTOS_SCHED_NO_TIMER;        //--- Error for no timers available
+        fnError (uwError);                        //--- Call the error handler
+      }
+    }
+  }
+  else
   {
     //--- Test if Task Queue is full
     if (uwTaskCntr < (TASK_QUEUE_SIZE - 1))       //--- Is there Room in the QUEUE?
@@ -170,27 +189,7 @@ u16 fnScheduleTask (struct Task stInTask)
       uwError = ERR_RTOS_SCHED_QUEUE_FULL;        //--- Set Error No QUEUE Room
     }
   }
-  else
-  {
-    //--- If this is a Timer Task, find the first empty timer location in Timer QUEUE
-    for (ulC = 0; ulC < TIMER_QUEUE_SIZE; ulC++)
-    {
-      if (stTimerQueue[ulC].uwTimer == 0)         //--- Test if timer active
-      {
-        stTimerQueue[ulC] = stInTask;             //--- Save Task to TimerQueue
-        uwError = NO_ERROR;                       //--- ErrorCode = success
-        ubFlag = TRUE;                            //--- Success in schedueling Timer
-        break;
-      }
-    }
 
-    //--- If Find a fimer failed then set error condition
-    if (ubFlag != TRUE)
-    {
-      uwError = ERR_RTOS_SCHED_NO_TIMER;        //--- Error for no timers available
-      fnError (uwError);                        //--- Call the error handler
-    }
-  }
   //--- If Not thru interrupt then enable Interrupts on Exit
   if (!(NVIC_IABR0 || NVIC_IABR1 || NVIC_IABR2))
   {
@@ -205,7 +204,6 @@ u16 fnScheduleTask (struct Task stInTask)
   }
 
   STK_CTRL |= 0x00000007;                         //--- Re Enable SysTick Interrupt
-
   return uwError;
 }
 
@@ -218,14 +216,17 @@ u16 fnScheduleTask (struct Task stInTask)
 //
 //---------------------------------------------------------------------------------------------
 
+u16   uwLTP;                  //--- FIFO Location of Last Task Executed
+u16   uwNTP;                  //--- FIFO Location of Next Available Empty Task in FIFO
+
 void  fnDispatcher (void)
 {
   union DFLWB unTaskData;                         //--- Task Pass Data Union
-  struct TaskRet (*ptrTask)(union DFLWB unTaskData);   //--- Task with data & returns Error Code
+  u16   (*ptrTask)(union DFLWB unTaskData);       //--- Task with data & returns Error Code
                                                   //    Includes Error Code a 1 Word Generic
 
-  struct TaskRet stTaskRet;                       //--- Returned Value from Task
-                                                  //    NOTE:
+  u32 ulTaskRet;                                  //--- Task Return Code
+
   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
   GID;                                            //--- Kill Interrupts on Entry
@@ -242,21 +243,17 @@ void  fnDispatcher (void)
     unTaskData = stTaskQueue[uwTaskOptr].unTaskData;   //--- Copy Data Structure
     uwTaskOptr++;                                 //--- Bump the Out Pointer
     uwTaskOptr %= TASK_QUEUE_SIZE;                //--- Roll the Out Pointer Over
-    GIE;                                          //--- Enable Interrupts On before call
+    uwLTP = uwTaskOptr;                           //--- Save the FIFO Position for Next Task
+    GIE;                                          //--- Enable Interrupts On befor call
 
     //--- Call the TASK and process any error return codes
-//    stTaskRet = (struct TaskRet) (*ptrTask))(unTaskData);      //--- Call Task With Data & Get Return Code
-    stTaskRet = (*ptrTask) (unTaskData);      //--- Call Task With Data & Get Return Code
+    ulTaskRet = (u32)(*ptrTask)(unTaskData);      //--- Call Task With Data & Get Return Code
 
     //--- If return code is != to ZERO then process Task Error Return Code
-    if (stTaskRet.uwErrorCode != 0)               //--- If an error return code then process it
+    if (ulTaskRet)                                //--- If an error return code then process it
     {
       GIE;                                        //--- Enable General Interrupt Flag
-      fnError (stTaskRet.uwErrorCode);            //--- Process Error
-    }
-    else
-    {
-      nop2;                                       //--- Add returnData Handler Here
+      fnError (ulTaskRet);                        //--- Process Error
     }
   }
   else
@@ -265,7 +262,7 @@ void  fnDispatcher (void)
   }
 
   //--- Interrupt Catch-Up Pause Period, Helps Synchronize NVIC after Task Call
-  nop4;
+  nop8;
 }
 
 
@@ -287,7 +284,7 @@ void  fnPurgeTask (void (*ptrTask))
     {
       if (stTaskQueue [ulTp].ptrTask == ptrTask)
       {
-        stTaskQueue[ulTp].ptrTask = (void *)&tkNullTask;
+        stTaskQueue[ulTp].ptrTask = (void *)&fnNullTask;
       }
     }
   }
@@ -300,7 +297,7 @@ void  fnPurgeTask (void (*ptrTask))
       if (stTimerQueue[ulTp].ptrTask == ptrTask)
       {
         stTimerQueue[ulTp].uwTimer = 0;
-        stTimerQueue[ulTp].ptrTask = (void *)&tkNullTask;
+        stTimerQueue[ulTp].ptrTask = (void *)&fnNullTask;
       }
     }
   }
@@ -311,7 +308,7 @@ void  fnPurgeTask (void (*ptrTask))
 //---------------------------------------------------------------------------------------------
 //                                  Null or Do Nothing Task
 //---------------------------------------------------------------------------------------------
-void  tkNullTask (union DFLWB unNothing)
+void  fnNullTask (union DFLWB unNothing)
 {
   GIE;                                            //--- Enable Interrupts on Exit
 }

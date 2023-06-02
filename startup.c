@@ -33,6 +33,7 @@
 //
 //--------------------------------------------------------------------------------------------
 
+u08     ubSVCn;                                   //--- Software Interrupt Select Numberin RAM
 u32     tmp;                                      //--- Temporary Number
 u32     ulT = 0;
 u16     uwReturnVal;
@@ -189,6 +190,16 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
     nop4;
   }
 
+  //--- Notate Success of LSE in SystemFlags
+  if (ulT > 0)
+  {
+    ulSystemFlags |= 0x00000001;                  //--- Success = Hi Bit (0)
+  }
+  else
+  {
+    ulSystemFlags &= 0xFFFFFFFE;                  //--- Failure = Lo Bit (0)
+  }
+
   //-------------------------------------------------------------------------------------------
   //    Configure System Clocks
   //-------------------------------------------------------------------------------------------
@@ -224,6 +235,16 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
     nop12;
   }
 
+  //--- Notate Success of MSI @ 4 MHz at StartUp
+  if (ulT > 0)
+  {
+    ulSystemFlags |= 0x00000002;                  //--- Success = Hi
+  }
+  else
+  {
+    ulSystemFlags &= 0xFFFFFFFD;                  //--- Failure = Lo
+  }
+
   //--- Turn on MSI PLL link to LSE
   //      3322 2222 2222 1111 1111 1100 0000 0000
   //      1098 7654 3210 9876 5432 1098 7654 3210
@@ -256,6 +277,16 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
     nop12;
   }
 
+  //--- Notate Success of MSI PLL @ 4 MHz at StartUp
+  if (ulT > 0)
+  {
+    ulSystemFlags |= 0x00000004;                  //--- Success = Hi
+  }
+  else
+  {
+    ulSystemFlags &= 0xFFFFFFFB;                  //--- Failure = Lo
+  }
+
   //--- Enable Main PLL in RCC_PLLCFGR
   //--- RCC_PLLCFGR
   //      3322 2222 2222 1111 1111 1100 0000 0000
@@ -280,7 +311,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //    PLLVCO INPUT = ((4000000 / 1) * 72) = 288 MHz
   //    PLLCLK = VCO / 4 = 72 MHz
   RCC_PLLCFGR = 0x03504801;
-  nop12;
+  nop48;
 
   //--- Turn on Main PLL Enable
   //      3322 2222 2222 1111 1111 1100 0000 0000
@@ -303,7 +334,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //    Main System PLL  24         On
   //    PLLSAI1_ON       26         Off
   RCC_CR |= 0x0100006D;
-  nop12;                                          //--- Delay to let PLL Catch Up
+  nop48;
 
   //--- Wait for PLL & MSI clocks to show "Ready"
   ulT = 100000;  //    Wait for upto 100K Loops
@@ -312,6 +343,16 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   {
     ulT--;                                        //--- Decrement Period Counter
     nop12;
+  }
+
+  //--- Notate Success of Main PLL StartUp
+  if (ulT > 0)
+  {
+    ulSystemFlags |= 0x00000008;                  //--- Success = Hi
+  }
+  else
+  {
+    ulSystemFlags &= 0xFFFFFFF7;                  //--- Failure = Lo
   }
 
   //--- RCC_CSR is Preset to 0x0C000600
@@ -378,7 +419,17 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   while (((RCC_CFGR & 0x0000000C) != 0x0000000C) && ulT)
   {
     ulT--;                                        //--- Decrement Period Counter
-    nop4;
+    nop12;
+  }
+
+  //--- Notate Success of PLL StartUp
+  if (ulT > 0)
+  {
+    ulSystemFlags |= 0x00000010;                  //--- Success = Hi
+  }
+  else
+  {
+    ulSystemFlags &= 0xFFFFFFEF;                  //--- Failure = Lo
   }
 
   //--- Independant Clock Config Register
@@ -389,14 +440,14 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //      0011 0000 0000 0010 1010 1000 1010 1010
   //
   //      Name             Bit#     On/Off
-  //      -------------    ----     ---
-  //      USART1           00,01    1,0 = HSI
-  //      USART2           03,02    1,0 = HSI
-  //      USART3           05,04    1,0 = HSI
-  //      USART4           07,06    1,0 = HSI
+  //      -------------    -----    ---
+  //      USART1           00,01    0,1 = SYSTEM CLK
+  //      USART2           03,02    0,1 = SYSTEM CLK
+  //      USART3           05,04    0,1 = SYSTEM CLK
+  //      USART4           07,06    0,1 = SYSTEM CLK
   //      UNUSED           09,08    0,0   Not Used
   //      LPUSART1         11,10    1,0 = HSI
-  //      I2C1             13,12    1,0 = HSI
+  //      I2C1             13,12    1,0 = HSI 16
   //      I2C2             15,14    1,0 = HSI
   //      I2C3             17,16    1,0 = HSI
   //      LPTIM1           19,18    0,0 = PCLK
@@ -407,7 +458,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //      ADC              29,28    1,1   SYSTEM CLK
   //      SWPMI1           30       0     APB1
   //      UNUSED           31       0     UNUSED
-  RCC_CCIPR = 0x3002A8AA;
+  RCC_CCIPR = 0x3002A855;
 
   //-------------------------------------------------------------------------------------------
   //    Enable the following Peripherials Refer to Ref Manual Page
@@ -424,7 +475,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //      Flash Memory      8     On
   //      CRC Generator Off 12    Off
   //      Touch Sensor Off  16    Off
-  RCC_AHB1ENR = 0x00000100;
+  RCC_AHB1ENR   = 0x00000100;
   RCC_AHB1SMENR = 0x00000100;
 
   //--- Enable the following AHB2 Peripherials
@@ -432,7 +483,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //      3322 2222 2222 1111 1111 1100 0000 0000
   //      1098 7654 3210 9876 5432 1098 7654 3210
   //      .... .... .... .w.w ..w. ...w ...w wwww
-  //      0000 0000 0000 0101 0000 0000 0000 0111
+  //      0000 0000 0000 0100 0010 0000 0000 0111
   //      Name             Bit#  On/Off
   //      -------------    ----   ---
   //      GPIO A Port       0     On
@@ -442,11 +493,9 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //      GPIO E Port Off   4     Off
   //      GPIO H Port Off   7     Off
   //      ADC Enable        13    On
-  //!!!!!!ADC Enable        13    Off
   //      AESEN Encoder     16    Off
   //      Random Number     18    On
-  //!!!!!!Random Number     18    Off
-  RCC_AHB2ENR = 0x00042007;
+  RCC_AHB2ENR   = 0x00042007;
   RCC_AHB2SMENR = 0x00042007;
 
   //--- Enable the following AHB3 Peripherials
@@ -456,7 +505,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //      .... .... .... .... .... ...w .... ....
   //      0000 0000 0000 0000 0000 0000 0000 0000
   //      QPSI Off
-  RCC_AHB3ENR = 0x00000000;
+  RCC_AHB3ENR   = 0x00000000;
   RCC_AHB3SMENR = 0x00000000;
 
   //-------------------------------------------------------------------------------------------
@@ -493,8 +542,8 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //      OPAMP             30    Off
   //      LPTIM 1           31    Off
   //
-  RCC_APB1ENR1 = 0x10220000;
-  RCC_APB1SMENR1 = 0x10200000;
+  RCC_APB1ENR1   = 0x10220400;
+  RCC_APB1SMENR1 = 0x10220400;
 
   //--- Enable the following APB1 Peripherials
   //--- RCC Peripherial Clock 1
@@ -509,7 +558,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //      I2C4 Ena          1     Off
   //      Single Wire Ena   2     Off
   //      LPTimer 2 Ena     5     Off
-  RCC_APB1ENR2 = 0x00000000;
+  RCC_APB1ENR2   = 0x00000000;
   RCC_APB1SMENR2 = 0x00000000;
 
   //-------------------------------------------------------------------------------------------
@@ -534,11 +583,11 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //      TIM16 ENA         17     OFF
   //      SAI1 ENA          21     OFF
   //      DFSDM1 ENA        24     OFF
-  RCC_APB2ENR = 0x00000001;
+  RCC_APB2ENR   = 0x00000001;
   RCC_APB2SMENR = 0x00000001;
 
   //--- Wait to settle down
-  nop4;
+  nop8;
 
   //--- Initialize NVIC Table of Vectors
   fnInitNVIC();
@@ -566,7 +615,8 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
 
   //----- Test Configuration --------------
   //      Change to match application
-  GPIOA_MODER = 0x55565555;                       //--- Set Port Pin I/O Type A08 = MOC Out For Testing
+  GPIOA_MODER = 0x55555555;                       //--- Set All Pins as Output
+  //  GPIOA_MODER = 0x55565555;                       //--- Set Port Pin I/O Type A08 = MOC
   //---------------------------------------
 
   //      GPIO OTYPE
@@ -630,7 +680,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   GPIOA_AFRH = 0x00000000;                        //--- Set AFRH to 0
 
   //--- Waste a little Time for things to settle down
-  nop4;
+  nop8;
 
   //-------------------------------------------------------------------------------------------
   //      Configure GPIO_B
@@ -641,8 +691,11 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //      33 22 22 22 22 22 11 11 11 11 11 00 00 00 00 00
   //      10 98 76 54 32 10 98 76 54 32 10 98 76 54 32 10
   //      .. .. .. .. .. .. .. .. .. .. .. .. .. .. .. ..
-  //      00 00 00 00 00 00 00 00 00 00 00 00 00 00 01 01
-  //      IN IN.IN IN.IN IN.IN IN.IN IN.IN IN.IN IN.OT OT
+  //!     00 00 00 00 00 00 00 00 10 10 01 01 01 01 01 01
+  //!     IN IN.IN IN.IN IN.IN IN.OT OT.OT OT.OT OT.OT OT
+  //
+  //      00 00 00 00 00 00 00 00 01 01 01 01 01 01 01 01
+  //      IN IN.IN IN.IN IN.IN IN.AF AF.IN OT.OT OT.OT OT
   //
   //      Set GPIOB 0-5 = Output   GPIOB 6&7 = Alternate Function
   GPIOB_MODER = 0x0000A555;
@@ -718,7 +771,7 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   GPIOB_AFRH = 0x00000000;
 
   //--- Waste a little Time for things to settle down
-  nop4;
+  nop8;
 
   //-------------------------------------------------------------------------------------------
   //      Configure GPIO_C
@@ -794,9 +847,10 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   GPIOC_AFRH = 0x00000000;
 
   //--- Waste a little Time for things to settle down
-  nop4;
+  nop8;
 
   //--- Always Enable FPU in STM32L432
+  SET_PRIVLEGED_MODE;
   FPU_ENA;
 
   //--- Preset internal reference voltage to 2.500V
@@ -807,42 +861,43 @@ void  fnReset_IRQ (void)                          //--- Reset Handler           
   //      0000 0000 0000 0000 0000 0000 0000 0101
   VREFBUF_CSR = 0x00000005;                       //--- VREF = 2.500V Internal Ref
 
-  //  VREFBUF_CSR = 0x00000001;                     //--- VREF = 2.048V Internal Ref
-  //  VREFBUF_CSR = 0x00000000;                     //--- VREF = External Reference
-
-  unEmptyData.uxBig = 0;                          //--- Preset EmptyData to 0
+  unEmptyData.uxBig = 0;                          //--- Clear Data Union
 
   //-------------------------------------------------------------------------------------------
   //  Start Up SysTick Timer As Pacer Set for 10 KHz  100uSec base frequency
   //-------------------------------------------------------------------------------------------
 
-  SET_PRIVLEGED_MODE;                             //--- Make sure we are in privileged mode
+  SET_PRIVLEGED_MODE;
 
-  fnInitSysTick ();                               //--- Start Up System Timer
+  fnInitSysTick ();                               //--- Start Up the SysTick
+
+
+  //--- If DEFINED then startup UART Communications
+  #ifdef USART1_FLAG
+    uwReturnVal = fnInitUSART1 (USART1_BAUD);     //--- Initialize USART2 Communications
+  #endif
+
+  #ifdef USART2_FLAG
+    uwReturnVal = fnInitUSART2 (USART2_BAUD);     //--- Initialize USART2 Communications
+  #endif
+
+  //-------------------------------------------------------------------------------------------
+  //  Add Other Peripherial Initializations Here USART #2 = Debug USART
+  //-------------------------------------------------------------------------------------------
 
   //--- Show that Init Complete
-  ulSystemFlags = 0x80000000;                     //--- Show Systick Initialized
-
-  //-------------------------------------------------------------------------------------------
-  //  Add Other Peripherial Initializations Here
-  //-------------------------------------------------------------------------------------------
-  #ifdef USART1_USED
-    fnInitUSART1 (115200);                        //--- Initialize USART1 Communications
-    //--- Show USART1 Init Complete
-    ulSystemFlags |= 0x1000000;                   //--- Show USART1 Initialized
-  #endif
-
-  #ifdef USART2_USED
-    fnInitUSART2 (115200);                        //--- Initialize USART2 Communications
-    //--- Show USART2 Init Complete
-    ulSystemFlags |= 0x2000000;                   //--- Show USART1 Initialized
-  #endif
-
-  //--- Output Start Message on USART #1
- // fnTxtToFIFO_1 ("\r\nI'm Alive, Mu Ah Ah Ah! \r\n Ready --> ");
+  ulSystemFlags |= 0xC0000000;                    //--- Start-Up Success = Hi
 
   nop4;                                           //--- A Brief Pause
+
   GIE;                                            //--- Enable All Other Interrupts
+
+  //--- Schedule First Recursion Task
+  stWorkTask.uwTimer = 333;                       //--- Timer Delay = 333
+  stWorkTask.ptrTask = &tkRecursion;              //--- Reschedule This Task
+  stWorkTask.uwFlags = 0;                         //--- No Flags
+  stWorkTask.unTaskData = unEmptyData;            //--- Clear First Try
+  uwReturnVal = fnScheduleTask (stWorkTask);
 
   //--- Call the Main Function after basic boot complete
   main();

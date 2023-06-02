@@ -55,7 +55,7 @@
 
   //--- Define Software Version
   #define MAJOR_VER   1                           //--- 1 = First Release
-  #define MINOR_VER   1                           //--- 1 = Corrected First Release
+  #define MINOR_VER   0                           //--- 0 = First Release
 
   #define SW_VER   (MAJOR_VER * 16) + MINOR_VER
 
@@ -84,45 +84,43 @@
   #define STACK_SIZE  4096                        //--- Stack Size = 4K Bytes By Default
 
   //--- Enable these flags for the peripherial drivers that are USED in your program
-  #define TESTHELP_USED                           //--- Test Functions enabled
-  //  #define ADC_USED                                //--- Uses High Speed ADC
-  //  #define DAC1_USED                               //--- Uses DAC-1
-  //  #define DAC2_USED                               //--- Uses DAC-2
-  //  #define USART1_USED                                 //--- This program uses USART-1
-  //  #define USART2_USED                             //--- This program uses USART-2 For Debug
-  //  #define USART3_USED                             //--- This program uses USART-3
-      //--- By Default EEPROM & I2C1 are enabled
-  //  #define EEPROM_USED                             //--- Define EEPROM & I2C1
-  //  #define I2C1_USED                               //--- Uses I2C1 for EEPROM
-  //  #define I2C2_USED                               //--- Uses I2C2
-  //  #define SPI1_USED                               //--- Uses SPI-1 Interface
-  //  #define SPI2_USED                               //--- Uses SPI-2 Interface
-  //  #define QSPI_USED                               //--- Uses QSPI Interface
-  //  #define USB_USED                                //--- Uses USB Full Speed
-  //  #define RTC_USED                                //--- Uses Real Time Clock
-  //  #define RNG_USED                                //--- Uses Random Number Generator
-  //  #define IWDG_USED                               //--- Uses Independant Watch Dog
-  //  #define IRTIM_USED                              //--- Uses IRTIM InfaRed Interface
-  //  #define RTC_USED                                //--- Uses Real Time Clock
-  //  #define WWTG_USED                               //--- Uses Windowed WatchDog
-  //  #define TAMP_USED                               //--- Uses Tamper Detection
-  //  #define SWPMI_USED                              //--- Uses Serial Wire Interface
-  //  #define CAN_USED                                //--- Uses CAN 2.0 Interface
-  //  #define SAI_USED                                //--- Uses SAI Interface
-  //  #define DMA_USED                                //--- Uses DMA Interface
-  //  #define CRC_USED                                //--- Uses CRC Generator
-  //  #define PGA_USED                                //--- Uses Programable OpAmp
-  //  #define COMP1_USED                              //--- Uses Comparator #1
-  //  #define COMP2_USED                              //--- Uses Comparator #2
-  //  #define TIM1_USED                               //--- Uses Timer-1
-  //  #define TIM2_USED                               //--- Uses Timer-2
-  //  #define TIM3_USED                               //--- Uses Timer-3
-  //  #define TIM6_USED                               //--- Uses Timer-6
-  //  #define TIM7_USED                               //--- Uses Timer-7
-  //  #define TIM15_USED                              //--- Uses Timer-15
-  //  #define TIM16_USED                              //--- Uses Timer-16
-  //  #define LPTIM1_USED                             //--- Uses LPTimer1
-  //  #define LPTIM2_USED                             //--- Uses LPTimer2
+//  #define TESTHELP_FLAG                           //--- Test Functions enabled
+  //  #define ADC_FLAG                                //--- Uses High Speed ADC
+  //  #define DAC1_FLAG                               //--- Uses DAC-1
+  //  #define DAC2_FLAG                               //--- Uses DAC-2
+  //  #define USART1_FLAG                             //--- This program uses USART-1
+  #define USART2_FLAG                                 //--- This program uses USART-2
+  //  #define USART3_FLAG                             //--- This program uses USART-3
+  //--#define I2C1_FLAG                               //--- Uses I2C1 for EEPROM
+  //  #define I2C2_FLAG                               //--- Uses I2C2
+  //  #define SPI1_FLAG                               //--- Uses SPI-1 Interface
+  //  #define SPI2_FLAG                               //--- Uses SPI-2 Interface
+  //  #define QSPI_FLAG                               //--- Uses QSPI Interface
+  //  #define USB_FLAG                                //--- Uses USB Full Speed
+  //  #define RTC_FLAG                                //--- Uses Real Time Clock
+  //  #define RNG_FLAG                                //--- Uses Random Number Generator
+  //  #define IWDG_FLAG                               //--- Uses Independant Watch Dog
+  //  #define IRTIM_FLAG                              //--- Uses IRTIM InfaRed Interface
+  //  #define RTC_FLAG                                //--- Uses Real Time Clock
+  //  #define WWTG_FLAG                               //--- Uses Windowed WatchDog
+  //  #define TAMP_FLAG                               //--- Uses Tamper Detection
+  //  #define SWPMI_FLAG                              //--- Uses Serial Wire Interface
+  //  #define CAN_FLAG                                //--- Uses CAN 2.0 Interface
+  //  #define SAI_FLAG                                //--- Uses SAI Interface
+  //  #define DMA_FLAG                                //--- Uses DMA Interface
+  //  #define CRC_FLAG                                //--- Uses CRC Generator
+  //  #define PGA_FLAG                                //--- Uses Programable OpAmp
+  //  #define COMP1_FLAG                              //--- Uses Comparator #1
+  //  #define COMP2_FLAG                              //--- Uses Comparator #2
+  //  #define TIM1_FLAG                               //--- Uses Timer-1
+  //  #define TIM2_FLAG                               //--- Uses Timer-2
+  //  #define TIM3_FLAG                               //--- Uses Timer-3
+  //  #define TIM6_FLAG                               //--- Uses Timer-6
+  //  #define TIM7_FLAG                               //--- Uses Timer-7
+  //  #define TIM15_FLAG                              //--- Uses Timer-15
+  //  #define TIM16_FLAG                              //--- Uses Timer-16
+  //  #define LPTIM1_FLAG                             //--- Uses LPTimer1
+  //  #define LPTIM2_FLAG                             //--- Uses LPTimer2
 
   //-------------------------------------------------------------------------------------------
   //    Header files for libraries and program sections
@@ -144,7 +142,7 @@
   #include  "commonheader.h"                      //--- QUORB Inc. System Common Header
   #include  "global-macros.h"                     //--- QUORB Inc. Global QMX Macro Header
   #include  "STM32L432_Map.h"                     //--- Processor Address and Definition MAP
-//  #include  "STM32L432_BitDefs.h"                 //--- Processor Peripherial Definitions
+  #include  "STM32L432_BitDefs.h"                 //--- Processor Peripherial Definitions
   #include  "opsys.h"                             //--- OpSys Core MUST BE INCLUDED
   #include  "errors.h"                            //--- Error Processor
   #include  "sys_tick.h"                          //--- System Tick Interrupt MUST BE INCLUDED
@@ -152,36 +150,65 @@
   #include  "startup.h"                           //--- Initialization Functions & Routines
   #include  "genrtn.h"                            //--- Useful functions
   #include  "interrupts.h"                        //--- Interrupt Definitions & Functions
-  #include  "timers.h"                            //--- Timer definitions and functions
+  #include  "uart_com.h"                          //--- UART Communications
 
   //--- Include the common definitions used by QUORB
-  #ifdef TESTHELP_USED
+
+  //--- For Testing use Helpful I/O Flags
+  #ifdef TESTHELP_FLAG
     #include  "test_help.h"
   #endif
 
-  #ifdef USART1_USED
-    #include  "usart1.h"                        //--- USART Code
-  #endif
-
-  #ifdef USART2_USED
-    #include  "usart2.h"                        //--- USART Code
-  #endif
-
-  #ifdef SPI_USED
+  //--- If using SPI or QUADSPI Enabel the hardware
+  #ifdef SPI_FLAG
     #include  "spi.h"                             //--- SPI Code
   #endif
 
-  #ifdef TIM1_USED
+  //--- If using TIMER #1
+  #ifdef TIM1_FLAG
     #include  "timers.h"                          //--- TIMER-1 Code
   #endif
 
-  #ifdef I2C1_USED                                //--- I2C1 Code FLAG
-    #include  "i2c1.h"                            //--- I2C1 Code
-    #include  "eeprom.h"                          //--- On Board EEPROM Controller
+  //--- If using TIMER #2
+  #ifdef TIM2_FLAG
+    #include  "timers.h"                          //--- TIMER-2 Code
   #endif
 
-  #ifdef RTC_USED
-    #include  "rtc.h"
+  //--- If using TIMER #3
+  #ifdef TIM3_FLAG
+    #include  "timers.h"                          //--- TIMER-3 Code
+  #endif
+
+  //--- If using TIMER #6
+  #ifdef TIM6_FLAG
+    #include  "timers.h"                          //--- TIMER-6 Code
+  #endif
+
+  //--- If using TIMER #7
+  #ifdef TIM7_FLAG
+    #include  "timers.h"                          //--- TIMER-7 Code
+  #endif
+
+  //--- If using TIMER #15
+  #ifdef TIM15_FLAG
+    #include  "timers.h"                          //--- TIMER-15 Code
+  #endif
+
+  //--- If using TIMER #16
+  #ifdef TIM16_FLAG
+    #include  "timers.h"                          //--- TIMER-16 Code
+  #endif
+
+  //--- If using I2C1
+  #ifdef I2C1_FLAG                                //--- I2C1 Code FLAG
+    #include  "i2c1.h"                            //--- I2C1 Code
+    #include  "eeprom.h"                          //--- On Board EEPROM uses I2C1 Only
+  #endif
+
+  //--- If using I2C2
+  #ifdef I2C2_FLAG                                //--- I2C2 Code FLAG
+    #include  "i2c2.h"                            //--- I2C2 Code
   #endif
 
 #endif
+
