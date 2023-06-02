@@ -122,7 +122,7 @@ void  fnPulseValueOut ( u08 ubType, u32 ulPVO )
 void  fnPulseNibbleOut (u08 ubPulseNibble)
 {
   u16 uwA;
-  u08 ubB = 0x01;                                 //--- Set Hi Bit Mask
+  u08 ubB = 0x04;                                 //--- Set Hi Bit Mask
 
   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   //--- Define Bit Masks for Set/Clr Pins
@@ -198,11 +198,11 @@ void  fnPulseByteOut (u08 ubPulseByte)
       ClrDpin;
     }
 
-    nop2;
+    nop4;
 
     SetCpin;                                      //--- Set Clock Hi
 
-    nop2;
+    nop4;
 
     ClrCpin;                                      //--- Set Clock Lo
 
@@ -280,7 +280,7 @@ void  fnPulseLongOut (u32 ulPulseLong)
   u32 ulB = 0x80000000;                            //--- Set MSB Bit Mask
 
   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-  //--- Define Bit Masks for Set/Clr Pins in BSRR Register
+  //--- Define Bit Masks for Set/Clr Pins
   ulCsetMask = (0x00000001 << Cpin);
   ulCclrMask = (0x00000001 << (Cpin + 16));
   ulDsetMask = (0x00000001 << Dpin);
@@ -293,7 +293,7 @@ void  fnPulseLongOut (u32 ulPulseLong)
   //--- Pulse the Value Out
   for (uwA = 0; uwA < 32; uwA++)
   {
-    if (ulPulseLong & ulB)
+    if ((ulPulseLong & ulB) > 0)
     {
       SetDpin;
     }
@@ -302,11 +302,11 @@ void  fnPulseLongOut (u32 ulPulseLong)
       ClrDpin;
     }
 
-    nop2;
+    nop4;
 
     SetCpin;                                      //--- Set Clock Hi
 
-    nop2;
+    nop4;
 
     ClrCpin;                                      //--- Set Clock Hi
 
@@ -488,5 +488,4 @@ void  fnPulseOut (u08 ubPulseCntr)
     nop12;
   }
 }
-
 
