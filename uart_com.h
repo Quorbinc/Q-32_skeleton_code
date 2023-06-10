@@ -56,13 +56,13 @@
     extern    u16   uwXmit_1_Delay;                 //--- Character Spacing Delay 100uSec
 
     //--- USART Control Functions
-    void  fnInitUSART1 (u32 ulBaud);                //--- Initialize USART1 Communications
+    u16   fnInitUSART1 (u32 ulBaud);                //--- Initialize USART1 Communications
     void  fnUSART1_IRQ(void);                       //--- #37 - USART1 General Interrupt
     void  fnUSART1_RxEna (u08 ubOnOff);             //--- Enable / Disable USART
     void  fnXmitSvc_1 (void);                       //--- Send 1 Character OUT via SysTick
     void  fnTxtToFIFO_1 (u08 ubOut[]);              //--- Place String into TX FIFO
     void  fnByteToFIFO_1 (u08 ubByte);              //--- Place 1 Byte into TX FIFO
-    u16   fnStringOut_1 (u08 ubOut[])
+    u16   fnStringOut_1 (u08 ubOut[]);
     u16   fnGetNextUSART1 (void);                   //--- Test if a character is Waiting
   #endif
 
