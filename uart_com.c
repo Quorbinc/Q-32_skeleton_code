@@ -42,6 +42,7 @@ u08   ubStr[128];                                 //--- Generic Sub String Const
   u08   ubUSART1RxFIFO[USART1_RX_SIZE];           //--- Rx Character FIFO
 
   u16   uwXmit_1_Count;                           //--- Character Spacing Delay 100uSec
+  u16   uwXmit_1_Delay;
 
   #define USART1_RX_SIZE        1024              //--- Up to 1024 Characters for RX FIFO
   #define USART1_TX_SIZE        1024              //--- Up to 1024 Characters for TX FIFO
@@ -58,7 +59,7 @@ u08   ubStr[128];                                 //--- Generic Sub String Const
   //-------------------------------------------------------------------------------------------
   //               Initialize USART1 for Transmit and receive @ UP TO 115200
   //-------------------------------------------------------------------------------------------
-  void  fnInitUSART1 (u32 ulBaud)                   //--- Initialize USART1 Communications
+  u16 fnInitUSART1 (u32 ulBaud)                   //--- Initialize USART1 Communications
   {
     uwUSART1TxCntr = 0;                             //--- Reset the FIFO's
     uwUSART1TxIptr = 0;
@@ -67,6 +68,8 @@ u08   ubStr[128];                                 //--- Generic Sub String Const
     uwUSART1RxCntr = 0;
     uwUSART1RxIptr = 0;
     uwUSART1RxOptr = 0;
+
+    uwXmit_1_Delay = XMIT_1_DELAY;                  //--- Initialize Delay Factor
 
     USART1_CR1 = 0x0000;                            //--- Kill the UART
     USART1_CR2 = 0x0000;
@@ -95,6 +98,7 @@ u08   ubStr[128];                                 //--- Generic Sub String Const
     uwXmit_1_Count = uwXmit_1_Delay;                //--- Reset the Count
 
     USART1_TDR = ZERO;                              //--- Send a Zero to init the TX
+    return 0;
   }
 
   //-------------------------------------------------------------------------------------------
@@ -144,7 +148,7 @@ u08   ubStr[128];                                 //--- Generic Sub String Const
     GID;                                            //--- Kill Interrupts
     fnClrIntPend (USART1_IRQn);                     //--- Clear the interrupt
 
-    if (USART1_SR & 0x0008)                         //--- Is overrun error triggered?
+    if (USART1_ISR & 0x0008)                        //--- Is overrun error triggered?
     {
       ubRxData = (u08)USART1_RDR;                   //--- Read & Dump the data byte from USART
       GIE;                                          //--- Enable Interrupts
@@ -257,7 +261,8 @@ u08   ubStr[128];                                 //--- Generic Sub String Const
   u16   uwErrCntr2;                               //--- Number of errors encountered
 
   u16   uwXmit_2_Count;                           //--- Character Spacing Delay 100uSec
-
+  u16   uwXmit_2_Delay;                           //--- Initialize Delay Factor
+  
   #define USART2_RX_SIZE        1024              //--- Up to 1024 Characters for RX FIFO
   #define USART2_TX_SIZE        1024              //--- Up to 1024 Characters for TX FIFO
   #define USART2_MAX_TX_IN      1022              //--- Up to 1022 Characters ready to go out
@@ -288,6 +293,8 @@ u08   ubStr[128];                                 //--- Generic Sub String Const
     uwUSART2RxOptr = 0;
 
     fnClrIntPend (USART2_IRQn);                     //--- Clear ANY UART2 interrupts pending
+
+    uwXmit_2_Delay = XMIT_2_DELAY;                  //--- Initialize Delay Factor
 
     //--- Set Up Port I/O Pins A2 & A3 for USART-2 Tx&Rx
     //-----------------------------------------------------------------------------------------
