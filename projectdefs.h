@@ -89,7 +89,7 @@
   //  #define DAC1_FLAG                               //--- Uses DAC-1
   //  #define DAC2_FLAG                               //--- Uses DAC-2
   //  #define USART1_FLAG                             //--- This program uses USART-1
-  #define USART2_FLAG                                 //--- This program uses USART-2
+  //  #define USART2_FLAG                                 //--- This program uses USART-2
   //  #define USART3_FLAG                             //--- This program uses USART-3
   //--#define I2C1_FLAG                               //--- Uses I2C1 for EEPROM
   //  #define I2C2_FLAG                               //--- Uses I2C2
@@ -151,64 +151,9 @@
   #include  "genrtn.h"                            //--- Useful functions
   #include  "interrupts.h"                        //--- Interrupt Definitions & Functions
   #include  "uart_com.h"                          //--- UART Communications
+  #include  "timers.h"
 
   //--- Include the common definitions used by QUORB
 
-  //--- For Testing use Helpful I/O Flags
-  #ifdef TESTHELP_FLAG
-    #include  "test_help.h"
-  #endif
-
-  //--- If using SPI or QUADSPI Enabel the hardware
-  #ifdef SPI_FLAG
-    #include  "spi.h"                             //--- SPI Code
-  #endif
-
-  //--- If using TIMER #1
-  #ifdef TIM1_FLAG
-    #include  "timers.h"                          //--- TIMER-1 Code
-  #endif
-
-  //--- If using TIMER #2
-  #ifdef TIM2_FLAG
-    #include  "timers.h"                          //--- TIMER-2 Code
-  #endif
-
-  //--- If using TIMER #3
-  #ifdef TIM3_FLAG
-    #include  "timers.h"                          //--- TIMER-3 Code
-  #endif
-
-  //--- If using TIMER #6
-  #ifdef TIM6_FLAG
-    #include  "timers.h"                          //--- TIMER-6 Code
-  #endif
-
-  //--- If using TIMER #7
-  #ifdef TIM7_FLAG
-    #include  "timers.h"                          //--- TIMER-7 Code
-  #endif
-
-  //--- If using TIMER #15
-  #ifdef TIM15_FLAG
-    #include  "timers.h"                          //--- TIMER-15 Code
-  #endif
-
-  //--- If using TIMER #16
-  #ifdef TIM16_FLAG
-    #include  "timers.h"                          //--- TIMER-16 Code
-  #endif
-
-  //--- If using I2C1
-  #ifdef I2C1_FLAG                                //--- I2C1 Code FLAG
-    #include  "i2c1.h"                            //--- I2C1 Code
-    #include  "eeprom.h"                          //--- On Board EEPROM uses I2C1 Only
-  #endif
-
-  //--- If using I2C2
-  #ifdef I2C2_FLAG                                //--- I2C2 Code FLAG
-    #include  "i2c2.h"                            //--- I2C2 Code
-  #endif
 
 #endif
-
