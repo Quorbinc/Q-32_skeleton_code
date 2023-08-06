@@ -75,55 +75,16 @@ u32 volatile ulSystemFlags;                       //--- ulSystemFlags
 //  fnFunctionName (struct PassData stTaskData)
 //
 
+//---Removed testing functions from the main loop and main function of the project
+
 //---------------------------------------------------------------------------------------------
 //    Main Program Entry Point Add your user code
 //---------------------------------------------------------------------------------------------
 int main (void)
 {
-
-  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-
-  //--- Output Start Message on USART #2
-  fnStringOut_2 ("\r\nQuorb is Alive, Mu Ah Ah Ah! \r\n Ready --> ");
-
-
   //--- Main Infinite Loop entry point calls Dispatcher and any polled actions
   while (1)
   {
-    //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-    #ifdef TESTHELP_FLAG
-      u32   ulC;
-
-      // fnPulseLongOut (fnReadCPUregister(20));     //--- Show System CONTROL
-      fnPulseLongOut (0x00FF0F35);     //--- Pulse Out Orientation
-
-      //--- Spacing Delay
-      for (ulC = 0; ulC < 10; ulC++)
-      {
-        nop4;
-      }
-
-    //--- Output the STK_CTRL Value to PA06 & PA07
-      fnPulseLongOut (STK_CTRL);
-
-      //--- Spacing Delay
-      for (ulC = 0; ulC < 10; ulC++)
-      {
-        nop4;
-      }
-
-    //--- Pulse Out STK_LOAD Value
-      fnPulseLongOut (STK_LOAD);
-
-      //--- Spacing Delay
-      for (ulC = 0; ulC < 10; ulC++)
-      {
-        nop4;
-      }
-    #endif
-
     //--- The Dispatcher is called from the main endless loop
     fnDispatcher();
 
@@ -133,31 +94,6 @@ int main (void)
     //    If required add a function call for any activities that are required to be handled
     //    in the "main" loop.
     //-----------------------------------------------------------------------------------------
-
-    //--- Process the USART1 Rx
-    #ifdef USART1_FLAG
-      u16   uwRX1;                                //--- Local storage for USART1
-
-      uwRX1 = fnGetNextUSART1();                  //--- Test to see if RX Data Ready on USART1
-      //--- Data Ready if Bit 15 is Set
-      if (uwRX1 & 0x8000)
-      {
-        //--- Call or Schedule Rx Processing for USART #1
-      }
-    #endif
-
-    //--- Process the USART2 Rx
-    #ifdef USART2_FLAG
-      u16   uwRX2;                                //--- Local storage for USART2
-
-      uwRX2 = fnGetNextUSART2();                  //--- Test to see if RX Data Ready on USART2
-      //--- Data Ready if Bit 15 is Set
-      if (uwRX2 & 0x8000)
-      {
-        //--- Call or Schedule Rx Processing for USART #2
-      }
-    #endif
-
   }
 }
 
@@ -271,4 +207,3 @@ u16  tkRecursion (union DFLWB unTD)
       //---------------------------------------------------------------------------------------
       //
       //---------------------------------------------------------------------------------------
-
