@@ -79,9 +79,9 @@ u08   fnInitI2C1_Master (u32 ulSpeed)
 
   //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
   //--- Force Reset of I2C1 Peripherial
-  RCC_APB1RSTR |= 0x00010000;
+  RCC_APB1RSTR1 |= 0x00200000;
   nop32;
-  RCC_APB1RSTR &= 0xFFFEFFFF;
+  RCC_APB1RSTR1 &= 0xFFDFFFFF;
 
   //--- Define I2C1 Clock Source
   RCC_CCIPR &= 0xFFFFC0FF;                        //--- Reset any old source definitions
