@@ -54,7 +54,7 @@ struct Task
 };
 ```
 
-##Putting it all together
+## Putting it all together
 To schedule and use tasks, you can make a program like the program below in project.c and project.h to blink an LED
 ```C
 //-----Some code omitted for clarity-----//
