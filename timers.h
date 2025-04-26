@@ -7,7 +7,7 @@
 //
 //       This code is for use on the QUORB QMX Processor Series of Micro Controllers
 //
-//                             Written By:  Sancar James Fredsti
+//                             Written By:  Ethan James Fredsti.
 //
 //                                  (C) 2021 Quorb Inc
 //=============================================================================================

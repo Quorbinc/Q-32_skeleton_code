@@ -9,65 +9,59 @@
 //===========================================================================================--
 
 #ifndef SYSTICK_H
-  #define SYSTICK_H
-  #define SYS_TICK_FREQ 10000
+    #define SYSTICK_H
+    #define SYS_TICK_FREQ 10000
 
-  //-------------------------------------------------------------------------------------------
-  //                     Program Defines and RAM Storage Definitions
-  //-------------------------------------------------------------------------------------------
+    //--- Define Test Pulse Output
+    #define SYSTICK_TEST
 
-  extern  u32   ulFastTimeCount[4];               //--- Handy Delay
-                                                  //--- General Delay Timer @ 100 uSec
-  extern  u64   uxSysTick;                        //--- Master Tick Timer 2^64 100 uSec Ticks
+    //--- Initialize SYS_TICK
+                              //--- Point to STK_CTRL Base Address
+    #define INIT_SYSTICK  asm ( "MOV    R0, #0xE010\n\t" \
+                                "MOVT   R0, #0xE000\n\t" \
+                                "MOV    R1, #0x0004\n\t" \
+                                "MOVT   R1, #0x0000\n\t" \
+                                "STR    R1, [R0]\n\t" \
+                                "nop\n\t" \
+                                "MOV    R0, #0xE014\n\t" \
+                                "MOVT   R0, #0xE000\n\t" \
+                                "MOV    R1, #0x1C1F\n\t" \
+                                "MOVT   R1, #0x0000\n\t" \
+                                "STR    R1, [R0]\n\t"  \
+                                "nop\n\t" \
+                                "MOV    R0, #0xE014\n\t" \
+                                "MOVT   R0, #0xE000\n\t" \
+                                "MOV    R1, #0x1C1F\n\t" \
+                                "MOVT   R1, #0x0000\n\t" \
+                                "STR    R1, [R0]\n\t" \
+                                "nop\n\t" \
+                                "MOV    R0, #0xE010\n\t" \
+                                "MOVT   R0, #0xE000\n\t" \
+                                "MOV    R1, #0x0007\n\t" \
+                                "MOVT   R1, #0x0000\n\t" \
+                                "STR    R1, [R0]\n\t" \
+                                "nop\n\t" ::)
 
-  extern  u16   uwPacerPhase;                     //--- Pacer Phase Counter
-  extern  u16   uwPacerTick;                      //--- Pacer Slow Tick Count
-  extern  u16   uwLEDcntr;                        //--- LED On Period
-  extern  u16   uwLEDtime;                        //--- LED period time
+    //-------------------------------------------------------------------------------------------
+    //                     Program Defines and RAM Storage Definitions
+    //-------------------------------------------------------------------------------------------
 
-  //--- NOTE: USART Character Time spacing is defined in "uart_com"
-  //          Wait Delay for checking available Tx FIFO Space
-  extern  u16   uwTxDelay_1;
-  extern  u16   uwTxDelay_2;
+    extern  u32   ulFastTimeCount[4];               //--- Handy Delay.  General Delay Timer @ 100 uSec
+    extern  u64   uxSysTick;                        //--- Master Tick Timer 2^64 100 uSec Ticks
 
-  //-------------------------------------------------------------------------------------------
-  //                          Function Prototypes & Definitions
-  //    This function is called from the systick Hardware Injterrupt
-  //-------------------------------------------------------------------------------------------
+    extern  u16   uwPacerPhase;                     //--- Pacer Phase Counter
+    extern  u16   uwPacerTick;                      //--- Pacer Slow Tick Count
+    extern  u16   uwLEDcntr;                        //--- LED On Period
+    extern  u16   uwLEDtime;                        //--- LED period time
 
-  void  fnInitSysTick (void);                       //--- Initialize SysTick
-  void  fnSysTick_IRQ(void);                        //--- IRQ_- 1 //--- From interrupts.c
-  u32   fnReadFastCounter(u08 ubCntrNum);
-  void  fnClearFastCounter(u08 ubCntrNum);
-  void  fnSetFastCounter(u08 ubCntrNum, u32 ulDownCount);
+    //-------------------------------------------------------------------------------------------
+    //                          Function Prototypes & Definitions
+    //    This function is called from the systick Hardware Injterrupt
+    //-------------------------------------------------------------------------------------------
+
+    void  fnInitSysTick (void);                       //--- Initialize SysTick
+    void  fnSysTick(void);                        //--- IRQ_- 1 //--- From interrupts.c
+    u32   fnReadFastCounter(u08 ubCntrNum);
+    void  fnClearFastCounter(u08 ubCntrNum);
+    void  fnSetFastCounter(u08 ubCntrNum, u32 ulDownCount);
 #endif
-
-//|....|....|....*....|....|....*....|....|....^....|....|....*....|....|....*....|....|....|..
-
-//=============================================================================================
-//
-//=============================================================================================
-
-//---------------------------------------------------------------------------------------------
-//
-//---------------------------------------------------------------------------------------------
-
-  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-  //-------------------------------------------------------------------------------------------
-  //
-  //-------------------------------------------------------------------------------------------
-
-    //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-    //-----------------------------------------------------------------------------------------
-    //
-    //-----------------------------------------------------------------------------------------
-
-      //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-      //---------------------------------------------------------------------------------------
-      //
-      //---------------------------------------------------------------------------------------
-
-        //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::

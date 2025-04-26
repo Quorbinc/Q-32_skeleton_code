@@ -19,7 +19,7 @@
   #define CoreDebug_BASE      (0xE000EDF0UL)                    //--- Core Debug Base Address
 
   #define SCS_BASE            (0xE000E000UL)                    //--- System Control Space Base Address
-//  #define SYSTICK_BASE        *(vu32*)(0xE000E010UL)            //--- SysTick Base Address
+  #define SYSTICK_BASE        *(vu32*)(0xE000E010UL)            //--- SysTick Base Address
   #define NVIC_BASE           (0xE000E100UL)                    //--- NVIC Base Address
   #define SCS_ACTLR           *(vu32*)(SCS_BASE + 0x0008U)      //--- Aux Control
 
@@ -286,7 +286,7 @@
   #define PERIPH_BASE           (0x40000000UL) //--- Peripheral base address
   #define QSPI_BASE             (0x90000000UL) //--- QUADSPI memories accessible over AHB base address
 
-  #define QSPI_R_BASE           (0xA0001000UL) //--- QUADSPI control registers base address
+  #define QUADSPI_BASE           (0xA0001000UL) //--- QUADSPI control registers base address
   #define SRAM1_BB_BASE         (0x22000000UL) //--- SRAM1(96 KB) base address in the bit-band region
   #define PERIPH_BB_BASE        (0x42000000UL) //--- Peripheral base address in the bit-band region
 
@@ -310,12 +310,10 @@
   #define RTC_BASE              (APB1PERIPH_BASE + 0x2800UL)
   #define WWDG_BASE             (APB1PERIPH_BASE + 0x2C00UL)
   #define IWDG_BASE             (APB1PERIPH_BASE + 0x3000UL)
-  #define SPI2_BASE             (APB1PERIPH_BASE + 0x3800UL)
   #define SPI3_BASE             (APB1PERIPH_BASE + 0x3C00UL)
   #define USART2_BASE           (APB1PERIPH_BASE + 0x4400UL)
   #define USART3_BASE           (APB1PERIPH_BASE + 0x4800UL)
   #define I2C1_BASE             (APB1PERIPH_BASE + 0x5400UL)
-  #define I2C2_BASE             (APB1PERIPH_BASE + 0x5800UL)
   #define I2C3_BASE             (APB1PERIPH_BASE + 0x5C00UL)
   #define CRS_BASE              (APB1PERIPH_BASE + 0x6000UL)
   #define CAN1_BASE             (APB1PERIPH_BASE + 0x6400UL)
@@ -337,7 +335,7 @@
   #define COMP2_BASE            (APB2PERIPH_BASE + 0x0204UL)
   #define EXTI_BASE             (APB2PERIPH_BASE + 0x0400UL)
   #define FIREWALL_BASE         (APB2PERIPH_BASE + 0x1C00UL)
-  #define SDMMC1_BASE           (APB2PERIPH_BASE + 0x2800UL)
+  #define SDMMC_BASE            (APB2PERIPH_BASE + 0x2800UL)
   #define TIM1_BASE             (APB2PERIPH_BASE + 0x2C00UL)
   #define SPI1_BASE             (APB2PERIPH_BASE + 0x3000UL)
   #define USART1_BASE           (APB2PERIPH_BASE + 0x3800UL)
@@ -378,14 +376,6 @@
   #define GPIOA_BASE            (AHB2PERIPH_BASE + 0x0000UL)
   #define GPIOB_BASE            (AHB2PERIPH_BASE + 0x0400UL)
   #define GPIOC_BASE            (AHB2PERIPH_BASE + 0x0800UL)
-  #define GPIOD_BASE            (AHB2PERIPH_BASE + 0x0C00UL)
-  #define GPIOE_BASE            (AHB2PERIPH_BASE + 0x1000UL)
-  #define GPIOF_BASE            (AHB2PERIPH_BASE + 0x1400UL)
-  #define GPIOG_BASE            (AHB2PERIPH_BASE + 0x1800UL)
-  #define GPIOH_BASE            (AHB2PERIPH_BASE + 0x1C00UL)
-  #define GPIOI_BASE            (AHB2PERIPH_BASE + 0x2000UL)
-  #define GPIOJ_BASE            (AHB2PERIPH_BASE + 0x2400UL)
-  #define GPIOK_BASE            (AHB2PERIPH_BASE + 0x2C00UL)
 
   #define ADC1_BASE             (AHB2PERIPH_BASE + 0x08040000UL)
   #define ADC1_COMMON_BASE      (AHB2PERIPH_BASE + 0x08040300UL)
@@ -401,8 +391,6 @@
   //-------------------------------------------------------------------------------------------
   //      SysTick Configuration Registers  SYSTICK_BASE = 0xE000E010UL
   //-------------------------------------------------------------------------------------------
-  #define SYSTICK_BASE          *(vu32*)(0xE000E010UL)            //--- SysTick Base Address
-  //  0xE000E010
   #define STK_CTRL              *(vu32 *)(SYSTICK_BASE + 0x00000000)
   #define STK_LOAD              *(vu32 *)(SYSTICK_BASE + 0x00000004)
   #define STK_VAL               *(vu32 *)(SYSTICK_BASE + 0x00000008)
@@ -535,102 +523,6 @@
   #define GPIOC_AFRL            *(vu32 *)(GPIOC_BASE + 0x00000020)
   #define GPIOC_AFRH            *(vu32 *)(GPIOC_BASE + 0x00000024)
 
-  //--- GPIO-D
-  #define GPIOD_MODER           *(vu32 *)(GPIOD_BASE + 0x00000000)
-  #define GPIOD_OTYPER          *(vu32 *)(GPIOD_BASE + 0x00000004)
-  #define GPIOD_OSPEEDR         *(vu32 *)(GPIOD_BASE + 0x00000008)
-  #define GPIOD_PUPDR           *(vu32 *)(GPIOD_BASE + 0x0000000C)
-  #define GPIOD_IDR             *(vu32 *)(GPIOD_BASE + 0x00000010)
-  #define GPIOD_ODR             *(vu32 *)(GPIOD_BASE + 0x00000014)
-  #define GPIOD_BSRR            *(vu32 *)(GPIOD_BASE + 0x00000018)
-  #define GPIOD_LCKR            *(vu32 *)(GPIOD_BASE + 0x0000001C)
-  #define GPIOD_AFRL            *(vu32 *)(GPIOD_BASE + 0x00000020)
-  #define GPIOD_AFRH            *(vu32 *)(GPIOD_BASE + 0x00000024)
-
-  //--- GPIO-E
-  #define GPIOE_MODER           *(vu32 *)(GPIOE_BASE + 0x00000000)
-  #define GPIOE_OTYPER          *(vu32 *)(GPIOE_BASE + 0x00000004)
-  #define GPIOE_OSPEEDR         *(vu32 *)(GPIOE_BASE + 0x00000008)
-  #define GPIOE_PUPDR           *(vu32 *)(GPIOE_BASE + 0x0000000C)
-  #define GPIOE_IDR             *(vu32 *)(GPIOE_BASE + 0x00000010)
-  #define GPIOE_ODR             *(vu32 *)(GPIOE_BASE + 0x00000014)
-  #define GPIOE_BSRR            *(vu32 *)(GPIOE_BASE + 0x00000018)
-  #define GPIOE_LCKR            *(vu32 *)(GPIOE_BASE + 0x0000001C)
-  #define GPIOE_AFRL            *(vu32 *)(GPIOE_BASE + 0x00000020)
-  #define GPIOE_AFRH            *(vu32 *)(GPIOE_BASE + 0x00000024)
-
-  //--- GPIO-F
-  #define GPIOF_MODER           *(vu32 *)(GPIOF_BASE + 0x00000000)
-  #define GPIOF_OTYPER          *(vu32 *)(GPIOF_BASE + 0x00000004)
-  #define GPIOF_OSPEEDR         *(vu32 *)(GPIOF_BASE + 0x00000008)
-  #define GPIOF_PUPDR           *(vu32 *)(GPIOF_BASE + 0x0000000C)
-  #define GPIOF_IDR             *(vu32 *)(GPIOF_BASE + 0x00000010)
-  #define GPIOF_ODR             *(vu32 *)(GPIOF_BASE + 0x00000014)
-  #define GPIOF_BSRR            *(vu32 *)(GPIOF_BASE + 0x00000018)
-  #define GPIOF_LCKR            *(vu32 *)(GPIOF_BASE + 0x0000001C)
-  #define GPIOF_AFRL            *(vu32 *)(GPIOF_BASE + 0x00000020)
-  #define GPIOF_AFRH            *(vu32 *)(GPIOF_BASE + 0x00000024)
-
-  //--- GPIO-G
-  #define GPIOG_MODER           *(vu32 *)(GPIOG_BASE + 0x00000000)
-  #define GPIOG_OTYPER          *(vu32 *)(GPIOG_BASE + 0x00000004)
-  #define GPIOG_OSPEEDR         *(vu32 *)(GPIOG_BASE + 0x00000008)
-  #define GPIOG_PUPDR           *(vu32 *)(GPIOG_BASE + 0x0000000C)
-  #define GPIOG_IDR             *(vu32 *)(GPIOG_BASE + 0x00000010)
-  #define GPIOG_ODR             *(vu32 *)(GPIOG_BASE + 0x00000014)
-  #define GPIOG_BSRR            *(vu32 *)(GPIOG_BASE + 0x00000018)
-  #define GPIOG_LCKR            *(vu32 *)(GPIOG_BASE + 0x0000001C)
-  #define GPIOG_AFRL            *(vu32 *)(GPIOG_BASE + 0x00000020)
-  #define GPIOG_AFRH            *(vu32 *)(GPIOG_BASE + 0x00000024)
-
-  //--- GPIO-H
-  #define GPIOH_MODER           *(vu32 *)(GPIOH_BASE + 0x00000000)
-  #define GPIOH_OTYPER          *(vu32 *)(GPIOH_BASE + 0x00000004)
-  #define GPIOH_OSPEEDR         *(vu32 *)(GPIOH_BASE + 0x00000008)
-  #define GPIOH_PUPDR           *(vu32 *)(GPIOH_BASE + 0x0000000C)
-  #define GPIOH_IDR             *(vu32 *)(GPIOH_BASE + 0x00000010)
-  #define GPIOH_ODR             *(vu32 *)(GPIOH_BASE + 0x00000014)
-  #define GPIOH_BSRR            *(vu32 *)(GPIOH_BASE + 0x00000018)
-  #define GPIOH_LCKR            *(vu32 *)(GPIOH_BASE + 0x0000001C)
-  #define GPIOH_AFRL            *(vu32 *)(GPIOH_BASE + 0x00000020)
-  #define GPIOH_AFRH            *(vu32 *)(GPIOH_BASE + 0x00000024)
-
-  //--- GPIO-I
-  #define GPIOI_MODER           *(vu32 *)(GPIOI_BASE + 0x00000000)
-  #define GPIOI_OTYPER          *(vu32 *)(GPIOI_BASE + 0x00000004)
-  #define GPIOI_OSPEEDR         *(vu32 *)(GPIOI_BASE + 0x00000008)
-  #define GPIOI_PUPDR           *(vu32 *)(GPIOI_BASE + 0x0000000C)
-  #define GPIOI_IDR             *(vu32 *)(GPIOI_BASE + 0x00000010)
-  #define GPIOI_ODR             *(vu32 *)(GPIOI_BASE + 0x00000014)
-  #define GPIOI_BSRR            *(vu32 *)(GPIOI_BASE + 0x00000018)
-  #define GPIOI_LCKR            *(vu32 *)(GPIOI_BASE + 0x0000001C)
-  #define GPIOI_AFRL            *(vu32 *)(GPIOI_BASE + 0x00000020)
-  #define GPIOI_AFRH            *(vu32 *)(GPIOI_BASE + 0x00000024)
-
-  //--- GPIO-J
-  #define GPIOJ_MODER           *(vu32 *)(GPIOJ_BASE + 0x00000000)
-  #define GPIOJ_OTYPER          *(vu32 *)(GPIOJ_BASE + 0x00000004)
-  #define GPIOJ_OSPEEDR         *(vu32 *)(GPIOJ_BASE + 0x00000008)
-  #define GPIOJ_PUPDR           *(vu32 *)(GPIOJ_BASE + 0x0000000C)
-  #define GPIOJ_IDR             *(vu32 *)(GPIOJ_BASE + 0x00000010)
-  #define GPIOJ_ODR             *(vu32 *)(GPIOJ_BASE + 0x00000014)
-  #define GPIOJ_BSRR            *(vu32 *)(GPIOJ_BASE + 0x00000018)
-  #define GPIOJ_LCKR            *(vu32 *)(GPIOJ_BASE + 0x0000001C)
-  #define GPIOJ_AFRL            *(vu32 *)(GPIOJ_BASE + 0x00000020)
-  #define GPIOJ_AFRH            *(vu32 *)(GPIOJ_BASE + 0x00000024)
-
-  //--- GPIO-K
-  #define GPIOK_MODER           *(vu32 *)(GPIOK_BASE + 0x00000000)
-  #define GPIOK_OTYPER          *(vu32 *)(GPIOK_BASE + 0x00000004)
-  #define GPIOK_OSPEEDR         *(vu32 *)(GPIOK_BASE + 0x00000008)
-  #define GPIOK_PUPDR           *(vu32 *)(GPIOK_BASE + 0x0000000C)
-  #define GPIOK_IDR             *(vu32 *)(GPIOK_BASE + 0x00000010)
-  #define GPIOK_ODR             *(vu32 *)(GPIOK_BASE + 0x00000014)
-  #define GPIOK_BSRR            *(vu32 *)(GPIOK_BASE + 0x00000018)
-  #define GPIOK_LCKR            *(vu32 *)(GPIOK_BASE + 0x0000001C)
-  #define GPIOK_AFRL            *(vu32 *)(GPIOK_BASE + 0x00000020)
-  #define GPIOK_AFRH            *(vu32 *)(GPIOK_BASE + 0x00000024)
-
   //------------------------------------------------------------------------------------------
   //  GPIO Pin Number Defines   - This gives each I/O Pin a Unique Number (00 to FF)
   //  The Hi Nibble = the Port (A - K)  the Lo Nibble = Port Pin Number (0 - 15) = (0 - F)
@@ -685,142 +577,6 @@
   #define PC13    0x2D
   #define PC14    0x2E
   #define PC15    0x2F
-
-  #define PD00    0x30
-  #define PD01    0x31
-  #define PD02    0x32
-  #define PD03    0x33
-  #define PD04    0x34
-  #define PD05    0x35
-  #define PD06    0x36
-  #define PD07    0x37
-  #define PD08    0x38
-  #define PD09    0x39
-  #define PD10    0x3A
-  #define PD11    0x3B
-  #define PD12    0x3C
-  #define PD13    0x3D
-  #define PD14    0x3E
-  #define PD15    0x3F
-
-  #define PE00    0x40
-  #define PE01    0x41
-  #define PE02    0x42
-  #define PE03    0x43
-  #define PE04    0x44
-  #define PE05    0x45
-  #define PE06    0x46
-  #define PE07    0x47
-  #define PE08    0x48
-  #define PE09    0x49
-  #define PE10    0x4A
-  #define PE11    0x4B
-  #define PE12    0x4C
-  #define PE13    0x4D
-  #define PE14    0x4E
-  #define PE15    0x4F
-
-  #define PF00    0x50
-  #define PF01    0x51
-  #define PF02    0x52
-  #define PF03    0x53
-  #define PF04    0x54
-  #define PF05    0x55
-  #define PF06    0x56
-  #define PF07    0x57
-  #define PF08    0x58
-  #define PF09    0x59
-  #define PF10    0x5A
-  #define PF11    0x5B
-  #define PF12    0x5C
-  #define PF13    0x5D
-  #define PF14    0x5E
-  #define PF15    0x5F
-
-  #define PG00    0x60
-  #define PG01    0x61
-  #define PG02    0x62
-  #define PG03    0x63
-  #define PG04    0x64
-  #define PG05    0x65
-  #define PG06    0x66
-  #define PG07    0x67
-  #define PG08    0x68
-  #define PG09    0x69
-  #define PG10    0x6A
-  #define PG11    0x6B
-  #define PG12    0x6C
-  #define PG13    0x6D
-  #define PG14    0x6E
-  #define PG15    0x6F
-
-  #define PH00    0x70
-  #define PH01    0x71
-  #define PH02    0x72
-  #define PH03    0x73
-  #define PH04    0x74
-  #define PH05    0x75
-  #define PH06    0x76
-  #define PH07    0x77
-  #define PH08    0x78
-  #define PH09    0x79
-  #define PH10    0x7A
-  #define PH11    0x7B
-  #define PH12    0x7C
-  #define PH13    0x7D
-  #define PH14    0x7E
-  #define PH15    0x7F
-
-  #define PI00    0x80
-  #define PI01    0x81
-  #define PI02    0x82
-  #define PI03    0x83
-  #define PI04    0x84
-  #define PI05    0x85
-  #define PI06    0x86
-  #define PI07    0x87
-  #define PI08    0x88
-  #define PI09    0x89
-  #define PI10    0x8A
-  #define PI11    0x8B
-  #define PI12    0x8C
-  #define PI13    0x8D
-  #define PI14    0x8E
-  #define PI15    0x8F
-
-  #define PJ00    0x90
-  #define PJ01    0x91
-  #define PJ02    0x92
-  #define PJ03    0x93
-  #define PJ04    0x94
-  #define PJ05    0x95
-  #define PJ06    0x96
-  #define PJ07    0x97
-  #define PJ08    0x98
-  #define PJ09    0x99
-  #define PJ10    0x9A
-  #define PJ11    0x9B
-  #define PJ12    0x9C
-  #define PJ13    0x9D
-  #define PJ14    0x9E
-  #define PJ15    0x9F
-
-  #define PK00    0xA0
-  #define PK01    0xA1
-  #define PK02    0xA2
-  #define PK03    0xA3
-  #define PK04    0xA4
-  #define PK05    0xA5
-  #define PK06    0xA6
-  #define PK07    0xA7
-  #define PK08    0xA8
-  #define PK09    0xA9
-  #define PK10    0xAA
-  #define PK11    0xAB
-  #define PK12    0xAC
-  #define PK13    0xAD
-  #define PK14    0xAE
-  #define PK15    0xAF
 
   //-------------------------------------------------------------------------------------------
   //      ADC REGISTERS
@@ -883,20 +639,6 @@
   #define USART2_TDR            *(vu32 *)(USART2_BASE + 0x00000028)
   #define USART2_PRESC          *(vu32 *)(USART2_BASE + 0x0000002C)
 
-  //--- UART # 3 Registers
-  #define USART3_CR1            *(vu32 *)(USART3_BASE + 0x00000000)
-  #define USART3_CR2            *(vu32 *)(USART3_BASE + 0x00000004)
-  #define USART3_CR3            *(vu32 *)(USART3_BASE + 0x00000008)
-  #define USART3_BRR            *(vu32 *)(USART3_BASE + 0x0000000C)
-  #define USART3_GTPR           *(vu32 *)(USART3_BASE + 0x00000010)
-  #define USART3_RTOR           *(vu32 *)(USART3_BASE + 0x00000014)
-  #define USART3_RQR            *(vu32 *)(USART3_BASE + 0x00000018)
-  #define USART3_ISR            *(vu32 *)(USART3_BASE + 0x0000001C)
-  #define USART3_ICR            *(vu32 *)(USART3_BASE + 0x00000020)
-  #define USART3_RDR            *(vu32 *)(USART3_BASE + 0x00000024)
-  #define USART3_TDR            *(vu32 *)(USART3_BASE + 0x00000028)
-  #define USART3_PRESC          *(vu32 *)(USART3_BASE + 0x0000002C)
-
   //--- LPUART # 1 Registers
   #define LPUART1_CR1          *(vu32 *)(LPUART1_BASE + 0x00000000)
   #define LPUART1_CR2          *(vu32 *)(LPUART1_BASE + 0x00000004)
@@ -908,18 +650,6 @@
   #define LPUART1_RDR          *(vu32 *)(LPUART1_BASE + 0x00000024)
   #define LPUART1_TDR          *(vu32 *)(LPUART1_BASE + 0x00000028)
   #define LPUART1_PRESC        *(vu32 *)(LPUART1_BASE + 0x0000002C)
-
-  //--- LPUART # 2 Registers
-  #define LPUART2_CR1          *(vu32 *)(LPUART2_BASE + 0x00000000)
-  #define LPUART2_CR2          *(vu32 *)(LPUART2_BASE + 0x00000004)
-  #define LPUART2_CR3          *(vu32 *)(LPUART2_BASE + 0x00000008)
-  #define LPUART2_BRR          *(vu32 *)(LPUART2_BASE + 0x0000000C)
-  #define LPUART2_RQR          *(vu32 *)(LPUART2_BASE + 0x00000018)
-  #define LPUART2_ISR          *(vu32 *)(LPUART2_BASE + 0x0000001C)
-  #define LPUART2_ICR          *(vu32 *)(LPUART2_BASE + 0x00000020)
-  #define LPUART2_RDR          *(vu32 *)(LPUART2_BASE + 0x00000024)
-  #define LPUART2_TDR          *(vu32 *)(LPUART2_BASE + 0x00000028)
-  #define LPUART2_PRESC        *(vu32 *)(LPUART2_BASE + 0x0000002C)
 
   //-------------------------------------------------------------------------------------------
   //      I2C Registers
@@ -937,19 +667,6 @@
   #define I2C1_RXDR             *(vu32 *)(I2C1_BASE + 0x00000024)
   #define I2C1_TXDR             *(vu32 *)(I2C1_BASE + 0x00000028)
 
-  //--- I2C Driver #2 Registers
-  #define I2C2_CR1              *(vu32 *)(I2C2_BASE + 0x00000000)
-  #define I2C2_CR2              *(vu32 *)(I2C2_BASE + 0x00000004)
-  #define I2C2_OAR1             *(vu32 *)(I2C2_BASE + 0x00000008)
-  #define I2C2_OAR2             *(vu32 *)(I2C2_BASE + 0x0000000C)
-  #define I2C2_TIMINGR          *(vu32 *)(I2C2_BASE + 0x00000010)
-  #define I2C2_TIMEOTR          *(vu32 *)(I2C2_BASE + 0x00000014)
-  #define I2C2_ISR              *(vu32 *)(I2C2_BASE + 0x00000018)
-  #define I2C2_ICR              *(vu32 *)(I2C2_BASE + 0x0000001C)
-  #define I2C2_IPECR            *(vu32 *)(I2C2_BASE + 0x00000020)
-  #define I2C2_RXDR             *(vu32 *)(I2C2_BASE + 0x00000024)
-  #define I2C2_TXDR             *(vu32 *)(I2C2_BASE + 0x00000028)
-
   //--- I2C Driver #3 Registers
   #define I2C3_CR1              *(vu32 *)(I2C3_BASE + 0x00000000)
   #define I2C3_CR2              *(vu32 *)(I2C3_BASE + 0x00000004)
@@ -962,19 +679,6 @@
   #define I2C3_IPECR            *(vu32 *)(I2C3_BASE + 0x00000020)
   #define I2C3_RXDR             *(vu32 *)(I2C3_BASE + 0x00000024)
   #define I2C3_TXDR             *(vu32 *)(I2C3_BASE + 0x00000028)
-
-  //--- I2C Driver #4 Registers
-  #define I2C4_CR1              *(vu32 *)(I2C4_BASE + 0x00000000)
-  #define I2C4_CR2              *(vu32 *)(I2C4_BASE + 0x00000004)
-  #define I2C4_OAR1             *(vu32 *)(I2C4_BASE + 0x00000008)
-  #define I2C4_OAR2             *(vu32 *)(I2C4_BASE + 0x0000000C)
-  #define I2C4_TIMINGR          *(vu32 *)(I2C4_BASE + 0x00000010)
-  #define I2C4_TIMEOTR          *(vu32 *)(I2C4_BASE + 0x00000014)
-  #define I2C4_ISR              *(vu32 *)(I2C4_BASE + 0x00000018)
-  #define I2C4_ICR              *(vu32 *)(I2C4_BASE + 0x0000001C)
-  #define I2C4_IPECR            *(vu32 *)(I2C4_BASE + 0x00000020)
-  #define I2C4_RXDR             *(vu32 *)(I2C4_BASE + 0x00000024)
-  #define I2C4_TXDR             *(vu32 *)(I2C4_BASE + 0x00000028)
 
   //-------------------------------------------------------------------------------------------
   //      SPI Interface Registers
@@ -989,6 +693,17 @@
   #define SPI1_TXCRCR           *(vu32 *)(SPI1_BASE + 0x00000018)
   #define SPI1_I2SCFGR          *(vu32 *)(SPI1_BASE + 0x0000001C)
   #define SPI1_SPR              *(vu32 *)(SPI1_BASE + 0x00000020)
+
+  //--- SPI Interface 3
+  #define SPI3_CR1              *(vu32 *)(SPI3_BASE + 0x00000000)
+  #define SPI3_CR2              *(vu32 *)(SPI3_BASE + 0x00000004)
+  #define SPI3_SR               *(vu32 *)(SPI3_BASE + 0x00000008)
+  #define SPI3_DR               *(vu32 *)(SPI3_BASE + 0x0000000C)
+  #define SPI3_CRCPR            *(vu32 *)(SPI3_BASE + 0x00000010)
+  #define SPI3_RXCRCR           *(vu32 *)(SPI3_BASE + 0x00000014)
+  #define SPI3_TXCRCR           *(vu32 *)(SPI3_BASE + 0x00000018)
+  #define SPI3_I2SCFGR          *(vu32 *)(SPI3_BASE + 0x0000001C)
+  #define SPI3_SPR              *(vu32 *)(SPI3_BASE + 0x00000020)
 
   //-------------------------------------------------------------------------------------------
   //      CAN Interface Registers
@@ -1333,26 +1048,6 @@
   #define TIM2_DCR              *(vu32 *)(TIM2_BASE + 0x00000048)
   #define TIM2_DMAR             *(vu32 *)(TIM2_BASE + 0x0000004C)
 
-  //--- Timer #3 registers
-  #define TIM3_CR1              *(vu32 *)(TIM3_BASE + 0x00000000)
-  #define TIM3_CR2              *(vu32 *)(TIM3_BASE + 0x00000004)
-  #define TIM3_SMCR             *(vu32 *)(TIM3_BASE + 0x00000008)
-  #define TIM3_DIER             *(vu32 *)(TIM3_BASE + 0x0000000C)
-  #define TIM3_SR               *(vu32 *)(TIM3_BASE + 0x00000010)
-  #define TIM3_EGR              *(vu32 *)(TIM3_BASE + 0x00000014)
-  #define TIM3_CCMR1            *(vu32 *)(TIM3_BASE + 0x00000018)
-  #define TIM3_CCMR2            *(vu32 *)(TIM3_BASE + 0x0000001C)
-  #define TIM3_CCER             *(vu32 *)(TIM3_BASE + 0x00000020)
-  #define TIM3_CNT              *(vu32 *)(TIM3_BASE + 0x00000024)
-  #define TIM3_PSC              *(vu32 *)(TIM3_BASE + 0x00000028)
-  #define TIM3_ARR              *(vu32 *)(TIM3_BASE + 0x0000002C)
-  #define TIM3_CCR1             *(vu32 *)(TIM3_BASE + 0x00000034)
-  #define TIM3_CCR2             *(vu32 *)(TIM3_BASE + 0x00000038)
-  #define TIM3_CCR3             *(vu32 *)(TIM3_BASE + 0x0000003C)
-  #define TIM3_CCR4             *(vu32 *)(TIM3_BASE + 0x00000040)
-  #define TIM3_DCR              *(vu32 *)(TIM3_BASE + 0x00000048)
-  #define TIM3_DMAR             *(vu32 *)(TIM3_BASE + 0x0000004C)
-
   //--- Timer #6 registers
   #define TIM6_CR1              *(vu32 *)(TIM6_BASE + 0x00000000)
   #define TIM6_CR2              *(vu32 *)(TIM6_BASE + 0x00000004)
@@ -1441,26 +1136,49 @@
   //    LP Timer  registers
   //    LP Timer  = 16 bit general timer
   //-------------------------------------------------------------------------------------------
-  #define LPTIM_CR1             *(vu32 *)(LPTIM_BASE + 0x00000000)
-  #define LPTIM_CR2             *(vu32 *)(LPTIM_BASE + 0x00000004)
-  #define LPTIM_SMCR            *(vu32 *)(LPTIM_BASE + 0x00000008)
-  #define LPTIM_DIER            *(vu32 *)(LPTIM_BASE + 0x0000000C)
-  #define LPTIM_SR              *(vu32 *)(LPTIM_BASE + 0x00000010)
-  #define LPTIM_EGR             *(vu32 *)(LPTIM_BASE + 0x00000014)
-  #define LPTIM_CCMR1           *(vu32 *)(LPTIM_BASE + 0x00000018)
-  #define LPTIM_CCMR2           *(vu32 *)(LPTIM_BASE + 0x0000001C)
-  #define LPTIM_CCER            *(vu32 *)(LPTIM_BASE + 0x00000020)
-  #define LPTIM_CNT             *(vu32 *)(LPTIM_BASE + 0x00000024)
-  #define LPTIM_PSC             *(vu32 *)(LPTIM_BASE + 0x00000028)
-  #define LPTIM_ARR             *(vu32 *)(LPTIM_BASE + 0x0000002C)
-  #define LPTIM_RCR             *(vu32 *)(LPTIM_BASE + 0x00000030)
-  #define LPTIM_CCR1            *(vu32 *)(LPTIM_BASE + 0x00000034)
-  #define LPTIM_CCR2            *(vu32 *)(LPTIM_BASE + 0x00000038)
-  #define LPTIM_CCR3            *(vu32 *)(LPTIM_BASE + 0x0000003C)
-  #define LPTIM_CCR4            *(vu32 *)(LPTIM_BASE + 0x00000040)
-  #define LPTIM_BDTR            *(vu32 *)(LPTIM_BASE + 0x00000044)
-  #define LPTIM_DCR             *(vu32 *)(LPTIM_BASE + 0x00000048)
-  #define LPTIM_DMAR            *(vu32 *)(LPTIM_BASE + 0x0000004C)
+  //--- LPTIM1 registers
+  #define LPTIM1_CR1             *(vu32 *)(LPTIM_BASE + 0x00000000)
+  #define LPTIM1_CR2             *(vu32 *)(LPTIM_BASE + 0x00000004)
+  #define LPTIM1_SMCR            *(vu32 *)(LPTIM_BASE + 0x00000008)
+  #define LPTIM1_DIER            *(vu32 *)(LPTIM_BASE + 0x0000000C)
+  #define LPTIM1_SR              *(vu32 *)(LPTIM_BASE + 0x00000010)
+  #define LPTIM1_EGR             *(vu32 *)(LPTIM_BASE + 0x00000014)
+  #define LPTIM1_CCMR1           *(vu32 *)(LPTIM_BASE + 0x00000018)
+  #define LPTIM1_CCMR2           *(vu32 *)(LPTIM_BASE + 0x0000001C)
+  #define LPTIM1_CCER            *(vu32 *)(LPTIM_BASE + 0x00000020)
+  #define LPTIM1_CNT             *(vu32 *)(LPTIM_BASE + 0x00000024)
+  #define LPTIM1_PSC             *(vu32 *)(LPTIM_BASE + 0x00000028)
+  #define LPTIM1_ARR             *(vu32 *)(LPTIM_BASE + 0x0000002C)
+  #define LPTIM1_RCR             *(vu32 *)(LPTIM_BASE + 0x00000030)
+  #define LPTIM1_CCR1            *(vu32 *)(LPTIM_BASE + 0x00000034)
+  #define LPTIM1_CCR2            *(vu32 *)(LPTIM_BASE + 0x00000038)
+  #define LPTIM1_CCR3            *(vu32 *)(LPTIM_BASE + 0x0000003C)
+  #define LPTIM1_CCR4            *(vu32 *)(LPTIM_BASE + 0x00000040)
+  #define LPTIM1_BDTR            *(vu32 *)(LPTIM_BASE + 0x00000044)
+  #define LPTIM1_DCR             *(vu32 *)(LPTIM_BASE + 0x00000048)
+  #define LPTIM1_DMAR            *(vu32 *)(LPTIM_BASE + 0x0000004C)
+
+  //--- LPTIM2 registers
+  #define LPTIM2_CR1             *(vu32 *)(LPTIM_BASE + 0x00000000)
+  #define LPTIM2_CR2             *(vu32 *)(LPTIM_BASE + 0x00000004)
+  #define LPTIM2_SMCR            *(vu32 *)(LPTIM_BASE + 0x00000008)
+  #define LPTIM2_DIER            *(vu32 *)(LPTIM_BASE + 0x0000000C)
+  #define LPTIM2_SR              *(vu32 *)(LPTIM_BASE + 0x00000010)
+  #define LPTIM2_EGR             *(vu32 *)(LPTIM_BASE + 0x00000014)
+  #define LPTIM2_CCMR1           *(vu32 *)(LPTIM_BASE + 0x00000018)
+  #define LPTIM2_CCMR2           *(vu32 *)(LPTIM_BASE + 0x0000001C)
+  #define LPTIM2_CCER            *(vu32 *)(LPTIM_BASE + 0x00000020)
+  #define LPTIM2_CNT             *(vu32 *)(LPTIM_BASE + 0x00000024)
+  #define LPTIM2_PSC             *(vu32 *)(LPTIM_BASE + 0x00000028)
+  #define LPTIM2_ARR             *(vu32 *)(LPTIM_BASE + 0x0000002C)
+  #define LPTIM2_RCR             *(vu32 *)(LPTIM_BASE + 0x00000030)
+  #define LPTIM2_CCR1            *(vu32 *)(LPTIM_BASE + 0x00000034)
+  #define LPTIM2_CCR2            *(vu32 *)(LPTIM_BASE + 0x00000038)
+  #define LPTIM2_CCR3            *(vu32 *)(LPTIM_BASE + 0x0000003C)
+  #define LPTIM2_CCR4            *(vu32 *)(LPTIM_BASE + 0x00000040)
+  #define LPTIM2_BDTR            *(vu32 *)(LPTIM_BASE + 0x00000044)
+  #define LPTIM2_DCR             *(vu32 *)(LPTIM_BASE + 0x00000048)
+  #define LPTIM2_DMAR            *(vu32 *)(LPTIM_BASE + 0x0000004C)
 
   //-------------------------------------------------------------------------------------------
   //      QUADSPI Interface Registers
@@ -1538,59 +1256,32 @@
   #define IWDG_SR                          *(vu32 *)(IWDG_BASE + 0x0000000C)
 
   //-------------------------------------------------------------------------------------------
-  //    SDIO Interface
+  //    SDMMC Interface
   //-------------------------------------------------------------------------------------------
-  #define SDIO_POWER                       *(vu32 *)(SDIO_BASE + 0x00000000)
-  #define SDIO_CLKCR                       *(vu32 *)(SDIO_BASE + 0x00000004)
-  #define SDIO_ARG                         *(vu32 *)(SDIO_BASE + 0x00000008)
-  #define SDIO_CMD                         *(vu32 *)(SDIO_BASE + 0x0000000C)
-  #define SDIO_RESPCMD                     *(vu32 *)(SDIO_BASE + 0x00000010)
-  #define SDIO_RESP1                       *(vu32 *)(SDIO_BASE + 0x00000014)
-  #define SDIO_RESP2                       *(vu32 *)(SDIO_BASE + 0x00000018)
-  #define SDIO_RESP3                       *(vu32 *)(SDIO_BASE + 0x0000001C)
-  #define SDIO_RESP4                       *(vu32 *)(SDIO_BASE + 0x00000020)
-  #define SDIO_DTIMER                      *(vu32 *)(SDIO_BASE + 0x00000024)
-  #define SDIO_DLEN                        *(vu32 *)(SDIO_BASE + 0x00000028)
-  #define SDIO_DCTRL                       *(vu32 *)(SDIO_BASE + 0x0000002C)
-  #define SDIO_DCOUNT                      *(vu32 *)(SDIO_BASE + 0x00000030)
-  #define SDIO_STA                         *(vu32 *)(SDIO_BASE + 0x00000034)
-  #define SDIO_ICR                         *(vu32 *)(SDIO_BASE + 0x00000038)
-  #define SDIO_MASK                        *(vu32 *)(SDIO_BASE + 0x0000003C)
-  #define SDIO_FIFOCNT                     *(vu32 *)(SDIO_BASE + 0x00000048)
-  #define SDIO_FIFO                        *(vu32 *)(SDIO_BASE + 0x00000080)
+  #define SDMMC_POWER                       *(vu32 *)(SDMMC_BASE + 0x00000000)
+  #define SDMMC_CLKCR                       *(vu32 *)(SDMMC_BASE + 0x00000004)
+  #define SDMMC_ARG                         *(vu32 *)(SDMMC_BASE + 0x00000008)
+  #define SDMMC_CMD                         *(vu32 *)(SDMMC_BASE + 0x0000000C)
+  #define SDMMC_RESPCMD                     *(vu32 *)(SDMMC_BASE + 0x00000010)
+  #define SDMMC_RESP1                       *(vu32 *)(SDMMC_BASE + 0x00000014)
+  #define SDMMC_RESP2                       *(vu32 *)(SDMMC_BASE + 0x00000018)
+  #define SDMMC_RESP3                       *(vu32 *)(SDMMC_BASE + 0x0000001C)
+  #define SDMMC_RESP4                       *(vu32 *)(SDMMC_BASE + 0x00000020)
+  #define SDMMC_DTIMER                      *(vu32 *)(SDMMC_BASE + 0x00000024)
+  #define SDMMC_DLEN                        *(vu32 *)(SDMMC_BASE + 0x00000028)
+  #define SDMMC_DCTRL                       *(vu32 *)(SDMMC_BASE + 0x0000002C)
+  #define SDMMC_DCOUNT                      *(vu32 *)(SDMMC_BASE + 0x00000030)
+  #define SDMMC_STA                         *(vu32 *)(SDMMC_BASE + 0x00000034)
+  #define SDMMC_ICR                         *(vu32 *)(SDMMC_BASE + 0x00000038)
+  #define SDMMC_MASK                        *(vu32 *)(SDMMC_BASE + 0x0000003C)
+  #define SDMMC_FIFOCNT                     *(vu32 *)(SDMMC_BASE + 0x00000048)
+  #define SDMMC_FIFO                        *(vu32 *)(SDMMC_BASE + 0x00000080)
 
   //-------------------------------------------------------------------------------------------
   //    Serial Audio Interface
   //-------------------------------------------------------------------------------------------
 
-
-
-
 //  #ifdef __cplusplus
 //    }
 //  #endif
 #endif
-
-//|....|....|....*....|....|....*....|....|....^....|....|....*....|....|....*....|....|....|..
-
-//=============================================================================================
-//
-//=============================================================================================
-
-//---------------------------------------------------------------------------------------------
-//
-//---------------------------------------------------------------------------------------------
-
-  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-  //-------------------------------------------------------------------------------------------
-  //
-  //-------------------------------------------------------------------------------------------
-
-    //-----------------------------------------------------------------------------------------
-    //
-    //-----------------------------------------------------------------------------------------
-
-      //---------------------------------------------------------------------------------------
-      //
-      //---------------------------------------------------------------------------------------

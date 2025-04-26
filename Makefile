@@ -39,14 +39,20 @@ TARGET = PROJECT
 SRC = startup.c
 SRC += genrtn.c
 SRC += opsys.c
-SRC += uart_com.c
 SRC += sys_tick.c
 SRC += interrupts.c
-# SRC += test_help.c
 SRC += errors.c
-# UnComment if I2C1 Used
-	# SRC += i2c1.c
-	# SRC += eeprom.c
+
+# UnComment if used
+#SRC += test_help.c
+#SRC += i2c1.c
+#SRC += eeprom.c
+#SRC += uart_com.c
+#SRC += SPI.c
+
+# Add any library filenames if used
+
+# define Target
 SRC += $(TARGET).c
 
 #--------------------------------------------------------------------------

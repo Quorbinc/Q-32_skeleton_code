@@ -18,105 +18,51 @@
 
 //--- Master Mode Set-Up
 
-#ifndef I2C_M_DVR_H
-  #define I2C_M_DVR_H
+#ifndef I2C1_DVR_H
+    #define I2C1_DVR_H
+    #define EEPROM                                  //--- Automatic EEPROM Definition
+    #define I2C1_BLEN   128                         //--- Useable TX & RX Buffer Length
 
-  //--- Start and Stop Command Bits
-  #define I2C1_START  I2C1_CR2 |= 0x00002000    //--- Set Start Condition
-  #define I2C1_STOP   I2C1_CR2 |= 0x00004000    //--- Set Stop Condition
+    //          Bit Number  33222222222211111111110000000000
+    //          MSB -> LSB  10987654321098765432109876543210
+    //                    0b................................
+    #define I2C1_BUSY     0b00001000000000000000000000000000  //--- I2C1 Transaction Busy
+    #define I2C1_IDLE     ~I2C1_BUSY                          //--- I2C1 Transaction Not Busy
 
-  #define I2C1_CLR_COUNT  I2C1_CR2 &= 0xFF0000FFF
-  #define I2C1_SET_COUNT
+    extern u08   ubI2C1_TXB [I2C1_BLEN];            //--- Global TX FIFO Buffer
+    extern u16   uwI2C1_TXIP;
+    extern u16   uwI2C1_TXOP;
+    extern u16   uwI2C1_TXC;
 
-  //--- Defined in "commonheader.h"
-  //    Defines Data Union of 32 Bytes
-  //
-  //    union DFLWB32                     //--- 32 Byte Variable
-  //    {
-  //      dbl   dfFlt[4];                 //--- 4 Double Precision Float
-  //      u64   uxBig[4];                 //--- 4 Unsigned 64 Bit Integer
-  //      s64   sxBig[4];                 //--- 4 Signed 64 Bit Integer
-  //      flt   sfFlt[8];                 //--- 8 Single Precision Floats
-  //      u32   ulLong[8];                //--- 8 Unsigned Long
-  //      s32   slLong[8];                //--- 8 Signed Long
-  //      u16   uwWord[16];               //--- 16 Unsigned Words
-  //      s16   swWord[16];               //--- 16 Signed Words
-  //      u08   ubByte[32];               //--- 32 Unsigned Bytes
-  //      s08   sbByte[32];               //--- 32 Signed Bytes
-  //      u08*  ubPtr[8];                 //--- 8 Byte Type General Purpose Pointers
-  //      void* vPntr[8];                 //--- 8 Void Type Pointers
-  //    };
+    extern u08   ubI2C1_RXB [I2C1_BLEN];            //--- Global RX FIFO Buffer
+    extern u16   uwI2C1_RXIP;
+    extern u16   uwI2C1_RXOP;
+    extern u16   uwI2C1_RXC;
 
-  //--- Assign a global EEPROM 32 Byte Memory UNION
-  extern  union DFLWB32 unEEPROMdata;
+    extern u16   uwI2C1_TX_Count;
+
+    extern u08*  ubI2C1_TXptr;                      //--- Tx Data Pointer
+    extern u08*  ubI2C1_RXptr;                      //--- Rx Data Pointer
+
+    //    extern u08 ubI2C1_TxNbytes;                     //--- Remaining # of Bytes to TX
+    //    extern u08 ubI2C1_RxNbytes;                     //--- Remaining # of Bytes to RX
 
 
-  //--- EEprom Write Test Pattern
-  extern  const u08 ubTestBlock[32];      // = { 0xA5, 0x5A, 0x3C, 0xC3,
-                                          //     0xE1, 0x1E, 0x96, 0x69,
-                                          //     0x80, 0x01, 0x40, 0x02,
-                                          //     0x20, 0x04, 0x10, 0x08,
-                                          //     0xBB, 0x44, 0xDD, 0x22,
-                                          //     0x77, 0x88, 0x99, 0x66,
-                                          //     0x78, 0x87, 0x11, 0x00,
-                                          //     0x55, 0xAA, 0x18, 0x81 };
+    //--- RTOS I2C1 Function Prototypes
+    u16  fnMake_I2C1_Task (u16 uwDelay, u08 ubI2C_Adds, u08 ubTT, u16 uwNbytes, u08* ptDptr, union LWB unRegAdd);
 
-  //--- Functions for processing Flash memory commands and transfers
-  u08     fnInitI2C1_Master (u08 ubSpeed);        //--- Initialize I2C1
+    u32   tkI2C1_Task (union DFLWB16 unTD);
 
-  //--- I2C1 Event and Error Functions
-  void    fnI2C1_EV_IRQ(void);            // 31 - I2C1 Event                        0x000000BC
-  void    fnI2C1_ER_IRQ(void);            // 32 - I2C1 Error                        0x000000C0
+    u08   fnI2C1_Write (u08 ubTrueAdds, u32 ulReg_Add, u08 RegLen, u08 ubNbytes, u08 ubSpeed, u08* ubDptr);
 
-  //--- Read a 32 Byte Page
-  union   DFLWB32 fnI2C_M_PageRead (u16 uwPageNum);
+    u08   fnI2C1_Read (u08 ubTrueAdds, u08 ubNbytes, u08* ubDptr);
 
-  //--- Read a random 8 Bit Byte
-  u08     fnI2C_M_RandomRead (u16 uwM_ADDS, u16 uwLen);
+    u16   fnI2C1_Get_Next_RX (void);
 
-  //--- Write a 32 Byte Page
-  u08     fnI2C_M_PageWrite (u16 uwPageNum, union DFLWB32 unPageData);
+    void  fnInitI2C1_Master_Ops (u08 ubSpeed);
+    void  fnResetI2C1 (void);
 
-  //--- Write a Random Byte
-  u08     fnI2C_M_RandomByteWrite (u16 uwM_ADDS, u08 ubData);
-
-  //--- Execute a STOP Condition
-  u08     fnDoStop(void);
-
-  //--- Wait for EEPROM Write to finish
-  u08     fnWaitOnEEPROMwrite(void);
-
-  //--- EEPROM Test Debug Only
-  void    fnEEPROMtest (union DFLWB unTaskData);
+    void  fnI2C1_Event(void);                       //--- IRQ_31
+    void  fnI2C1_Error(void);                       //--- IRQ_32
 
 #endif
-
-//|....|....|....*....|....|....*....|....|....^....|....|....*....|....|....*....|....|....|..
-
-//=============================================================================================
-//
-//=============================================================================================
-
-//---------------------------------------------------------------------------------------------
-//
-//---------------------------------------------------------------------------------------------
-
-  //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-  //-------------------------------------------------------------------------------------------
-  //
-  //-------------------------------------------------------------------------------------------
-
-    //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-    //-----------------------------------------------------------------------------------------
-    //
-    //-----------------------------------------------------------------------------------------
-
-      //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-
-      //---------------------------------------------------------------------------------------
-      //
-      //---------------------------------------------------------------------------------------
-
-        //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::  
